@@ -8,6 +8,7 @@
     binutils
     binwalk
     flatpak-builder
+    git
     ldns
     nmap
     sshuttle

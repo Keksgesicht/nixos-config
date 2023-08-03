@@ -11,20 +11,23 @@
   # Define your hostname
   networking.hostName = "cookiethinker";
 
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
   imports = [
+    ./desktop/desktop.nix
     ./hardware/filesystem-laptop.nix
     ./nix/nix.nix
     ./nix/upstream.nix
     ./packages/base-devel.nix
     ./packages/common.nix
     ./packages/container.nix
-    ./packages/flatpak-flathub.nix
     ./packages/hardware.nix
     ./packages/shell-zsh.nix
     ./system/desktop.nix
     ./system/environment.nix
     ./system/networking.nix
     ./system/qemu-user-binfmt.nix
-    ./user/desktop.nix
+    ./system/systemd.nix
   ];
 }

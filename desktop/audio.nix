@@ -24,6 +24,9 @@
       source = ../files/etc/pipewire/pipewire.d/60-virtual-sinks.conf;
     };
   };
+  users.users.keks.packages = with pkgs; [
+    rnnoise-plugin
+  ];
 
   # (re)connect virtual devices
   systemd.user.services = {
