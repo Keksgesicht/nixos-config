@@ -5,14 +5,26 @@
     # $AUTH nix-channel --add https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz home-manager
     <home-manager/nixos>
   ];
-  home-manager.users.keks = {
-    # The home.stateVersion option does not have a default and must be set
-    home.stateVersion = "18.09";
+  # The home.stateVersion option does not have a default and must be set
+  home-manager.users.keks.home.stateVersion = "18.09";
 
-    home.sessionVariables = {
-      AUTH = "sudo";
-      XDG_RUNTIME_DIR = "/run/user/$UID";
-    };
+  # base environment variables
+  # https://nixos.wiki/wiki/Environment_variables
+  # This is using a rec (recursive) expression to set and access XDG_BIN_HOME within the expression
+  # For more on rec expressions see https://nix.dev/tutorials/first-steps/nix-language#recursive-attribute-set-rec
+  environment.sessionVariables = rec {
+    XDG_CACHE_HOME  = "$HOME/.cache";
+    XDG_CONFIG_HOME = "$HOME/.config";
+    XDG_DATA_HOME   = "$HOME/.local/share";
+    XDG_STATE_HOME  = "$HOME/.local/state";
+    XDG_RUNTIME_DIR = "/run/user/$UID";
+
+    # Not officially in the specification
+    XDG_BIN_HOME    = "$HOME/.local/bin";
+    PATH = [
+      "${XDG_BIN_HOME}"
+    ];
+    AUTH = "sudo";
   };
 
   # enables ssh-agent
@@ -21,9 +33,9 @@
     startAgent = true;
     askPassword = pkgs.lib.mkForce "${pkgs.ksshaskpass.out}/bin/ksshaskpass";
   };
-  home-manager.users.keks.pam.sessionVariables = {
-    SSH_AUTH_SOCK = "${builtins.getEnv "XDG_RUNTIME_DIR"}/ssh-agent";
-  };
+  #environment.sessionVariables = rec {
+  #  GIT_ASKPASS = "${SSH_ASKPASS}";
+  #};
 
   fonts = {
     # https://nixos.wiki/wiki/Fonts#Flatpak_applications_can.27t_find_system_fonts
@@ -50,4 +62,23 @@
   };
   # https://nixos.wiki/wiki/KDE#GTK_themes_are_not_applied_in_Wayland_applications
   programs.dconf.enable = true;
+  environment.sessionVariables = {
+    GTK_USE_PORTAL    = "1";
+    GTK_THEME_VARIANT = "dark";
+  };
+
+  # force usage of XDG directories
+  environment.sessionVariables = rec {
+    GNUPGHOME     = "${XDG_CONFIG_HOME}/gnupg";
+    GTK2_RC_FILES = "${XDG_CONFIG_HOME}/gtk-2.0/gtkrc";
+    KDEHOME       = "${XDG_CONFIG_HOME}/kde";
+    LESSHISTFILE  = "${XDG_CACHE_HOME}/lesshst";
+    #XAUTHORITY    = "${XDG_RUNTIME_DIR}/Xauthority";
+    #XINITRC       = "${XDG_CONFIG_HOME}/X11/xinitrc";
+  };
+
+  # git security
+  environment.sessionVariables = rec {
+    GIT_CEILING_DIRECTORIES = "/home:$HOME/git:/mnt:/mnt/array/homeBraunJan/Documents/development/git:/var/home:/var/mnt:/var/mnt/array/homeBraunJan/Documents/development/git";
+  };
 }
