@@ -17,9 +17,9 @@
 
   # enables ssh-agent
   # avoids retyping passwords everytime
-  programs = {
-    ssh.startAgent = true;
-    ssh.askPassword = pkgs.lib.mkForce "${pkgs.ksshaskpass.out}/bin/ksshaskpass";
+  programs.ssh = {
+    startAgent = true;
+    askPassword = pkgs.lib.mkForce "${pkgs.ksshaskpass.out}/bin/ksshaskpass";
   };
   home-manager.users.keks.pam.sessionVariables = {
     SSH_AUTH_SOCK = "${builtins.getEnv "XDG_RUNTIME_DIR"}/ssh-agent";
@@ -30,6 +30,9 @@
     # ln -s /run/current-system/sw/share/X11/fonts ~/.local/share/fonts
     fontDir.enable = true;
     fonts = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
       # Noto + NerdFont => Noto-Nerdfonts
       (nerdfonts.override { fonts = [ "Noto" ]; })
       # Microsoft TrueType core fonts
@@ -45,4 +48,6 @@
       pkgs.xdg-desktop-portal-gtk
     ];
   };
+  # https://nixos.wiki/wiki/KDE#GTK_themes_are_not_applied_in_Wayland_applications
+  programs.dconf.enable = true;
 }

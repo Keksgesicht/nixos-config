@@ -25,6 +25,8 @@
   # Configure keymap in X11
   services.xserver = {
     layout = "us";
+    xkbModel = "pc104";
     xkbVariant = "altgr-intl";
+    xkbOptions = "compose:menu,caps:none";
   };
 }

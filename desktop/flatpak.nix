@@ -5,6 +5,9 @@
 {
   # enable flatpak
   services.flatpak.enable = true;
+  users.users.keks.packages = with pkgs; [
+    discover
+  ];
 
   # add flathub as a flatpak repository
   /*
