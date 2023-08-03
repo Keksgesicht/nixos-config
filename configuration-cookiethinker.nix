@@ -24,7 +24,6 @@
     ./packages/container.nix
     ./packages/hardware.nix
     ./packages/shell-zsh.nix
-    ./system/desktop.nix
     ./system/environment.nix
     ./system/networking.nix
     ./system/qemu-user-binfmt.nix

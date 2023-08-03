@@ -16,19 +16,23 @@
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
   };
-  environment.etc = {
-    "pipewire/pipewire.conf.d/50-null-devices.conf" = {
-      source = ../files/etc/pipewire/pipewire.d/50-null-devices.conf;
-    };
-    "pipewire/pipewire.conf.d/60-virtual-sinks.conf" = {
-      source = ../files/etc/pipewire/pipewire.d/60-virtual-sinks.conf;
-    };
-  };
   users.users.keks.packages = with pkgs; [
     rnnoise-plugin
   ];
+  environment.etc = {
+    "pipewire/pipewire.conf.d/50-null-devices.conf" = {
+      source = ../files/linux-root/etc/pipewire/pipewire.d/50-null-devices.conf;
+    };
+    "pipewire/pipewire.conf.d/60-virtual-sinks.conf" = {
+      source = pkgs.substituteAll {
+        src = ../files/linux-root/etc/pipewire/pipewire.d/60-virtual-sinks.conf;
+        pkgRnnoisePlugin = "${pkgs.rnnoise-plugin}";
+      };
+    };
+  };
 
   # (re)connect virtual devices
+  /*
   systemd.user.services = {
     "init-audio" = {
       description = "Custom Audio Setup (pipewire)";
@@ -46,4 +50,5 @@
       script = ;
     }
   }
+   */
 }

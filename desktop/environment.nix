@@ -40,9 +40,9 @@
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
-    xdg.portal.extraPortals = [
+    extraPortals = [
       # make GTK apps apply theming (flatpak)
-      xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-gtk
     ];
   };
 }
