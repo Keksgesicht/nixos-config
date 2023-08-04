@@ -27,8 +27,8 @@
  */
   };
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = false;
+  # enable mDNS responder
+  services.avahi.enable = true;
 
   # firewall
   networking.firewall = {

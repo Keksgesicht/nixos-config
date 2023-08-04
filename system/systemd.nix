@@ -14,15 +14,15 @@
       ''
     else if (config.networking.hostName == "cookiethinker") then
       ''
-      SystemMaxUse=4G
-      #SystemdKeepFree=16G
-      SystemMaxFiles=128
+      SystemMaxUse=2G
+      #SystemdKeepFree=8G
+      SystemMaxFiles=64
       ''
     else
       ''
-      SystemMaxUse=2G
-      #SystemdKeepFree=4G
-      SystemMaxFiles=64
+      SystemMaxUse=1G
+      SystemdKeepFree=4G
+      SystemMaxFiles=32
       ''
   ;
 }
