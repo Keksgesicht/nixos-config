@@ -17,16 +17,16 @@
   imports = [
     ./desktop/desktop.nix
     ./hardware/filesystem-laptop.nix
+    ./hardware/packages.nix
     ./nix/nix.nix
     ./nix/upstream.nix
     ./packages/base-devel.nix
     ./packages/common.nix
-    ./packages/container.nix
-    ./packages/hardware.nix
-    ./packages/shell-zsh.nix
+    ./system/container.nix
     ./system/environment.nix
     ./system/networking.nix
     ./system/qemu-user-binfmt.nix
+    ./system/shell-zsh.nix
     ./system/systemd.nix
   ];
 }

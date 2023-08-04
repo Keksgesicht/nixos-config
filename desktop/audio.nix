@@ -3,22 +3,28 @@
 { config, pkgs, lib, ... }:
 
 {
+  users.users.keks.packages = with pkgs; [
+    # noise/voice filter
+    rnnoise-plugin
+    # (re)connect virtual devices
+    (callPackage ../packages/pkgs-init-audio.nix {})
+  ];
+
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
-    wireplumber.enable = true;
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.enable = true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
+
+    alsa.enable = true;
+    alsa.support32Bit = true;
   };
-  users.users.keks.packages = with pkgs; [
-    rnnoise-plugin
-  ];
+
   environment.etc = {
     "pipewire/pipewire.conf.d/50-null-devices.conf" = {
       source = ../files/linux-root/etc/pipewire/pipewire.d/50-null-devices.conf;
@@ -32,7 +38,6 @@
   };
 
   # (re)connect virtual devices
-  /*
   systemd.user.services = {
     "init-audio" = {
       description = "Custom Audio Setup (pipewire)";
@@ -47,8 +52,14 @@
         "wireplumber.service"
       ];
       preStart = "sleep 3s";
-      script = ;
-    }
-  }
-   */
+      serviceConfig = {
+        ExecStart = "${pkgs.callPackage ../packages/pkgs-init-audio.nix {}}/bin/init-audio.sh";
+        Type = "oneshot";
+        RemainAfterExit = "true";
+      };
+      wantedBy = [
+        "xdg-desktop-autostart.target"
+      ];
+    };
+  };
 }

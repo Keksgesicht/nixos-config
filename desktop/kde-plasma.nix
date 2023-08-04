@@ -35,10 +35,8 @@
     plasma-browser-integration
   ];
 
-  users.users.keks = {
-    packages = with pkgs; [
-      kalendar
-      kate
-    ];
-  };
+  users.users.keks.packages = with pkgs; [
+    kalendar
+    kate
+  ];
 }
