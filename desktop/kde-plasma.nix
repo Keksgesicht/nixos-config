@@ -39,4 +39,23 @@
     kalendar
     kate
   ];
+
+  systemd.services = {
+    /*
+     * https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LogFilterPatterns=
+     * https://forum.manjaro.org/t/stable-update-2023-06-04-kernels-gnome-44-1-plasma-5-27-5-python-3-11-toolchain-firefox/141610/3
+     * do not log messages with the following regex
+     */
+    "user@" = {
+      overrideStrategy = "asDropin";
+      serviceConfig = {
+        LogFilterPatterns = [
+          #"~QML"
+          #"~QObject:"
+          #"~QFont::"
+          "~kwin_screencast: Dropping"
+        ];
+      };
+    };
+  };
 }
