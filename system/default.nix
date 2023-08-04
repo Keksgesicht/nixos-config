@@ -4,6 +4,12 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./environment.nix
+    ./shell-zsh.nix
+    ./systemd.nix
+  ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.

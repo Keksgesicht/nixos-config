@@ -7,7 +7,7 @@
     # noise/voice filter
     rnnoise-plugin
     # (re)connect virtual devices
-    (callPackage ../packages/pkgs-init-audio.nix {})
+    (callPackage ../packages/init-audio.nix {})
   ];
 
   # Enable sound with pipewire.
@@ -53,7 +53,7 @@
       ];
       preStart = "sleep 3s";
       serviceConfig = {
-        ExecStart = "${pkgs.callPackage ../packages/pkgs-init-audio.nix {}}/bin/init-audio.sh";
+        ExecStart = "${pkgs.callPackage ../packages/init-audio.nix {}}/bin/init-audio.sh";
         Type = "oneshot";
         RemainAfterExit = "true";
       };

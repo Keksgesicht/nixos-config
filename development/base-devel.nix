@@ -13,7 +13,6 @@
     nmap
     sshuttle
     strace
-    inetutils
     tmux
     vim
     zellij

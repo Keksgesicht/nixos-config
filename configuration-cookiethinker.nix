@@ -15,18 +15,15 @@
   services.printing.enable = true;
 
   imports = [
-    ./desktop/desktop.nix
+    ./desktop
+    ./development/base-devel.nix
     ./hardware/filesystem-laptop.nix
     ./hardware/packages.nix
     ./nix/nix.nix
-    ./nix/upstream.nix
-    ./packages/base-devel.nix
-    ./packages/common.nix
+    ./nix/upstream-23-05.nix
+    ./system
     ./system/container.nix
-    ./system/environment.nix
     ./system/networking.nix
     ./system/qemu-user-binfmt.nix
-    ./system/shell-zsh.nix
-    ./system/systemd.nix
   ];
 }
