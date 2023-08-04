@@ -4,8 +4,8 @@
 { config, pkgs, ... }:
 
 {
-  nixpkgs.config.allowUnfree = true;
   # allow packages with closed source code or paid products
+  nixpkgs.config.allowUnfree = true;
 
   # https://discord.com/channels/@me/998534079425286214/1135687806459584662
   # make system useable during (re)build

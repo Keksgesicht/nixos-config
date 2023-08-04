@@ -17,9 +17,8 @@
   imports = [
     ./desktop
     ./development/base-devel.nix
-    ./hardware/filesystem-laptop.nix
-    ./hardware/packages.nix
-    ./nix/nix.nix
+    ./hardware/laptop
+    ./nix
     ./nix/upstream-23-05.nix
     ./system
     ./system/container.nix
