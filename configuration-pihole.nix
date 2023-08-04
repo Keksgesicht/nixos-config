@@ -11,12 +11,8 @@
 #  installer.cloneConfig = true;
 
   environment.etc = {
-    nixos-configuration-nix = {
-      uid = 0;
-      gid = 0;
-      mode = "0644";
-      target = "nixos/configuration.nix";
-      source = ./sd-image-rpi3.nix;
+    "nixos/configuration.nix" = {
+      source = ./configuration-pihole.nix;
     };
   };
 

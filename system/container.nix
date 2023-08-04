@@ -24,4 +24,9 @@
     docker-compose
     podman-compose
   ];
+
+  # docker-compose should use podman socket
+  environment.sessionVariables = rec {
+    DOCKER_HOST = "unix://$XDG_RUNTIME_DIR/podman/podman.sock";
+  };
 }
