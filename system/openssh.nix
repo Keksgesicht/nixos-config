@@ -1,7 +1,6 @@
 { config, ...}:
 
 {
-
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable =
@@ -26,5 +25,5 @@
       # restrict access to certain users
       AllowUsers keks
     '';
-  }
+  };
 }

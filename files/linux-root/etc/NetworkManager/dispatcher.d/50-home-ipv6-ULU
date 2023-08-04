@@ -1,0 +1,15 @@
+#!@bash@/bin/bash -e
+
+IFLINK="$1"
+NMMODE="$2"
+
+case "${IFLINK}" in
+enp4s0)
+	if [ "${NMMODE}" = "up" ]; then
+		# https://de.wikipedia.org/wiki/IPv6#Unique_Local_Unicast
+		ip addr add 'fd00:3581::192:168:178:150/64' dev "${IFLINK}"
+	fi
+;;
+esac
+
+exit 0

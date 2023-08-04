@@ -1,7 +1,7 @@
 # file: system/neworking.nix
 # desc: connecting with LAN and internet (e.g., ip addr, firewall, services)
 
-{ config, ...}:
+{ config, pkgs, ...}:
 
 {
   # Enable networking via NetworkManager
@@ -16,15 +16,29 @@
       macAddress = "random";
     };
     ethernet.macAddress = "stable";
-    #connectionConfig = "connection.stable-id=\${CONNECTION}/\${BOOT}";
-/*
-    dispatcherScripts = [
-      {
-        type = "basic";
-        source =
-      }
-    ]
- */
+    connectionConfig = {
+      "connection.stable-id" = "\${CONNECTION}/\${BOOT}";
+    };
+
+    dispatcherScripts = [ {
+      type = "basic";
+      source = pkgs.substituteAll {
+        src = ../files/linux-root/etc/NetworkManager/dispatcher.d/50-home-ipv6-ULU;
+        bash = "${pkgs.bash}";
+      };
+    } {
+      type = "basic";
+      source = pkgs.substituteAll {
+        src = ../files/linux-root/etc/NetworkManager/dispatcher.d/50-no-ddns-vpn;
+        bash = "${pkgs.bash}";
+      };
+    } {
+      type = "basic";
+      source = pkgs.substituteAll {
+        src = ../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6;
+        bash = "${pkgs.bash}";
+      };
+    } ];
   };
 
   # enable mDNS responder

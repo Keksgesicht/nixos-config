@@ -6,6 +6,8 @@
 {
   imports = [
     ./environment.nix
+    ./networking.nix
+    ./openssh.nix
     ./shell-zsh.nix
     ./systemd.nix
   ];

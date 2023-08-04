@@ -1,0 +1,28 @@
+#!@bash@/bin/bash -e
+
+IFLINK="$1"
+NMMODE="$2"
+
+
+ddns_stop() {
+	systemctl stop unCookie-containers@ddns_v4.service
+	systemctl stop unCookie-containers@ddns_v6.service
+}
+ddns_start() {
+	systemctl start unCookie-containers@ddns_v4.service
+	systemctl start unCookie-containers@ddns_v6.service
+}
+
+
+case "${NMMODE}" in
+"vpn-up")
+	echo "ddns_stop: vpn=${IFLINK} went up"
+	ddns_stop
+;;
+"vpn-down")
+	echo "ddns_start: vpn=${IFLINK} went down"
+	ddns_start
+;;
+esac
+
+exit 0

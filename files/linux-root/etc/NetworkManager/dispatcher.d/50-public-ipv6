@@ -1,0 +1,95 @@
+#!@bash@/bin/bash -x
+
+umask 177
+IPFILE="/etc/unCookie/cfg/ipv6-public"
+
+gen-ipv6-suffix() {
+	hd1=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')
+	hd2=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')
+	hd3=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')
+	hd4=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')
+	echo "::${hd1}:${hd2}:${hd3}:${hd4}/64" | \
+		tr '[:upper:]' '[:lower:]' | \
+		tee ${IPFILE}
+#	echo '::3581:150:0:1/64' | \
+#		tr '[:upper:]' '[:lower:]' | \
+#		tee ${IPFILE}
+}
+
+check-ipv6-file() {
+	# check if already generate in the last day
+	# https://stackoverflow.com/questions/32019432/if-file-modification-date-is-older-than-n-days
+	if [ -f ${IPFILE} ]; then
+		file_time=$(date -r ${IPFILE} +%Y-%m-%d)
+		today=$(date +%Y-%m-%d)
+		if ! [ ${file_time} = ${today} ]; then
+			gen-ipv6-suffix >/dev/null
+		fi
+	else
+		gen-ipv6-suffix >/dev/null
+	fi
+}
+
+get-ipv6-token() {
+	check-ipv6-file
+	IPV6_ADDR=$(cat ${IPFILE})
+	if ! echo ${IPV6_ADDR} | grep -q -E ':(:[0-9a-f]{1,4}){4}/64'; then
+		gen-ipv6-suffix
+	else
+		echo ${IPV6_ADDR}
+	fi
+}
+
+has-ipv6-token() {
+	sleep 3s
+	ipv6_addr=$(ip addr show ${IFLINK} | \
+		awk '$1 == "inet6" && !/fe80:/ && !/fd00:/ && /64 scope global dynamic mngtmpaddr/ {gsub(/\/.*$/, "", $2); print $2}')
+
+	if [ -z "${ipv6_addr}" ]; then
+		return 1
+	else
+		return 0
+	fi
+}
+
+set-ipv6-token() {
+	# set custom suffix for LAN network adapter
+	# combined with /etc/sysctl.d/50-ipv6-router-advertisement.conf
+	# https://bbs.archlinux.org/viewtopic.php?id=244359
+	IPTOKEN=$(get-ipv6-token)
+	ip token set ${IPTOKEN} dev ${IFLINK}
+
+	# try addresses until nobody else in the network uses the same
+	if ! has-ipv6-token; then
+		IPTOKEN=$(get-ipv6-token)
+		ip token set ${IPTOKEN} dev ${IFLINK}
+	fi
+}
+
+update-ipv6() {
+	# update ipv6 address
+	if ! ip token get dev ${IFLINK} | grep -qE '::[0-9a-f]'; then
+		set-ipv6-token
+	fi
+}
+
+IFLINK="$1"
+NMMODE="$2"
+
+case "${IFLINK}" in
+enp4s0)
+	if [ "${NMMODE}" = "up" ]; then
+		# enable router advertisement on LAN network adapter
+		# https://unix.stackexchange.com/questions/61641/how-can-i-disable-automatic-ipv6-neighbor-route-advertisement-on-a-router
+		sysctl -w net.ipv6.conf.${IFLINK}.accept_ra=2 >/dev/null
+
+		# update ipv6 address
+		update-ipv6
+	elif [ "${NMMODE}" = "dhcp6-change" ]; then
+		# update ipv6 address
+		update-ipv6
+	fi
+;;
+esac
+
+exit 0

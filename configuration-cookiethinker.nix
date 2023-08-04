@@ -22,7 +22,6 @@
     ./nix/upstream-23-05.nix
     ./system
     ./system/container.nix
-    ./system/networking.nix
     ./system/qemu-user-binfmt.nix
   ];
 }
