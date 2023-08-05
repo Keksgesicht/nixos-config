@@ -4,7 +4,8 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable =
-      if (config.networking.hostName == "cookieclicker")
+      if (config.networking.hostName == "nixos-installer")
+      || (config.networking.hostName == "cookieclicker")
       then
         true
       else
@@ -21,9 +22,6 @@
 
       PubkeyAuthentication yes
       PermitEmptyPasswords no
-
-      # restrict access to certain users
-      AllowUsers keks
     '';
   };
 }

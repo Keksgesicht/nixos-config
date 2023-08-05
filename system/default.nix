@@ -5,29 +5,11 @@
 
 {
   imports = [
+    ./base-pkgs.nix
     ./environment.nix
     ./networking.nix
     ./openssh.nix
     ./shell-zsh.nix
     ./systemd.nix
-  ];
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  environment.systemPackages = with pkgs; [
-    bat
-    bridge-utils
-    dos2unix
-    entr
-    exa
-    lm_sensors
-    htop
-    moreutils
-    nano
-    neofetch
-    rename
-    tldr
-    wget
   ];
 }
