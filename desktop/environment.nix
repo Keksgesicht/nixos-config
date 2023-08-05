@@ -33,9 +33,9 @@
     startAgent = true;
     askPassword = pkgs.lib.mkForce "${pkgs.ksshaskpass.out}/bin/ksshaskpass";
   };
-  #environment.sessionVariables = rec {
-  #  GIT_ASKPASS = "${SSH_ASKPASS}";
-  #};
+  environment.sessionVariables = rec {
+    GIT_ASKPASS = "${pkgs.ksshaskpass.out}/bin/ksshaskpass";
+  };
 
   fonts = {
     # https://nixos.wiki/wiki/Fonts#Flatpak_applications_can.27t_find_system_fonts
