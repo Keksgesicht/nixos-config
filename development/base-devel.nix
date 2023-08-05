@@ -17,15 +17,14 @@
 
     # make signed commits
     git
-    pinentry
+    pinentry-qt
   ];
 
-
+  # make signed commits
   services.pcscd.enable = true;
   programs.gnupg.agent = {
     enable = true;
-    # FIXME: qt for KDE Plasma, it automatically falls back to curses.
-    # https://search.nixos.org/options?channel=23.05&show=programs.gnupg.agent.pinentryFlavor
+    # echo "pinentry-program /run/current-system/sw/bin/pinentry-qt" > ~/.config/gnupg/gpg-agent.conf
     pinentryFlavor = "qt";
   };
 }
