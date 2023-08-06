@@ -10,38 +10,96 @@
   boot = {
     initrd = {
       # Setup keyfile
+      /*
       secrets = {
         "/crypto_keyfile.bin" = null;
       };
+       */
 
       luks.devices = {
-        "luks-c720b152-baf0-4336-bb04-83f01857cfab" = {
+        "root" = {
           device = "/dev/disk/by-uuid/c720b152-baf0-4336-bb04-83f01857cfab";
         };
 
         # Enable swap on luks
-        "luks-499f4ab6-e61f-42f0-8665-6115d67a5222" = {
+        /*
+        "swap" = {
           device = "/dev/disk/by-uuid/499f4ab6-e61f-42f0-8665-6115d67a5222";
           keyFile = "/crypto_keyfile.bin";
         };
+         */
       };
     };
   };
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/30b952c5-8a77-440a-a7e7-d3a9164c6f31";
+      device = "/dev/mapper/root";
       fsType = "btrfs";
-      options = [ "subvol=@" ];
+      options = [
+        "subvol=root"
+        "compress=zstd:3"
+      ];
     };
 
     "/boot" = {
       device = "/dev/disk/by-uuid/90CE-7A63";
       fsType = "vfat";
+      options = [
+        "umask=0077"
+        "shortname=winnt"
+      ];
+    };
+
+    "/home" = {
+      device = "/dev/mapper/root";
+      fsType = "btrfs";
+      options = [
+        "subvol=home"
+        "compress=zstd:3"
+      ];
+    };
+
+    "/mnt" = {
+      device = "/dev/mapper/root";
+      fsType = "btrfs";
+      options = [
+        "subvol=mnt"
+        "compress=zstd:3"
+      ];
+    };
+
+    "/mnt/array" = {
+      device = "/dev/mapper/root";
+      fsType = "btrfs";
+      options = [
+        "subvol=mnt-array"
+        "compress=zstd:3"
+      ];
+    };
+
+    "/mnt/cache" = {
+      device = "/dev/mapper/root";
+      fsType = "btrfs";
+      options = [
+        "subvol=/"
+        "compress=zstd:3"
+      ];
+    };
+
+    "/nix" = {
+      device = "/dev/mapper/root";
+      fsType = "btrfs";
+      options = [
+        "subvol=nix"
+        "compress=zstd:3"
+      ];
     };
   };
 
+  /*
   swapDevices = [
-    { device = "/dev/disk/by-uuid/4562c744-f2c8-4358-812d-446a35fc1efe"; }
+    { device = "/dev/mapper/swap"; }
   ];
+   */
 }
