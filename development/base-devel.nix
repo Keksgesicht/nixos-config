@@ -8,6 +8,8 @@
     binutils
     binwalk
     ldns
+    moar
+    nix-index
     nmap
     sshuttle
     strace

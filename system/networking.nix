@@ -4,6 +4,16 @@
 { config, pkgs, ...}:
 
 {
+  environment.systemPackages = with pkgs; [
+    cacert.unbundled
+  ];
+  environment.etc = {
+    # symlinks certificate for eduroam
+    "ssl/certs/T-TeleSec_GlobalRoot_Class_2.crt" = {
+      source = "${pkgs.cacert.unbundled}/etc/ssl/certs/T-TeleSec_GlobalRoot_Class_2:1.crt";
+    };
+  };
+
   # Enable networking via NetworkManager
   networking.networkmanager = {
     enable = true;
