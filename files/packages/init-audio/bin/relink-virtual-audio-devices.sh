@@ -19,6 +19,13 @@ link_nodes 'chat_filter_source' 'echo_out_sink'
 link_nodes 'recording_out_source' 'echo_out_sink'
 
 
+### unmute all outputs
+if [ "$(cat /etc/hostname)" = "cookieclicker" ]; then
+	for pulse_dev in $(pactl list sinks short | awk '{print $2}'); do
+		pactl set-sink-mute ${pulse_dev} 0
+	done
+fi
+
 ### mute void sink
 pactl set-sink-mute 'void_sink' 1
 

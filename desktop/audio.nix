@@ -41,6 +41,10 @@
   systemd.user.services = {
     "init-audio" = {
       description = "Custom Audio Setup (pipewire)";
+      path = [
+        pkgs.gawk
+        pkgs.pulseaudio
+      ];
       after = [
         "pipewire.service"
         "pipewire-pulse.service"
