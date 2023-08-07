@@ -1,17 +1,6 @@
 { config, pkgs, ...}:
 
-let
-  # $AUTH nix-channel --add https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz home-manager
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz";
-in
 {
-  imports = [
-    #<home-manager/nixos>
-    (import "${home-manager}/nixos")
-  ];
-  # The home.stateVersion option does not have a default and must be set
-  home-manager.users.keks.home.stateVersion = "18.09";
-
   # base environment variables
   # https://nixos.wiki/wiki/Environment_variables
   # This is using a rec (recursive) expression to set and access XDG_BIN_HOME within the expression
@@ -29,16 +18,6 @@ in
       "${XDG_BIN_HOME}"
     ];
     AUTH = "sudo";
-  };
-
-  # enables ssh-agent
-  # avoids retyping passwords everytime
-  programs.ssh = {
-    startAgent = true;
-    askPassword = pkgs.lib.mkForce "${pkgs.ksshaskpass.out}/bin/ksshaskpass";
-  };
-  environment.sessionVariables = rec {
-    GIT_ASKPASS = "${pkgs.ksshaskpass.out}/bin/ksshaskpass";
   };
 
   fonts = {

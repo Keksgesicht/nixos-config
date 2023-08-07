@@ -16,7 +16,9 @@
     ./audio.nix
     ./environment.nix
     ./flatpak.nix
+    ./home-manager.nix
     ./kde-plasma.nix
+    ./openssh.nix
     ./packages.nix
   ];
 }

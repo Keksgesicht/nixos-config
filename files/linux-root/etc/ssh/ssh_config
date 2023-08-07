@@ -1,0 +1,107 @@
+# This is the ssh client system-wide configuration file.  See
+# ssh_config(5) for more information.  This file provides defaults for
+# users, and the values can be changed in per-user configuration files
+# or on the command line.
+
+# Configuration data is parsed as follows:
+#  1. command line options
+#  2. user-specific file
+#  3. system-wide file
+# Any configuration value is only changed the first time it is set.
+# Thus, host-specific definitions should be at the beginning of the
+# configuration file, and defaults at the end.
+
+# Site-wide defaults for some commonly used options.  For a comprehensive
+# list of available options, their meanings and defaults, please see the
+# ssh_config(5) man page.
+
+Host *
+#	Port 22
+	AddressFamily any
+	ConnectTimeout 23s
+	AddKeysToAgent yes
+	UserKnownHostsFile ~/.config/ssh/known_hosts
+	StrictHostKeyChecking ask
+#	StrictHostKeyChecking accept-new
+	CheckHostIP yes
+	VisualHostKey yes
+	Compression yes
+#	ControlPath ~/.config/ssh/sockets/ssh_mux_%h_%p_%r
+#	ControlMaster auto
+#	ControlPersist 321s
+	TCPKeepAlive yes
+	PreferredAuthentications publickey,password
+	RekeyLimit 1G 1h
+#	ForwardX11Trusted no
+#   ForwardX11 no
+#   IdentityFile ~/.config/ssh/id_rsa
+#   IdentityFile ~/.config/ssh/id_dsa
+#   IdentityFile ~/.config/ssh/id_ecdsa
+#   IdentityFile ~/.config/ssh/id_ed25519
+#   EscapeChar ~
+#   Tunnel no
+#   TunnelDevice any:any
+
+Host remote-devel
+	HostName 127.0.0.1
+	Port 3322
+	User root
+	IdentityFile ~/devel/containers/data/id_ecdsa_podman
+	StrictHostKeyChecking no
+	UserKnownHostsFile /dev/null
+
+Host nixos-installer
+	HostName 192.168.178.146
+	User nix
+	IdentityFile ~/.secrets/ssh/id_rsa_nixos
+	StrictHostKeyChecking no
+	UserKnownHostsFile /dev/null
+
+Host cookieclicker
+	HostName 192.168.178.150
+	User keks
+	IdentityFile ~/.secrets/ssh/id_rsa_cookieclicker
+
+Host pihole
+	HostName 192.168.178.23
+	User cookie
+	IdentityFile ~/.secrets/ssh/id_rsa_pihole
+
+Host pihole-root
+	HostName rpi.pihole.local
+	User root
+	IdentityFile ~/.secrets/ssh/id_rsa_pihole
+
+Host hetzner-mailcow
+	HostName mail.keksgesicht.net
+	User root
+	IdentityFile ~/.secrets/ssh/id_rsa_hetzner
+
+Host github.com
+	User git
+	IdentityFile ~/.secrets/ssh/id_rsa_git
+
+Host gitlab.com
+	User git
+	IdentityFile ~/.secrets/ssh/id_rsa_git
+
+Host git.rwth-aachen.de
+	User git
+	IdentityFile ~/.secrets/ssh/id_rsa_git
+
+Host *.tu-darmstadt.de
+	User jb64tori
+	IdentityFile ~/.secrets/ssh/id_rsa_tuda
+
+Host lcluster*.hrz.tu-darmstadt.de
+	ForwardX11 yes
+
+Host gitlab.esa.informatik.tu-darmstadt.de
+	User git
+	ProxyJump erebor.esa.informatik.tu-darmstadt.de
+	IdentityFile ~/.secrets/ssh/id_rsa_git
+
+Host esho1
+	User janb
+	HostName 192.168.178.155
+	IdentityFile ~/.secrets/ssh/id_rsa_tuda
