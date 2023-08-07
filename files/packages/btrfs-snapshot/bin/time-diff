@@ -1,0 +1,6 @@
+time_diff() {
+	old_time=$(date -u +%s -d $(echo $1 | cut -d "_" -f1))
+	time_dif=$(( $new_time - $old_time ))
+	time_dif=$(( $time_dif / 60 / 60 / 24 ))
+	echo $time_dif
+}

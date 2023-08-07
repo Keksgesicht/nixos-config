@@ -20,6 +20,7 @@
     ./hardware/laptop
     ./nix
     ./nix/upstream-23-05.nix
+    ./services/system/btrfs-snapshot.nix
     ./system
     ./system/container.nix
     ./system/qemu-user-binfmt.nix

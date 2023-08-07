@@ -12,6 +12,7 @@
 + /.containerbox
 + /.containerbox/etc/***
 - /.containerbox/**
+- /.lesshst
 - /.local/bin/install/***
 - /.local/share/containers/***
 - /.local/share/Trash/***
@@ -54,5 +55,6 @@
 + /.var/app/org.texstudio.TeXstudio/***
 + /.var/app/org.videolan.VLC/***
 - /.var/app/**
+- /.wget-hsts
 - /WinePrefixes/***
 + /**

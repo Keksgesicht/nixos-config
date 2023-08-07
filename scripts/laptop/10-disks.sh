@@ -112,7 +112,7 @@ setup_root() {
 		pushd 'mnt-array'
 
 		btrfs subvolume create 'homeBraunJan'
-		mkdir -p 'backup_array/name/root'
+		mkdir -p 'backup_array/name/homeBraunJan'
 		ln -s '../backup_array/name/homeBraunJan' 'homeBraunJan/.backup'
 
 		popd

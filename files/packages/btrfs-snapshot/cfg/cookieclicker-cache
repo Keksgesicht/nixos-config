@@ -1,0 +1,10 @@
+hourly=0
+daily=8
+weekly=4
+monthly=2
+
+scrub=150
+
+source="/mnt/cache"
+backup="$source/backup_cache"
+shares="appdata home host-boot host-etc host-mnt root var vm"
