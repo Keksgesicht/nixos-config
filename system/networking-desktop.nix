@@ -60,4 +60,19 @@
     #allowedTCPPorts = [ ... ];
     #allowedUDPPorts = [ ... ];
   };
+
+  networking.hosts = {
+    # multicast (from Fedora)
+    "ff02::1" = [ "ip6-allnodes" ];
+    "ff02::2" = [ "ip6-allrouters" ];
+
+    # Pihole
+    "192.168.178.23" = [ "rpi.pihole.local" ];
+    "172.23.53.1" = [ "docker.pihole.local" ];
+
+    # Router
+    "192.168.178.1" = [ "fritz.box" ];
+    # TUDa ESA-Infrastruktur (sshuttle)
+    "10.5.0.38" = [ "gitlab.esa.informatik.tu-darmstadt.de" ];
+  };
 }

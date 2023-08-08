@@ -24,6 +24,7 @@
     ./services/system/files-cleanup.nix
     ./system
     ./system/container.nix
+    ./system/networking-desktop.nix
     ./system/qemu-user-binfmt.nix
   ];
 }

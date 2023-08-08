@@ -3,11 +3,15 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./services.nix
+  ];
+
   environment.systemPackages = with pkgs; [
-    apcupsd
-    hwloc
+    (hwloc.override {
+      x11Support = (config.services.xserver.enable);
+    })
     iftop
     iotop
-    rasdaemon
   ];
 }
