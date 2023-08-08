@@ -21,6 +21,7 @@
     ./nix
     ./nix/upstream-23-05.nix
     ./services/system/btrfs-snapshot.nix
+    ./services/system/files-cleanup.nix
     ./system
     ./system/container.nix
     ./system/qemu-user-binfmt.nix

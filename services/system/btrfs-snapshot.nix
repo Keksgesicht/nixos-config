@@ -118,7 +118,7 @@
       };
       "backup-hourly@cache" = {
         # only for systemd unit masking
-        enable = true;
+        enable = false;
         # fixes empty config (extends template unit)
         overrideStrategy = "asDropin";
         # this auto enables this unit in the system context
@@ -126,7 +126,7 @@
       };
       "backup-hourly@array" = {
         # only for systemd unit masking
-        enable = true;
+        enable = false;
         # fixes empty config (extends template unit)
         overrideStrategy = "asDropin";
         # this auto enables this unit in the system context
