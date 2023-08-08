@@ -31,6 +31,7 @@ Host *
 #	ControlPersist 321s
 	TCPKeepAlive yes
 	PreferredAuthentications publickey,password
+	PKCS11Provider /run/current-system/sw/lib/libtpm2_pkcs11.so
 	RekeyLimit 1G 1h
 #	ForwardX11Trusted no
 #   ForwardX11 no

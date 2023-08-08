@@ -5,6 +5,7 @@
 {
   imports = [
     ./services.nix
+    ./tpm2.nix
   ];
 
   environment.systemPackages = with pkgs; [
