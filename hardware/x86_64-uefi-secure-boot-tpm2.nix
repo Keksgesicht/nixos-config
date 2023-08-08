@@ -7,8 +7,20 @@
 
   boot = {
     initrd = {
-      availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "sd_mod" "sdhci_pci" ];
+      availableKernelModules = [
+        "nvme"
+        "sd_mod"
+        "sdhci_pci"
+        "usb_storage"
+        "xhci_pci"
+        # if it does not work, look at what the following gives you:
+        # > lsmod | grep tpm
+        # > systemd-cryptenroll --tpm2-device=list
+        "tpm_crb"
+        "tpm_tis"
+      ];
       kernelModules = [ ];
+      systemd.enable = true;
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
