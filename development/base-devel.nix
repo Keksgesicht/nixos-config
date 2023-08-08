@@ -8,6 +8,7 @@
     binutils
     binwalk
     ldns
+    jq
     moar
     nix-index
     nmap

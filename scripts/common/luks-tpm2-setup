@@ -1,0 +1,29 @@
+#!/bin/bash -e
+
+if [ $(id -u) != 0 ]; then
+	echo "please rerun as root!"
+	exit 1
+fi
+
+secboot_status=$(bootctl status 2>/dev/null | awk -F':' '$1 ~ /Secure Boot/ {print $2}' | awk '{print $1}')
+if [ "$secboot_status" == "disabled" ]; then
+	echo "WARNING: secure boot not enabled!"
+	tpm_regs="0+1+2+3+5+6"
+else
+	tpm_regs="0+1+2+3+5+6+7"
+fi
+
+# get encrypted device
+tmpfile_mountpoints=$(mktemp)
+lsblk --json | jq '.. | select(.mountpoints?)' > ${tmpfile_mountpoints}
+for mdev in $(cat ${tmpfile_mountpoints} | jq -r '.name'); do
+	if cat ${tmpfile_mountpoints} | jq 'select(.name == "'${mdev}'") | .mountpoints' | grep -q '"/"'; then
+		luks_name=${mdev}
+		break
+	fi
+done
+rm ${tmpfile_mountpoints}
+luks_device=$(cryptsetup status ${luks_name} | awk '$1 ~ /^device:$/ {print $2}')
+
+# keyfile location
+keyfile='/etc/cryptsetup-keys.d/root.key'
