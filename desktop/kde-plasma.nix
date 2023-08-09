@@ -1,5 +1,3 @@
-# file: user/kde-plasma.nix
-# desc: focus on user specific settings for systems with DE/WM
 # https://nixos.wiki/wiki/KDE
 
 { config, pkgs, ...}:
@@ -30,8 +28,13 @@
     libinput.enable = true;
   };
 
+  # enable KDEconnect
+  programs.kdeconnect.enable = true;
+
+  # I do not need this from nix packages
   environment.plasma5.excludePackages = with pkgs.libsForQt5; [
     okular
+    oxygen
     plasma-browser-integration
   ];
 
