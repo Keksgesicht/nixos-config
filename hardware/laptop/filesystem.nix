@@ -9,25 +9,10 @@
 {
   boot = {
     initrd = {
-      # Setup keyfile
-      /*
-      secrets = {
-        "/crypto_keyfile.bin" = null;
-      };
-       */
-
       luks.devices = {
         "root" = {
           device = "/dev/disk/by-uuid/c720b152-baf0-4336-bb04-83f01857cfab";
         };
-
-        # Enable swap on luks
-        /*
-        "swap" = {
-          device = "/dev/disk/by-uuid/499f4ab6-e61f-42f0-8665-6115d67a5222";
-          keyFile = "/crypto_keyfile.bin";
-        };
-         */
       };
     };
   };
@@ -97,9 +82,12 @@
     };
   };
 
-  /*
   swapDevices = [
-    { device = "/dev/mapper/swap"; }
+    {
+      # random encryption will resetup the LUKS header
+      # using by-id should not change between system reboots or kernel updates
+      device = "/dev/disk/by-id/nvme-KINGSTON_SNVS500G_50026B76856C0884-part3";
+      randomEncryption.enable = true;
+    }
   ];
-   */
 }
