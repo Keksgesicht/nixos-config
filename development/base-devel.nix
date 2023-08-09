@@ -8,10 +8,13 @@
     binutils
     binwalk
     ldns
+    lsof
     jq
     moar
     nix-index
     nmap
+    psmisc
+    pstree
     sshuttle
     strace
     tmux

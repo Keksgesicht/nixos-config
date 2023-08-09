@@ -33,12 +33,17 @@
 
   # I do not need this from nix packages
   environment.plasma5.excludePackages = with pkgs.libsForQt5; [
+    kmailtransport
     okular
     oxygen
     plasma-browser-integration
   ];
 
-  users.users.keks.packages = with pkgs; [
+  users.users.keks.packages = with pkgs.libsForQt5; [
+    # use digital clock with PIM plugin
+    akonadi-calendar
+    kdepim-addons
+    # additional KDE tools
     kalendar
     kate
   ];
