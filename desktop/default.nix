@@ -4,12 +4,18 @@
 { config, pkgs, ...}:
 
 {
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.keks = {
     isNormalUser = true;
     description = "Jan B.";
     shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
   };
 
   imports = [

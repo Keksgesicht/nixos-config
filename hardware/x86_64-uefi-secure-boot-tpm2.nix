@@ -22,7 +22,9 @@
       kernelModules = [ ];
       systemd.enable = true;
     };
-    kernelModules = [ "kvm-amd" ];
+    kernelModules = [
+      "kvm-amd"
+    ];
     extraModulePackages = [ ];
 
     # Bootloader

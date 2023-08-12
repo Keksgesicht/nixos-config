@@ -3,9 +3,7 @@
 {
   imports = [
     ../.
-    ../x86_64-uefi-secure-boot-tpm2.nix
-    ../tpm2.nix
+    ../x86_64-uefi.nix
     ./filesystem.nix
-    ./tuxedo.nix
   ];
 }
