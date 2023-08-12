@@ -1,0 +1,13 @@
+# This file was created by Fancontrol-GUI
+INTERVAL=1
+DEVPATH=hwmon_temp1=devices/pci0000:00/0000:00:18.3 hwmon_fan1=devices/platform/nct6775.656
+DEVNAME=hwmon_temp1=k10temp hwmon_fan1=nct6779
+FCTEMPS=hwmon_fan1/pwm1=hwmon_temp1/temp2_input hwmon_fan1/pwm2=hwmon_temp1/temp2_input hwmon_fan1/pwm3=hwmon_temp1/temp2_input hwmon_fan1/pwm4=hwmon_temp1/temp2_input hwmon_fan1/pwm5=hwmon_temp1/temp2_input
+FCFANS=hwmon_fan1/pwm1=hwmon_fan1/fan1_input hwmon_fan1/pwm2=hwmon_fan1/fan2_input hwmon_fan1/pwm3=hwmon_fan1/fan3_input hwmon_fan1/pwm4=hwmon_fan1/fan4_input hwmon_fan1/pwm5=hwmon_fan1/fan5_input
+MINTEMP=hwmon_fan1/pwm1=47 hwmon_fan1/pwm2=47 hwmon_fan1/pwm3=42 hwmon_fan1/pwm4=47 hwmon_fan1/pwm5=47
+MAXTEMP=hwmon_fan1/pwm1=69 hwmon_fan1/pwm2=69 hwmon_fan1/pwm3=69 hwmon_fan1/pwm4=69 hwmon_fan1/pwm5=69
+MINSTART=hwmon_fan1/pwm1=255 hwmon_fan1/pwm2=255 hwmon_fan1/pwm3=255 hwmon_fan1/pwm4=255 hwmon_fan1/pwm5=255
+MINSTOP=hwmon_fan1/pwm1=51 hwmon_fan1/pwm2=51 hwmon_fan1/pwm3=169 hwmon_fan1/pwm4=51 hwmon_fan1/pwm5=51
+MINPWM=hwmon_fan1/pwm1=51 hwmon_fan1/pwm2=51 hwmon_fan1/pwm3=169 hwmon_fan1/pwm4=51 hwmon_fan1/pwm5=51
+MAXPWM=hwmon_fan1/pwm1=200 hwmon_fan1/pwm2=200 hwmon_fan1/pwm3=255 hwmon_fan1/pwm4=200 hwmon_fan1/pwm5=200
+AVERAGE=hwmon_fan1/pwm1=5 hwmon_fan1/pwm2=5 hwmon_fan1/pwm3=2 hwmon_fan1/pwm4=5 hwmon_fan1/pwm5=5
