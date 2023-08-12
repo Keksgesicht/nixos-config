@@ -1,0 +1,10 @@
+- *.log
++ /
++ /database
++ /database/nextcloud/***
++ /ddns/***
++ /nextcloud/***
++ /pihole/***
++ /swag/***
++ /unbound/***
+- /**
