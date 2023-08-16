@@ -16,41 +16,36 @@
 
     # network connections on all systems
     "NetworkManager/system-connections/TU_Darmstadt.nmconnection" = {
-      source = ../secrets/linux-root/etc/NetworkManager/system-connections/TU_Darmstadt.nmconnection;
+      source = "/etc/nixos/secrets/linux-root/etc/NetworkManager/system-connections/TU_Darmstadt.nmconnection";
       mode = "0600";
     };
 
     # network connections on server/desktop
     "NetworkManager/system-connections/dmz.nmconnection" = {
       enable = (config.networking.hostName == "cookieclicker");
-      source = ../secrets/linux-root/etc/NetworkManager/system-connections/dmz.nmconnection;
+      source = "/etc/nixos/secrets/linux-root/etc/NetworkManager/system-connections/dmz.nmconnection";
       mode = "0600";
     };
     "NetworkManager/system-connections/home.nmconnection" = {
       enable = (config.networking.hostName == "cookieclicker");
-      source = ../secrets/linux-root/etc/NetworkManager/system-connections/home.nmconnection;
-      mode = "0600";
-    };
-    "NetworkManager/system-connections/wg-server.nmconnection" = {
-      enable = (config.networking.hostName == "cookieclicker");
-      source = ../secrets/linux-root/etc/NetworkManager/system-connections/wg-server.nmconnection;
+      source = "/etc/nixos/secrets/linux-root/etc/NetworkManager/system-connections/home.nmconnection";
       mode = "0600";
     };
 
     # network connections on laptop
     "NetworkManager/system-connections/eduroam.nmconnection" = {
       enable = (config.networking.hostName == "cookiethinker");
-      source = ../secrets/linux-root/etc/NetworkManager/system-connections/eduroam.nmconnection;
+      source = "/etc/nixos/secrets/linux-root/etc/NetworkManager/system-connections/eduroam.nmconnection";
       mode = "0600";
     };
     "NetworkManager/system-connections/nach_Hause_telefonieren.nmconnection" = {
       enable = (config.networking.hostName == "cookiethinker");
-      source = ../secrets/linux-root/etc/NetworkManager/system-connections/nach_Hause_telefonieren.nmconnection;
+      source = "/etc/nixos/secrets/linux-root/etc/NetworkManager/system-connections/nach_Hause_telefonieren.nmconnection";
       mode = "0600";
     };
     "NetworkManager/system-connections/wlan00.nmconnection" = {
       enable = (config.networking.hostName == "cookiethinker");
-      source = ../secrets/linux-root/etc/NetworkManager/system-connections/wlan00.nmconnection;
+      source = "/etc/nixos/secrets/linux-root/etc/NetworkManager/system-connections/wlan00.nmconnection";
       mode = "0600";
     };
   };
@@ -98,8 +93,28 @@
   # firewall
   networking.firewall = {
     enable = true;
-    #allowedTCPPorts = [ ... ];
-    #allowedUDPPorts = [ ... ];
+    allowedTCPPorts =
+      if (config.networking.hostName == "cookieclicker") then
+        [
+          # 22 ssh OpenSSH (openssh.nix)
+          53    # DNS (Pihole)
+          80    # HTTP (swag / lancache)
+          443   # HTTPS (swag)
+          # 1714 to 1764 (kdeconnect)
+          2053  # DNS (unbound)
+        ]
+      else [];
+    allowedUDPPorts =
+      if (config.networking.hostName == "cookieclicker") then
+        [
+          53    # DNS (Pihole)
+          443   # HTTP3 (swag) TODO
+          # 1714 to 1764 (kdeconnect)
+          2053  # DNS (unbound)
+          # 5353 mDNS by avahi
+          22223 # Wireguard
+        ]
+      else [];
   };
 
   networking.hosts = {
