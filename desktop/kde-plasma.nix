@@ -46,6 +46,8 @@
     # additional KDE tools
     kalendar
     kate
+    # security stuff
+    ksshaskpass
   ];
 
   systemd.services = {

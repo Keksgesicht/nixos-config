@@ -10,6 +10,7 @@
     zsh-history-substring-search
     zsh-syntax-highlighting
     zsh-powerlevel10k
+    zsh-nix-shell
   ];
 
   programs.zsh = {
