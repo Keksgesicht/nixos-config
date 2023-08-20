@@ -11,8 +11,12 @@
       else
         false
     ;
-    listenAddresses.ipv4.addr = "0.0.0.0";
-    listenAddresses.ipv6.addr = null;
+    listenAddresses = [
+      {
+        addr = "0.0.0.0";
+        port = 22;
+      }
+    ];
     settings.PermitRootLogin = "no";
     extraConfig = ''
       LoginGraceTime 42s

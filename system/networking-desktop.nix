@@ -6,6 +6,7 @@
 {
   environment.systemPackages = with pkgs; [
     cacert.unbundled
+    dig
   ];
   environment.etc = {
     # symlinks certificate for eduroam
