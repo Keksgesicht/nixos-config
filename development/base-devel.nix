@@ -15,6 +15,7 @@
     nmap
     psmisc
     pstree
+    pv
     sshuttle
     strace
     tmux
