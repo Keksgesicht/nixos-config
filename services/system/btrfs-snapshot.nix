@@ -121,16 +121,16 @@
         enable = false;
         # fixes empty config (extends template unit)
         overrideStrategy = "asDropin";
-        # this auto enables this unit in the system context
-        wantedBy = [ "timers.target" ];
+        # this auto enables this unit in the context of systemd
+        #wantedBy = [ "timers.target" ];
       };
       "backup-hourly@array" = {
         # only for systemd unit masking
         enable = false;
         # fixes empty config (extends template unit)
         overrideStrategy = "asDropin";
-        # this auto enables this unit in the system context
-        wantedBy = [ "timers.target" ];
+        # this auto enables this unit in the context of systemd
+        #wantedBy = [ "timers.target" ];
       };
     };
   };
