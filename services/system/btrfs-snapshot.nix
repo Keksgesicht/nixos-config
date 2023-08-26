@@ -95,7 +95,7 @@
         enable = true;
         # fixes empty config (extends template unit)
         overrideStrategy = "asDropin";
-        # this auto enables this unit in the system context
+        # this auto enables this unit in the context of systemd
         wantedBy = [ "timers.target" ];
       };
       "backup-snapshot@array" = {
@@ -103,7 +103,7 @@
         enable = true;
         # fixes empty config (extends template unit)
         overrideStrategy = "asDropin";
-        # this auto enables this unit in the system context
+        # this auto enables this unit in the context of systemd
         wantedBy = [ "timers.target" ];
       };
 

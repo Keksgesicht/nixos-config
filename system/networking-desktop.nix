@@ -66,25 +66,29 @@
       "connection.stable-id" = "\${CONNECTION}/\${BOOT}";
     };
 
-    dispatcherScripts = [ {
-      type = "basic";
-      source = pkgs.substituteAll {
-        src = ../files/linux-root/etc/NetworkManager/dispatcher.d/50-home-ipv6-ULU;
-        bash = "${pkgs.bash}";
-      };
-    } {
-      type = "basic";
-      source = pkgs.substituteAll {
-        src = ../files/linux-root/etc/NetworkManager/dispatcher.d/50-no-ddns-vpn;
-        bash = "${pkgs.bash}";
-      };
-    } {
-      type = "basic";
-      source = pkgs.substituteAll {
-        src = ../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6;
-        bash = "${pkgs.bash}";
-      };
-    } ];
+    dispatcherScripts =
+      if (config.networking.hostName == "cookieclicker") then
+        [ {
+          type = "basic";
+          source = pkgs.substituteAll {
+            src = ../files/linux-root/etc/NetworkManager/dispatcher.d/50-home-ipv6-ULU;
+            bash = "${pkgs.bash}";
+          };
+        } {
+          type = "basic";
+          source = pkgs.substituteAll {
+            src = ../files/linux-root/etc/NetworkManager/dispatcher.d/50-no-ddns-vpn;
+            bash = "${pkgs.bash}";
+          };
+        } {
+          type = "basic";
+          source = pkgs.substituteAll {
+            src = ../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6;
+            bash = "${pkgs.bash}";
+          };
+        } ]
+      else []
+    ;
   };
 
   # enable mDNS responder

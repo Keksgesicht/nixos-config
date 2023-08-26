@@ -19,17 +19,21 @@
       interval = 60;
       idle_time = 42 * 60;
     };
+    # https://autosuspend.readthedocs.io/en/latest/available_checks.html
     checks = {
-      # This check is disabled.
-      Smb.enabled = false;
-
       # Keep the system active when GUI user is logged in
       LocalUsers = {
         enabled = true;
-        class = "Users";
-        host = "localhost";
-        name = "keks";
-        terminal = ".*";
+        class = "LogindSessionsIdle";
+        types = "tty,x11,wayland";
+        states = "active,online";
+        classes = "user";
+      };
+
+      # Keep SSH session alive
+      SSH = {
+        class = "ActiveConnection";
+        ports = "22";
       };
     };
   };

@@ -12,10 +12,15 @@
     isNormalUser = true;
     description = "Jan B.";
     shell = pkgs.zsh;
+    uid = 1000;
+    group = "keks";
     extraGroups = [
       "networkmanager"
       "wheel"
     ];
+  };
+  users.groups.keks = {
+    gid = 1000;
   };
 
   imports = [
