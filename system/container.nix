@@ -9,24 +9,38 @@
 
       # Create a `docker` alias for podman, to use it as a drop-in replacement
       dockerCompat = true;
+      dockerSocket.enable = true;
 
       # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
-      # For Nixos version > 22.11
-      #defaultNetwork.settings = {
-      #  dns_enabled = true;
-      #};
     };
+
+    containers = {
+      enable = true;
+      storage.settings = {
+        storage = {
+          driver = "btrfs";
+          graphroot = "/var/lib/containers/storage";
+          runroot = "/run/containers/storage";
+        };
+      };
+      containersConf.cniPlugins = [
+        pkgs.cni-plugins
+        pkgs.dnsname-cni
+      ];
+    };
+
+    oci-containers.backend = "podman";
   };
 
   environment.systemPackages = with pkgs; [
-    #containernetworking-plugins
     docker-compose
     podman-compose
   ];
 
-  # docker-compose should use podman socket
-  environment.sessionVariables = rec {
-    DOCKER_HOST = "unix://$XDG_RUNTIME_DIR/podman/podman.sock";
+  environment.etc = {
+    "containers/networks/server.json" = {
+      source = ../files/linux-root/etc/containers/networks/server.json;
+    };
   };
 }

@@ -1,0 +1,23 @@
+{
+     "name": "server",
+     "id": "f44dbcbe4d8a404a48f127cf8777a650c8d7b394aae4c7545f569a3ec9f3cb86",
+     "driver": "bridge",
+     "network_interface": "podman-server",
+     "created": "2023-08-26T18:12:57.888954399+02:00",
+     "subnets": [
+          {
+               "subnet": "172.23.0.0/16",
+               "gateway": "172.23.0.1"
+          },
+          {
+               "subnet": "fd00:172:23::/64",
+               "gateway": "fd00:172:23::1"
+          }
+     ],
+     "ipv6_enabled": true,
+     "internal": false,
+     "dns_enabled": true,
+     "ipam_options": {
+          "driver": "host-local"
+     }
+}

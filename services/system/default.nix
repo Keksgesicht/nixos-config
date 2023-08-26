@@ -9,5 +9,6 @@
     ./offline-backup.nix
     ./server-and-config-update.nix
     ./wireguard.nix
+    ../containers
   ];
 }
