@@ -1,6 +1,11 @@
 { config, pkgs, ...}:
 
 {
+  users.users.keks.packages = with pkgs; [
+    # enable saving replaybuffer through a hotkey
+    (callPackage ../packages/obs-cli.nix {})
+  ];
+
   # Enable udev rules for Steam hardware such as the Steam Controller
   hardware.steam-hardware.enable = true;
 
