@@ -1,7 +1,13 @@
 #/usr/bin/env bash
 
 # run all in the root dir of the target installation
-cd /mnt/root
+if mountpoint -q "/mnt/cache/root"; then
+	cd /mnt/cache/root
+elif mountpoint -q "/mnt/root"; then
+	cd /mnt/root
+else
+	exit 1
+fi
 
 # calendar does not show events without it
 # https://github.com/NixOS/nixpkgs/issues/143272
