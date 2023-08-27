@@ -1,3 +1,15 @@
 - *.log
 + /.backup
++ /etc/***
++ /root
++ /root/.bash_history
++ /root/.bash_profile
++ /root/.bashrc
++ /root/.config
++ /root/.config/ssh/***
++ /root/.dir_colors
++ /root/.lesshst
++ /root/.nanorc
++ /root/.secrets/***
++ /root/.zhistory
 - /**
