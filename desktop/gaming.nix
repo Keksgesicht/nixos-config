@@ -4,8 +4,17 @@
   # Enable udev rules for Steam hardware such as the Steam Controller
   hardware.steam-hardware.enable = true;
 
-  # Open ports in the firewall for Steam Remote Play
-  programs.steam.remotePlay.openFirewall = true;
+  programs = {
+    steam = {
+      # Open ports in the firewall for Steam Remote Play
+      remotePlay.openFirewall = true;
+    };
+
+    # optimise system performance on demand
+    gamemode = {
+      enable = true;
+    };
+  };
 
   # automatically run obs-studio to record replays
   systemd.user = {
