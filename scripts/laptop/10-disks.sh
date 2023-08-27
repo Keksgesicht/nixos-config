@@ -105,6 +105,8 @@ setup_root() {
 	btrfs subvolume create 'root/boot'
 	mount '/dev/disk/by-uuid/90CE-7A63' 'root/boot'
 
+	btrfs subvolume create 'root/tmp'
+
 		btrfs subvolume create 'mnt-array'
 		mkdir -p 'mnt-array/backup_array/date'
 		mkdir -p 'mnt-array/backup_array/name'

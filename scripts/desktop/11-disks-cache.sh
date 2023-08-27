@@ -33,6 +33,8 @@ setup_raid_cache() {
 	btrfs subvolume create 'root/boot'
 	mount '/dev/disk/by-uuid/90CE-7A63' 'root/boot'
 
+	btrfs subvolume create 'root/tmp'
+
 	btrfs subvolume create 'appdata'
 	mkdir -p 'backup_cache/name/appdata'
 	ln -s '../backup_cache/name/appdata' 'appdata/.backup'
