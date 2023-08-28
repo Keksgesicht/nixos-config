@@ -25,6 +25,11 @@
     alsa.support32Bit = true;
   };
 
+  # enable bluetooth
+  hardware.bluetooth.enable = true;
+  # not needed on KDE Plasma
+  #services.blueman.enable = true;
+
   environment.etc = {
     "pipewire/pipewire.conf.d/50-null-devices.conf" = {
       source = ../files/linux-root/etc/pipewire/pipewire.d/50-null-devices.conf;
