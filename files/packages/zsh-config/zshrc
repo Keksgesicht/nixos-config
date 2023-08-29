@@ -1,0 +1,83 @@
+#!/usr/bin/zsh
+# ~/.config/zsh/.zshrc
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+
+# set OLDHOME as shared variable between host and toolbox
+if [[ -z "${OLDHOME}" ]]; then
+	export OLDHOME=${HOME}
+fi
+
+# zsh config location
+if [ -n "${ZSHCFGDIR}" ] && [ -f "${ZSHCFGDIR}/zshrc" ]; then
+	export ZSHCFGDIR=${ZSHCFGDIR}
+elif [ -n "${XDG_CONFIG_HOME}" ] && [ -f "${XDG_CONFIG_HOME}/zsh/zshrc" ]; then
+	export ZSHCFGDIR=${XDG_CONFIG_HOME}/zsh
+elif [ -f "${HOME}/.config/zsh/zshrc" ]; then
+	export ZSHCFGDIR=${HOME}/.config/zsh
+else
+	echo -n '\033[1;33m'
+	echo -n "ZSHCFGDIR could not be set!"
+	echo '\033[0m'
+fi
+
+
+if ( (( $+commands[hostname] )) && [[ "toolbox" =~ "$(hostname)" ]] ) \
+  || ( [[ -f "/etc/hostname" ]] && [[ "toolbox" =~ "$(cat /etc/hostname)" ]] ); then
+	if [[ -e ${ZSHCFGDIR}/env_toolbox ]]; then
+		source ${ZSHCFGDIR}/env_toolbox
+	fi
+fi
+
+if [[ -e ${ZSHCFGDIR}/env_shell ]]; then
+  source ${ZSHCFGDIR}/env_shell
+fi
+
+if [ -n "${XDG_CACHE_HOME}" ] && [ -d "${XDG_CACHE_HOME}" ]; then
+	export ZSHTMPDIR=${XDG_CACHE_HOME}/zsh
+else
+	export ZSHTMPDIR=${HOME}/.cache/zsh
+fi
+mkdir -p ${ZSHTMPDIR}
+
+
+# setup zsh-configuration (Manjaro)
+if [[ -e ${ZSHCFGDIR}/zsh-config ]]; then
+  source ${ZSHCFGDIR}/zsh-config
+fi
+
+# Use zsh prompt (Manjaro)
+if [[ -e ${ZSHCFGDIR}/zsh-prompt ]]; then
+  source ${ZSHCFGDIR}/zsh-prompt
+fi
+
+# Alias definitions.
+if [[ -e ${ZSHCFGDIR}/alias_shell ]]; then
+  source ${ZSHCFGDIR}/alias_shell
+fi
+
+# auto sudo when using pacman
+if [[ -e ${ZSHCFGDIR}/alias_pkg ]]; then
+  source ${ZSHCFGDIR}/alias_pkg
+fi
+
+# quickly run container in this directory
+if [[ -e ${ZSHCFGDIR}/alias_container ]]; then
+  source ${ZSHCFGDIR}/alias_container
+fi
+
+
+# add scripts to PATH
+if [[ -d ${OLDHOME}/.local/bin ]]; then
+  PATH="${PATH}:${OLDHOME}/.local/bin"
+fi
+
+# unbind insert for overtype mode
+# https://unix.stackexchange.com/questions/320326/delete-keymap-and-completely-disable-key-in-zsh
+bindkey -s '\e[2~' ''
+
+# nix stuff on other distros
+if [ -e /home/keks/.nix-profile/etc/profile.d/nix.sh ]; then . /home/keks/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+export NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/master.tar.gz

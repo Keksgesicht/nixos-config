@@ -11,6 +11,7 @@
     lsof
     jq
     moar
+    neovim
     nix-index
     nmap
     psmisc
@@ -19,7 +20,6 @@
     sshuttle
     strace
     tmux
-    vim
     zellij
 
     # make signed commits

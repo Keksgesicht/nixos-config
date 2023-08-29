@@ -1,0 +1,178 @@
+#!/usr/bin/zsh
+
+### aliases ###
+
+# enable color support of ls and also add handy aliases
+if (( $+commands[dircolors] )); then
+	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+	alias ls='ls --color=auto'
+	alias dir='dir --color=auto'
+	alias vdir='vdir --color=auto'
+	alias grep='grep --color=auto'
+	alias fgrep='fgrep --color=auto'
+	alias egrep='grep -E --color=auto'
+	alias diff='diff --color=auto'
+fi
+
+### https://www.youtube.com/watch?v=2OHrTQVlRMg
+### 7 Essential Command Line Tools (2022)
+if (( $+commands[exa] )); then
+	alias ll='exa -lihF -g'
+	alias tree='exa --tree'
+else
+	alias ll='ls -lihF'
+fi
+alias la='ll -a'
+
+# disable clearing the teminal scrollback buffer
+#alias clear='clear -x'
+
+# Some more alias to avoid making mistakes:
+alias rm='rm -Id'
+alias cp='cp -i'
+alias mv='mv -i'
+alias rename='rename -i'
+alias prename='prename -i'
+
+TIMEFMT=$'\n==============\nCPU\t%P\nuser\t%*U\nsystem\t%*S\ntotal\t%*E'
+
+# files
+alias nano='nano -l'
+if (( $+commands[nvim] )); then
+	alias vim='nvim'
+fi
+if (( $+commands[bat] )); then
+	alias cat='bat --paging=never'
+fi
+alias tmux='TERM=xterm-256color tmux -f "$XDG_CONFIG_HOME"/tmux/tmux.conf'
+alias rgrep='grep -rn'
+alias ftail='tail -f'
+
+# Auth
+alias sudo='sudo '
+alias doas='doas '
+if (( $+commands[doas] )); then
+	export AUTH='doas'
+elif (( $+commands[sudo] )); then
+	export AUTH='sudo'
+fi
+
+alias ip='ip -c'
+alias sct='ssh cookieclicker'
+
+# XDG Home
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+alias lb="${HOME}/.local/bin/list-backups.sh"
+
+alias pse='ps -eo pid,ppid,uid,pri,%cpu,%mem,tty,stat,start_time,cputime,cmd'
+psx() {
+	pse | head -1
+	pse | grep -E "$@"
+}
+
+cap() {
+	$@ 2>&1 | tee /tmp/pipe_capture.out
+}
+
+rng() {
+	if ! echo $1 | grep -qE '^[1-9][0-9]*$'; then
+		echo "$1 is not a positive number!"
+		return 0
+	fi
+	echo $(( ${RANDOM} % $1 + 1 ))
+}
+
+# # ex - archive extractor
+# # usage: ex <file>
+ex () {
+	if [ -f $1 ] ; then
+		case $1 in
+			*.tar.bz2)   tar xjf $1    ;;
+			*.tar.gz)    tar xzf $1    ;;
+			*.tar.xz)    tar -xf $1    ;;
+			*.bz2)       bunzip2 $1    ;;
+			*.rar)       unrar x $1    ;;
+			*.gz)        gunzip $1     ;;
+			*.tar)       tar xf $1     ;;
+			*.tbz2)      tar xjf $1    ;;
+			*.tgz)       tar xzf $1    ;;
+			*.zip)       unzip $1      ;;
+			*.Z)         uncompress $1 ;;
+			*.7z)        7z x $1       ;;
+			*)           echo "'$1' cannot be extracted via ex()" ;;
+		esac
+	else
+		echo "'$1' is not a valid file"
+	fi
+}
+
+alias pv='pv -F "cur=%r avg=%a %t %T %b"'
+
+#source() {
+#	emulate sh -c "source $@"
+#}
+
+### https://www.youtube.com/watch?v=kFh1acsQ8DQ
+### 9 AMAZING COMMAND LINE TOOLS for Linux
+#alias man='tldr'
+#alias rm='trash-put'
+
+### git
+### https://www.youtube.com/watch?v=2uEqYw-N8uE
+gwta() {
+	if [ $(basename $(pwd)) != ".git" ]; then
+		echo "Not a \".git\" directory!"
+		return 0
+	fi
+	if [ -z "${1}" ]; then
+		echo "Missing parameter!"
+		return 0
+	fi
+	git worktree add ../${1} ${1}
+}
+gwtc() {
+	if [ -z "${1}" ]; then
+		echo "Missing parameter!"
+		return 0
+	fi
+	git clone --bare "${1}" $(basename -s .git "${1}")/.git
+}
+
+
+ssh-wayland() {
+	XEPHYR_SCREEN_ID=42
+	XEPHYR_SCREEN_SIZE="1x1"
+
+	if echo "$1" | grep -qE '[0-9]+x[0-9]+'; then
+		XEPHYR_SCREEN_SIZE="$1"
+		shift
+	fi
+
+	Xephyr -br -ac -noreset -screen ${XEPHYR_SCREEN_SIZE} :${XEPHYR_SCREEN_ID} &
+	ssh -X $@
+}
+
+find-same-file() {
+	SDIR=$1
+	FILE=$2
+
+	EC=0
+	if ! [ -e ${SDIR} ]; then
+		echo "No such file or directory: \"${SDIR}\""
+		EC=$(( ${EC} + 1 ))
+	fi
+	if ! [ -e ${FILE} ]; then
+		echo "No such file or directory: \"${FILE}\""
+		EC=$(( ${EC} + 1 ))
+	fi
+	if [ ${EC} != 0 ]; then
+		return ${EC}
+	fi
+
+	find -L "${SDIR}" -samefile "${FILE}"
+}

@@ -1,0 +1,61 @@
+#!/usr/bin/zsh
+
+export USER=user1000
+export LOGNAME=toolbox-user1000
+export MAIL=/var/spool/mail/user1000
+
+export TMPDIR=/tmp/containerbox
+mkdir -p ${TMPDIR}
+
+export HOME=${OLDHOME}/.containerbox/home/user1000
+mkdir -p ${OLDHOME}/.containerbox/home/root
+mkdir -p ${OLDHOME}/.containerbox/home/user1000
+mkdir -p ${OLDHOME}/.containerbox/root
+
+#if ! [[ -e ${HOME}/.zhistory ]]; then
+#	ln -sr ${OLDHOME}/.zhistory ${HOME}/.zhistory
+#fi
+
+
+
+tmp_home_files=$(mktemp)
+
+cat << 'EOF' > $tmp_home_files
+.config/cni
+.config/containers
+.config/gtk-2.0
+.config/gtk-3.0
+.config/gtk-4.0
+.config/kdeglobals
+.config/gtkrc
+.config/gtkrc-2.0
+.config/toolbox
+.config/zsh
+.gtkrc-2.0
+.local/bin
+.local/share/containers
+.local/share/fonts
+.local/share/icons
+.local/share/themes
+.zshrc
+EOF
+
+for hfile in $(cat $tmp_home_files); do
+	[[ -L "${HOME}/${hfile}" ]] && continue
+	mkdir -p ${HOME}/$(dirname ${hfile})
+	ln -sr ${OLDHOME}/${hfile} ${HOME}/${hfile}
+done
+
+rm ${tmp_home_files}
+
+
+mkdir -p ${HOME}/.ssh
+cp -f ${OLDHOME}/.config/ssh/podman-auth-keys ${HOME}/.ssh/authorized_keys
+
+mkdir -p ${OLDHOME}/.containerbox/root/.ssh
+cp -f ${OLDHOME}/.config/ssh/podman-auth-keys ${OLDHOME}/.containerbox/root/.ssh/authorized_keys
+
+
+alias dnf='sudo dnf'
+alias apt='sudo apt'
+alias apt-get='sudo apt-get'

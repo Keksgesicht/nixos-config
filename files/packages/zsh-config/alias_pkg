@@ -1,0 +1,19 @@
+pacman() {
+	case $1 in
+		-S | -D | -S[^sih]* | -R* | -U* | -Fy )
+			$AUTH /usr/bin/pacman "$@"
+		;;
+		*)
+			/usr/bin/pacman "$@"
+		;;
+	esac
+}
+pamac-file() {
+	pamac search -f $1 | grep "/$1 "
+}
+
+if ! (( $+commands[dnf] )); then
+#	alias dnf="dnf-3"
+else
+#	alias dnf="$AUTH dnf"
+fi

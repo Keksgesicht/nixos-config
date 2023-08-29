@@ -1,0 +1,13 @@
+#!/usr/bin/zsh
+
+export XDG_CONFIG_HOME="$HOME/.config"
+
+export EDITOR="nano"
+export VISUAL="nano"
+export SUDO_EDITOR="nano"
+export OPENER="xdg-open"
+export PAGER="less"
+export SHELL=$(which zsh)
+
+export LESS="${LESS} -x4"
+tabs -4
