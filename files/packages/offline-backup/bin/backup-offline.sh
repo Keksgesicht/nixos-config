@@ -1,7 +1,7 @@
 #!/bin/bash
 
 back_dir="/mnt/backup/$1"
-conf_dir="/etc/unCookie/cfg/backup/offline"
+conf_dir="$(realpath $(dirname $0)/../cfg)"
 
 sleep 3s
 mountpoint ${back_dir}/data || exit 1

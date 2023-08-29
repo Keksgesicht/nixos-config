@@ -17,15 +17,20 @@
         port = 22;
       }
     ];
-    settings.PermitRootLogin = "no";
-    extraConfig = ''
-      LoginGraceTime 42s
-      StrictModes yes
-      MaxAuthTries 5
-      MaxSessions 10
+    settings = {
+      LogLevel = "INFO";
+      X11Forwarding = true;
 
-      PubkeyAuthentication yes
-      PermitEmptyPasswords no
-    '';
+      PasswordAuthentication = false;
+      PermitEmptyPasswords = false;
+      PermitRootLogin = "no";
+      PubkeyAuthentication = true;
+      AuthorizedKeysFile = "%h/.config/ssh/authorized_keys /etc/ssh/authorized_keys.d/%u";
+
+      LoginGraceTime = "42s";
+      StrictModes = true;
+      MaxAuthTries = 5;
+      MaxSessions = 10;
+    };
   };
 }

@@ -4,7 +4,7 @@
 let
   pkgname = "obs-cli";
   pkgver = "0.5.0";
-  commit = "7c0b514d6988ba4582f753de829450a96b943301";
+  commit = "2980d83c681114d6f5d90c924626b92f0b937b6a";
 in
 buildGoModule rec {
   pname = "${pkgname}";
@@ -16,9 +16,9 @@ buildGoModule rec {
     owner = "yusefnapora";
     repo = "obs-cli";
     rev = "${commit}";
-    sha256 = "sha256-Gwv4tN33cYKX4XwyAc5qeruXk+05415/GEFfgkuohV8=";
+    sha256 = "sha256-8hDJAaFH1LV03O3/uegbbWeuUPgP2ZoTxFvnEcTZEGs=";
   };
-  vendorHash = "sha256-4pmq234SJZbo7+WljfttOZaIfjY3wIPX9yyCCrzs7P0=";
+  vendorHash = "sha256-m4bqQuegqG+vK2QkXjUOO8g03n2HwRdFSG28zOXE4rQ=";
   proxyVendor = true;
 
   buildPhase = ''

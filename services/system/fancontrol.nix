@@ -14,4 +14,9 @@
       ExecStart = lib.mkForce "${pkgs.lm_sensors}/sbin/fancontrol /etc/fancontrol";
     };
   };
+
+  # load modules for AMD platform
+  boot.kernelModules = [
+    "nct6775"
+  ];
 }

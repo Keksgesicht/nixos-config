@@ -13,7 +13,7 @@
        * fTPM not working under Linux
        * TEMPORARY SOLUTION (throwing away single drives without thinking should work and I can still use Wake on LAN)
        * find -L /dev/disk -samefile /dev/sdh2
-       * dd status=progress bs=2048 if=/etc/unCookie/keys/luks-cache of=/dev/sdh2 seek=0
+       * dd status=progress bs=2048 if=/etc/nixos/secrets/keys/luks/cache of=/dev/sdh2 seek=0
        */
       luks.devices = {
         "cache1" = {
@@ -108,7 +108,7 @@
     };
 
     "/nix" = {
-      device = "/dev/mapper/root";
+      device = "/dev/disk/by-label/cache";
       fsType = "btrfs";
       options = [
         "subvol=nix"

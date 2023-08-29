@@ -70,22 +70,19 @@
       if (config.networking.hostName == "cookieclicker") then
         [ {
           type = "basic";
-          source = pkgs.substituteAll {
-            src = ../files/linux-root/etc/NetworkManager/dispatcher.d/50-home-ipv6-ULU;
-            bash = "${pkgs.bash}";
-          };
+          source = pkgs.writers.writeBash "50-home-ipv6-ULU" (''
+            export PATH=$PATH
+          '' + (builtins.readFile ../files/linux-root/etc/NetworkManager/dispatcher.d/50-home-ipv6-ULU));
         } {
           type = "basic";
-          source = pkgs.substituteAll {
-            src = ../files/linux-root/etc/NetworkManager/dispatcher.d/50-no-ddns-vpn;
-            bash = "${pkgs.bash}";
-          };
+          source = pkgs.writers.writeBash "50-no-ddns-vpn" (''
+            export PATH=$PATH
+          '' + (builtins.readFile ../files/linux-root/etc/NetworkManager/dispatcher.d/50-no-ddns-vpn));
         } {
           type = "basic";
-          source = pkgs.substituteAll {
-            src = ../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6;
-            bash = "${pkgs.bash}";
-          };
+          source = pkgs.writers.writeBash "50-public-ipv6" (''
+            export PATH=$PATH:"${pkgs.coreutils}/bin":"${pkgs.gawk}/bin":"${pkgs.procps}/bin"
+          '' + (builtins.readFile ../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6));
         } ]
       else []
     ;

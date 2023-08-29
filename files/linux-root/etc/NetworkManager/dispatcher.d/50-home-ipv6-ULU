@@ -1,4 +1,6 @@
-#!@bash@/bin/bash -e
+#!/bin/bash
+
+set -e
 
 IFLINK="$1"
 NMMODE="$2"

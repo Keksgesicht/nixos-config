@@ -1,9 +1,20 @@
 # file: system/environment.nix
 # desc: time, locale, env vars, etc.
 
-{ config, ...}:
+{ config, pkgs, ...}:
 
 {
+  environment.systemPackages = with pkgs; [
+    aspell
+    aspellDicts.en
+    aspellDicts.en-computers
+    aspellDicts.en-science
+    aspellDicts.de
+    #hunspell
+    #hunspellDicts.en_US
+    #hunspellDicts.de_DE
+  ];
+
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 

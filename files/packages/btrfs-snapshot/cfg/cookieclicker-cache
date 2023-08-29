@@ -7,4 +7,4 @@ scrub=150
 
 source="/mnt/cache"
 backup="$source/backup_cache"
-shares="appdata home host-boot host-etc host-mnt root var vm"
+shares="appdata home root vm"

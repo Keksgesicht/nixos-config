@@ -19,19 +19,19 @@ setup_raid_cache() {
 	ln -s '../backup_cache/name/root' 'root/.backup'
 
 	btrfs subvolume create 'home'
-	mkdir 'root/home'
+	btrfs subvolume create 'root/home'
 	mount -o 'compress=zstd:3,subvol=home' \
-		'/dev/mapper/target_root' 'root/home'
+		'/dev/disk/by-label/cache' 'root/home'
 	mkdir -p 'backup_cache/name/home'
 	ln -s '../backup_cache/name/home' 'home/.backup'
 
 	btrfs subvolume create 'nix'
-	mkdir 'root/nix'
+	btrfs subvolume create 'root/nix'
 	mount -o 'compress=zstd:3,subvol=nix' \
-		'/dev/mapper/target_root' 'root/nix'
+		'/dev/disk/by-label/cache' 'root/nix'
 
 	btrfs subvolume create 'root/boot'
-	mount '/dev/disk/by-uuid/90CE-7A63' 'root/boot'
+	mount '/dev/disk/by-uuid/F6A6-57AC' 'root/boot'
 
 	btrfs subvolume create 'root/tmp'
 

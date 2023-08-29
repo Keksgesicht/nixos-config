@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 EXEC_FILE="$0"
 EXEC_MODE="$1"
 user_id=$(id -u)
@@ -8,7 +6,7 @@ include_filter="mnt[\/]ram[\/]games|org.prismlauncher.PrismLauncher|[\/]WinePref
 exclude_filter="Battle\.net|dolphin|d3ddriverquery64.exe|fossilize_replay|grep|konsole|legendary install"
 
 run_stop() {
-	nohup bash -c "${EXEC_FILE} 'stop' 2>&1 | logger -t obs-studio-gaming.stopper" >/dev/null &
+	nohup bash -c "${EXEC_FILE} stop 2>&1 | logger -t obs-studio-gaming.stopper" >/dev/null &
 	disown
 }
 

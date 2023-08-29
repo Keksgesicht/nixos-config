@@ -47,6 +47,7 @@ flatpak install -y 'flathub' \
 	com.jgraph.drawio.desktop \
 	fr.romainvigier.MetadataCleaner \
 	io.github.seadve.Mousai \
+	org.fedoraproject.MediaWriter \
 	org.gimp.GIMP \
 	org.inkscape.Inkscape \
 	org.kde.kdenlive
@@ -68,7 +69,6 @@ flatpak install -y 'flathub' \
 	com.valvesoftware.Steam \
 	net.davidotek.pupgui2 \
 	net.lutris.Lutris \
-	org.fedoraproject.MediaWriter \
 	org.prismlauncher.PrismLauncher
 
 # gaming

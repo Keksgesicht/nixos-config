@@ -1,16 +1,18 @@
-#!@bash@/bin/bash -e
+#!/bin/bash
+
+set -e
 
 IFLINK="$1"
 NMMODE="$2"
 
 
 ddns_stop() {
-	systemctl stop unCookie-containers@ddns_v4.service
-	systemctl stop unCookie-containers@ddns_v6.service
+	systemctl stop podman-ddns-v4.service
+	systemctl stop podman-ddns-v6.service
 }
 ddns_start() {
-	systemctl start unCookie-containers@ddns_v4.service
-	systemctl start unCookie-containers@ddns_v6.service
+	systemctl start podman-ddns-v4.service
+	systemctl start podman-ddns-v6.service
 }
 
 

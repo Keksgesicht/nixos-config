@@ -4,9 +4,7 @@
   virtualisation.oci-containers.containers = {
     ddns-v4 = {
       autoStart = true;
-      dependsOn = [
-        "pihole"
-      ];
+      dependsOn = [];
 
       image = "localhost/dyndns:latest";
       imageFile = pkgs.dockerTools.pullImage {
@@ -44,9 +42,7 @@
 
     ddns-v6 = {
       autoStart = true;
-      dependsOn = [
-        "pihole"
-      ];
+      dependsOn = [];
 
       image = "localhost/dyndns:latest";
 
@@ -70,9 +66,7 @@
         "/mnt/cache/appdata/ddns/v6-cloudflare-ddns.sh:/app/cloudflare-ddns.sh:Z,ro"
       ];
       extraOptions = [
-        "--network" "server"
-        "--ip" "172.23.53.6"
-        "--ip6" "fd00:172:23::aaaa:6"
+        "--network" "host"
       ];
     };
   };

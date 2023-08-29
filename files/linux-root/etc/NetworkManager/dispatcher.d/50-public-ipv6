@@ -1,7 +1,11 @@
-#!@bash@/bin/bash -x
+#!/bin/bash
+
+set -x
 
 umask 177
-IPFILE="/etc/unCookie/cfg/ipv6-public"
+IPFILE="/etc/unCookie/ipv6-public"
+mkdir -p $(dirname ${IPFILE})
+
 
 gen-ipv6-suffix() {
 	hd1=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')

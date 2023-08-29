@@ -26,6 +26,15 @@
     services = {
       "obs-studio-gaming" = {
         description = "OBS Studio Autostarter (gaming)";
+        path = [
+          pkgs.bash
+          pkgs.flatpak
+          pkgs.gawk
+          pkgs.procps
+          pkgs.psmisc
+          pkgs.util-linux
+          pkgs.xorg.xrandr
+        ];
         script = (builtins.readFile ../files/scripts/obs-studio-gaming.sh);
         scriptArgs = "start";
       };

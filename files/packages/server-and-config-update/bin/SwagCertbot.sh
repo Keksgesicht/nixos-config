@@ -2,5 +2,5 @@
 
 # renew SSL/TLS certificate
 podman exec \
-	swag \
+	proxy \
 	certbot renew

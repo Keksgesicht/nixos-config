@@ -62,7 +62,7 @@ rm $tmp_file_dir
 
 ### only keep newest version of nextcloud or mobile phone backups
 if [ -d "/mnt/array/appdata2/nextcloud" ]; then
-	while ! systemctl is-active unCookie-containers@nextcloud.service; do
+	while ! systemctl is-active podman-nextcloud.service; do
 		sleep 5s
 	done
 	sleep 10s

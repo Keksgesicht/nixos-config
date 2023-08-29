@@ -1,5 +1,3 @@
-# file: user/services.nix
-
 { config, pkgs, lib, ... }:
 
 {
@@ -58,6 +56,7 @@
       description = "Custom Audio Setup (pipewire)";
       path = [
         pkgs.gawk
+        pkgs.pipewire
         pkgs.pulseaudio
       ];
       after = [
@@ -79,6 +78,19 @@
       wantedBy = [
         "xdg-desktop-autostart.target"
       ];
+    };
+    # start Ferdium after init-audio
+    # Otherwise services like Discord might not be able to use audio
+    "flatpak-ferdium" = {
+      description = "Ferdium (flatpak)";
+      path = [
+        pkgs.flatpak
+      ];
+      preStart = "sleep 1s";
+      serviceConfig = {
+        ExecStart = "${pkgs.flatpak}/bin/flatpak run org.ferdium.Ferdium --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations --ozone-platform-hint=wayland";
+        ExecStop = "${pkgs.flatpak}/bin/flatpak kill org.ferdium.Ferdium";
+      };
     };
   };
 }
