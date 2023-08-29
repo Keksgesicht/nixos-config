@@ -16,6 +16,16 @@
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
+    # force specific version
+    package = pkgs.pipewire.overrideAttrs (finalAttrs: previousAttrs: {
+      version = "0.3.78";
+      src = previousAttrs.src.override {
+        rev = finalAttrs.version;
+        sha256 = "sha256-tiVuab8kugp9ZOKL/m8uZQps/pcrVihwB3rRf6SGuzc=";
+      };
+      buildInputs = previousAttrs.buildInputs ++ [ pkgs.ffado ];
+    });
+
     pulse.enable = true;
     wireplumber.enable = true;
     # If you want to use JACK applications, uncomment this
