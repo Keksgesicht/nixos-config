@@ -91,6 +91,9 @@
         ExecStart = "${pkgs.flatpak}/bin/flatpak run org.ferdium.Ferdium --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations --ozone-platform-hint=wayland";
         ExecStop = "${pkgs.flatpak}/bin/flatpak kill org.ferdium.Ferdium";
       };
+      environment = {
+        TZ = "Europe/Berlin";
+      };
     };
   };
 }
