@@ -14,6 +14,7 @@
     ./development/base-devel.nix
     ./hardware/desktop
     ./nix
+    ./nix/flakes.nix
     ./nix/upstream-23-05.nix
     ./services/system
     ./services/user/ferdium.nix

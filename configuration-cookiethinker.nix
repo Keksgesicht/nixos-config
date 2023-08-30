@@ -16,6 +16,7 @@
     ./development/base-devel.nix
     ./hardware/laptop
     ./nix
+    ./nix/flakes.nix
     ./nix/upstream-23-05.nix
     ./services/system/btrfs-snapshot.nix
     ./services/system/files-cleanup.nix
