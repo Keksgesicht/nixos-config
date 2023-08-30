@@ -11,7 +11,7 @@
   imports = [
     ./desktop
     ./desktop/gaming.nix
-    ./development/base-devel.nix
+    ./development
     ./hardware/desktop
     ./nix
     ./nix/flakes.nix

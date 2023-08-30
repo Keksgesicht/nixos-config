@@ -1,12 +1,12 @@
-# file: packages/base-devel.nix
-# desc: tools for devops
-
 { config, pkgs, ...}:
 
 {
   environment.systemPackages = with pkgs; [
     binutils
     binwalk
+    fd
+    fzf
+    git
     ldns
     lsof
     jq
@@ -17,21 +17,12 @@
     psmisc
     pstree
     pv
+    ripgrep
+    screen
     sshuttle
     strace
-    tmux
     zellij
-
-    # make signed commits
-    git
-    pinentry-qt
   ];
 
-  # make signed commits
-  services.pcscd.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    # echo "pinentry-program /run/current-system/sw/bin/pinentry-qt" > ~/.config/gnupg/gpg-agent.conf
-    pinentryFlavor = "qt";
-  };
+  programs.tmux.enable = true;
 }

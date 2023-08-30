@@ -7,6 +7,8 @@
   environment.systemPackages = with pkgs; [
     cacert.unbundled
     dig
+    ethtool
+    wakeonlan
   ];
   environment.etc = {
     # symlinks certificate for eduroam

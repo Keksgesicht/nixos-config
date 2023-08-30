@@ -13,7 +13,7 @@
 
   imports = [
     ./desktop
-    ./development/base-devel.nix
+    ./development
     ./hardware/laptop
     ./nix
     ./nix/flakes.nix
