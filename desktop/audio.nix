@@ -1,11 +1,14 @@
 { config, pkgs, lib, ... }:
 
+let
+  my-audio = pkgs.callPackage ../packages/my-audio.nix {};
+in
 {
   users.users.keks.packages = with pkgs; [
     # noise/voice filter
     rnnoise-plugin
     # (re)connect virtual devices
-    (callPackage ../packages/init-audio.nix {})
+    my-audio
   ];
 
   # Enable sound with pipewire.
@@ -34,9 +37,11 @@
   };
 
   # enable bluetooth
-  hardware.bluetooth.enable = true;
-  # not needed on KDE Plasma
-  #services.blueman.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    # https://wiki.archlinux.org/title/bluetooth#Default_adapter_power_state
+    powerOnBoot = false;
+  };
 
   environment.etc = {
     "pipewire/pipewire.conf.d/50-null-devices.conf" = {
@@ -52,12 +57,13 @@
 
   # (re)connect virtual devices
   systemd.user.services = {
-    "init-audio" = {
+    "my-audio" = {
       description = "Custom Audio Setup (pipewire)";
       path = [
         pkgs.gawk
         pkgs.pipewire
         pkgs.pulseaudio
+        pkgs.ripgrep
       ];
       after = [
         "pipewire.service"
@@ -71,15 +77,15 @@
       ];
       preStart = "sleep 3s";
       serviceConfig = {
-        ExecStart = "${pkgs.callPackage ../packages/init-audio.nix {}}/bin/init-audio.sh";
-        Type = "oneshot";
-        RemainAfterExit = "true";
+        ExecStart = "${my-audio}/bin/audio-init.sh";
+        Restart = "always";
+        Type = "exec";
       };
       wantedBy = [
         "xdg-desktop-autostart.target"
       ];
     };
-    # start Ferdium after init-audio
+    # start Ferdium after my-audio
     # Otherwise services like Discord might not be able to use audio
     "flatpak-ferdium" = {
       description = "Ferdium (flatpak)";

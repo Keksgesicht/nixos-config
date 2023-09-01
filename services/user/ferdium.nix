@@ -7,7 +7,7 @@
       "ferdium" = {
         description = "Ferdium (flatpak)";
         after = [
-          "init-audio.service"
+          "my-audio.service"
         ];
         serviceConfig = {
           ExecStartPre = "sleep 1s";

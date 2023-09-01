@@ -1,11 +1,11 @@
 { stdenv, lib, bash, subversion }:
 
-# nix-build -E 'with import <nixpkgs> {}; callPackage ./packages/pkgs-init-audio.nix {}'
+# nix-build -E 'with import <nixpkgs> {}; callPackage ./packages/my-audio.nix {}'
 stdenv.mkDerivation {
-  pname = "init-audio";
-  name = "init-audio";
+  pname = "my-audio";
+  name = "my-audio";
   version = "1.0.0";
-  src = ../files/packages/init-audio;
+  src = ../files/packages/my-audio;
 
   buildInputs = [ bash subversion ];
   installPhase = ''
