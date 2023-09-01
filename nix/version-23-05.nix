@@ -1,6 +1,3 @@
-# file: nix/upstream.nix
-# desc: NixOS version
-
 { config, pkgs, ... }:
 
 {

@@ -16,8 +16,7 @@
     ./development
     ./hardware/laptop
     ./nix
-    ./nix/flakes.nix
-    ./nix/upstream-23-05.nix
+    ./nix/version-23-05.nix
     ./services/system/btrfs-snapshot.nix
     ./services/system/files-cleanup.nix
     ./services/system/wireguard.nix
