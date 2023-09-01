@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
 let
-  tuxedo = import (builtins.fetchTarball "https://github.com/blitz/tuxedo-nixos/archive/master.tar.gz");
+  # $AUTH nix-channel --add https://github.com/blitz/tuxedo-nixos/archive/master.tar.gz tuxedo
+  # $AUTH nix-channel --update
+  tuxedo = import <tuxedo>;
 in
 {
   imports = [
