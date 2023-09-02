@@ -1,6 +1,29 @@
 { config, pkgs, ...}:
 
 {
+  systemd = {
+    services."container-image-updater@proxy" = {
+      overrideStrategy = "asDropin";
+      path = [
+        pkgs.jq
+        pkgs.skopeo
+        pkgs.unixtools.xxd
+      ];
+      environment = {
+        IMAGE_UPSTREAM_HOST = "docker.io";
+        IMAGE_UPSTREAM_NAME = "linuxserver/swag";
+        IMAGE_UPSTREAM_TAG = "latest";
+        IMAGE_FINAL_NAME = "linuxserver-swag";
+        IMAGE_FINAL_TAG = "latest";
+      };
+    };
+    timers."container-image-updater@proxy" = {
+      enable = true;
+      overrideStrategy = "asDropin";
+      wantedBy = [ "timers.target" ];
+    };
+  };
+
   virtualisation.oci-containers.containers = {
     proxy = {
       autoStart = true;
@@ -11,8 +34,8 @@
         finalImageName = "localhost/linuxserver-swag";
         finalImageTag = "latest";
         imageName = "linuxserver/swag";
-        imageDigest = "sha256:89b5c73c7cf33eb3fb301ab28fdaa785be3640ea4156efd1c35cdb3e6d1aeac4";
-        sha256 = "sha256-ANSs+yFQlic7EnlGiGABbI2It1dbPUxFrVq7uhCxYZg=";
+        imageDigest = (import "/etc/unCookie/containers/hashes/linuxserver-swag/digest");
+        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/linuxserver-swag/nix-store");
       };
 
       environment = {

@@ -1,6 +1,29 @@
 { config, pkgs, ...}:
 
 {
+  systemd = {
+    services."container-image-updater@lancache" = {
+      overrideStrategy = "asDropin";
+      path = [
+        pkgs.jq
+        pkgs.skopeo
+        pkgs.unixtools.xxd
+      ];
+      environment = {
+        IMAGE_UPSTREAM_HOST = "docker.io";
+        IMAGE_UPSTREAM_NAME = "lancachenet/monolithic";
+        IMAGE_UPSTREAM_TAG = "latest";
+        IMAGE_FINAL_NAME = "lancache-monolithic";
+        IMAGE_FINAL_TAG = "latest";
+      };
+    };
+    timers."container-image-updater@lancache" = {
+      enable = true;
+      overrideStrategy = "asDropin";
+      wantedBy = [ "timers.target" ];
+    };
+  };
+
   virtualisation.oci-containers.containers = {
     lancache = {
       autoStart = true;
@@ -12,9 +35,9 @@
       imageFile = pkgs.dockerTools.pullImage {
         finalImageName = "localhost/lancache-monolithic";
         finalImageTag = "latest";
-        imageName = "lancachenet/monolithic";
-        imageDigest = "sha256:b72d6b909b9e3fb7b521e90aab97479f7977bf6bee97e89a095e1afdbd6d3b85";
-        sha256 = "sha256-LdFeYHJrIM+BAN+oAMQ69oTfP7/KLvOF0HPknD/ZFWo=";
+        imageName = "docker.io/lancachenet/monolithic";
+        imageDigest = (import "/etc/unCookie/containers/hashes/lancache-monolithic/digest");
+        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/lancache-monolithic/nix-store");
       };
 
       environment = {

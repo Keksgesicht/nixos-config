@@ -1,6 +1,29 @@
 { config, pkgs, ...}:
 
 {
+  systemd = {
+    services."container-image-updater@unbound" = {
+      overrideStrategy = "asDropin";
+      path = [
+        pkgs.jq
+        pkgs.skopeo
+        pkgs.unixtools.xxd
+      ];
+      environment = {
+        IMAGE_UPSTREAM_HOST = "docker.io";
+        IMAGE_UPSTREAM_NAME = "alpinelinux/unbound";
+        IMAGE_UPSTREAM_TAG = "latest";
+        IMAGE_FINAL_NAME = "alpinelinux-unbound";
+        IMAGE_FINAL_TAG = "latest";
+      };
+    };
+    timers."container-image-updater@unbound" = {
+      enable = true;
+      overrideStrategy = "asDropin";
+      wantedBy = [ "timers.target" ];
+    };
+  };
+
   virtualisation.oci-containers.containers = {
     unbound = {
       autoStart = true;
@@ -9,14 +32,15 @@
       # https://ryantm.github.io/nixpkgs/builders/images/dockertools/
       image = "localhost/unbound:latest";
       imageFile = pkgs.dockerTools.buildImage {
-        name = "unbound";
+        name = "localhost/unbound";
         tag = "latest";
 
         fromImage = pkgs.dockerTools.pullImage {
-          imageName = "alpinelinux/unbound";
+          finalImageName = "localhost/alpinelinux-unbound";
           finalImageTag = "latest";
-          imageDigest = "sha256:a819ea26b0e15f79304b2a03096c8c1b474358cac1d6fe6b7c1351eefec067d7";
-          sha256 = "sha256-lKbQ4vTDh0FMelC6XM0663orz8iL4y9/1foVONshGzw=";
+          imageName = "docker.io/alpinelinux/unbound";
+          imageDigest = (import "/etc/unCookie/containers/hashes/alpinelinux-unbound/digest");
+          sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/alpinelinux-unbound/nix-store");
         };
 
         copyToRoot = pkgs.buildEnv {

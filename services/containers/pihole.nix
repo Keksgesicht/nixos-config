@@ -1,6 +1,29 @@
 { config, pkgs, ...}:
 
 {
+  systemd = {
+    services."container-image-updater@pihole" = {
+      overrideStrategy = "asDropin";
+      path = [
+        pkgs.jq
+        pkgs.skopeo
+        pkgs.unixtools.xxd
+      ];
+      environment = {
+        IMAGE_UPSTREAM_HOST = "docker.io";
+        IMAGE_UPSTREAM_NAME = "pihole/pihole";
+        IMAGE_UPSTREAM_TAG = "latest";
+        IMAGE_FINAL_NAME = "pihole";
+        IMAGE_FINAL_TAG = "latest";
+      };
+    };
+    timers."container-image-updater@pihole" = {
+      enable = true;
+      overrideStrategy = "asDropin";
+      wantedBy = [ "timers.target" ];
+    };
+  };
+
   virtualisation.oci-containers.containers = {
     pihole = {
       autoStart = true;
@@ -12,9 +35,9 @@
       imageFile = pkgs.dockerTools.pullImage {
         finalImageName = "localhost/pihole";
         finalImageTag = "latest";
-        imageName = "pihole/pihole";
-        imageDigest = "sha256:8bc45afe1625487aef62859a5bf02f3d7b3429e480f4e29e4689635ab86ec312";
-        sha256 = "sha256-AHNIbf/rvg26XhLzIxJgbhDuOUNNglB5rH9BaoIa/6s=";
+        imageName = "docker.io/pihole/pihole";
+        imageDigest = (import "/etc/unCookie/containers/hashes/pihole/digest");
+        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/pihole/nix-store");
       };
 
       ports = [

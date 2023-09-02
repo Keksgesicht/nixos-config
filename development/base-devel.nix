@@ -21,6 +21,7 @@
     screen
     sshuttle
     strace
+    unixtools.xxd
     zellij
   ];
 

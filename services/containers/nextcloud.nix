@@ -1,6 +1,53 @@
 { config, pkgs, ...}:
 
 {
+  systemd = {
+    services = {
+      "container-image-updater@nextcloud" = {
+        overrideStrategy = "asDropin";
+        path = [
+          pkgs.jq
+          pkgs.skopeo
+          pkgs.unixtools.xxd
+        ];
+        environment = {
+          IMAGE_UPSTREAM_HOST = "docker.io";
+          IMAGE_UPSTREAM_NAME = "nextcloud";
+          IMAGE_UPSTREAM_TAG = "stable";
+          IMAGE_FINAL_NAME = "nextcloud";
+          IMAGE_FINAL_TAG = "stable";
+        };
+      };
+      "container-image-updater@nextcloud-db" = {
+        overrideStrategy = "asDropin";
+        path = [
+          pkgs.jq
+          pkgs.skopeo
+          pkgs.unixtools.xxd
+        ];
+        environment = {
+          IMAGE_UPSTREAM_HOST = "docker.io";
+          IMAGE_UPSTREAM_NAME = "mariadb";
+          IMAGE_UPSTREAM_TAG = "10.5";
+          IMAGE_FINAL_NAME = "nextcloud-db";
+          IMAGE_FINAL_TAG = "10.5";
+        };
+      };
+    };
+    timers = {
+      "container-image-updater@nextcloud" = {
+        enable = true;
+        overrideStrategy = "asDropin";
+        wantedBy = [ "timers.target" ];
+      };
+      "container-image-updater@nextcloud-db" = {
+        enable = true;
+        overrideStrategy = "asDropin";
+        wantedBy = [ "timers.target" ];
+      };
+    };
+  };
+
   virtualisation.oci-containers.containers = {
     nextcloud = {
       autoStart = true;
@@ -14,8 +61,8 @@
         finalImageName = "localhost/nextcloud";
         finalImageTag = "stable";
         imageName = "nextcloud";
-        imageDigest = "sha256:7a95fb31d906183b7181871d180b85f2195da6ab6ed7e23dbd77e440e0d1f4a2";
-        sha256 = "sha256-/lfnKy9cpay7vIhaNwrKEi2mnfMSep1RWd0WnHOIiyw=";
+        imageDigest = (import "/etc/unCookie/containers/hashes/nextcloud/digest");
+        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/nextcloud/nix-store");
       };
 
       environment = {
@@ -66,8 +113,8 @@
         finalImageName = "localhost/nextcloud-db";
         finalImageTag = "10.5";
         imageName = "mariadb";
-        imageDigest = "sha256:e16184ec37826ccdc2ea104211196623177232bfb166f60048832ea5e75975f4";
-        sha256 = "sha256-lDy+gFVOt26ocgafLEckULMKXwmqLkMvBjCER53t2sk=";
+        imageDigest = (import "/etc/unCookie/containers/hashes/nextcloud-db/digest");
+        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/nextcloud-db/nix-store");
       };
 
       cmd = [

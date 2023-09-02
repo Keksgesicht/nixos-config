@@ -17,14 +17,30 @@
     skopeo
   ];
 
-  /*
-   * https://github.com/containers/podman/issues/17609
-   * podman pull docker.io/pihole/pihole:latest
-   * podman inspect docker.io/pihole/pihole:latest | jq '.[]["Digest"]'
-   * skopeo inspect docker://docker.io/alpinelinux/unbound:latest | jq '.Digest'
-   *
-   * https://nixos.wiki/wiki/Docker#How_to_calculate_the_sha256_of_a_pulled_image
-   * skopeo copy docker://alpinelinux/unbound docker-archive:///tmp/image.tgz:alpinelinux/unbound:latest
-   * nix-hash --base32 --flat --type sha256 /tmp/image.tgz
-   */
+  systemd = {
+    services."container-image-updater@" = {
+      description = "Bump up container image version hashes [%i]";
+      serviceConfig = {
+        Type      = "oneshot";
+        ExecStart = "${pkgs.callPackage ../../packages/container-image-updater.nix {}}/bin/get-container-image-hash.sh";
+
+        PrivateTmp   = "yes";
+        ProtectHome  = "yes";
+        ProtectClock = "yes";
+        ProtectProc  = "invisible";
+
+        ReadOnlyPaths  = "/";
+        ReadWritePaths = "/etc/unCookie/containers/hashes";
+        #TemporaryFileSystem = "/etc:ro";
+      };
+    };
+    timers."container-image-updater@" = {
+      description = "Automatic container image version updater [%i]";
+      timerConfig = {
+        OnCalendar = "*-*-* 06:42:00";
+        RandomizedDelaySec = "42min";
+        Persistent = "true";
+      };
+    };
+  };
 }

@@ -70,7 +70,8 @@ fi
 
 
 # add scripts to PATH
-if [[ -d ${OLDHOME}/.local/bin ]]; then
+if [[ -d ${OLDHOME}/.local/bin ]] \
+&& ! echo $PATH | grep -q "${OLDHOME}/.local/bin"; then
   PATH="${PATH}:${OLDHOME}/.local/bin"
 fi
 

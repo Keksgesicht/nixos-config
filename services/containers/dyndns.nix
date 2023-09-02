@@ -1,6 +1,29 @@
 { config, pkgs, ...}:
 
 {
+  systemd = {
+    services."container-image-updater@dyndns" = {
+      overrideStrategy = "asDropin";
+      path = [
+        pkgs.jq
+        pkgs.skopeo
+        pkgs.unixtools.xxd
+      ];
+      environment = {
+        IMAGE_UPSTREAM_HOST = "docker.io";
+        IMAGE_UPSTREAM_NAME = "hotio/cloudflareddns";
+        IMAGE_UPSTREAM_TAG = "latest";
+        IMAGE_FINAL_NAME = "dyndns";
+        IMAGE_FINAL_TAG = "latest";
+      };
+    };
+    timers."container-image-updater@dyndns" = {
+      enable = true;
+      overrideStrategy = "asDropin";
+      wantedBy = [ "timers.target" ];
+    };
+  };
+
   virtualisation.oci-containers.containers = {
     ddns-v4 = {
       autoStart = true;
@@ -10,9 +33,9 @@
       imageFile = pkgs.dockerTools.pullImage {
         finalImageName = "localhost/dyndns";
         finalImageTag = "latest";
-        imageName = "hotio/cloudflareddns";
-        imageDigest = "sha256:389d6a4d0508695d981950cf28a7e61118f378d5e1f4d033fb3fb7db793f0d7d";
-        sha256 = "sha256-ffTLfzIZPP7HA8WVZyCdWUuHR0pNxHB4t3i0sMo0Z2c=";
+        imageName = "docker.io/hotio/cloudflareddns";
+        imageDigest = (import "/etc/unCookie/containers/hashes/dyndns/digest");
+        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/dyndns/nix-store");
       };
 
       environment = {
