@@ -48,10 +48,18 @@ in
       source = ../files/linux-root/etc/pipewire/pipewire.d/50-null-devices.conf;
     };
     "pipewire/pipewire.conf.d/60-virtual-sinks.conf" = {
+      source = ../files/linux-root/etc/pipewire/pipewire.d/60-virtual-sinks.conf;
+    };
+    "pipewire/pipewire.conf.d/60-mic-loop.conf" = {
+      source = ../files/linux-root/etc/pipewire/pipewire.d/60-mic-loop.conf;
+      enable = (config.networking.hostName == "cookieclicker");
+    };
+    "pipewire/pipewire.conf.d/60-noise-filter.conf" = {
       source = pkgs.substituteAll {
-        src = ../files/linux-root/etc/pipewire/pipewire.d/60-virtual-sinks.conf;
+        src = ../files/linux-root/etc/pipewire/pipewire.d/60-noise-filter.conf;
         pkgRnnoisePlugin = "${pkgs.rnnoise-plugin}";
       };
+      enable = (config.networking.hostName == "cookieclicker");
     };
   };
 

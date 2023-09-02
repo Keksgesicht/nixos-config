@@ -6,12 +6,16 @@ source ${work_dir}/../lib/settings.sh
 ${work_dir}/audio-setup-hw-sink.sh
 
 ### loopback
-link_nodes 'mic_loop_source' 'virt_mic_sink'
-link_nodes 'mic_loop_source' 'echo_out_sink'
+if [ "$(cat /etc/hostname)" = "cookieclicker" ]; then
+	link_nodes 'mic_loop_source' 'virt_mic_sink'
+	link_nodes 'mic_loop_source' 'echo_out_sink'
+fi
 
 ### filter to output
-link_nodes 'media_filter_source' 'echo_out_sink'
-link_nodes 'chat_filter_source' 'echo_out_sink'
+if [ "$(cat /etc/hostname)" = "cookieclicker" ]; then
+	link_nodes 'media_filter_source' 'echo_out_sink'
+	link_nodes 'chat_filter_source' 'echo_out_sink'
+fi
 link_nodes 'recording_out_source' 'echo_out_sink'
 
 
@@ -23,9 +27,13 @@ done
 ### mute void sink
 pactl set-sink-mute 'void_sink' 1
 
-unlink_inputs 'mic_filter_sink'
-link_nodes 'echo_in_source' 'mic_filter_sink'
-link_nodes 'mic_filter_source' 'virt_mic_sink'
+if [ "$(cat /etc/hostname)" = "cookieclicker" ]; then
+	unlink_inputs 'mic_filter_sink'
+	link_nodes 'echo_in_source' 'mic_filter_sink'
+	link_nodes 'mic_filter_source' 'virt_mic_sink'
+else
+	link_nodes 'echo_in_source' 'virt_mic_sink'
+fi
 ${work_dir}/audio-setup-hw-source.sh
 
 
