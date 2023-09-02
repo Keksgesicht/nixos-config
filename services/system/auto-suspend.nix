@@ -25,15 +25,9 @@
       LocalUsers = {
         enabled = true;
         class = "LogindSessionsIdle";
-        types = "tty,x11,wayland";
+        types = "tty,wayland";
         states = "active,online";
         classes = "user";
-      };
-
-      # Keep SSH session alive
-      SSH = {
-        class = "ActiveConnection";
-        ports = "22";
       };
     };
   };
