@@ -37,7 +37,6 @@ flatpak install -y 'flathub' \
 
 # hardware
 flatpak install -y 'flathub' \
-	org.freedesktop.Piper \
 	org.gnome.Firmware \
 	org.gnome.meld
 

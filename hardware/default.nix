@@ -3,10 +3,6 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./services.nix
-  ];
-
   environment.systemPackages = with pkgs; [
     compsize
     efibootmgr
@@ -19,4 +15,10 @@
     pciutils
     usbutils
   ];
+
+  boot.kernelPackages =
+    if (config.services.xserver.enable) then
+      pkgs.linuxPackages_latest
+    else
+      pkgs.linuxPackages;
 }

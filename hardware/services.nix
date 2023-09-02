@@ -38,9 +38,4 @@
     #extraRemotes = [];
     #EspLocation = /boot;
   };
-
-  # configuring gaming mice
-  services.ratbagd = {
-    enable = true;
-  };
 }
