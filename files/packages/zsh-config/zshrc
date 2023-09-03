@@ -78,7 +78,3 @@ fi
 # unbind insert for overtype mode
 # https://unix.stackexchange.com/questions/320326/delete-keymap-and-completely-disable-key-in-zsh
 bindkey -s '\e[2~' ''
-
-# nix stuff on other distros
-if [ -e /home/keks/.nix-profile/etc/profile.d/nix.sh ]; then . /home/keks/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-export NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/master.tar.gz

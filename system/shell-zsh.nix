@@ -8,19 +8,18 @@ let
 in
 {
   environment.systemPackages = with pkgs; [
-    zsh
     zsh-autosuggestions
     zsh-history-substring-search
     zsh-syntax-highlighting
     zsh-powerlevel10k
-    zsh-nix-shell
   ];
 
   programs.zsh = {
     enable = true;
     interactiveShellInit = ''
-      touch ~/.zshrc
+      truncate -s 0 ~/.zshrc
       export ZSHCFGDIR=${my_zsh_config}
+      source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
     '';
   };
 
