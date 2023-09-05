@@ -20,7 +20,7 @@ disk_efi() {
 	echo n
 	echo 1
 	echo 2048
-	echo +512M
+	echo +1G
 	echo t
 	echo uefi
 	echo w
