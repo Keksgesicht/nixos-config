@@ -90,6 +90,25 @@
     ;
   };
 
+  systemd = {
+    services."ipv6-prefix-update" = {
+      enable = (config.networking.hostName == "cookieclicker");
+      description = "Check whether IPv6 prefix has been updated and adjust static suffix to new IP";
+      path = with pkgs; [ coreutils gawk procps ];
+      script = (builtins.readFile ../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6);
+      scriptArgs = "enp4s0 prefix";
+    };
+    timers."ipv6-prefix-update" = {
+      enable = (config.networking.hostName == "cookieclicker");
+      description = "regular IPv6 prefix update check";
+      timerConfig = {
+        OnStartupSec = "42min";
+        OnUnitInactiveSec = "1000sec";
+      };
+      wantedBy = [ "timers.target" ];
+    };
+  };
+
   # enable mDNS responder
   services.avahi.enable = true;
 

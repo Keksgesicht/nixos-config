@@ -106,6 +106,12 @@ enp4s0)
 		# update ipv6 address
 		update-ipv6
 	;;
+	prefix)
+		# update ipv6 address
+		if ip addr show ${IFLINK} | grep -q 'deprecated'; then
+			set-ipv6-token
+		fi
+	;;
 	esac
 ;;
 esac
