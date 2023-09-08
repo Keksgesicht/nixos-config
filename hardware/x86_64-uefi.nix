@@ -20,6 +20,7 @@
         "tpm_tis"
       ];
       kernelModules = [ ];
+      systemd.enable = true;
     };
     kernelModules = [
       "kvm-amd"

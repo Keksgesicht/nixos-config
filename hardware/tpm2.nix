@@ -1,6 +1,10 @@
 { config, pkgs, ...}:
 
 {
+  environment.systemPackages = with pkgs; [
+    tpm2-tools
+  ];
+
   # https://nixos.wiki/wiki/TPM
   security.tpm2 = {
     enable = true;
