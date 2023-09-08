@@ -94,7 +94,7 @@
     services."ipv6-prefix-update" = {
       enable = (config.networking.hostName == "cookieclicker");
       description = "Check whether IPv6 prefix has been updated and adjust static suffix to new IP";
-      path = with pkgs; [ coreutils gawk procps ];
+      path = with pkgs; [ coreutils iproute2 gawk procps ];
       script = (builtins.readFile ../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6);
       scriptArgs = "enp4s0 prefix";
     };

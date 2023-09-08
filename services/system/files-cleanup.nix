@@ -7,6 +7,7 @@
         description = "unCookie Cleanup";
         path = [
           pkgs.gawk
+          pkgs.moreutils
           pkgs.plocate
           pkgs.podman
         ];
@@ -14,8 +15,8 @@
           "mnt-cache.mount"
           "mnt-array.mount"
           "mnt-ram.mount"
-          "backup_snapshot@cache.service"
-          "backup_snapshot@array.service"
+          "backup-snapshot@cache.service"
+          "backup-snapshot@array.service"
         ];
         serviceConfig = {
           Type = "oneshot";

@@ -1,6 +1,10 @@
 { config, pkgs, ...}:
 
 {
+  environment.systemPackages = with pkgs; [
+    smartmontools
+  ];
+
   # monitor disk status
   services.smartd = {
     enable = true;
