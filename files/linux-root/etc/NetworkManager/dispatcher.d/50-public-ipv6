@@ -1,43 +1,13 @@
 #!/bin/bash
 
-umask 177
 MY_IP_SUFFIX="3581:150:0:1"
-IPFILE="/etc/unCookie/ipv6-public"
-mkdir -p $(dirname ${IPFILE})
-
 
 gen-ipv6-suffix() {
 	hd1=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')
 	hd2=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')
 	hd3=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')
 	hd4=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')
-	echo "::${hd1}:${hd2}:${hd3}:${hd4}/64" | \
-		tr '[:upper:]' '[:lower:]' | \
-		tee ${IPFILE}
-}
-
-check-ipv6-file() {
-	# check if already generate in the last day
-	# https://stackoverflow.com/questions/32019432/if-file-modification-date-is-older-than-n-days
-	if [ -f ${IPFILE} ]; then
-		file_time=$(date -r ${IPFILE} +%Y-%m-%d)
-		today=$(date +%Y-%m-%d)
-		if ! [ ${file_time} = ${today} ]; then
-			gen-ipv6-suffix >/dev/null
-		fi
-	else
-		gen-ipv6-suffix >/dev/null
-	fi
-}
-
-get-ipv6-token() {
-	check-ipv6-file
-	IPV6_ADDR=$(cat ${IPFILE})
-	if ! echo ${IPV6_ADDR} | grep -q -E ':(:[0-9a-f]{1,4}){4}/64'; then
-		gen-ipv6-suffix
-	else
-		echo ${IPV6_ADDR}
-	fi
+	echo "::${hd1}:${hd2}:${hd3}:${hd4}/64" | tr '[:upper:]' '[:lower:]'
 }
 
 has-ipv6-token() {
@@ -64,24 +34,23 @@ set-ipv6-token() {
 	fi
 
 	# set custom suffix for LAN network adapter
-	# combined with /etc/sysctl.d/50-ipv6-router-advertisement.conf
 	# https://bbs.archlinux.org/viewtopic.php?id=244359
-	IPTOKEN=$(get-ipv6-token)
+	IPTOKEN=$(gen-ipv6-suffix)
 	ip token set ${IPTOKEN} dev ${IFLINK}
 
 	# try addresses until nobody else in the network uses the same
-	if ! has-ipv6-token; then
+	while ! has-ipv6-token; do
 		IPTOKEN=$(get-ipv6-token)
 		ip token set ${IPTOKEN} dev ${IFLINK}
-	fi
+	done
 }
 
 update-ipv6() {
-	# update ipv6 address
 	if ! ip addr show ${IFLINK} | grep -qE ${MY_IP_SUFFIX}; then
 		set-ipv6-token
-	fi
-	if ! ip token get dev ${IFLINK} | grep -qE '::[0-9a-f]'; then
+	elif ! ip token get dev ${IFLINK} | grep -qE '::[0-9a-f]'; then
+		set-ipv6-token
+	elif ip addr show ${IFLINK} | grep -q 'deprecated'; then
 		set-ipv6-token
 	fi
 }
@@ -103,11 +72,10 @@ enp4s0)
 		update-ipv6
 	;;
 	dhcp6-change)
-		# update ipv6 address
 		update-ipv6
 	;;
 	prefix)
-		# update ipv6 address
+		# as this gets called by a timer, only update when IPs are marked as "deprecated"
 		if ip addr show ${IFLINK} | grep -q 'deprecated'; then
 			set-ipv6-token
 		fi
