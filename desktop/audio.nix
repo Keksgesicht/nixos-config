@@ -5,6 +5,10 @@ let
 in
 {
   users.users.keks.packages = with pkgs; [
+    patchage
+    pavucontrol
+    pulseaudio
+    qpwgraph
     # noise/voice filter
     rnnoise-plugin
     # (re)connect virtual devices
@@ -19,18 +23,17 @@ in
     enable = true;
     # force specific version
     package = pkgs.pipewire.overrideAttrs (finalAttrs: previousAttrs: {
-      version = "0.3.78";
+      version = "0.3.79";
       src = previousAttrs.src.override {
         rev = finalAttrs.version;
-        sha256 = "sha256-tiVuab8kugp9ZOKL/m8uZQps/pcrVihwB3rRf6SGuzc=";
+        sha256 = "sha256-pqs991pMqz3IQE+NUk0VNzZS4ExwfoZqBQDWBSGdWcs=";
       };
       buildInputs = previousAttrs.buildInputs ++ [ pkgs.ffado ];
     });
 
+    jack.enable = true;
     pulse.enable = true;
     wireplumber.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
 
     alsa.enable = true;
     alsa.support32Bit = true;
@@ -90,7 +93,7 @@ in
         Type = "exec";
       };
       wantedBy = [
-        "xdg-desktop-autostart.target"
+        "pipewire.service"
       ];
     };
     # start Ferdium after my-audio

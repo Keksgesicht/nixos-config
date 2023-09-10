@@ -2,13 +2,9 @@
 
 {
   users.users.keks.packages = with pkgs; [
-    pavucontrol
     pdfgrep
-    pulseaudio
     pympress
-    qpwgraph
     qrencode
-    ventoy
     waypipe
     wireguard-tools
     xorg.xlsclients

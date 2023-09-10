@@ -7,9 +7,10 @@
     fd
     fzf
     git
+    imagemagick
+    jq
     ldns
     lsof
-    jq
     moar
     neovim
     nix-index
