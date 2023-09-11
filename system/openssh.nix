@@ -1,4 +1,4 @@
-{ config, ...}:
+{ config, lib, ...}:
 
 {
   # Enable the OpenSSH daemon.
@@ -6,11 +6,8 @@
     enable =
       if (config.networking.hostName == "nixos-installer")
       || (config.networking.hostName == "cookieclicker")
-      then
-        true
-      else
-        false
-    ;
+      then lib.mkForce true
+      else lib.mkForce false;
     listenAddresses = [
       {
         addr = "0.0.0.0";

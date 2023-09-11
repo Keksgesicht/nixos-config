@@ -12,7 +12,7 @@
    */
 
   # install KDE package manager
-  users.users.keks.packages = with pkgs; [
+  users.users."keks".packages = with pkgs; [
     discover
   ];
   # use PackageKit for nixpkgs in Discover

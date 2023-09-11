@@ -1,7 +1,7 @@
 { config, pkgs, ...}:
 
 {
-  users.users.keks.packages = with pkgs; [
+  users.users."keks".packages = with pkgs; [
     pdfgrep
     pympress
     qrencode

@@ -39,7 +39,7 @@
     plasma-browser-integration
   ];
 
-  users.users.keks.packages = with pkgs.libsForQt5; [
+  users.users."keks".packages = with pkgs.libsForQt5; [
     # use digital clock with PIM plugin
     akonadi-calendar
     kdepim-addons

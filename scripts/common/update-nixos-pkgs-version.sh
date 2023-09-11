@@ -2,6 +2,7 @@
 
 if [ -z "$1" ]; then
 	echo "no version specified"
+	exit 1
 fi
 
 MY_NIX_VER="$1"
