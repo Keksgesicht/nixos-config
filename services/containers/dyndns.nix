@@ -68,6 +68,13 @@
       dependsOn = [];
 
       image = "localhost/dyndns:latest";
+      imageFile = pkgs.dockerTools.pullImage {
+        finalImageName = "localhost/dyndns";
+        finalImageTag = "latest";
+        imageName = "docker.io/hotio/cloudflareddns";
+        imageDigest = (import "/etc/unCookie/containers/hashes/dyndns/digest");
+        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/dyndns/nix-store");
+      };
 
       environment = {
         TZ = "Europe/Berlin";

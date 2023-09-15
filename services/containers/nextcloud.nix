@@ -93,6 +93,13 @@
       ];
 
       image = "localhost/nextcloud:stable";
+      imageFile = pkgs.dockerTools.pullImage {
+        finalImageName = "localhost/nextcloud";
+        finalImageTag = "stable";
+        imageName = "nextcloud";
+        imageDigest = (import "/etc/unCookie/containers/hashes/nextcloud/digest");
+        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/nextcloud/nix-store");
+      };
 
       entrypoint = "/cron.sh";
       environment = {
