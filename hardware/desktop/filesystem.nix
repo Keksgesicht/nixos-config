@@ -115,6 +115,14 @@
         "compress=zstd:3"
       ];
     };
+
+    "/mnt/backup/USB/data" = {
+      device = "/dev/mapper/usb-backup";
+      fsType = "btrfs";
+      options = [
+        "noauto"
+      ];
+    };
   };
 
   swapDevices = [

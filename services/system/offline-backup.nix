@@ -15,7 +15,7 @@
         };
         serviceConfig = {
           Type = "exec";
-          ExecStart = "${pkgs.callPackage ../../packages/btrfs-snapshot.nix {}}/bin/backup-snapshot.sh %i";
+          ExecStart = "${pkgs.callPackage ../../packages/offline-backup.nix {}}/bin/offline-backup.sh %i";
 
           PrivateTmp   = "yes";
           ProtectHome  = "yes";
