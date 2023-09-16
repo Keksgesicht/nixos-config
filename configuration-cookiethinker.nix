@@ -24,6 +24,5 @@
     ./system/container.nix
     ./system/networking-desktop.nix
     ./system/networking-desktop-secrets.nix
-    ./system/qemu-user-binfmt.nix
   ];
 }
