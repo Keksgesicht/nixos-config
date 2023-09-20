@@ -1,0 +1,27 @@
+[connection]
+id=nach Hause telefonieren
+uuid=628378cf-415b-497a-856e-d1dce1894286
+type=vpn
+permissions=user:keks:;
+
+[vpn]
+IKE DH Group=dh2
+IPSec ID=@username@
+IPSec gateway=@hostname@
+IPSec secret-flags=1
+Local Port=0
+NAT Traversal Mode=natt
+Perfect Forward Secrecy=server
+Vendor=cisco
+Xauth password-flags=1
+Xauth username=@username@
+service-type=org.freedesktop.NetworkManager.vpnc
+
+[ipv4]
+dns=192.168.178.150;192.168.178.23;
+ignore-auto-dns=true
+method=auto
+
+[ipv6]
+addr-gen-mode=default
+method=auto
