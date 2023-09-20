@@ -3,11 +3,11 @@
 let
   # $AUTH nix-channel --add https://github.com/blitz/tuxedo-nixos/archive/master.tar.gz tuxedo
   # $AUTH nix-channel --update
-  tuxedo = import <tuxedo>;
+  #tuxedo = import <tuxedo>;
 in
 {
   imports = [
-    tuxedo.module
+    #tuxedo.module
   ];
 
   # https://nixos.wiki/wiki/TUXEDO_Devices

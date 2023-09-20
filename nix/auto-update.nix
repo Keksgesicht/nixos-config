@@ -1,10 +1,12 @@
-{ config, ... }:
+{ config, inputs, ... }:
 
 {
+  # https://nixos.wiki/wiki/Automatic_system_upgrades
   system.autoUpgrade = {
     enable = true;
     dates = "02:22";
     randomizedDelaySec = "123min";
+
     operation =
       if (config.services.xserver.enable) then "boot"
       else "switch";
@@ -13,5 +15,12 @@
       lower = "02:00";
       upper = "07:00";
     };
+
+    flake = inputs.self.outPath;
+    flags = [
+      "--update-input" "nixpkgs"
+      "-L" # print build logs
+      "--impure" # using absolute paths in config
+    ];
   };
 }
