@@ -18,8 +18,4 @@ in
     enable = true;
     pinentryFlavor = "qt";
   };
-  environment.etc."gnupg/gpg-agent.conf".text =
-    lib.optionalString (gpg-cfg.agent.pinentryFlavor != null) ''
-    pinentry-program ${pkgs.pinentry.${gpg-cfg.agent.pinentryFlavor}}/bin/pinentry
-  '';
 }

@@ -81,7 +81,7 @@
   services.locate = {
     enable = true;
     interval = "08:15";
-    locate = pkgs.plocate;
+    package = pkgs.plocate;
     localuser = null;
     pruneNames = [
       # NixOS default

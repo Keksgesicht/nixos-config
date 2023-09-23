@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{ config, pkgs, ... }:
 
 let
   my-audio = pkgs.callPackage ../packages/my-audio.nix {};
@@ -21,13 +21,9 @@ in
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
-    # force specific version
-    package = pkgs-unstable.pipewire;
-
     jack.enable = true;
     pulse.enable = true;
     wireplumber.enable = true;
-
     alsa.enable = true;
     alsa.support32Bit = true;
   };

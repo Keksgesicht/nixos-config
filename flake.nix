@@ -1,26 +1,25 @@
 {
   inputs = rec {
-    nixpkgs-23-05.url = "nixpkgs/nixos-23.05";
-    nixpkgs-stable = nixpkgs-23-05;
+    nixpkgs-stable.url = "nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
-    nixpkgs = nixpkgs-stable;
+
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
-      inputs.nixpkgs.follows = "nixpkgs";
+      #url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     tuxedo-nixos = {
       url = "github:blitz/tuxedo-nixos";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 
   outputs = {
-    self, nixpkgs,
-    nixpkgs-23-05,
+    self,
     nixpkgs-stable,
     nixpkgs-unstable,
     home-manager,
@@ -28,8 +27,9 @@
     tuxedo-nixos
   }@inputs: {
     nixosConfigurations = {
+
       # sudo nixos-rebuild test -L --impure --flake .
-      "cookieclicker" = nixpkgs.lib.nixosSystem rec {
+      "cookieclicker" = nixpkgs-unstable.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs;
@@ -44,7 +44,8 @@
           lanzaboote.nixosModules.lanzaboote
         ];
       };
-      "cookiethinker" = nixpkgs.lib.nixosSystem rec {
+
+      "cookiethinker" = nixpkgs-unstable.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs;
@@ -60,8 +61,9 @@
           lanzaboote.nixosModules.lanzaboote
         ];
       };
+
       # nix build ."#nixosConfigurations".pihole."config.system.build.toplevel" --impure
-      "pihole" = nixpkgs.lib.nixosSystem {
+      "pihole" = nixpkgs-stable.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = {
           inherit inputs;
@@ -71,19 +73,20 @@
         ];
       };
       # nix build ."#nixosConfigurations".pihole-sd-card."config.system.build.sdImage" --impure
-      "pihole-sd-card" = nixpkgs.lib.nixosSystem {
+      "pihole-sd-card" = nixpkgs-stable.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = {
           inherit inputs;
         };
         modules = [
           ./machines/pihole.nix
-          (nixpkgs + "/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
+          (nixpkgs-stable + "/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
           ({ config, ... }: {
             sdImage.compressImage = false;
           })
         ];
       };
+
     };
   };
 }

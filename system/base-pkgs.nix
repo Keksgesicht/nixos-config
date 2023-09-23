@@ -9,7 +9,7 @@
     bridge-utils
     dos2unix
     entr
-    exa
+    eza
     lm_sensors
     htop
     moreutils

@@ -16,9 +16,9 @@ fi
 
 ### https://www.youtube.com/watch?v=2OHrTQVlRMg
 ### 7 Essential Command Line Tools (2022)
-if (( $+commands[exa] )); then
-	alias ll='exa -lihF -g'
-	alias tree='exa --tree'
+if (( $+commands[eza] )); then
+	alias ll='eza -lihF -g'
+	alias tree='eza --tree'
 else
 	alias ll='ls -lihF'
 fi

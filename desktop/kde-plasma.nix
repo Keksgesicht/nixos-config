@@ -40,12 +40,11 @@
   ];
 
   users.users."keks".packages = with pkgs.libsForQt5; [
+    kate
     # use digital clock with PIM plugin
     akonadi-calendar
     kdepim-addons
-    # additional KDE tools
-    kalendar
-    kate
+    merkuro
     # security stuff
     ksshaskpass
   ];

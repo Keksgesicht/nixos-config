@@ -24,7 +24,7 @@
     # https://nixos.wiki/wiki/Fonts#Flatpak_applications_can.27t_find_system_fonts
     # ln -s /run/current-system/sw/share/X11/fonts ~/.local/share/fonts
     fontDir.enable = true;
-    fonts = with pkgs; [
+    packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
