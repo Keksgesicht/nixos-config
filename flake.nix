@@ -12,6 +12,10 @@
       url = "github:blitz/tuxedo-nixos";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -20,6 +24,7 @@
     nixpkgs-stable,
     nixpkgs-unstable,
     home-manager,
+    lanzaboote,
     tuxedo-nixos
   }@inputs: {
     nixosConfigurations = {
@@ -51,6 +56,7 @@
           ./machines/cookiethinker.nix
           home-manager.nixosModules.home-manager
           tuxedo-nixos.nixosModules.default
+          lanzaboote.nixosModules.lanzaboote
         ];
       };
       # nix build ."#nixosConfigurations".pihole."config.system.build.toplevel" --impure
