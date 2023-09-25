@@ -3,6 +3,7 @@
 {
   imports = [
     ./auto-suspend.nix
+    ./bluetooth-autoconnect.nix
     ./btrfs-snapshot.nix
     ./fancontrol.nix
     ./files-cleanup.nix
