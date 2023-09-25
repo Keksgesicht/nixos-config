@@ -11,6 +11,6 @@
     # doesn't need to run "nix-channel --update" first.
     <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
 
-    ./nix/installer.nix
+    ../nix/installer.nix
   ];
 }

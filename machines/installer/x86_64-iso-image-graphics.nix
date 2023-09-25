@@ -14,16 +14,16 @@
     # doesn't need to run "nix-channel --update" first.
     <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
 
-    ./desktop
-    ./development
-    ./hardware/cd-image.nix
-    ./hardware/x86_64-uefi.nix
-    ./nix/basic.nix
-    ./nix/version-23-05.nix
-    ./system
-    ./system/container.nix
-    ./system/networking-desktop.nix
-    ./system/qemu-user-binfmt.nix
+    ../desktop
+    ../development
+    ../hardware/cd-image.nix
+    ../hardware/x86_64-uefi.nix
+    ../nix/basic.nix
+    ../nix/version-23-05.nix
+    ../system
+    ../system/container.nix
+    ../system/networking-desktop.nix
+    ../system/qemu-user-binfmt.nix
   ];
 
   environment.systemPackages = with pkgs; [

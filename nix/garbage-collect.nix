@@ -6,6 +6,6 @@
     persistent = true;
     dates = "weekly";
     randomizedDelaySec = "42min";
-    options = "--delete-older-than 42d";
+    options = "--delete-older-than 23d";
   };
 }

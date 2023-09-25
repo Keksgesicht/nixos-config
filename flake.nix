@@ -26,7 +26,7 @@
           inherit inputs;
         };
         modules = [
-          ./configuration-cookieclicker.nix
+          ./machines/cookieclicker.nix
           home-manager.nixosModules.home-manager
         ];
       };
@@ -36,7 +36,7 @@
           inherit inputs;
         };
         modules = [
-          ./configuration-cookiethinker.nix
+          ./machines/cookiethinker.nix
           home-manager.nixosModules.home-manager
           tuxedo-nixos.nixosModules.default
         ];

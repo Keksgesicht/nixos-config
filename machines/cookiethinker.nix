@@ -12,17 +12,17 @@
   networking.hostName = "cookiethinker";
 
   imports = [
-    ./desktop
-    ./development
-    ./hardware/laptop
-    ./nix
-    ./nix/version-23-05.nix
-    ./services/system/btrfs-snapshot.nix
-    ./services/system/files-cleanup.nix
-    ./services/system/wireguard.nix
-    ./system
-    ./system/container.nix
-    ./system/networking-desktop.nix
-    ./system/networking-desktop-secrets.nix
+    ../desktop
+    ../development
+    ../hardware/laptop
+    ../nix
+    ../nix/version-23-05.nix
+    ../services/system/btrfs-snapshot.nix
+    ../services/system/files-cleanup.nix
+    ../services/system/wireguard.nix
+    ../system
+    ../system/container.nix
+    ../system/networking-desktop.nix
+    ../system/networking-desktop-secrets.nix
   ];
 }
