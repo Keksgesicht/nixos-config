@@ -7,7 +7,8 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account.
+  # Don't forget to set a password with ‘passwd’.
   users.users.keks = {
     isNormalUser = true;
     description = "Jan B.";
@@ -31,5 +32,6 @@
     ./kde-plasma.nix
     ./openssh.nix
     ./packages.nix
+    ../services/user/xscreensaver.nix
   ];
 }

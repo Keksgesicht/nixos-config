@@ -8,9 +8,8 @@
     waypipe
     wireguard-tools
     xorg.xlsclients
-    #xorg-x11-server-Xephyr
+    xorg.xorgserver
     xorg.xrandr
-    xscreensaver
     yubikey-manager
     keepassxc
     yt-dlp
