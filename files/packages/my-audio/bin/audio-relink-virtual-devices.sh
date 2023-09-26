@@ -39,6 +39,11 @@ else
 fi
 ${work_dir}/audio-setup-hw-source.sh
 
+### link mic feedback to output
+unlink_inputs  'feedback_sink'
+unlink_outputs 'feedback_source'
+link_nodes 'virt_mic_source' 'feedback_sink'
+link_nodes 'feedback_source' 'echo_out_sink'
 
 ### set default devices
 pactl set-default-source 'virt_mic_source'

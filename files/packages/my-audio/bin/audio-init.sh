@@ -5,10 +5,8 @@ source ${work_dir}/../lib/settings.sh
 
 ${work_dir}/audio-relink-virtual-devices.sh
 
-### mute GPU display output
-for sink_hdmi in $(pactl list sinks short | awk '/hdmi/ {print $2}'); do
-	pactl set-sink-mute "$sink_hdmi" 1
-done
+### mute mic feedback sink
+pactl set-source-mute "feedback_source" 1
 
 ### mute all hardware (laptop/mobile)
 if [ "$(cat /etc/hostname)" = "cookiethinker" ]; then

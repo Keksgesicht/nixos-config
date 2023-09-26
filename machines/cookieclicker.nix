@@ -16,7 +16,6 @@
     ../nix
     ../nix/version-23-05.nix
     ../services/system
-    ../services/user/ferdium.nix
     ../system
     ../system/container.nix
     ../system/networking-desktop.nix
