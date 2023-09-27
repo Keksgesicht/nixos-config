@@ -23,4 +23,14 @@
       "--impure" # using absolute paths in config
     ];
   };
+
+  environment.etc = {
+    "flake-output/nixos/config" = {
+      source = inputs.self.outPath;
+    };
+    "flake-output/nixos/flake.lock" = {
+      source = builtins.toFile "flake.lock"
+        (builtins.readFile "${inputs.self.outPath}/flake.lock");
+    };
+  };
 }
