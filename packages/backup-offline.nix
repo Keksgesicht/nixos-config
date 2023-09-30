@@ -4,7 +4,7 @@ stdenv.mkDerivation {
   pname = "offline-backup";
   name = "offline-backup";
   version = "1.0.0";
-  src = ../files/packages/offline-backup;
+  src = ../files/packages/backup-offline;
 
   buildInputs = [ bash subversion ];
   installPhase = ''

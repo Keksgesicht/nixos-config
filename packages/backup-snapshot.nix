@@ -4,7 +4,7 @@ stdenv.mkDerivation {
   pname = "btrfs-snapshot";
   name = "btrfs-snapshot";
   version = "1.0.0";
-  src = ../files/packages/btrfs-snapshot;
+  src = ../files/packages/backup-snapshot;
 
   buildInputs = [ bash subversion ];
   installPhase = ''

@@ -18,7 +18,7 @@
     ../nix
     ../nix/version-23-05.nix
     ../services/system/bluetooth-autoconnect.nix
-    ../services/system/btrfs-snapshot.nix
+    ../services/system/backup-snapshot.nix
     ../services/system/files-cleanup.nix
     ../services/system/wireguard.nix
     ../system

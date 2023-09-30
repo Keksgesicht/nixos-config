@@ -11,7 +11,7 @@
         ];
         serviceConfig = {
           Type      = "oneshot";
-          ExecStart = "${pkgs.callPackage ../../packages/btrfs-snapshot.nix {}}/bin/backup-snapshot.sh %i";
+          ExecStart = "${pkgs.callPackage ../../packages/backup-snapshot.nix {}}/bin/backup-snapshot.sh %i";
           PrivateTmp   = "yes";
           ProtectHome  = "yes";
           ProtectClock = "yes";
@@ -51,7 +51,7 @@
         ];
         serviceConfig = {
           Type      = "oneshot";
-          ExecStart = "${pkgs.callPackage ../../packages/btrfs-snapshot.nix {}}/bin/backup-hourly.sh %i";
+          ExecStart = "${pkgs.callPackage ../../packages/backup-snapshot.nix {}}/bin/backup-hourly.sh %i";
           PrivateTmp   = "yes";
           ProtectHome  = "yes";
           ProtectClock = "yes";
