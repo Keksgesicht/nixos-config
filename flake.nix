@@ -1,9 +1,9 @@
 {
-  inputs = {
-    nixpkgs = {
-      url = "nixpkgs/nixos-23.05";
-      #url = "nixpkgs/nixos-unstable";
-    };
+  inputs = rec {
+    nixpkgs-23-05.url = "nixpkgs/nixos-23.05";
+    nixpkgs-stable = nixpkgs-23-05;
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+    nixpkgs = nixpkgs-stable;
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,24 +16,35 @@
 
   outputs = {
     self, nixpkgs,
+    nixpkgs-23-05,
+    nixpkgs-stable,
+    nixpkgs-unstable,
     home-manager,
     tuxedo-nixos
   }@inputs: {
     nixosConfigurations = {
-      "cookieclicker" = nixpkgs.lib.nixosSystem {
+      "cookieclicker" = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs;
+          pkgs-unstable = import nixpkgs-unstable {
+            system = system;
+            #config.allowUnfree = true;
+          };
         };
         modules = [
           ./machines/cookieclicker.nix
           home-manager.nixosModules.home-manager
         ];
       };
-      "cookiethinker" = nixpkgs.lib.nixosSystem {
+      "cookiethinker" = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs;
+          pkgs-unstable = import nixpkgs-unstable {
+            system = system;
+            #config.allowUnfree = true;
+          };
         };
         modules = [
           ./machines/cookiethinker.nix

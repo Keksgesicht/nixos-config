@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 let
   my-audio = pkgs.callPackage ../packages/my-audio.nix {};
@@ -22,14 +22,7 @@ in
   services.pipewire = {
     enable = true;
     # force specific version
-    package = pkgs.pipewire.overrideAttrs (finalAttrs: previousAttrs: {
-      version = "0.3.79";
-      src = previousAttrs.src.override {
-        rev = finalAttrs.version;
-        sha256 = "sha256-pqs991pMqz3IQE+NUk0VNzZS4ExwfoZqBQDWBSGdWcs=";
-      };
-      buildInputs = previousAttrs.buildInputs ++ [ pkgs.ffado ];
-    });
+    package = pkgs-unstable.pipewire;
 
     jack.enable = true;
     pulse.enable = true;
