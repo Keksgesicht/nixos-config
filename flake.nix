@@ -23,6 +23,7 @@
     tuxedo-nixos
   }@inputs: {
     nixosConfigurations = {
+      # sudo nixos-rebuild test -L --impure --flake .
       "cookieclicker" = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {
@@ -50,6 +51,30 @@
           ./machines/cookiethinker.nix
           home-manager.nixosModules.home-manager
           tuxedo-nixos.nixosModules.default
+        ];
+      };
+      # nix build ."#nixosConfigurations".pihole."config.system.build.toplevel" --impure
+      "pihole" = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./machines/pihole.nix
+        ];
+      };
+      # nix build ."#nixosConfigurations".pihole-sd-card."config.system.build.sdImage" --impure
+      "pihole-sd-card" = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./machines/pihole.nix
+          (nixpkgs + "/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
+          ({ config, ... }: {
+            sdImage.compressImage = false;
+          })
         ];
       };
     };

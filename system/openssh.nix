@@ -6,6 +6,7 @@
     enable =
       if (config.networking.hostName == "nixos-installer")
       || (config.networking.hostName == "cookieclicker")
+      || (config.networking.hostName == "pihole")
       then lib.mkForce true
       else lib.mkForce false;
     listenAddresses = [

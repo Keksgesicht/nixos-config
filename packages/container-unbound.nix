@@ -8,7 +8,7 @@ stdenv.mkDerivation {
   src = ../files/packages/containers/unbound;
   dnssrc = builtins.fetchurl {
     url = "https://www.internic.net/domain/named.cache";
-    sha256 = "0xlssxh9vb0wir1ba1d26jr6mfcv8d0r05x3n9y5fx34dg5j74j0";
+    sha256 = "sha256:09nvhzd2dx4agx4p0978scz2d3ab80rabv44iwczm66v1cdc5i8i";
   };
 
   buildInputs = [ bash subversion ];

@@ -21,12 +21,25 @@
       };
     };
     "NetworkManager/system-connections/home.nmconnection" = {
-      enable = (config.networking.hostName == "cookieclicker");
+      enable = (config.networking.hostName == "cookieclicker")
+            || (config.networking.hostName == "pihole");
       mode = "0600";
-      source = pkgs.substituteAll {
-        src = ../files/linux-root/etc/NetworkManager/system-connections/home.nmconnection;
-        macaddr = (builtins.readFile "/etc/nixos/secrets/linux-root/etc/NetworkManager/system-connections/cookieclicker-mac-addr-01");
-      };
+      source =
+        if (config.networking.hostName == "cookieclicker") then
+          pkgs.substituteAll {
+            src = ../files/linux-root/etc/NetworkManager/system-connections/home.nmconnection;
+            dnsserver = (builtins.readFile "/etc/nixos/secrets/linux-root/etc/NetworkManager/system-connections/cookieclicker-home-dnsserver");
+            ipaddr    = (builtins.readFile "/etc/nixos/secrets/linux-root/etc/NetworkManager/system-connections/cookieclicker-home-ipaddr");
+            macaddr   = (builtins.readFile "/etc/nixos/secrets/linux-root/etc/NetworkManager/system-connections/cookieclicker-home-macaddr");
+          }
+        else if (config.networking.hostName == "pihole") then
+          pkgs.substituteAll {
+            src = ../files/linux-root/etc/NetworkManager/system-connections/home.nmconnection;
+            dnsserver = (builtins.readFile "/etc/nixos/secrets/linux-root/etc/NetworkManager/system-connections/pihole-home-dnsserver");
+            ipaddr    = (builtins.readFile "/etc/nixos/secrets/linux-root/etc/NetworkManager/system-connections/pihole-home-ipaddr");
+            macaddr   = "";
+          }
+        else ../files/linux-root/etc/NetworkManager/system-connections/home.nmconnection;
     };
 
     # network connections on laptop
