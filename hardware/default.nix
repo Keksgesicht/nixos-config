@@ -1,8 +1,10 @@
-# file: packages/hardware.nix
-
-{ config, pkgs, ... }:
+{ config, pkgs, modulesPath, ... }:
 
 {
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
+
   environment.systemPackages = with pkgs; [
     compsize
     efibootmgr
@@ -12,6 +14,7 @@
     })
     iftop
     iotop
+    parted
     pciutils
     usbutils
   ];

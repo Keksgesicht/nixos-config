@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ../.
     ../x86_64
 
     ../btrfs.nix
