@@ -21,4 +21,10 @@
     ../system/networking-desktop.nix
     ../system/networking-desktop-secrets.nix
   ];
+
+  specialisation = {
+    "amdgpu".configuration = {
+      imports = [ ../development/amdgpu-rocm.nix ];
+    };
+  };
 }
