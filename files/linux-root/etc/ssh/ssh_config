@@ -102,7 +102,7 @@ Host gitlab.esa.informatik.tu-darmstadt.de
 	ProxyJump erebor.esa.informatik.tu-darmstadt.de
 	IdentityFile ~/.secrets/ssh/id_rsa_git
 
-Host esho1
-	User janb
-	HostName 192.168.178.155
-	IdentityFile ~/.secrets/ssh/id_rsa_tuda
+Host rpi-test
+	User keks
+	HostName 192.168.1.224
+	IdentityFile ~/.secrets/ssh/id_pihole

@@ -7,7 +7,7 @@
   imports = [
     ../desktop/environment.nix
     ../desktop/user-keks.nix
-    ../hardware/aarch64
+    ../hardware/rpi-pihole
     ../development/base-devel.nix
     ../development/neovim.nix
     ../nix
@@ -23,5 +23,6 @@
     openssh.authorizedKeys.keys = [
       (builtins.readFile "/etc/nixos/secrets/keys/ssh/id_rsa_pihole.pub")
     ];
+    initialPassword = "";
   };
 }
