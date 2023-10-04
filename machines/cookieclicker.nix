@@ -26,5 +26,8 @@
     "amdgpu".configuration = {
       imports = [ ../development/amdgpu-rocm.nix ];
     };
+    "android".configuration = {
+      imports = [ ../development/android.nix ];
+    };
   };
 }

@@ -8,6 +8,7 @@
   environment.systemPackages = with pkgs; [
     compsize
     efibootmgr
+    e2fsprogs
     gptfdisk
     (hwloc.override {
       x11Support = (config.services.xserver.enable);
