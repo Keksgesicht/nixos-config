@@ -42,7 +42,7 @@
         TZ = "Europe/Berlin";
         URL = "keksgesicht.net";
         EMAIL = "certbot@keksgesicht.net";
-        SUBDOMAINS = "cloud,mirror,office,pihole";
+        SUBDOMAINS = "cloud,pihole,nix.mirror";
         ONLY_SUBDOMAINS = "true";
         VALIDATION = "dns";
         DNSPLUGIN = "cloudflare";

@@ -11,6 +11,7 @@
     ../development/base-devel.nix
     ../development/neovim.nix
     ../nix
+    ../nix/build-cache-client.nix
     ../nix/version-23-05.nix
     ../services/containers/unbound.nix
     ../services/containers/pihole.nix

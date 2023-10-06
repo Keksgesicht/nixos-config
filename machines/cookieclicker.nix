@@ -14,6 +14,7 @@
     ../development
     ../hardware/desktop
     ../nix
+    ../nix/build-cache-server.nix
     ../nix/version-23-05.nix
     ../services/system
     ../system
