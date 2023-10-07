@@ -14,16 +14,5 @@ else
 fi
 
 # get encrypted device
-tmpfile_mountpoints=$(mktemp)
-lsblk --json | jq '.. | select(.mountpoints?)' > ${tmpfile_mountpoints}
-for mdev in $(cat ${tmpfile_mountpoints} | jq -r '.name'); do
-	if cat ${tmpfile_mountpoints} | jq 'select(.name == "'${mdev}'") | .mountpoints' | grep -q '"/"'; then
-		luks_name=${mdev}
-		break
-	fi
-done
-rm ${tmpfile_mountpoints}
+luks_name=$(mount -l | grep ' on / ' | awk '{print $1}')
 luks_device=$(cryptsetup status ${luks_name} | awk '$1 ~ /^device:$/ {print $2}')
-
-# keyfile location
-keyfile='/etc/cryptsetup-keys.d/root.key'
