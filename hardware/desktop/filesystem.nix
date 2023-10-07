@@ -6,6 +6,11 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, ... }:
 
+let
+  bfs-opts = [
+    "compress=zstd:3"
+  ];
+in
 {
   boot = {
     initrd = {
@@ -56,12 +61,8 @@
     "/" = {
       device = "/dev/disk/by-label/cache";
       fsType = "btrfs";
-      options = [
-        "subvol=root"
-        "compress=zstd:3"
-      ];
+      options = bfs-opts ++ [ "subvol=root" ];
     };
-
     "/boot" = {
       device = "/dev/disk/by-uuid/F6A6-57AC";
       fsType = "vfat";
@@ -70,50 +71,34 @@
         "shortname=winnt"
       ];
     };
-
     "/home" = {
       device = "/dev/disk/by-label/cache";
       fsType = "btrfs";
-      options = [
-        "subvol=home"
-        "compress=zstd:3"
-      ];
+      options = bfs-opts ++ [ "subvol=home" ];
+    };
+    "/nix" = {
+      device = "/dev/disk/by-label/cache";
+      fsType = "btrfs";
+      options = bfs-opts ++ [ "subvol=nix" ];
     };
 
     "/mnt/cache" = {
       device = "/dev/disk/by-label/cache";
       fsType = "btrfs";
-      options = [
-        "subvol=/"
-        "compress=zstd:3"
-      ];
+      options = bfs-opts ++ [ "subvol=/" ];
     };
-
     "/mnt/array" = {
       device = "/dev/disk/by-label/array";
       fsType = "btrfs";
       options = [
-        "subvol=/"
         "compress-force=zstd:3"
+        "subvol=/"
       ];
     };
-
     "/mnt/ram" = {
       device = "/dev/disk/by-label/ram";
       fsType = "btrfs";
-      options = [
-        "subvol=/"
-        "compress=zstd:3"
-      ];
-    };
-
-    "/nix" = {
-      device = "/dev/disk/by-label/cache";
-      fsType = "btrfs";
-      options = [
-        "subvol=nix"
-        "compress=zstd:3"
-      ];
+      options = bfs-opts ++ [ "subvol=/" ];
     };
 
     "/mnt/backup/USB/data" = {
