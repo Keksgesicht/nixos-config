@@ -18,10 +18,11 @@ disk_gpt() {
 disk_efi() {
 	(
 	echo n
-	echo 1
-	echo 2048
-	echo +1G
+	echo 3
+	echo
+	echo
 	echo t
+	echo 3
 	echo uefi
 	echo w
 	) | fdisk ${disk_target}
@@ -29,24 +30,22 @@ disk_efi() {
 	part_target=$(fdisk -l ${disk_target} | grep "^${disk_target}" | awk '{print $1}')
 	part_target_1=$(echo "${part_target}" | sed -n '1p')
 
-	mkfs.vfat -F32 -n EFI ${part_target_1}
-	printf "\x${UUID_EFI:7:2}\x${UUID_EFI:5:2}\x${UUID_EFI:2:2}\x${UUID_EFI:0:2}" | \
-		dd bs=1 seek=67 count=4 conv=notrunc of=/dev/nvme0n1p1
+	mkfs.vfat -F32 -n EFI -i ${UUID_EFI//-/} ${part_target_1}
 }
 
 # create root partition and 8G swap partition
 disk_root_plus_swap() {
 	(
 	echo n
+	echo 1
+	echo 2048
+	echo -9G
+	echo n
 	echo 2
 	echo
-	echo -8G
-	echo n
-	echo 3
-	echo
-	echo
+	echo -1G
 	echo t
-	echo 3
+	echo 2
 	echo swap
 	echo w
 	) | fdisk ${disk_target}
@@ -151,8 +150,8 @@ fi
 set -ex
 
 disk_gpt
-disk_efi
 disk_root_plus_swap
+disk_efi
 crypt_root
 setup_root
 

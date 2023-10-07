@@ -62,7 +62,7 @@ in
     {
       # random encryption will resetup the LUKS header
       # using by-id should not change between system reboots or kernel updates
-      device = "/dev/disk/by-id/nvme-KINGSTON_SNVS500G_50026B76856C0884-part3";
+      device = "/dev/disk/by-id/nvme-KINGSTON_SNVS500G_50026B76856C0884-part2";
       randomEncryption.enable = true;
     }
   ];
