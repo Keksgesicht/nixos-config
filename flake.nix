@@ -41,6 +41,7 @@
         modules = [
           ./machines/cookieclicker.nix
           home-manager.nixosModules.home-manager
+          lanzaboote.nixosModules.lanzaboote
         ];
       };
       "cookiethinker" = nixpkgs.lib.nixosSystem rec {
