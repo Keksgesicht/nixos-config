@@ -4,6 +4,8 @@
 ### lancache ###
 ### -------- ###
 
+unbound_config_file="/mnt/cache/appdata/unbound/conf/lancache.conf"
+
 cd /mnt/cache/appdata/lancache/cache-domains/
 git pull
 
@@ -11,7 +13,6 @@ cd scripts/
 rm -r ./output/unbound/
 bash ./create-unbound.sh
 
-unbound_config_file="/mnt/cache/appdata/unbound/conf/lancache.conf"
 truncate -s 0 ${unbound_config_file}.tmp
 for game_service in $(ls ./output/unbound/*.conf); do
 	echo "# "$(basename $game_service .conf) >> ${unbound_config_file}.tmp
@@ -23,4 +24,8 @@ for game_service in $(ls ./output/unbound/*.conf); do
 	tail -n +2 $game_service | sort -uk2 >> ${unbound_config_file}.tmp
 	echo "" >> ${unbound_config_file}.tmp
 done
-mv ${unbound_config_file}.tmp ${unbound_config_file}
+
+line_count=$(cat ${unbound_config_file}.tmp | wc -l)
+if [ 42 -lt "${line_count}" ]; then
+	mv ${unbound_config_file}.tmp ${unbound_config_file}
+fi
