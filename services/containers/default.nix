@@ -22,7 +22,7 @@
       description = "Bump up container image version hashes [%i]";
       serviceConfig = {
         Type      = "oneshot";
-        ExecStart = "${pkgs.callPackage ../../packages/container-image-updater.nix {}}/bin/get-container-image-hash.sh";
+        ExecStart = "${pkgs.callPackage ../../packages/containers/image-updater.nix {}}/bin/get-container-image-hash.sh";
 
         PrivateTmp   = "yes";
         ProtectHome  = "yes";

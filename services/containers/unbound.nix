@@ -4,6 +4,26 @@
   systemd = {
     services = {
       "podman-unbound" = (import ./service-config.nix lib);
+      "update-root-dns-servers" = {
+        description = "Download root DNS server list";
+        path = [
+          pkgs.curl
+          pkgs.nix
+          pkgs.unixtools.xxd
+        ];
+        script = ''
+          set -e
+          set -o pipefail
+
+          HASHFILE="/etc/unCookie/root-dns-server.hash"
+          mkdir -p $(dirname $HASHFILE)
+
+          URL="https://www.internic.net/domain/named.cache"
+          NIX_STORE_FILE=$(nix-prefetch-url --print-path $URL | tail -n 1)
+          HASH=$(sha256sum $NIX_STORE_FILE | cut -f1 -d' ' | xxd -r -p | base64)
+          echo "sha256-$HASH" >$HASHFILE
+        '';
+      };
       "container-image-updater@unbound" = {
         overrideStrategy = "asDropin";
         path = [
@@ -20,10 +40,22 @@
         };
       };
     };
-    timers."container-image-updater@unbound" = {
-      enable = true;
-      overrideStrategy = "asDropin";
-      wantedBy = [ "timers.target" ];
+    timers = {
+      "update-root-dns-servers" = {
+        enable = true;
+        description = "Download root DNS server list";
+        timerConfig = {
+          OnCalendar = "monthly";
+          RandomizedDelaySec = "42min";
+          Persistent = "true";
+        };
+        wantedBy = [ "timers.target" ];
+      };
+      "container-image-updater@unbound" = {
+        enable = true;
+        overrideStrategy = "asDropin";
+        wantedBy = [ "timers.target" ];
+      };
     };
   };
 
@@ -49,7 +81,7 @@
         copyToRoot = pkgs.buildEnv {
           name = "image-root";
           paths = [
-            (pkgs.callPackage ../../packages/container-unbound.nix {})
+            (pkgs.callPackage ../../packages/containers/unbound.nix {})
           ];
           pathsToLink = [
             "/scripts"
