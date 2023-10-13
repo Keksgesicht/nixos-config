@@ -1,20 +1,23 @@
-{ config, pkgs, ...}:
+{ config, pkgs, lib, ... }:
 
 {
   systemd = {
-    services."container-image-updater@pihole" = {
-      overrideStrategy = "asDropin";
-      path = [
-        pkgs.jq
-        pkgs.skopeo
-        pkgs.unixtools.xxd
-      ];
-      environment = {
-        IMAGE_UPSTREAM_HOST = "docker.io";
-        IMAGE_UPSTREAM_NAME = "pihole/pihole";
-        IMAGE_UPSTREAM_TAG = "latest";
-        IMAGE_FINAL_NAME = "pihole";
-        IMAGE_FINAL_TAG = "latest";
+    services = {
+      "podman-pihole" = (import ./service-config.nix lib);
+      "container-image-updater@pihole" = {
+        overrideStrategy = "asDropin";
+        path = [
+          pkgs.jq
+          pkgs.skopeo
+          pkgs.unixtools.xxd
+        ];
+        environment = {
+          IMAGE_UPSTREAM_HOST = "docker.io";
+          IMAGE_UPSTREAM_NAME = "pihole/pihole";
+          IMAGE_UPSTREAM_TAG = "latest";
+          IMAGE_FINAL_NAME = "pihole";
+          IMAGE_FINAL_TAG = "latest";
+        };
       };
     };
     timers."container-image-updater@pihole" = {

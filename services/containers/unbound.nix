@@ -1,20 +1,23 @@
-{ config, pkgs, ...}:
+{ config, pkgs, lib, ... }:
 
 {
   systemd = {
-    services."container-image-updater@unbound" = {
-      overrideStrategy = "asDropin";
-      path = [
-        pkgs.jq
-        pkgs.skopeo
-        pkgs.unixtools.xxd
-      ];
-      environment = {
-        IMAGE_UPSTREAM_HOST = "docker.io";
-        IMAGE_UPSTREAM_NAME = "alpinelinux/unbound";
-        IMAGE_UPSTREAM_TAG = "latest";
-        IMAGE_FINAL_NAME = "alpinelinux-unbound";
-        IMAGE_FINAL_TAG = "latest";
+    services = {
+      "podman-unbound" = (import ./service-config.nix lib);
+      "container-image-updater@unbound" = {
+        overrideStrategy = "asDropin";
+        path = [
+          pkgs.jq
+          pkgs.skopeo
+          pkgs.unixtools.xxd
+        ];
+        environment = {
+          IMAGE_UPSTREAM_HOST = "docker.io";
+          IMAGE_UPSTREAM_NAME = "alpinelinux/unbound";
+          IMAGE_UPSTREAM_TAG = "latest";
+          IMAGE_FINAL_NAME = "alpinelinux-unbound";
+          IMAGE_FINAL_TAG = "latest";
+        };
       };
     };
     timers."container-image-updater@unbound" = {

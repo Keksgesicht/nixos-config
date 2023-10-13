@@ -1,20 +1,23 @@
-{ config, pkgs, ...}:
+{ config, pkgs, lib, ... }:
 
 {
   systemd = {
-    services."container-image-updater@lancache" = {
-      overrideStrategy = "asDropin";
-      path = [
-        pkgs.jq
-        pkgs.skopeo
-        pkgs.unixtools.xxd
-      ];
-      environment = {
-        IMAGE_UPSTREAM_HOST = "docker.io";
-        IMAGE_UPSTREAM_NAME = "lancachenet/monolithic";
-        IMAGE_UPSTREAM_TAG = "latest";
-        IMAGE_FINAL_NAME = "lancache-monolithic";
-        IMAGE_FINAL_TAG = "latest";
+    services = {
+      "podman-lancache" = (import ./service-config.nix lib);
+      "container-image-updater@lancache" = {
+        overrideStrategy = "asDropin";
+        path = [
+          pkgs.jq
+          pkgs.skopeo
+          pkgs.unixtools.xxd
+        ];
+        environment = {
+          IMAGE_UPSTREAM_HOST = "docker.io";
+          IMAGE_UPSTREAM_NAME = "lancachenet/monolithic";
+          IMAGE_UPSTREAM_TAG = "latest";
+          IMAGE_FINAL_NAME = "lancache-monolithic";
+          IMAGE_FINAL_TAG = "latest";
+        };
       };
     };
     timers."container-image-updater@lancache" = {

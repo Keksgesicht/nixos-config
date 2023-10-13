@@ -1,20 +1,24 @@
-{ config, pkgs, ...}:
+{ config, pkgs, lib, ... }:
 
 {
   systemd = {
-    services."container-image-updater@dyndns" = {
-      overrideStrategy = "asDropin";
-      path = [
-        pkgs.jq
-        pkgs.skopeo
-        pkgs.unixtools.xxd
-      ];
-      environment = {
-        IMAGE_UPSTREAM_HOST = "docker.io";
-        IMAGE_UPSTREAM_NAME = "hotio/cloudflareddns";
-        IMAGE_UPSTREAM_TAG = "latest";
-        IMAGE_FINAL_NAME = "dyndns";
-        IMAGE_FINAL_TAG = "latest";
+    services = {
+      "podman-ddns-v4" = (import ./service-config.nix lib);
+      "podman-ddns-v6" = (import ./service-config.nix lib);
+      "container-image-updater@dyndns" = {
+        overrideStrategy = "asDropin";
+        path = [
+          pkgs.jq
+          pkgs.skopeo
+          pkgs.unixtools.xxd
+        ];
+        environment = {
+          IMAGE_UPSTREAM_HOST = "docker.io";
+          IMAGE_UPSTREAM_NAME = "hotio/cloudflareddns";
+          IMAGE_UPSTREAM_TAG = "latest";
+          IMAGE_FINAL_NAME = "dyndns";
+          IMAGE_FINAL_TAG = "latest";
+        };
       };
     };
     timers."container-image-updater@dyndns" = {

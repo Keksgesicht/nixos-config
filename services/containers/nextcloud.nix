@@ -1,8 +1,11 @@
-{ config, pkgs, ...}:
+{ config, pkgs, lib, ... }:
 
 {
   systemd = {
     services = {
+      "podman-nextcloud" = (import ./service-config.nix lib);
+      "podman-nextcloud-cron" = (import ./service-config.nix lib);
+      "podman-nextcloud-db" = (import ./service-config.nix lib);
       "container-image-updater@nextcloud" = {
         overrideStrategy = "asDropin";
         path = [
