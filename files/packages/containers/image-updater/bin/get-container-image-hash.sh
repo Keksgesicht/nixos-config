@@ -1,27 +1,32 @@
 #!/usr/bin/env bash
 
 set -e
-HASH_DIR="/etc/unCookie/containers/hashes"
-IMAGE_TMPFILE=$(mktemp --suffix="-image.tgz")
+set -o pipefail
+
+JSON_DIR="/etc/unCookie/containers"
+JSON_FILE="${JSON_DIR}/${IMAGE_FINAL_NAME//localhost\//}.json"
+IMAGE_TMPFILE=$(mktemp --suffix=".json")
 
 # https://github.com/containers/podman/issues/17609
-IMAGE_DIGEST=$(skopeo inspect docker://${IMAGE_UPSTREAM_HOST}/${IMAGE_UPSTREAM_NAME}:${IMAGE_UPSTREAM_TAG} | jq -r '.Digest')
-if [ "${IMAGE_DIGEST}" = "$(cat ${HASH_DIR}/${IMAGE_FINAL_NAME}/digest)" ]; then
-	echo "Already having newest contaimer image digest!"
-	exit 0
+IMAGE_DIGEST_NEW=$(skopeo inspect docker://${IMAGE_UPSTREAM_HOST}/${IMAGE_UPSTREAM_NAME}:${IMAGE_UPSTREAM_TAG} | jq -r '.Digest')
+
+if [ -f ${JSON_FILE} ]; then
+	IMAGE_DIGEST_OLD=$(cat ${JSON_FILE} | jq -r '.imageDigest')
+	if [ "${IMAGE_DIGEST_NEW}" = "${IMAGE_DIGEST_OLD}" ]; then
+		echo "Already having newest container image digest!"
+		exit 0
+	fi
 fi
 
-# https://nixos.wiki/wiki/Docker#How_to_calculate_the_sha256_of_a_pulled_image
-skopeo copy docker://${IMAGE_UPSTREAM_HOST}/${IMAGE_UPSTREAM_NAME}@${IMAGE_DIGEST} \
-	docker-archive://${IMAGE_TMPFILE}:localhost/${IMAGE_FINAL_NAME}:${IMAGE_FINAL_TAG}
-
 # first download then update everything
-mkdir -p ${HASH_DIR}/${IMAGE_FINAL_NAME}
-echo ${IMAGE_DIGEST} > ${HASH_DIR}/${IMAGE_FINAL_NAME}/digest
+nix-prefetch-docker --json \
+	--image-name ${IMAGE_UPSTREAM_HOST}/${IMAGE_UPSTREAM_NAME} \
+	--image-digest ${IMAGE_DIGEST_NEW} \
+	--final-image-name ${IMAGE_FINAL_NAME} \
+	--final-image-tag ${IMAGE_FINAL_TAG} \
+	> ${IMAGE_TMPFILE}
 
-# nix hash file ${IMAGE_TMPFILE}
-IMAGE_NIXFILEHASH=$(sha256sum ${IMAGE_TMPFILE} | cut -f1 -d' ' | xxd -r -p | base64)
-echo "sha256-"${IMAGE_NIXFILEHASH} > ${HASH_DIR}/${IMAGE_FINAL_NAME}/nix-store
-
-rm ${IMAGE_TMPFILE}
+mkdir -p ${JSON_DIR}
+mv ${IMAGE_TMPFILE} ${JSON_FILE}
+chmod 644 ${JSON_FILE}
 exit 0

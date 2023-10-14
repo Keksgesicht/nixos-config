@@ -8,14 +8,14 @@
         overrideStrategy = "asDropin";
         path = [
           pkgs.jq
+          pkgs.nix-prefetch-docker
           pkgs.skopeo
-          pkgs.unixtools.xxd
         ];
         environment = {
           IMAGE_UPSTREAM_HOST = "docker.io";
           IMAGE_UPSTREAM_NAME = "lancachenet/monolithic";
           IMAGE_UPSTREAM_TAG = "latest";
-          IMAGE_FINAL_NAME = "lancache-monolithic";
+          IMAGE_FINAL_NAME = "localhost/lancache-monolithic";
           IMAGE_FINAL_TAG = "latest";
         };
       };
@@ -35,13 +35,9 @@
       ];
 
       image = "localhost/lancache-monolithic:latest";
-      imageFile = pkgs.dockerTools.pullImage {
-        finalImageName = "localhost/lancache-monolithic";
-        finalImageTag = "latest";
-        imageName = "docker.io/lancachenet/monolithic";
-        imageDigest = (import "/etc/unCookie/containers/hashes/lancache-monolithic/digest");
-        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/lancache-monolithic/nix-store");
-      };
+      imageFile = pkgs.dockerTools.pullImage (
+        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/lancache-monolithic.json")
+      );
 
       environment = {
         TZ = "Europe/Berlin";
@@ -68,5 +64,3 @@
     };
   };
 }
-
-

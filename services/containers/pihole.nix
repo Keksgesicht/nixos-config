@@ -8,14 +8,14 @@
         overrideStrategy = "asDropin";
         path = [
           pkgs.jq
+          pkgs.nix-prefetch-docker
           pkgs.skopeo
-          pkgs.unixtools.xxd
         ];
         environment = {
           IMAGE_UPSTREAM_HOST = "docker.io";
           IMAGE_UPSTREAM_NAME = "pihole/pihole";
           IMAGE_UPSTREAM_TAG = "latest";
-          IMAGE_FINAL_NAME = "pihole";
+          IMAGE_FINAL_NAME = "localhost/pihole";
           IMAGE_FINAL_TAG = "latest";
         };
       };
@@ -35,13 +35,9 @@
       ];
 
       image = "localhost/pihole:latest";
-      imageFile = pkgs.dockerTools.pullImage {
-        finalImageName = "localhost/pihole";
-        finalImageTag = "latest";
-        imageName = "docker.io/pihole/pihole";
-        imageDigest = (import "/etc/unCookie/containers/hashes/pihole/digest");
-        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/pihole/nix-store");
-      };
+      imageFile = pkgs.dockerTools.pullImage (
+        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/pihole.json")
+      );
 
       ports = [
         "192.168.178.150:53:53/tcp"
@@ -73,5 +69,3 @@
     };
   };
 }
-
-

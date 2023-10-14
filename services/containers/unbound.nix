@@ -28,14 +28,14 @@
         overrideStrategy = "asDropin";
         path = [
           pkgs.jq
+          pkgs.nix-prefetch-docker
           pkgs.skopeo
-          pkgs.unixtools.xxd
         ];
         environment = {
           IMAGE_UPSTREAM_HOST = "docker.io";
           IMAGE_UPSTREAM_NAME = "alpinelinux/unbound";
           IMAGE_UPSTREAM_TAG = "latest";
-          IMAGE_FINAL_NAME = "alpinelinux-unbound";
+          IMAGE_FINAL_NAME = "localhost/alpinelinux-unbound";
           IMAGE_FINAL_TAG = "latest";
         };
       };
@@ -70,13 +70,9 @@
         name = "localhost/unbound";
         tag = "latest";
 
-        fromImage = pkgs.dockerTools.pullImage {
-          finalImageName = "localhost/alpinelinux-unbound";
-          finalImageTag = "latest";
-          imageName = "docker.io/alpinelinux/unbound";
-          imageDigest = (import "/etc/unCookie/containers/hashes/alpinelinux-unbound/digest");
-          sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/alpinelinux-unbound/nix-store");
-        };
+        fromImage = pkgs.dockerTools.pullImage (
+          builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/alpinelinux-unbound.json")
+        );
 
         copyToRoot = pkgs.buildEnv {
           name = "image-root";
@@ -111,5 +107,3 @@
     };
   };
 }
-
-

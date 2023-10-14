@@ -8,14 +8,14 @@
         overrideStrategy = "asDropin";
         path = [
           pkgs.jq
+          pkgs.nix-prefetch-docker
           pkgs.skopeo
-          pkgs.unixtools.xxd
         ];
         environment = {
           IMAGE_UPSTREAM_HOST = "docker.io";
           IMAGE_UPSTREAM_NAME = "linuxserver/swag";
           IMAGE_UPSTREAM_TAG = "latest";
-          IMAGE_FINAL_NAME = "linuxserver-swag";
+          IMAGE_FINAL_NAME = "localhost/linuxserver-swag";
           IMAGE_FINAL_TAG = "latest";
         };
       };
@@ -33,13 +33,9 @@
       dependsOn = [];
 
       image = "localhost/linuxserver-swag:latest";
-      imageFile = pkgs.dockerTools.pullImage {
-        finalImageName = "localhost/linuxserver-swag";
-        finalImageTag = "latest";
-        imageName = "linuxserver/swag";
-        imageDigest = (import "/etc/unCookie/containers/hashes/linuxserver-swag/digest");
-        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/linuxserver-swag/nix-store");
-      };
+      imageFile = pkgs.dockerTools.pullImage (
+        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/linuxserver-swag.json")
+      );
 
       environment = {
         TZ = "Europe/Berlin";
@@ -68,5 +64,3 @@
     };
   };
 }
-
-

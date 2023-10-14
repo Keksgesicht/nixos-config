@@ -9,14 +9,14 @@
         overrideStrategy = "asDropin";
         path = [
           pkgs.jq
+          pkgs.nix-prefetch-docker
           pkgs.skopeo
-          pkgs.unixtools.xxd
         ];
         environment = {
           IMAGE_UPSTREAM_HOST = "docker.io";
           IMAGE_UPSTREAM_NAME = "hotio/cloudflareddns";
           IMAGE_UPSTREAM_TAG = "latest";
-          IMAGE_FINAL_NAME = "dyndns";
+          IMAGE_FINAL_NAME = "localhost/dyndns";
           IMAGE_FINAL_TAG = "latest";
         };
       };
@@ -34,13 +34,9 @@
       dependsOn = [];
 
       image = "localhost/dyndns:latest";
-      imageFile = pkgs.dockerTools.pullImage {
-        finalImageName = "localhost/dyndns";
-        finalImageTag = "latest";
-        imageName = "docker.io/hotio/cloudflareddns";
-        imageDigest = (import "/etc/unCookie/containers/hashes/dyndns/digest");
-        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/dyndns/nix-store");
-      };
+      imageFile = pkgs.dockerTools.pullImage (
+        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/dyndns.json")
+      );
 
       environment = {
         TZ = "Europe/Berlin";
@@ -72,13 +68,9 @@
       dependsOn = [];
 
       image = "localhost/dyndns:latest";
-      imageFile = pkgs.dockerTools.pullImage {
-        finalImageName = "localhost/dyndns";
-        finalImageTag = "latest";
-        imageName = "docker.io/hotio/cloudflareddns";
-        imageDigest = (import "/etc/unCookie/containers/hashes/dyndns/digest");
-        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/dyndns/nix-store");
-      };
+      imageFile = pkgs.dockerTools.pullImage (
+        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/dyndns.json")
+      );
 
       environment = {
         TZ = "Europe/Berlin";
@@ -105,5 +97,3 @@
     };
   };
 }
-
-

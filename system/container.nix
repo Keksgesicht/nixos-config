@@ -16,7 +16,7 @@
 
       autoPrune = {
         enable = true;
-        dates = "weekly";
+        dates = "Wed *-*-* 21:43:56";
         flags = [ "--all" ];
       };
     };

@@ -13,10 +13,6 @@
     ./unbound.nix
   ];
 
-  environment.systemPackages = with pkgs; [
-    skopeo
-  ];
-
   systemd = {
     services."container-image-updater@" = {
       description = "Bump up container image version hashes [%i]";
@@ -30,7 +26,7 @@
         ProtectProc  = "invisible";
 
         ReadOnlyPaths  = "/";
-        ReadWritePaths = "/etc/unCookie/containers/hashes";
+        ReadWritePaths = "/etc/unCookie/containers";
         #TemporaryFileSystem = "/etc:ro";
       };
     };

@@ -10,14 +10,14 @@
         overrideStrategy = "asDropin";
         path = [
           pkgs.jq
+          pkgs.nix-prefetch-docker
           pkgs.skopeo
-          pkgs.unixtools.xxd
         ];
         environment = {
           IMAGE_UPSTREAM_HOST = "docker.io";
           IMAGE_UPSTREAM_NAME = "nextcloud";
           IMAGE_UPSTREAM_TAG = "stable";
-          IMAGE_FINAL_NAME = "nextcloud";
+          IMAGE_FINAL_NAME = "localhost/nextcloud";
           IMAGE_FINAL_TAG = "stable";
         };
       };
@@ -25,14 +25,14 @@
         overrideStrategy = "asDropin";
         path = [
           pkgs.jq
+          pkgs.nix-prefetch-docker
           pkgs.skopeo
-          pkgs.unixtools.xxd
         ];
         environment = {
           IMAGE_UPSTREAM_HOST = "docker.io";
           IMAGE_UPSTREAM_NAME = "mariadb";
           IMAGE_UPSTREAM_TAG = "10.5";
-          IMAGE_FINAL_NAME = "nextcloud-db";
+          IMAGE_FINAL_NAME = "localhost/nextcloud-db";
           IMAGE_FINAL_TAG = "10.5";
         };
       };
@@ -60,13 +60,9 @@
       ];
 
       image = "localhost/nextcloud:stable";
-      imageFile = pkgs.dockerTools.pullImage {
-        finalImageName = "localhost/nextcloud";
-        finalImageTag = "stable";
-        imageName = "nextcloud";
-        imageDigest = (import "/etc/unCookie/containers/hashes/nextcloud/digest");
-        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/nextcloud/nix-store");
-      };
+      imageFile = pkgs.dockerTools.pullImage (
+        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/nextcloud.json")
+      );
 
       environment = {
         TZ = "Europe/Berlin";
@@ -96,13 +92,9 @@
       ];
 
       image = "localhost/nextcloud:stable";
-      imageFile = pkgs.dockerTools.pullImage {
-        finalImageName = "localhost/nextcloud";
-        finalImageTag = "stable";
-        imageName = "nextcloud";
-        imageDigest = (import "/etc/unCookie/containers/hashes/nextcloud/digest");
-        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/nextcloud/nix-store");
-      };
+      imageFile = pkgs.dockerTools.pullImage (
+        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/nextcloud.json")
+      );
 
       entrypoint = "/cron.sh";
       environment = {
@@ -119,13 +111,9 @@
       dependsOn = [];
 
       image = "localhost/nextcloud-db:10.5";
-      imageFile = pkgs.dockerTools.pullImage {
-        finalImageName = "localhost/nextcloud-db";
-        finalImageTag = "10.5";
-        imageName = "mariadb";
-        imageDigest = (import "/etc/unCookie/containers/hashes/nextcloud-db/digest");
-        sha256 = (builtins.readFile "/etc/unCookie/containers/hashes/nextcloud-db/nix-store");
-      };
+      imageFile = pkgs.dockerTools.pullImage (
+        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/nextcloud-db.json")
+      );
 
       cmd = [
         "--transaction-isolation=READ-COMMITTED"
@@ -150,5 +138,3 @@
     };
   };
 }
-
-
