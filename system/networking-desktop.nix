@@ -103,6 +103,18 @@
           22223 # Wireguard
         ]
       else [];
+    allowedTCPPortRanges =
+      if (config.networking.hostName == "cookieclicker") then
+        [
+          { from = 22200; to = 22299; }
+        ]
+      else [];
+    allowedUDPPortRanges =
+      if (config.networking.hostName == "cookieclicker") then
+        [
+          { from = 22200; to = 22299; }
+        ]
+      else [];
   };
 
   networking.hosts = {
