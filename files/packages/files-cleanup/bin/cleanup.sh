@@ -49,10 +49,10 @@ EOF
 IFS=$'\n'   # forloop separator - only newlines
 for dir in $(cat $tmp_file_dir); do
 	for file in $(plocate '*/'"${dir}"'/*/*.tex'); do
-		cd $(dirname "${file}")
-		tex_file_basename=$(basename -s '.tex' "${file}")
+		texdir=$(dirname "${file}")
+		cd "${texdir}"
 		for end in $(cat $tmp_file_endings); do
-			rm -fv ${tex_file_basename}.${end}
+			find "${texdir}" -maxdepth 1 -type f -name '*.'"${end}" -print -delete
 		done
 	done
 done
