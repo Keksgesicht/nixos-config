@@ -8,7 +8,7 @@
   services.journald.extraConfig =
     if (config.networking.hostName == "cookieclicker") then
       ''
-      SystemMaxUse=8G
+      SystemMaxUse=4G
       #SystemdKeepFree=16G
       SystemMaxFiles=256
       ''
@@ -16,13 +16,13 @@
       ''
       SystemMaxUse=2G
       #SystemdKeepFree=8G
-      SystemMaxFiles=64
+      SystemMaxFiles=128
       ''
     else
       ''
       SystemMaxUse=1G
       SystemdKeepFree=4G
-      SystemMaxFiles=32
+      SystemMaxFiles=64
       ''
   ;
 }
