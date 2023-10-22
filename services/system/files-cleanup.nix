@@ -80,7 +80,34 @@
   # script in unit above needs updatedb/locate
   services.locate = {
     enable = true;
+    interval = "08:15";
     locate = pkgs.plocate;
     localuser = null;
+    pruneNames = [
+      # NixOS default
+      # https://search.nixos.org/options?channel=unstable&show=services.locate.pruneNames
+      ".bzr"
+      ".cache"
+      ".git"
+      ".hg"
+      ".svn"
+      # my additional directory names
+      "backup_array"
+      "backup_cache"
+      "cache"
+      "Cache"
+      "CachedData"
+      "CachedExtensions"
+      "CachedExtensionVSIXs"
+      "CachedProfilesData"
+      "Code Cache"
+      "DawnCache"
+      "GPUCache"
+      "GrShaderCache"
+      "images-cache"
+      "ShaderCache"
+      "tabCache"
+      "Trash"
+    ];
   };
 }
