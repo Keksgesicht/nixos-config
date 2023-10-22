@@ -1,9 +1,14 @@
 { config, pkgs, ...}:
 
+let
+  usb-bind-pkg = pkgs.callPackage ../packages/usb-bind.nix {};
+in
 {
   users.users."keks".packages = with pkgs; [
     # enable saving replaybuffer through a hotkey
     (callPackage ../packages/obs-cli.nix {})
+    # enable/disable USB devices
+    usb-bind-pkg
   ];
 
   # Enable udev rules for Steam hardware such as the Steam Controller
@@ -52,4 +57,18 @@
       };
     };
   };
+
+  security.sudo.extraRules = [ {
+    users = [ "keks" ];
+    commands = [
+      {
+        command = "${usb-bind-pkg}/bin/usb-bind-devices-by-name.sh Xbox360 bind";
+        options = [ "NOPASSWD" ];
+      }
+      {
+        command = "${usb-bind-pkg}/bin/usb-bind-devices-by-name.sh Xbox360 unbind";
+        options = [ "NOPASSWD" ];
+      }
+    ];
+  } ];
 }
