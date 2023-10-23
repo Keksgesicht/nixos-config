@@ -30,9 +30,7 @@
   virtualisation.oci-containers.containers = {
     pihole = {
       autoStart = true;
-      dependsOn = [
-        "unbound"
-      ];
+      dependsOn = [ "unbound" ];
 
       image = "localhost/pihole:latest";
       imageFile = pkgs.dockerTools.pullImage (
@@ -40,8 +38,8 @@
       );
 
       ports = [
-        "192.168.178.150:53:53/tcp"
-        "192.168.178.150:53:53/udp"
+        "53:53/tcp"
+        "53:53/udp"
         #"5353:5353/udp"
       ];
       environment = {

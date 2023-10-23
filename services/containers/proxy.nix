@@ -30,7 +30,7 @@
   virtualisation.oci-containers.containers = {
     proxy = {
       autoStart = true;
-      dependsOn = [];
+      dependsOn = [ "pihole" ];
 
       image = "localhost/linuxserver-swag:latest";
       imageFile = pkgs.dockerTools.pullImage (

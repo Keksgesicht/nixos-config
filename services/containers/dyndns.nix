@@ -31,7 +31,7 @@
   virtualisation.oci-containers.containers = {
     ddns-v4 = {
       autoStart = true;
-      dependsOn = [];
+      dependsOn = [ "pihole" ];
 
       image = "localhost/dyndns:latest";
       imageFile = pkgs.dockerTools.pullImage (
@@ -65,7 +65,7 @@
 
     ddns-v6 = {
       autoStart = true;
-      dependsOn = [];
+      dependsOn = [ "pihole" ];
 
       image = "localhost/dyndns:latest";
       imageFile = pkgs.dockerTools.pullImage (

@@ -55,7 +55,6 @@
     nextcloud = {
       autoStart = true;
       dependsOn = [
-        "proxy"
         "nextcloud-db"
       ];
 

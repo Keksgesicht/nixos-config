@@ -11,9 +11,6 @@
       dockerCompat = true;
       dockerSocket.enable = true;
 
-      # Required for containers under podman-compose to be able to talk to each other.
-      defaultNetwork.settings.dns_enabled = true;
-
       autoPrune = {
         enable = true;
         dates = "Wed *-*-* 21:43:56";
@@ -30,10 +27,6 @@
           runroot = "/run/containers/storage";
         };
       };
-      containersConf.cniPlugins = [
-        pkgs.cni-plugins
-        pkgs.dnsname-cni
-      ];
     };
 
     oci-containers.backend = "podman";
