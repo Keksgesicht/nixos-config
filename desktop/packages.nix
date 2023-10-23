@@ -2,6 +2,8 @@
 
 {
   users.users."keks".packages = with pkgs; [
+    keepassxc
+    nextcloud-client
     pdfgrep
     pympress
     qrencode
@@ -10,8 +12,7 @@
     xorg.xlsclients
     xorg.xorgserver
     xorg.xrandr
-    yubikey-manager
-    keepassxc
     yt-dlp
+    yubikey-manager
   ];
 }

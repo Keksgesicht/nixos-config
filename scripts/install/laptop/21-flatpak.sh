@@ -10,7 +10,6 @@ flatpak install -y \
 	com.github.Eloston.UngoogledChromium \
 	com.github.hluk.copyq \
 	com.github.tchx84.Flatseal \
-	com.nextcloud.desktopclient.nextcloud \
 	io.gitlab.librewolf-community \
 	org.ferdium.Ferdium \
 	org.gnome.Calculator \

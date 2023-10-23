@@ -8,7 +8,6 @@ flatpak remote-add --if-not-exists \
 flatpak install -y 'flathub' \
 	com.github.hluk.copyq \
 	com.github.tchx84.Flatseal \
-	com.nextcloud.desktopclient.nextcloud \
 	org.gnome.Calculator
 
 # browser
