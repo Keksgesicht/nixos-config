@@ -1,0 +1,5 @@
+[Context]
+filesystems=!xdg-data/themes;~/git;~/devel
+
+[Environment]
+GTK_THEME_VARIANT=

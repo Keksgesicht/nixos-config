@@ -1,0 +1,9 @@
+[Context]
+shared=network
+sockets=pulseaudio
+devices=all
+filesystems=!~/.steam;!xdg-desktop;!xdg-data/lutris;!xdg-documents;!/run/media;!~/.var/app/com.valvesoftware.Steam;!/mnt;!xdg-data/Steam;xdg-documents/Gaming;~/WinePrefixes/Heroic:create
+
+[Environment]
+PULSE_SINK=recording_out_sink
+XDG_DOCUMENTS_DIR=/mnt/array/homeGaming/Documents

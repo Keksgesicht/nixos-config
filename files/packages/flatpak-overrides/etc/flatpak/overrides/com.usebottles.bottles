@@ -1,0 +1,10 @@
+[Context]
+shared=network
+sockets=pulseaudio
+devices=all
+filesystems=!xdg-download;~/Games;xdg-pictures/Games;xdg-videos/Games/sandbox
+
+[Environment]
+PULSE_SINK=recording_out_sink
+XDG_VIDEOS_DIR=/mnt/array/homeGaming/Videos/sandbox
+XDG_PICTURES_DIR=/mnt/array/homeGaming/Pictures

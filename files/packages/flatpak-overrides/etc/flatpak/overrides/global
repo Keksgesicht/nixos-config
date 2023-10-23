@@ -1,0 +1,15 @@
+[Context]
+shared=!network
+sockets=!cups;!pcsc;!ssh-auth;!pulseaudio;!fallback-x11;wayland
+devices=!all
+filesystems=xdg-data/color-schemes:ro;xdg-data/fonts:ro;!xdg-run/gnupg;xdg-config/gtkrc:ro;xdg-config/gtkrc-2.0:ro;xdg-config/kdeglobals:ro;xdg-config/gtk-2.0:ro;xdg-config/gtk-3.0:ro;xdg-config/gtk-4.0:ro;xdg-config/MangoHud:ro;xdg-data/icons:ro;xdg-data/themes:ro;!xdg-run/app/com.discordapp.Discord;!/tmp;!xdg-config/autostart;!xdg-data/applications;!xdg-run/keyring;!xdg-data/Trash;~/.gtkrc-2.0:ro;/tmp/flatpak-shared:create;!home;!host-etc;!host
+
+[Environment]
+GTK_USE_PORTAL=1
+GTK_THEME_VARIANT=dark
+ELECTRON_OZONE_PLATFORM_HINT=auto
+MANGOHUD_CONFIGFILE=/home/keks/.config/MangoHud/live.conf
+
+[Session Bus Policy]
+org.freedesktop.Flatpak=none
+org.freedesktop.secrets=none

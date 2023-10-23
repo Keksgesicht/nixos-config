@@ -1,0 +1,8 @@
+[Context]
+shared=network
+sockets=pulseaudio
+devices=all;dri
+filesystems=!xdg-data/icons;xdg-videos;xdg-pictures:ro;xdg-download:ro
+
+[System Bus Policy]
+org.freedesktop.UDisks2=none

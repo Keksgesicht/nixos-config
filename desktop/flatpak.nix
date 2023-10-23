@@ -2,6 +2,9 @@
 
 { config, pkgs, ...}:
 
+let
+  flatpak-overrides = pkgs.callPackage ../packages/flatpak-overrides.nix {};
+in
 {
   # enable flatpak
   services.flatpak.enable = true;
@@ -40,6 +43,12 @@
         };
         wantedBy = [ "timers.target" ];
       };
+    };
+  };
+
+  environment.etc = {
+    "flatpak/overrides" = {
+      source = "${flatpak-overrides}/etc/flatpak/overrides";
     };
   };
 }

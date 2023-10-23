@@ -1,0 +1,2 @@
+[Context]
+filesystems=!xdg-run/gvfs;!xdg-run/gvfsd;!xdg-config/GIMP;xdg-documents;xdg-pictures;xdg-download

@@ -1,0 +1,2 @@
+[Context]
+filesystems=!xdg-run/gvfs;!xdg-run/gvfsd;xdg-music;xdg-videos;xdg-config/gtk-3.0:ro

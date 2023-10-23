@@ -1,0 +1,4 @@
+[Context]
+shared=!ipc;network
+filesystems=~/devel;~/git
+persistent=.ssh;.java

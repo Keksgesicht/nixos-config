@@ -1,0 +1,11 @@
+[Context]
+shared=network
+devices=dri
+filesystems=!~/.config/kioslaverc;!~/.config/dconf;!/run/.heim_org.h5l.kcm-socket;!xdg-run/dconf
+
+[System Bus Policy]
+org.freedesktop.Avahi=none
+org.freedesktop.UPower=none
+
+[Session Bus Policy]
+ca.desrt.dconf=none

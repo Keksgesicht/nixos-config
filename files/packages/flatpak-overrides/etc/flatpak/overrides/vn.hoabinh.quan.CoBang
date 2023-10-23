@@ -1,0 +1,4 @@
+[Context]
+shared=!ipc
+sockets=!system-bus;!session-bus;!fallback-x11
+filesystems=!home;xdg-download:ro

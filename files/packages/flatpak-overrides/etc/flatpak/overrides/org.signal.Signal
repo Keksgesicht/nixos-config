@@ -1,0 +1,9 @@
+[Context]
+shared=!ipc;network
+sockets=pulseaudio
+filesystems=!xdg-public-share;!xdg-videos;!xdg-pictures;!xdg-download;!xdg-music;!xdg-desktop;!xdg-documents
+
+[Session Bus Policy]
+org.kde.StatusNotifierWatcher=none
+org.freedesktop.portal.Background=none
+org.kde.*=none

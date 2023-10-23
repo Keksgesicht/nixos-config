@@ -1,0 +1,5 @@
+[Context]
+shared=network
+sockets=pulseaudio
+devices=kvm
+filesystems=/mnt/array/vm2;/mnt/cache/vm;/mnt/array/resources/iso-images:ro

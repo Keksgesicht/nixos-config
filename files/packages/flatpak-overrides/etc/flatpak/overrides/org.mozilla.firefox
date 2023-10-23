@@ -1,0 +1,15 @@
+[Context]
+shared=network
+sockets=fallback-x11
+devices=dri
+filesystems=/mnt/array/homeBraunJan:ro
+
+[Environment]
+MOZ_ENABLE_WAYLAND=1
+
+[System Bus Policy]
+org.freedesktop.NetworkManager=none
+
+[Session Bus Policy]
+org.a11y.Bus=none
+org.gnome.SessionManager=none

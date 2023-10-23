@@ -15,3 +15,7 @@ fi
 # https://invent.kde.org/plasma/plasma-workspace/-/blob/4df78f841cc16a61d862b5b183e773e9f66436b8/ktimezoned/ktimezoned.cpp#L124
 mkdir -p usr/share
 ln -s /etc/zoneinfo usr/share/zoneinfo
+
+# generate flatpak overrides by NixOS config
+mkdir -p var/lib/flatpak
+ln -s /etc/flatpak/overrides var/lib/flatpak/overrides

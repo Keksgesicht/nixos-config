@@ -1,0 +1,5 @@
+[Context]
+shared=network
+sockets=pulseaudio
+devices=dri
+filesystems=!xdg-download

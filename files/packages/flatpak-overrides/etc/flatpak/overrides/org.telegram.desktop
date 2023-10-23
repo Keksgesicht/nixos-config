@@ -1,0 +1,11 @@
+[Context]
+shared=!ipc
+devices=dri
+filesystems=;!xdg-download
+
+[Session Bus Policy]
+com.canonical.indicator.application=none
+com.canonical.Unity=none
+org.kde.StatusNotifierWatcher=none
+org.ayatana.indicator.application=none
+org.gnome.Mutter.IdleMonitor=none

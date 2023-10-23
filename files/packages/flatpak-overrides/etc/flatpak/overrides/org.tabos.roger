@@ -1,0 +1,8 @@
+[Context]
+shared=network
+
+[Session Bus Policy]
+org.gnome.evolution.dataserver.Subprocess.Backend.*=none
+org.gnome.evolution.dataserver.Calendar7=none
+org.gnome.evolution.dataserver.Sources5=none
+org.gnome.evolution.dataserver.AddressBook9=none

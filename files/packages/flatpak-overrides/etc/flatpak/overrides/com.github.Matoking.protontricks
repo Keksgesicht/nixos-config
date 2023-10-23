@@ -1,0 +1,5 @@
+[Context]
+shared=network
+sockets=pulseaudio
+devices=dri
+filesystems=!xdg-desktop;!xdg-documents;!xdg-download;!xdg-videos;!xdg-music;!xdg-pictures;/mnt/ram/games/SteamLibrary;~/WinePrefixes/Steam

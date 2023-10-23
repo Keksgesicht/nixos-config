@@ -1,0 +1,8 @@
+[Context]
+shared=!ipc;network
+sockets=fallback-x11
+devices=!dri
+filesystems=!~/.gnupg
+
+[Environment]
+MOZ_ENABLE_WAYLAND=1

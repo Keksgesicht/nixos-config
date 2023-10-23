@@ -1,0 +1,10 @@
+[Context]
+shared=!ipc;network
+features=!devel
+filesystems=/mnt/array/homeBraunJan/Documents/development
+persistent=.ssh
+
+[Session Bus Policy]
+org.freedesktop.Notifications=none
+com.canonical.AppMenu.Registrar=none
+com.canonical.AppMenu.Registrar.*=none

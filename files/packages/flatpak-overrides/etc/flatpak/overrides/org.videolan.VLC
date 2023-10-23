@@ -1,0 +1,9 @@
+[Context]
+shared=network
+sockets=pulseaudio
+devices=dri
+filesystems=!xdg-run/gvfs;/mnt/array/homeBraunJan:ro
+
+[Session Bus Policy]
+org.kde.kwalletd=none
+org.kde.kwalletd5=none

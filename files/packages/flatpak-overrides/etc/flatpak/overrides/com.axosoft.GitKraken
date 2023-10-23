@@ -1,0 +1,5 @@
+[Context]
+shared=!ipc
+sockets=x11
+filesystems=!xdg-run/gvfs;!/run/media;!/mnt;!xdg-run/gvfsd;!/media;xdg-config/git:ro;~/git;xdg-documents/Studium/Module
+persistent=.gitkraken

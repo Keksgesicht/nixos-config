@@ -1,0 +1,4 @@
+[Context]
+shared=network
+sockets=!fallback-x11
+persistent=.ssh

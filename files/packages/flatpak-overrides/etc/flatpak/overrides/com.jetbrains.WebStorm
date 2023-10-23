@@ -1,0 +1,6 @@
+[Context]
+filesystems=~/git;~/devel;/mnt/array/homeBraunJan/Documents/development
+persistent=.java
+
+[Environment]
+FLATPAK_ENABLE_SDK_EXT=node16

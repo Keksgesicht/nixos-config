@@ -1,0 +1,7 @@
+[Context]
+shared=network
+devices=dri
+filesystems=!xdg-download
+
+[Session Bus Policy]
+org.kde.kwalletd5=none
