@@ -67,5 +67,12 @@
         ];
       };
     };
+
+    # faster shutdowns
+    "display-manager" = {
+      serviceConfig = {
+        TimeoutStopSec = 32;
+      };
+    };
   };
 }
