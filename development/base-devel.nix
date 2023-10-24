@@ -12,7 +12,6 @@
     ldns
     lsof
     moar
-    neovim
     nix-index
     nmap
     psmisc

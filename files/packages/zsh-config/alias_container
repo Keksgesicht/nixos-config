@@ -1,5 +1,13 @@
 #!/usr/bin/zsh
 
+rp() {
+	realpath "$@"
+}
+cdrp() {
+	cd "$(rp . | head -1)"
+}
+
+
 alias doc='docker'
 alias dos='doc start'
 
@@ -29,12 +37,6 @@ dob() {
 		$@
 }
 
-rp() {
-	realpath "$@"
-}
-cdrp() {
-	cd "$(rp . | head -1)"
-}
 
 rundoc-extra-paths() {
 	for extra_path in ${RUNDOC_EXTRA_PATHS}; do
@@ -157,14 +159,15 @@ run-box() {
 		$@
 }
 
-texlive() {
-    exe="$1"
-	[ 0 -lt $# ] && shift
 
-#   flatpak run --command="${exe}" org.texstudio.TeXstudio $@
-    run-doc-pers \
-		-v ${OLDHOME}/texmf:${OLDHOME}/.containerbox/home/user1000/texmf:ro,z \
-		--name=texlive \
-		localhost/texlive \
-		${exe} $@
+nix-cage-shell() {
+	mkdir -p ${XDG_CACHE_HOME}/"nix-cage"
+	mkdir -p ${XDG_DATA_HOME}/"nix-cage"/home
+	touch    ${XDG_DATA_HOME}/"nix-cage"/home/.zhistory
+
+	cdrp
+	nix-shell $@ \
+		--command "nix-cage
+			--config /etc/nix-cage/devel.json
+			--command zsh"
 }
