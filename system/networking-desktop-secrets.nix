@@ -17,7 +17,7 @@
       mode = "0600";
       source = pkgs.substituteAll {
         src = ../files/linux-root/etc/NetworkManager/system-connections/dmz.nmconnection;
-        macaddr = (builtins.readFile "/etc/nixos/secrets/linux-root/etc/NetworkManager/system-connections/cookieclicker-mac-addr-02");
+        macaddr = (builtins.readFile "/etc/nixos/secrets/linux-root/etc/NetworkManager/system-connections/cookieclicker-dmz-macaddr");
       };
     };
     "NetworkManager/system-connections/home.nmconnection" = {
