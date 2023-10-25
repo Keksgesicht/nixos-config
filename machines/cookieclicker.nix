@@ -30,5 +30,8 @@
     "android".configuration = {
       imports = [ ../development/android.nix ];
     };
+    "binfmt".configuration = {
+      imports = [ ../hardware/x86_64/binfmt.nix ];
+    };
   };
 }

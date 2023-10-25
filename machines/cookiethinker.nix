@@ -27,4 +27,16 @@
     ../system/networking-desktop.nix
     ../system/networking-desktop-secrets.nix
   ];
+
+  specialisation = {
+    "amdgpu".configuration = {
+      imports = [ ../development/amdgpu-rocm.nix ];
+    };
+    "android".configuration = {
+      imports = [ ../development/android.nix ];
+    };
+    "binfmt".configuration = {
+      imports = [ ../hardware/x86_64/binfmt.nix ];
+    };
+  };
 }
