@@ -59,6 +59,7 @@
     "user@" = {
       overrideStrategy = "asDropin";
       serviceConfig = {
+        TimeoutStopSec = 32;
         LogFilterPatterns = [
           #"~QML"
           #"~QObject:"
