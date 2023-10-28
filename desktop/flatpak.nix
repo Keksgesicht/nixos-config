@@ -46,9 +46,8 @@ in
     };
   };
 
-  environment.etc = {
-    "flatpak/overrides" = {
-      source = "${flatpak-overrides}/etc/flatpak/overrides";
-    };
-  };
+  # generate flatpak overrides by NixOS config
+  systemd.tmpfiles.rules = [
+    "L+ /var/lib/flatpak/overrides - - - - ${flatpak-overrides}/etc/flatpak/overrides"
+  ];
 }

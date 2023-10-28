@@ -75,4 +75,20 @@
       };
     };
   };
+
+  systemd.tmpfiles.rules = [
+    # calendar does not show events without it
+    # https://github.com/NixOS/nixpkgs/issues/143272
+    # https://bugs.kde.org/show_bug.cgi?id=400451
+    # https://invent.kde.org/plasma/plasma-workspace/-/blob/4df78f841cc16a61d862b5b183e773e9f66436b8/ktimezoned/ktimezoned.cpp#L124
+    "L+ /usr/share/zoneinfo - - - - ${pkgs.tzdata}/share/zoneinfo"
+
+    # fix showing duplicate events in calendar widget of plasma panel
+    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/astronomicalevents    - - - - ${pkgs.libsForQt5.kdeplasma-addons}/lib/qt-5.15.10/plugins/plasmacalendarplugins/astronomicalevents"
+    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/astronomicalevents.so - - - - ${pkgs.libsForQt5.kdeplasma-addons}/lib/qt-5.15.10/plugins/plasmacalendarplugins/astronomicalevents.so"
+    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/holidays              - - - - ${pkgs.libsForQt5.plasma-workspace}/lib/qt-5.15.10/plugins/plasmacalendarplugins/holidays"
+    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/holidays.so           - - - - ${pkgs.libsForQt5.plasma-workspace}/lib/qt-5.15.10/plugins/plasmacalendarplugins/holidaysevents.so"
+    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/pimevents             - - - - ${pkgs.libsForQt5.kdepim-addons}/lib/qt-5.15.10/plugins/plasmacalendarplugins/pimevents"
+    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/pimevents.so          - - - - ${pkgs.libsForQt5.kdepim-addons}/lib/qt-5.15.10/plugins/plasmacalendarplugins/pimevents.so"
+  ];
 }
