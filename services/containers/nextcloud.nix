@@ -40,6 +40,21 @@
           IMAGE_FINAL_TAG = "10.5";
         };
       };
+      "container-image-updater@nextcloud-redis" = {
+        overrideStrategy = "asDropin";
+        path = [
+          pkgs.jq
+          pkgs.nix-prefetch-docker
+          pkgs.skopeo
+        ];
+        environment = {
+          IMAGE_UPSTREAM_HOST = "docker.io";
+          IMAGE_UPSTREAM_NAME = "redis";
+          IMAGE_UPSTREAM_TAG = "latest";
+          IMAGE_FINAL_NAME = "localhost/nextcloud-redis";
+          IMAGE_FINAL_TAG = "latest";
+        };
+      };
       "server-and-config-update@NextcloudUpdates" = {
         overrideStrategy = "asDropin";
         path = [
@@ -75,10 +90,11 @@
   };
 
   virtualisation.oci-containers.containers = {
-    nextcloud = {
+    "nextcloud" = {
       autoStart = true;
       dependsOn = [
         "nextcloud-db"
+        "nextcloud-redis"
       ];
 
       image = "localhost/nextcloud:stable";
@@ -88,7 +104,6 @@
 
       environment = {
         TZ = "Europe/Berlin";
-        #REDIS_HOST = "172.23.82.2";
         #PHP_MEMORY_LIMIT = "512M";
       };
       volumes = [
@@ -107,7 +122,7 @@
       ];
     };
 
-    nextcloud-cron = {
+    "nextcloud-cron" = {
       autoStart = true;
       dependsOn = [
         "nextcloud"
@@ -128,7 +143,7 @@
       ];
     };
 
-    nextcloud-db = {
+    "nextcloud-db" = {
       autoStart = true;
       dependsOn = [];
 
@@ -147,7 +162,8 @@
         MYSQL_USER = "nextcloud";
       };
       environmentFiles = [
-        "/etc/nixos/secrets/packages/containers/nextcloud/MYSQL"
+        "/etc/nixos/secrets/services/containers/nextcloud/MYSQL"
+        "/etc/nixos/secrets/services/containers/nextcloud/MYSQL_ROOT"
       ];
       volumes = [
         "/mnt/cache/appdata/database/nextcloud:/var/lib/mysql:Z"
@@ -156,6 +172,38 @@
         "--network" "server"
         "--ip" "172.23.82.1"
         "--ip6" "fd00:172:23::443:2:1"
+      ];
+    };
+
+    "nextcloud-redis" = {
+      autoStart = true;
+      dependsOn = [];
+
+      image = "localhost/nextcloud-redis:latest";
+      imageFile = pkgs.dockerTools.pullImage (
+        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/nextcloud-redis.json")
+      );
+
+      /*
+      cmd = [
+        "redis-server"
+        "--appendonly" "yes"
+        "--requirepass" "$$\{REDIS_HOST_PASSWORD\}"
+      ];
+      */
+      environment = {
+        TZ = "Europe/Berlin";
+      };
+      environmentFiles = [
+        "/etc/nixos/secrets/services/containers/nextcloud/REDIS"
+      ];
+      volumes = [
+        "/mnt/cache/appdata/redis/nextcloud:/data"
+      ];
+      extraOptions = [
+        "--network" "server"
+        "--ip" "172.23.82.2"
+        "--ip6" "fd00:172:23::443:2:2"
       ];
     };
   };

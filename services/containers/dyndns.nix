@@ -29,7 +29,7 @@
   };
 
   virtualisation.oci-containers.containers = {
-    ddns-v4 = {
+    "ddns-v4" = {
       autoStart = true;
       dependsOn = [ "pihole" ];
 
@@ -51,7 +51,7 @@
         UMASK = "002";
       };
       environmentFiles = [
-        "/etc/nixos/secrets/packages/containers/ddns/CF_APITOKEN"
+        "/etc/nixos/secrets/services/containers/ddns/CF_APITOKEN"
       ];
       volumes = [
         "/mnt/cache/appdata/ddns/v4:/config:Z"
@@ -63,7 +63,7 @@
       ];
     };
 
-    ddns-v6 = {
+    "ddns-v6" = {
       autoStart = true;
       dependsOn = [ "pihole" ];
 
@@ -85,7 +85,7 @@
         UMASK = "002";
       };
       environmentFiles = [
-        "/etc/nixos/secrets/packages/containers/ddns/CF_APITOKEN"
+        "/etc/nixos/secrets/services/containers/ddns/CF_APITOKEN"
       ];
       volumes = [
         "/mnt/cache/appdata/ddns/v6:/config:Z"
