@@ -1,13 +1,14 @@
 #!/bin/bash -ex
 
+BIN_DIR=$(dirname $(realpath $0))
 DATA_DIR="${TARGET_DIR}/mailcow/data"
 mkdir -p ${DATA_DIR}/
 cd ${TARGET_DIR}/
 
 rsync -avHA \
-	-e "sudo -u keks ssh" \
+	-e "ssh" \
 	--delete --delete-excluded \
-	--include-from=rsync.pattern \
+	--include-from="${BIN_DIR}/rsync.pattern" \
 	hetzner-mailcow:/ \
 	${DATA_DIR}/
 
