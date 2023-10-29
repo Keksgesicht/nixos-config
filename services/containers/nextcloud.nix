@@ -1,6 +1,10 @@
 { config, pkgs, lib, ... }:
 
 {
+  imports = [
+    ../system/server-and-config-update.nix
+  ];
+
   systemd = {
     services = {
       "podman-nextcloud" = (import ./service-config.nix lib);
@@ -36,7 +40,21 @@
           IMAGE_FINAL_TAG = "10.5";
         };
       };
+      "server-and-config-update@NextcloudUpdates" = {
+        overrideStrategy = "asDropin";
+        path = [
+          pkgs.podman
+        ];
+        description = "Update Nextcloud itself";
+        serviceConfig = {
+          ReadWritePaths = [
+            "/mnt/array/appdata2/nextcloud"
+            "/var/lib/containers/storage"
+          ];
+        };
+      };
     };
+
     timers = {
       "container-image-updater@nextcloud" = {
         enable = true;
@@ -44,6 +62,11 @@
         wantedBy = [ "timers.target" ];
       };
       "container-image-updater@nextcloud-db" = {
+        enable = true;
+        overrideStrategy = "asDropin";
+        wantedBy = [ "timers.target" ];
+      };
+      "server-and-config-update@NextcloudUpdates" = {
         enable = true;
         overrideStrategy = "asDropin";
         wantedBy = [ "timers.target" ];

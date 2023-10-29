@@ -1,6 +1,10 @@
 { config, pkgs, lib, ... }:
 
 {
+  imports = [
+    ../system/server-and-config-update.nix
+  ];
+
   systemd = {
     services = {
       "podman-proxy" = (import ./service-config.nix lib);
@@ -19,11 +23,51 @@
           IMAGE_FINAL_TAG = "latest";
         };
       };
+      "server-and-config-update@CloudflareProxyIps" = {
+        overrideStrategy = "asDropin";
+        path = [
+          pkgs.gnused
+          pkgs.wget
+        ];
+        description = "Updates Cloudflares Proxy IPs for reverse proxy (swag)";
+        serviceConfig = {
+          ReadWritePaths = "/mnt/cache/appdata/swag/nginx";
+          BindReadOnlyPaths = [
+            "/etc/ssl"
+            "/etc/static/ssl"
+          ];
+        };
+      };
+      "server-and-config-update@SwagCertbot" = {
+        overrideStrategy = "asDropin";
+        path = [ pkgs.podman ];
+        description = "Renew SSL/TLS Certificate";
+        serviceConfig = {
+          ReadWritePaths = "/var/lib/containers/storage";
+        };
+      };
     };
-    timers."container-image-updater@proxy" = {
-      enable = true;
-      overrideStrategy = "asDropin";
-      wantedBy = [ "timers.target" ];
+
+    timers = {
+      "container-image-updater@proxy" = {
+        enable = true;
+        overrideStrategy = "asDropin";
+        wantedBy = [ "timers.target" ];
+      };
+      "server-and-config-update@CloudflareProxyIps" = {
+        enable = true;
+        overrideStrategy = "asDropin";
+        wantedBy = [ "timers.target" ];
+      };
+      "server-and-config-update@SwagCertbot" = {
+        enable = true;
+        overrideStrategy = "asDropin";
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnCalendar = "Wed *-*-* 20:20:00";
+          RandomizedDelaySec = "5min";
+        };
+      };
     };
   };
 
