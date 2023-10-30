@@ -161,6 +161,13 @@ run-box() {
 
 
 nix-cage-shell() {
+	case "${PWD}" in
+	"${HOME}")
+		echo "Not in this directory ${PWD}" >&2
+		return
+	;;
+	esac
+
 	mkdir -p ${XDG_CACHE_HOME}/"nix-cage"
 	mkdir -p ${XDG_DATA_HOME}/"nix-cage"/home
 	touch    ${XDG_DATA_HOME}/"nix-cage"/home/.zhistory

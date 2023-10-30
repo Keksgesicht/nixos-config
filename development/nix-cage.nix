@@ -21,6 +21,7 @@ in
                 ["~/.local/share/nix-cage/home/.zhistory", "~/.zhistory", "f"]
               ],
               "ro": [
+                "~/texmf",
                 "~/.zshrc"
               ]
             }
