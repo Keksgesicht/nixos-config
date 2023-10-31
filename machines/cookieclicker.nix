@@ -21,17 +21,12 @@
     ../system/container.nix
     ../system/networking-desktop.nix
     ../system/networking-desktop-secrets.nix
+    /*
+     * extra configuration
+     * not always necessary
+     */
+    #../development/amdgpu-rocm.nix
+    #../development/android.nix
+    #../hardware/x86_64/binfmt.nix
   ];
-
-  specialisation = {
-    "amdgpu".configuration = {
-      imports = [ ../development/amdgpu-rocm.nix ];
-    };
-    "android".configuration = {
-      imports = [ ../development/android.nix ];
-    };
-    "binfmt".configuration = {
-      imports = [ ../hardware/x86_64/binfmt.nix ];
-    };
-  };
 }
