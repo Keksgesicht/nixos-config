@@ -8,8 +8,7 @@ stdenv.mkDerivation {
 
   buildInputs = [ bash subversion ];
   installPhase = ''
-    mkdir -p $out/etc
-    cp -r $src/etc/. $out/etc/
+    cp -r $src/. $out/
   '';
 
   meta = with lib; {

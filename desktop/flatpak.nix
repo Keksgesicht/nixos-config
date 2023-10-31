@@ -48,6 +48,6 @@ in
 
   # generate flatpak overrides by NixOS config
   systemd.tmpfiles.rules = [
-    "L+ /var/lib/flatpak/overrides - - - - ${flatpak-overrides}/etc/flatpak/overrides"
+    "L+ /var/lib/flatpak/overrides - - - - ${flatpak-overrides}"
   ];
 }
