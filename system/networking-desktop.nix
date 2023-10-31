@@ -1,7 +1,6 @@
 # file: system/neworking.nix
 # desc: connecting with LAN and internet (e.g., ip addr, firewall, services)
-
-{ config, pkgs, lib, ...}:
+{ config, pkgs, lib, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -57,21 +56,30 @@
   };
 
   systemd = {
-    services."ipv6-prefix-update" = {
-      enable = (config.networking.hostName == "cookieclicker");
-      description = "Check whether IPv6 prefix has been updated and adjust static suffix to new IP";
-      path = with pkgs; [ coreutils iproute2 gawk procps ];
-      script = (builtins.readFile ../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6);
-      scriptArgs = "enp4s0 prefix";
-    };
-    timers."ipv6-prefix-update" = {
-      enable = (config.networking.hostName == "cookieclicker");
-      description = "regular IPv6 prefix update check";
-      timerConfig = {
-        OnStartupSec = "42min";
-        OnUnitInactiveSec = "1000sec";
+    services = {
+      "NetworkManager-wait-online" =
+        # https://askubuntu.com/questions/1018576/what-does-networkmanager-wait-online-service-do
+        if (config.services.xserver.enable) then
+          { enable = lib.mkForce false; }
+        else {};
+      "ipv6-prefix-update" = {
+        enable = (config.networking.hostName == "cookieclicker");
+        description = "Check whether IPv6 prefix has been updated and adjust static suffix to new IP";
+        path = with pkgs; [ coreutils iproute2 gawk procps ];
+        script = (builtins.readFile ../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6);
+        scriptArgs = "enp4s0 prefix";
       };
-      wantedBy = [ "timers.target" ];
+    };
+    timers = {
+      "ipv6-prefix-update" = {
+        enable = (config.networking.hostName == "cookieclicker");
+        description = "regular IPv6 prefix update check";
+        timerConfig = {
+          OnStartupSec = "42min";
+          OnUnitInactiveSec = "1000sec";
+        };
+        wantedBy = [ "timers.target" ];
+      };
     };
   };
 

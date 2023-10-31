@@ -11,10 +11,8 @@
     # otherwise use .devices list
     autodetect = true;
     notifications = {
-      # further options are .x11 or .mail, but KDE already reacts to on wall messages
       wall.enable = true;
-      # send a test notification on startup
-      test = true;
+      x11.enable = true;
     };
   };
 
