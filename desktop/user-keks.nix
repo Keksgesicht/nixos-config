@@ -3,7 +3,7 @@
 {
   # Define a user account.
   # Don't forget to set a password with ‘passwd’.
-  users.users.keks = {
+  users.users."keks" = {
     isNormalUser = true;
     description = "Jan B.";
     shell = pkgs.zsh;
@@ -14,7 +14,7 @@
       "wheel"
     ];
   };
-  users.groups.keks = {
+  users.groups."keks" = {
     gid = 1000;
   };
 }

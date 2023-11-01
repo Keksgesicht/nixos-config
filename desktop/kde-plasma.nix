@@ -1,5 +1,4 @@
 # https://nixos.wiki/wiki/KDE
-
 { config, pkgs, ...}:
 
 {
@@ -39,15 +38,22 @@
     plasma-browser-integration
   ];
 
-  users.users."keks".packages = with pkgs.libsForQt5; [
-    kate
-    # use digital clock with PIM plugin
-    akonadi-calendar
-    kdepim-addons
-    merkuro
-    # security stuff
-    ksshaskpass
-  ];
+  users.users."keks" = {
+    packages = with pkgs.libsForQt5; with pkgs; [
+      kate
+      # use digital clock with PIM plugin
+      akonadi-calendar
+      kdepim-addons
+      merkuro
+      # security stuff
+      ksshaskpass
+      # graphics info
+      clinfo
+      glxinfo
+      vulkan-tools
+      wayland-utils
+    ];
+  };
 
   systemd.services = {
     /*
