@@ -12,7 +12,6 @@ flatpak install -y \
 	com.github.tchx84.Flatseal \
 	io.gitlab.librewolf-community \
 	org.ferdium.Ferdium \
-	org.gnome.Calculator \
 	org.kde.okular \
 	org.mozilla.firefox \
 	org.mozilla.Thunderbird

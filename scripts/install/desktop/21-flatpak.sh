@@ -7,8 +7,7 @@ flatpak remote-add --if-not-exists \
 # essential apps
 flatpak install -y 'flathub' \
 	com.github.hluk.copyq \
-	com.github.tchx84.Flatseal \
-	org.gnome.Calculator
+	com.github.tchx84.Flatseal
 
 # browser
 flatpak install -y 'flathub' \

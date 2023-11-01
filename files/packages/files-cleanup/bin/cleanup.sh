@@ -23,7 +23,7 @@ rm -r /home/*/.var/app/org.mozilla.firefox/cache
 
 ### delete temporary flatpak overrides
 ### they are now managed by nix
-### /var/lib/flatpak/overrides -> /etc/flatpak/overrides -> pkgs.flatpak-overrides
+### /var/lib/flatpak/overrides -> pkgs.flatpak-overrides
 rm -fr /home/*/.local/share/flatpak/overrides
 
 ### delete old Tab Group backups

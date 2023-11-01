@@ -27,7 +27,7 @@
     packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       # Noto + NerdFont => Noto-Nerdfonts
       (nerdfonts.override { fonts = [ "Noto" ]; })
       # Microsoft TrueType core fonts

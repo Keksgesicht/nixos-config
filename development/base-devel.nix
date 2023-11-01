@@ -15,7 +15,6 @@
     nix-index
     nmap
     psmisc
-    pstree
     pv
     ripgrep
     screen

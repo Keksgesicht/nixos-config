@@ -3,11 +3,15 @@
     nixpkgs-stable.url = "nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
-    home-manager = {
-      #url = "github:nix-community/home-manager/release-23.05";
+    home-manager-stable = {
+      url = "github:nix-community/home-manager/release-23.05";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    home-manager-unstable = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
     tuxedo-nixos = {
       url = "github:blitz/tuxedo-nixos";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -22,9 +26,10 @@
     self,
     nixpkgs-stable,
     nixpkgs-unstable,
-    home-manager,
+    home-manager-stable,
+    home-manager-unstable,
     lanzaboote,
-    tuxedo-nixos
+    tuxedo-nixos,
   }@inputs: {
     nixosConfigurations = {
 
@@ -40,7 +45,7 @@
         };
         modules = [
           ./machines/cookieclicker.nix
-          home-manager.nixosModules.home-manager
+          home-manager-unstable.nixosModules.home-manager
           lanzaboote.nixosModules.lanzaboote
         ];
       };
@@ -56,7 +61,7 @@
         };
         modules = [
           ./machines/cookiethinker.nix
-          home-manager.nixosModules.home-manager
+          home-manager-unstable.nixosModules.home-manager
           tuxedo-nixos.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
         ];

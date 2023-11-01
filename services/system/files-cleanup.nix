@@ -43,6 +43,7 @@
             "-/root/.dbus"
             "-/root/.local"
             "-/home/keks/.cache"
+            "-/home/keks/.local/share/flatpak/overrides"
             "-/home/keks/.var/app/io.gitlab.librewolf-community/cache"
             "-/home/keks/.var/app/org.kde.kdenlive/cache"
             "-/home/keks/.var/app/org.mozilla.firefox/cache"

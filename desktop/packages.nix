@@ -2,6 +2,7 @@
 
 {
   users.users."keks".packages = with pkgs; [
+    gnome.gnome-calculator
     keepassxc
     nextcloud-client
     pdfgrep
