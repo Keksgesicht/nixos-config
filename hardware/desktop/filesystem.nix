@@ -6,11 +6,6 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, ... }:
 
-let
-  bfs-opts = [
-    "compress=zstd:3"
-  ];
-in
 {
   boot = {
     initrd = {
@@ -31,52 +26,26 @@ in
           keyFile = "/dev/disk/by-partuuid/c58965ae-8061-714c-94ef-11c57da14a63";
           keyFileSize = 2048;
         };
-
-        "array1" = {
-          device = "/dev/disk/by-label/array1";
-          keyFile = "/dev/disk/by-partuuid/3375b91e-8e21-7e46-ad42-fcdc11b8858a";
-          keyFileSize = 2048;
-        };
-        "array3" = {
-          device = "/dev/disk/by-label/array3";
-          keyFile = "/dev/disk/by-partuuid/3375b91e-8e21-7e46-ad42-fcdc11b8858a";
-          keyFileSize = 2048;
-        };
-        "array4" = {
-          device = "/dev/disk/by-label/array4";
-          keyFile = "/dev/disk/by-partuuid/3375b91e-8e21-7e46-ad42-fcdc11b8858a";
-          keyFileSize = 2048;
-        };
-
-        "ram1" = {
-          device = "/dev/disk/by-label/ram1";
-          keyFile = "/dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4";
-          keyFileSize = 2048;
-          allowDiscards = true;
-        };
-        "ram3" = {
-          device = "/dev/disk/by-label/ram3";
-          keyFile = "/dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4";
-          keyFileSize = 2048;
-          allowDiscards = true;
-        };
-        "ram4" = {
-          device = "/dev/disk/by-label/ram4";
-          keyFile = "/dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4";
-          keyFileSize = 2048;
-          allowDiscards = true;
-        };
-        "ram5" = {
-          device = "/dev/disk/by-label/ram5";
-          keyFile = "/dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4";
-          keyFileSize = 2048;
-          allowDiscards = true;
-        };
       };
     };
   };
 
-  fileSystems = {
+  environment.etc."crypttab".text = ''
+    array1  /dev/disk/by-label/array1   /dev/disk/by-partuuid/3375b91e-8e21-7e46-ad42-fcdc11b8858a  keyfile-size=2048
+    array3  /dev/disk/by-label/array3   /dev/disk/by-partuuid/3375b91e-8e21-7e46-ad42-fcdc11b8858a  keyfile-size=2048
+    array4  /dev/disk/by-label/array4   /dev/disk/by-partuuid/3375b91e-8e21-7e46-ad42-fcdc11b8858a  keyfile-size=2048
+
+    ram1    /dev/disk/by-label/ram1     /dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4  keyfile-size=2048,discard
+    ram3    /dev/disk/by-label/ram3     /dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4  keyfile-size=2048,discard
+    ram4    /dev/disk/by-label/ram4     /dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4  keyfile-size=2048,discard
+    ram5    /dev/disk/by-label/ram5     /dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4  keyfile-size=2048,discard
+  '';
+
+  fileSystems =
+  let
+    bfs-opts = [ "compress=zstd:3" ];
+  in
+  {
     "/" = {
       device = "/dev/disk/by-label/cache";
       fsType = "btrfs";
@@ -123,9 +92,7 @@ in
     "/mnt/backup/USB/data" = {
       device = "/dev/mapper/usb-backup";
       fsType = "btrfs";
-      options = [
-        "noauto"
-      ];
+      options = [ "noauto" ];
     };
   };
 
@@ -135,9 +102,7 @@ in
       # using by-partuuid should not change between system reboots or kernel updates
       device = "/dev/disk/by-partuuid/85439545-b3f4-f742-948f-e3a7190f5fc7";
       randomEncryption.enable = true;
-      options = [
-        "nofail"
-      ];
+      options = [ "nofail" ];
     }
   ];
 }
