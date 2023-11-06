@@ -15,32 +15,33 @@ setup_raid_cache() {
 	mkdir -p 'mnt/cache'
 
 	btrfs subvolume create 'root'
-	mkdir -p 'backup_cache/name/root'
-	ln -s '../backup_cache/name/root' 'root/.backup'
+	mkdir -p 'root/boot'
+	mount '/dev/disk/by-uuid/F6A6-57AC' 'root/boot'
+
+	btrfs subvolume create 'etc'
+	mkdir -p 'root/etc'
+	ln -s '../backup_cache/name/etc' 'etc/.backup'
 
 	btrfs subvolume create 'home'
-	btrfs subvolume create 'root/home'
+	mkdir -p 'root/home'
 	mount -o 'compress=zstd:3,subvol=home' \
 		'/dev/disk/by-label/cache' 'root/home'
-	mkdir -p 'backup_cache/name/home'
 	ln -s '../backup_cache/name/home' 'home/.backup'
 
 	btrfs subvolume create 'nix'
-	btrfs subvolume create 'root/nix'
+	mkdir -p 'root/nix'
 	mount -o 'compress=zstd:3,subvol=nix' \
 		'/dev/disk/by-label/cache' 'root/nix'
 
-	btrfs subvolume create 'root/boot'
-	mount '/dev/disk/by-uuid/F6A6-57AC' 'root/boot'
-
-	btrfs subvolume create 'root/tmp'
+	btrfs subvolume create 'var'
+	mkdir -p 'root/var'
+	mount -o 'compress=zstd:3,subvol=var' \
+		'/dev/disk/by-label/cache' 'root/var'
 
 	btrfs subvolume create 'appdata'
-	mkdir -p 'backup_cache/name/appdata'
 	ln -s '../backup_cache/name/appdata' 'appdata/.backup'
 
 	btrfs subvolume create 'vm'
-	mkdir -p 'backup_cache/name/vm'
 	ln -s '../backup_cache/name/vm' 'vm/.backup'
 
 	popd

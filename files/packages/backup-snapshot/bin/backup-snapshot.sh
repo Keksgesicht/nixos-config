@@ -20,12 +20,13 @@ elif ( [ -n "$weekly" ] && [ 0 -lt $weekly ] ) && ( [ -z "$last_weekly" ] || [ `
 else
 	day="${today}_d"
 fi
-mkdir -v "${dest}/${day}"
+mkdir -p -v "${dest}/${day}"
 
 # create snapshots and links
 for dir in $shares; do
 	btrfs subvolume show "$source/$dir/" >/dev/null || continue
 	btrfs subvolume snapshot -r "$source/$dir" "$dest/$day/$dir"
+	mkdir -p "$backup/name/$dir"
 	ln -srv "$dest/$day/$dir" "$backup/name/$dir/$day"
 	rm -v "$backup/name/$dir/latest"
 	ln -srv "$backup/name/$dir/$day" "$backup/name/$dir/latest"

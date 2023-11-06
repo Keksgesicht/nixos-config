@@ -1,4 +1,4 @@
-{ config, pkgs, ...}:
+{ config, pkgs, lib, ... }:
 
 {
   # Define a user account.
@@ -13,6 +13,10 @@
       "networkmanager"
       "wheel"
     ];
+    hashedPassword =
+      if (config.networking.hostName == "cookieclicker") then
+        (lib.removeSuffix "\n" (builtins.readFile "/etc/nixos/secrets/keys/passwd/keks"))
+      else null;
   };
   users.groups."keks" = {
     gid = 1000;

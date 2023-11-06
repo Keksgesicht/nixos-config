@@ -3,6 +3,8 @@
     nixpkgs-stable.url = "nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
+    # https://nixos.wiki/wiki/Home_Manager
+    # https://nix-community.github.io/home-manager/index.html
     home-manager-stable = {
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -12,12 +14,20 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    tuxedo-nixos = {
-      url = "github:blitz/tuxedo-nixos";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    # https://nixos.wiki/wiki/Impermanence
+    impermanence = {
+      url = "github:nix-community/impermanence/master";
+      #inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    # https://nixos.wiki/wiki/Secure_Boot
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    # https://nixos.wiki/wiki/TUXEDO_Devices
+    tuxedo-nixos = {
+      url = "github:blitz/tuxedo-nixos";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
@@ -28,6 +38,7 @@
     nixpkgs-unstable,
     home-manager-stable,
     home-manager-unstable,
+    impermanence,
     lanzaboote,
     tuxedo-nixos,
   }@inputs: {
@@ -46,6 +57,7 @@
         modules = [
           ./machines/cookieclicker.nix
           home-manager-unstable.nixosModules.home-manager
+          impermanence.nixosModules.impermanence
           lanzaboote.nixosModules.lanzaboote
         ];
       };
@@ -62,8 +74,8 @@
         modules = [
           ./machines/cookiethinker.nix
           home-manager-unstable.nixosModules.home-manager
-          tuxedo-nixos.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
+          tuxedo-nixos.nixosModules.default
         ];
       };
 

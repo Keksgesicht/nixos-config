@@ -11,6 +11,7 @@
 
     ./filesystem.nix
     ./gaming.nix
+    ./persistence.nix
     ./services.nix
     ./sysctl.nix
   ];

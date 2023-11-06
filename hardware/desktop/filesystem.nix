@@ -50,9 +50,12 @@
   in
   {
     "/" = {
-      device = "/dev/disk/by-label/cache";
-      fsType = "btrfs";
-      options = bfs-opts ++ [ "subvol=root" ];
+      device = "tmpfs";
+      fsType = "tmpfs";
+      options = [
+        "size=256M"
+        "mode=755"
+      ];
     };
     "/boot" = {
       device = "/dev/disk/by-uuid/F6A6-57AC";
@@ -66,17 +69,26 @@
       device = "/dev/disk/by-label/cache";
       fsType = "btrfs";
       options = bfs-opts ++ [ "subvol=home" ];
+      neededForBoot = true;
     };
     "/nix" = {
       device = "/dev/disk/by-label/cache";
       fsType = "btrfs";
       options = bfs-opts ++ [ "subvol=nix" ];
+      # implicit neededForBoot
+    };
+    "/var" = {
+      device = "/dev/disk/by-label/cache";
+      fsType = "btrfs";
+      options = bfs-opts ++ [ "subvol=var" ];
+      # implicit neededForBoot
     };
 
     "/mnt/cache" = {
       device = "/dev/disk/by-label/cache";
       fsType = "btrfs";
       options = bfs-opts ++ [ "subvol=/" ];
+      neededForBoot = true;
     };
     "/mnt/array" = {
       device = "/dev/disk/by-label/array";
