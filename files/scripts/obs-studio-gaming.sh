@@ -53,12 +53,32 @@ run_obs() {
 			--websocket_ipv4_only \
 			--startreplaybuffer \
 			--minimize-to-tray
-	else
+	elif echo ${screen_res} | grep -q '3360x1440'; then
 		echo "Recording 21:9 at 3360x1440"
 		flatpak run \
 			com.obsproject.Studio \
 			--collection "Recording_21:9" \
 			--profile "ShadowPlay_21:9" \
+			--scene "Fullscreen" \
+			--websocket_ipv4_only \
+			--startreplaybuffer \
+			--minimize-to-tray
+	elif echo ${screen_res} | grep -q '5120x1440'; then
+		echo "Recording 32:9 at 5120x1440"
+		flatpak run \
+			com.obsproject.Studio \
+			--collection "Recording_32:9" \
+			--profile "ShadowPlay_32:9" \
+			--scene "Fullscreen" \
+			--websocket_ipv4_only \
+			--startreplaybuffer \
+			--minimize-to-tray
+	else
+		echo "Recording 32:9 at 5120x1440"
+		flatpak run \
+			com.obsproject.Studio \
+			--collection "Recording_32:9" \
+			--profile "ShadowPlay_32:9" \
 			--scene "Fullscreen" \
 			--websocket_ipv4_only \
 			--startreplaybuffer \
