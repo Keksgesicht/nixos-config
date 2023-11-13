@@ -7,6 +7,7 @@
     fd
     fzf
     git
+    graphviz
     imagemagick
     jq
     ldns

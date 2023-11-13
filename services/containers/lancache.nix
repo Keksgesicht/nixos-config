@@ -7,7 +7,14 @@
 
   systemd = {
     services = {
-      "podman-lancache" = (import ./_stop_timeout.nix lib 17);
+      "podman-lancache" = (import ./_stop_timeout.nix lib 17) // {
+        after = [
+          "mnt-ram.mount"
+        ];
+        requires = [
+          "mnt-ram.mount"
+        ];
+      };
       "container-image-updater@lancache" = {
         overrideStrategy = "asDropin";
         path = [
@@ -67,7 +74,7 @@
   };
 
   virtualisation.oci-containers.containers = {
-    lancache = {
+    "lancache" = {
       autoStart = true;
       dependsOn = [
         "proxy"

@@ -52,6 +52,13 @@
           ];
         };
       };
+
+      # script in unit above needs updatedb/locate
+      "update-locatedb" = {
+        after = [
+          "mnt-array.mount"
+        ];
+      };
     };
 
     timers = {

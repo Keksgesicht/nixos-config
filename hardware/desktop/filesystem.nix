@@ -30,17 +30,20 @@
     };
   };
 
+  # https://www.freedesktop.org/software/systemd/man/latest/crypttab.html
+  # nofail -> no Before=cryptsetup.target
   environment.etc."crypttab".text = ''
-    array1  /dev/disk/by-label/array1   /dev/disk/by-partuuid/3375b91e-8e21-7e46-ad42-fcdc11b8858a  keyfile-size=2048
-    array3  /dev/disk/by-label/array3   /dev/disk/by-partuuid/3375b91e-8e21-7e46-ad42-fcdc11b8858a  keyfile-size=2048
-    array4  /dev/disk/by-label/array4   /dev/disk/by-partuuid/3375b91e-8e21-7e46-ad42-fcdc11b8858a  keyfile-size=2048
+    array1  /dev/disk/by-label/array1   /dev/disk/by-partuuid/3375b91e-8e21-7e46-ad42-fcdc11b8858a  nofail,keyfile-size=2048
+    array3  /dev/disk/by-label/array3   /dev/disk/by-partuuid/3375b91e-8e21-7e46-ad42-fcdc11b8858a  nofail,keyfile-size=2048
+    array4  /dev/disk/by-label/array4   /dev/disk/by-partuuid/3375b91e-8e21-7e46-ad42-fcdc11b8858a  nofail,keyfile-size=2048
 
-    ram1    /dev/disk/by-label/ram1     /dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4  keyfile-size=2048,discard
-    ram3    /dev/disk/by-label/ram3     /dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4  keyfile-size=2048,discard
-    ram4    /dev/disk/by-label/ram4     /dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4  keyfile-size=2048,discard
-    ram5    /dev/disk/by-label/ram5     /dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4  keyfile-size=2048,discard
+    ram1    /dev/disk/by-label/ram1     /dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4  nofail,keyfile-size=2048,discard
+    ram3    /dev/disk/by-label/ram3     /dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4  nofail,keyfile-size=2048,discard
+    ram4    /dev/disk/by-label/ram4     /dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4  nofail,keyfile-size=2048,discard
+    ram5    /dev/disk/by-label/ram5     /dev/disk/by-partuuid/7bf59cfb-f4ea-c047-84b0-8b7ac74d76a4  nofail,keyfile-size=2048,discard
   '';
 
+  # https://www.freedesktop.org/software/systemd/man/latest/systemd-fstab-generator.html
   fileSystems =
   let
     bfs-opts = [ "compress=zstd:3" ];
@@ -81,12 +84,23 @@
       options = [
         "compress-force=zstd:3"
         "subvol=/"
+        "nofail" # no Before=local-fs.target
+        "x-systemd.requires=systemd-cryptsetup@array1.service"
+        "x-systemd.requires=systemd-cryptsetup@array3.service"
+        "x-systemd.requires=systemd-cryptsetup@array4.service"
       ];
     };
     "/mnt/ram" = {
       device = "/dev/disk/by-label/ram";
       fsType = "btrfs";
-      options = bfs-opts ++ [ "subvol=/" ];
+      options = bfs-opts ++ [
+        "subvol=/"
+        "nofail" # no Before=local-fs.target
+        "x-systemd.requires=systemd-cryptsetup@ram1.service"
+        "x-systemd.requires=systemd-cryptsetup@ram3.service"
+        "x-systemd.requires=systemd-cryptsetup@ram4.service"
+        "x-systemd.requires=systemd-cryptsetup@ram5.service"
+      ];
     };
 
     "/mnt/backup/USB/data" = {

@@ -6,7 +6,6 @@
       description = "Container and Webservice Updater (config)";
       after = [
         "mnt-cache.mount"
-        "unCookie-containers@.service"
       ];
       serviceConfig = {
         Type      = "oneshot";

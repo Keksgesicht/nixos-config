@@ -6,9 +6,20 @@
   ];
 
   systemd = {
-    services = {
-      "podman-nextcloud" = (import ./_stop_timeout.nix lib 23);
-      "podman-nextcloud-cron" = (import ./_stop_timeout.nix lib 25);
+    services =
+    let
+      serviceExtraConfig = {
+        after = [
+          "mnt-array.mount"
+        ];
+        requires = [
+          "mnt-array.mount"
+        ];
+      };
+    in
+    {
+      "podman-nextcloud" = (import ./_stop_timeout.nix lib 23) // serviceExtraConfig;
+      "podman-nextcloud-cron" = (import ./_stop_timeout.nix lib 25) // serviceExtraConfig;
       "podman-nextcloud-db" = (import ./_stop_timeout.nix lib 27);
       "podman-nextcloud-redis" = (import ./_stop_timeout.nix lib 27);
       "container-image-updater@nextcloud" = {
