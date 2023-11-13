@@ -64,7 +64,7 @@
     "user@" = {
       overrideStrategy = "asDropin";
       serviceConfig = {
-        TimeoutStopSec = 32;
+        TimeoutStopSec = 23;
         LogFilterPatterns = [
           #"~QML"
           #"~QObject:"
@@ -77,7 +77,7 @@
     # faster shutdowns
     "display-manager" = {
       serviceConfig = {
-        TimeoutStopSec = 32;
+        TimeoutStopSec = 23;
       };
     };
   };

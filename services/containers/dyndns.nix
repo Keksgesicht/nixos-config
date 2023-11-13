@@ -3,8 +3,8 @@
 {
   systemd = {
     services = {
-      "podman-ddns-v4" = (import ./service-config.nix lib);
-      "podman-ddns-v6" = (import ./service-config.nix lib);
+      "podman-ddns-v4" = (import ./_stop_timeout.nix lib 13);
+      "podman-ddns-v6" = (import ./_stop_timeout.nix lib 13);
       "container-image-updater@dyndns" = {
         overrideStrategy = "asDropin";
         path = [

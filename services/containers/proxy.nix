@@ -7,7 +7,7 @@
 
   systemd = {
     services = {
-      "podman-proxy" = (import ./service-config.nix lib);
+      "podman-proxy" = (import ./_stop_timeout.nix lib 25);
       "container-image-updater@proxy" = {
         overrideStrategy = "asDropin";
         path = [
@@ -72,7 +72,7 @@
   };
 
   virtualisation.oci-containers.containers = {
-    proxy = {
+    "proxy" = {
       autoStart = true;
       dependsOn = [ "pihole" ];
 

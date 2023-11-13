@@ -3,7 +3,7 @@
 {
   systemd = {
     services = {
-      "podman-unbound" = (import ./service-config.nix lib);
+      "podman-unbound" = (import ./_stop_timeout.nix lib 17);
       "update-root-dns-servers" = {
         description = "Download root DNS server list";
         path = [
@@ -60,7 +60,7 @@
   };
 
   virtualisation.oci-containers.containers = {
-    unbound = {
+    "unbound" = {
       autoStart = true;
       dependsOn = [];
 

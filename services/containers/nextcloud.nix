@@ -7,9 +7,10 @@
 
   systemd = {
     services = {
-      "podman-nextcloud" = (import ./service-config.nix lib);
-      "podman-nextcloud-cron" = (import ./service-config.nix lib);
-      "podman-nextcloud-db" = (import ./service-config.nix lib);
+      "podman-nextcloud" = (import ./_stop_timeout.nix lib 23);
+      "podman-nextcloud-cron" = (import ./_stop_timeout.nix lib 25);
+      "podman-nextcloud-db" = (import ./_stop_timeout.nix lib 27);
+      "podman-nextcloud-redis" = (import ./_stop_timeout.nix lib 27);
       "container-image-updater@nextcloud" = {
         overrideStrategy = "asDropin";
         path = [

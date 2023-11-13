@@ -7,7 +7,7 @@
 
   systemd = {
     services = {
-      "podman-lancache" = (import ./service-config.nix lib);
+      "podman-lancache" = (import ./_stop_timeout.nix lib 17);
       "container-image-updater@lancache" = {
         overrideStrategy = "asDropin";
         path = [

@@ -3,7 +3,7 @@
 {
   systemd = {
     services = {
-      "podman-pihole" = (import ./service-config.nix lib);
+      "podman-pihole" = (import ./_stop_timeout.nix lib 27);
       "container-image-updater@pihole" = {
         overrideStrategy = "asDropin";
         path = [
@@ -28,7 +28,7 @@
   };
 
   virtualisation.oci-containers.containers = {
-    pihole = {
+    "pihole" = {
       autoStart = true;
       dependsOn = [ "unbound" ];
 
