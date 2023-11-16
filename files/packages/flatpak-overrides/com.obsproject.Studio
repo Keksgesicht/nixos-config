@@ -2,4 +2,4 @@
 shared=network
 sockets=pulseaudio
 devices=all
-filesystems=xdg-videos/Gaming/Desktop;xdg-videos/Work
+filesystems=xdg-videos/Gaming/Desktop;xdg-videos/Work;/mnt/array/homeBraunJan/Videos/Gaming/Desktop;/mnt/array/homeBraunJan/Videos/Work
