@@ -82,7 +82,13 @@
     };
   };
 
-  systemd.tmpfiles.rules = [
+  systemd.tmpfiles.rules =
+  let
+    qtver = pkgs.libsForQt5.qtbase.version;
+    plasma-addons = pkgs.libsForQt5.kdeplasma-addons;
+    workspace-addons = pkgs.libsForQt5.plasma-workspace;
+    kdepim-addons = pkgs.libsForQt5.kdepim-addons;
+  in [
     # calendar does not show events without it
     # https://github.com/NixOS/nixpkgs/issues/143272
     # https://bugs.kde.org/show_bug.cgi?id=400451
@@ -90,11 +96,11 @@
     "L+ /usr/share/zoneinfo - - - - ${pkgs.tzdata}/share/zoneinfo"
 
     # fix showing duplicate events in calendar widget of plasma panel
-    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/astronomicalevents    - - - - ${pkgs.libsForQt5.kdeplasma-addons}/lib/qt-5.15.10/plugins/plasmacalendarplugins/astronomicalevents"
-    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/astronomicalevents.so - - - - ${pkgs.libsForQt5.kdeplasma-addons}/lib/qt-5.15.10/plugins/plasmacalendarplugins/astronomicalevents.so"
-    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/holidays              - - - - ${pkgs.libsForQt5.plasma-workspace}/lib/qt-5.15.10/plugins/plasmacalendarplugins/holidays"
-    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/holidays.so           - - - - ${pkgs.libsForQt5.plasma-workspace}/lib/qt-5.15.10/plugins/plasmacalendarplugins/holidaysevents.so"
-    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/pimevents             - - - - ${pkgs.libsForQt5.kdepim-addons}/lib/qt-5.15.10/plugins/plasmacalendarplugins/pimevents"
-    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/pimevents.so          - - - - ${pkgs.libsForQt5.kdepim-addons}/lib/qt-5.15.10/plugins/plasmacalendarplugins/pimevents.so"
+    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/astronomicalevents    - - - - ${plasma-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/astronomicalevents"
+    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/astronomicalevents.so - - - - ${plasma-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/astronomicalevents.so"
+    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/holidays              - - - - ${workspace-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/holidays"
+    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/holidays.so           - - - - ${workspace-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/holidaysevents.so"
+    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/pimevents             - - - - ${kdepim-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/pimevents"
+    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/pimevents.so          - - - - ${kdepim-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/pimevents.so"
   ];
 }
