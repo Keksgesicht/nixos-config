@@ -22,6 +22,7 @@
     sshuttle
     strace
     unixtools.xxd
+    xdot
     zellij
   ];
 
