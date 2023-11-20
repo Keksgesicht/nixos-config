@@ -74,6 +74,7 @@
         modules = [
           ./machines/cookiethinker.nix
           home-manager-unstable.nixosModules.home-manager
+          impermanence.nixosModules.impermanence
           lanzaboote.nixosModules.lanzaboote
           tuxedo-nixos.nixosModules.default
         ];

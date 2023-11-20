@@ -86,25 +86,28 @@ setup_root() {
 	mkdir -p 'backup_cache/name'
 
 	btrfs subvolume create 'root'
-	mkdir -p 'backup_cache/name/root'
-	ln -s '../backup_cache/name/root' 'root/.backup'
+	mkdir -p 'root/boot'
+	mount '/dev/disk/by-uuid/90CE-7A63' 'root/boot'
+
+	btrfs subvolume create 'etc'
+	mkdir -p 'root/etc'
+	ln -s '../backup_cache/name/etc' 'etc/.backup'
 
 	btrfs subvolume create 'home'
 	mkdir 'root/home'
 	mount -o 'compress=zstd:3,subvol=home' \
 		'/dev/mapper/target_root' 'root/home'
-	mkdir -p 'backup_cache/name/home'
 	ln -s '../backup_cache/name/home' 'home/.backup'
 
 	btrfs subvolume create 'nix'
-	mkdir 'root/nix'
+	mkdir -p 'root/nix'
 	mount -o 'compress=zstd:3,subvol=nix' \
 		'/dev/mapper/target_root' 'root/nix'
 
-	btrfs subvolume create 'root/boot'
-	mount '/dev/disk/by-uuid/90CE-7A63' 'root/boot'
-
-	btrfs subvolume create 'root/tmp'
+	btrfs subvolume create 'var'
+	mkdir -p 'root/var'
+	mount -o 'compress=zstd:3,subvol=var' \
+		'/dev/mapper/target_root' 'root/var'
 
 		btrfs subvolume create 'mnt-array'
 		mkdir -p 'mnt-array/backup_array/date'
@@ -113,7 +116,6 @@ setup_root() {
 		pushd 'mnt-array'
 
 		btrfs subvolume create 'homeBraunJan'
-		mkdir -p 'backup_array/name/homeBraunJan'
 		ln -s '../backup_array/name/homeBraunJan' 'homeBraunJan/.backup'
 
 		popd

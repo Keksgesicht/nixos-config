@@ -18,9 +18,12 @@ in
 
   fileSystems = {
     "/" = {
-      device = "/dev/mapper/root";
-      fsType = "btrfs";
-      options = bfs-opts ++ [ "subvol=root" ];
+      device = "tmpfs";
+      fsType = "tmpfs";
+      options = [
+        "size=256M"
+        "mode=755"
+      ];
     };
     "/boot" = {
       device = "/dev/disk/by-uuid/90CE-7A63";
@@ -34,18 +37,21 @@ in
       device = "/dev/mapper/root";
       fsType = "btrfs";
       options = bfs-opts ++ [ "subvol=home" ];
+      neededForBoot = true;
     };
     "/nix" = {
       device = "/dev/mapper/root";
       fsType = "btrfs";
       options = bfs-opts ++ [ "subvol=nix" ];
+      # implicit neededForBoot
     };
-
-    "/mnt" = {
+    "/var" = {
       device = "/dev/mapper/root";
       fsType = "btrfs";
-      options = bfs-opts ++ [ "subvol=mnt" ];
+      options = bfs-opts ++ [ "subvol=var" ];
+      # implicit neededForBoot
     };
+
     "/mnt/array" = {
       device = "/dev/mapper/root";
       fsType = "btrfs";
@@ -55,6 +61,7 @@ in
       device = "/dev/mapper/root";
       fsType = "btrfs";
       options = bfs-opts ++ [ "subvol=/" ];
+      neededForBoot = true;
     };
   };
 

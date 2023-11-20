@@ -10,6 +10,7 @@
     ../tpm2.nix
 
     ./filesystem.nix
+    ./persistence.nix
     ./tuxedo.nix
   ];
 }

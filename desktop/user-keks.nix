@@ -13,10 +13,9 @@
       "networkmanager"
       "wheel"
     ];
-    hashedPassword =
-      if (config.networking.hostName == "cookieclicker") then
-        (lib.removeSuffix "\n" (builtins.readFile "/etc/nixos/secrets/keys/passwd/keks"))
-      else null;
+    hashedPassword = (lib.removeSuffix "\n"
+      (builtins.readFile "/etc/nixos/secrets/keys/passwd/keks")
+    );
   };
   users.groups."keks" = {
     gid = 1000;
