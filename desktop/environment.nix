@@ -18,6 +18,33 @@
       "${XDG_BIN_HOME}"
     ];
     AUTH = "sudo";
+
+    # force usage of XDG directories
+    GNUPGHOME     = "${XDG_CONFIG_HOME}/gnupg";
+    GTK2_RC_FILES = "${XDG_CONFIG_HOME}/gtk-2.0/gtkrc";
+    KDEHOME       = "${XDG_CONFIG_HOME}/kde";
+    LESSHISTFILE  = "${XDG_CACHE_HOME}/lesshst";
+    #XAUTHORITY    = "${XDG_RUNTIME_DIR}/Xauthority";
+    #XINITRC       = "${XDG_CONFIG_HOME}/X11/xinitrc";
+  };
+
+  home-manager.users."keks" = {
+    xdg.userDirs = {
+      enable = true;
+      desktop   = "$HOME/Desktop";
+      documents = "/mnt/array/homeBraunJan/Documents";
+      download  = "/mnt/array/homeBraunJan/Downloads";
+      music     = "/mnt/array/homeBraunJan/Music";
+      pictures  = "/mnt/array/homeBraunJan/Pictures";
+      videos    = "/mnt/array/homeBraunJan/Videos";
+      publicShare = "/var/tmp/publicshare-keks";
+      templates   = "$HOME/Templates";
+    };
+  };
+
+  # git security
+  environment.sessionVariables = rec {
+    GIT_CEILING_DIRECTORIES = "/home:$HOME/git:/mnt:/mnt/array/homeBraunJan/Documents/development/git:/var/home:/var/mnt:/var/mnt/array/homeBraunJan/Documents/development/git";
   };
 
   fonts = {
@@ -33,20 +60,5 @@
       # Microsoft TrueType core fonts
       corefonts
     ];
-  };
-
-  # force usage of XDG directories
-  environment.sessionVariables = rec {
-    GNUPGHOME     = "${XDG_CONFIG_HOME}/gnupg";
-    GTK2_RC_FILES = "${XDG_CONFIG_HOME}/gtk-2.0/gtkrc";
-    KDEHOME       = "${XDG_CONFIG_HOME}/kde";
-    LESSHISTFILE  = "${XDG_CACHE_HOME}/lesshst";
-    #XAUTHORITY    = "${XDG_RUNTIME_DIR}/Xauthority";
-    #XINITRC       = "${XDG_CONFIG_HOME}/X11/xinitrc";
-  };
-
-  # git security
-  environment.sessionVariables = rec {
-    GIT_CEILING_DIRECTORIES = "/home:$HOME/git:/mnt:/mnt/array/homeBraunJan/Documents/development/git:/var/home:/var/mnt:/var/mnt/array/homeBraunJan/Documents/development/git";
   };
 }
