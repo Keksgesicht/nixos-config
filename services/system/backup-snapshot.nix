@@ -1,6 +1,10 @@
 { config, pkgs, ...}:
 
 {
+  environment.systemPackages = with pkgs; [
+    (callPackage ../../packages/list-backups.nix {})
+  ];
+
   systemd = {
     services = {
       # one snapshot a day

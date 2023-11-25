@@ -67,7 +67,7 @@ alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias lb="${HOME}/.local/bin/list-backups.sh"
+alias lb="list-backups.sh"
 
 alias pse='ps -eo pid,ppid,uid,pri,%cpu,%mem,tty,stat,start_time,cputime,cmd'
 psx() {

@@ -6,6 +6,10 @@ let
   flatpak-overrides = pkgs.callPackage ../packages/flatpak-overrides.nix {};
 in
 {
+  environment.systemPackages = with pkgs; [
+    (callPackage ../packages/flatpak-rollback.nix {})
+  ];
+
   # enable flatpak
   services.flatpak.enable = true;
   # add flathub as a flatpak repository
