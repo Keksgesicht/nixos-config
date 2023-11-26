@@ -17,11 +17,14 @@
     nmap
     psmisc
     pv
+    p7zip
     ripgrep
     screen
     sshuttle
     strace
     unixtools.xxd
+    unrar
+    unzip
     xdot
     zellij
   ];
