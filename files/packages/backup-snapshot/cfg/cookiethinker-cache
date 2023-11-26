@@ -7,4 +7,4 @@ scrub=150
 
 source="/mnt/cache"
 backup="$source/backup_cache"
-shares="home etc var"
+shares="home etc"
