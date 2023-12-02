@@ -37,6 +37,16 @@ check_obs() {
 	fi
 }
 
+start_obs() {
+	flatpak run com.obsproject.Studio \
+		--scene "Fullscreen" \
+		--websocket_ipv4_only \
+		--startreplaybuffer \
+		--minimize-to-tray \
+		--disable-shutdown-check \
+		$@
+}
+
 run_obs() {
 	screen_res=$(xrandr | awk '/primary/ {print $4}')
 	echo "Starting OBS Studio with ReplayBuffer"
@@ -45,44 +55,16 @@ run_obs() {
 
 	if echo ${screen_res} | grep -q '3840x2160'; then
 		echo "Recording 16:9 at 3840x2160"
-		flatpak run \
-			com.obsproject.Studio \
-			--collection "Recording_16:9" \
-			--profile "ShadowPlay_16:9" \
-			--scene "Fullscreen" \
-			--websocket_ipv4_only \
-			--startreplaybuffer \
-			--minimize-to-tray
+		start_obs --collection "Recording_16:9" --profile "ShadowPlay_16:9"
 	elif echo ${screen_res} | grep -q '3360x1440'; then
 		echo "Recording 21:9 at 3360x1440"
-		flatpak run \
-			com.obsproject.Studio \
-			--collection "Recording_21:9" \
-			--profile "ShadowPlay_21:9" \
-			--scene "Fullscreen" \
-			--websocket_ipv4_only \
-			--startreplaybuffer \
-			--minimize-to-tray
+		start_obs --collection "Recording_21:9" --profile "ShadowPlay_21:9"
 	elif echo ${screen_res} | grep -q '5120x1440'; then
 		echo "Recording 32:9 at 5120x1440"
-		flatpak run \
-			com.obsproject.Studio \
-			--collection "Recording_32:9" \
-			--profile "ShadowPlay_32:9" \
-			--scene "Fullscreen" \
-			--websocket_ipv4_only \
-			--startreplaybuffer \
-			--minimize-to-tray
+		start_obs --collection "Recording_32:9" --profile "ShadowPlay_32:9"
 	else
 		echo "Recording 32:9 at 5120x1440"
-		flatpak run \
-			com.obsproject.Studio \
-			--collection "Recording_32:9" \
-			--profile "ShadowPlay_32:9" \
-			--scene "Fullscreen" \
-			--websocket_ipv4_only \
-			--startreplaybuffer \
-			--minimize-to-tray
+		start_obs --collection "Recording_32:9" --profile "ShadowPlay_32:9"
 	fi
 
 	echo "OBS Studio exited with error code $?"
