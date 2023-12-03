@@ -5,6 +5,7 @@ let
 in
 {
   environment.systemPackages = with pkgs; [
+    meld
     pandoc
     pinentry."${gpg-cfg.agent.pinentryFlavor}"
     (ventoy.override {

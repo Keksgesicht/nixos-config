@@ -26,7 +26,6 @@ flatpak install -y 'flathub' \
 	com.zettlr.Zettlr \
 	net.jami.Jami \
 	org.kde.kclock \
-	org.kde.kruler \
 	org.kde.okular \
 	org.libreoffice.LibreOffice \
 	org.mozilla.Thunderbird \
@@ -35,8 +34,7 @@ flatpak install -y 'flathub' \
 
 # hardware
 flatpak install -y 'flathub' \
-	org.gnome.Firmware \
-	org.gnome.meld
+	org.gnome.Firmware
 
 # miscs
 flatpak install -y 'flathub' \

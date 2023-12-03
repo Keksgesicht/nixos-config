@@ -22,11 +22,8 @@ flatpak install -y \
 	com.github.jeromerobert.pdfarranger \
 	com.github.xournalpp.xournalpp \
 	org.gnome.Firmware \
-	org.gnome.meld \
 	org.kde.kclock \
-	org.kde.kruler \
 	org.libreoffice.LibreOffice \
-	org.onlyoffice.desktopeditors \
 	org.signal.Signal \
 	org.texstudio.TeXstudio \
 	org.videolan.VLC

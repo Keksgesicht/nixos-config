@@ -41,6 +41,7 @@
   users.users."keks" = {
     packages = with pkgs.libsForQt5; with pkgs; [
       kate
+      kruler
       # use digital clock with PIM plugin
       akonadi-calendar
       kdepim-addons
