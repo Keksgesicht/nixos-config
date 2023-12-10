@@ -93,6 +93,11 @@
         overrideStrategy = "asDropin";
         wantedBy = [ "timers.target" ];
       };
+      "container-image-updater@nextcloud-redis" = {
+        enable = true;
+        overrideStrategy = "asDropin";
+        wantedBy = [ "timers.target" ];
+      };
       "server-and-config-update@NextcloudUpdates" = {
         enable = true;
         overrideStrategy = "asDropin";
