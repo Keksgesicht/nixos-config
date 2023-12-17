@@ -1,6 +1,7 @@
 - /.Recycle.Bin
 - /.Trash
 - */ccache/*
+- */build/*
 + /Documents/
 + /Documents/BackUp/***
 + /Documents/Office/***
