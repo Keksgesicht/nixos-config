@@ -2,7 +2,7 @@
 
 # set to root of nixos-config
 MY_NIX_CFG_DIR="$(realpath $(dirname $0)/../..)"
-TARGET_DIR="/mnt/cache/root"
+TARGET_DIR="/mnt/main/root"
 
 # copy config over
 mkdir -p ${TARGET_DIR}/etc/nixos

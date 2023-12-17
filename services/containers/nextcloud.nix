@@ -124,8 +124,8 @@
         #PHP_MEMORY_LIMIT = "512M";
       };
       volumes = [
-        "/mnt/cache/appdata/nextcloud/www:/var/www/html"
-        "/mnt/cache/appdata/nextcloud/log:/var/log/apache2:z"
+        "/mnt/main/appdata/nextcloud/www:/var/www/html"
+        "/mnt/main/appdata/nextcloud/log:/var/log/apache2:z"
         "/mnt/array/appdata2/nextcloud:/var/www/html/data"
         "/mnt/array/homeBraunJan:/mnt/external_storage/homeBraunJan:ro"
         "/mnt/array/homeGaming:/mnt/external_storage/homeGaming:ro"
@@ -155,7 +155,7 @@
         TZ = "Europe/Berlin";
       };
       volumes = [
-        "/mnt/cache/appdata/nextcloud/www:/var/www/html"
+        "/mnt/main/appdata/nextcloud/www:/var/www/html"
         "/mnt/array/appdata2/nextcloud:/var/www/html/data"
       ];
     };
@@ -183,7 +183,7 @@
         "/etc/nixos/secrets/services/containers/nextcloud/MYSQL_ROOT"
       ];
       volumes = [
-        "/mnt/cache/appdata/database/nextcloud:/var/lib/mysql:Z"
+        "/mnt/main/appdata/database/nextcloud:/var/lib/mysql:Z"
       ];
       extraOptions = [
         "--network" "server"
@@ -215,7 +215,7 @@
         "/etc/nixos/secrets/services/containers/nextcloud/REDIS"
       ];
       volumes = [
-        "/mnt/cache/appdata/redis/nextcloud:/data"
+        "/mnt/main/appdata/redis/nextcloud:/data"
       ];
       extraOptions = [
         "--network" "server"

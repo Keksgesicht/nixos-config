@@ -3,9 +3,9 @@
 {
   environment.persistence = {
     # only start with:
-    # /etc -> /mnt/cache/etc (BTRFS subvolume)
-    # /var -> /mnt/cache/var (BTRFS subvolume)
-    "/mnt/cache" = {
+    # /etc -> /mnt/main/etc (BTRFS subvolume)
+    # /var -> /mnt/main/var (BTRFS subvolume)
+    "/mnt/main" = {
       directories = [
         "/etc/NetworkManager/system-connections"
         "/etc/nixos"
@@ -28,7 +28,7 @@
       ];
     };
 
-    # /root -> /home/root -> /mnt/cache/home/root
+    # /root -> /home/root -> /mnt/main/home/root
     "/home" = {
       directories = [
         "/root/.secrets/ssh"
@@ -42,23 +42,23 @@
 
   systemd.tmpfiles.rules = [
     # essential
-    "L+ /mnt/user/etc          - - - - /mnt/cache/etc"
-    "L+ /mnt/user/home         - - - - /mnt/cache/home"
-    "L+ /mnt/user/var          - - - - /mnt/cache/var"
+    "L+ /mnt/user/etc          - - - - /mnt/main/etc"
+    "L+ /mnt/user/home         - - - - /mnt/main/home"
+    "L+ /mnt/user/var          - - - - /mnt/main/var"
     # stuff
-    "L+ /mnt/user/appdata      - - - - /mnt/cache/appdata"
+    "L+ /mnt/user/appdata      - - - - /mnt/main/appdata"
     "L+ /mnt/user/appdata2     - - - - /mnt/array/appdata2"
     "L+ /mnt/user/appdata3     - - - - /mnt/ram/appdata3"
     "L+ /mnt/user/backup_array - - - - /mnt/array/backup_array"
-    "L+ /mnt/user/backup_cache - - - - /mnt/cache/backup_cache"
+    "L+ /mnt/user/backup_main  - - - - /mnt/main/backup_main"
     "L+ /mnt/user/games        - - - - /mnt/ram/games"
     "L+ /mnt/user/homeBraunJan - - - - /mnt/array/homeBraunJan"
     "L+ /mnt/user/homeGaming   - - - - /mnt/array/homeGaming"
     # additional data
-    "L+ /mnt/user/binWin       - - - - /mnt/cache/binWin"
-    "L+ /mnt/user/system       - - - - /mnt/cache/system"
+    "L+ /mnt/user/binWin       - - - - /mnt/main/binWin"
+    "L+ /mnt/user/system       - - - - /mnt/main/system"
     "L+ /mnt/user/resources    - - - - /mnt/array/resources"
-    "L+ /mnt/user/vm           - - - - /mnt/cache/vm"
+    "L+ /mnt/user/vm           - - - - /mnt/main/vm"
     "L+ /mnt/user/vm2          - - - - /mnt/array/vm2"
   ];
 }

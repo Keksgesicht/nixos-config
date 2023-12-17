@@ -54,7 +54,7 @@
         "/etc/nixos/secrets/services/containers/ddns/CF_APITOKEN"
       ];
       volumes = [
-        "/mnt/cache/appdata/ddns/v4:/config:Z"
+        "/mnt/main/appdata/ddns/v4:/config:Z"
       ];
       extraOptions = [
         "--network" "server"
@@ -88,8 +88,8 @@
         "/etc/nixos/secrets/services/containers/ddns/CF_APITOKEN"
       ];
       volumes = [
-        "/mnt/cache/appdata/ddns/v6:/config:Z"
-        "/mnt/cache/appdata/ddns/v6-cloudflare-ddns.sh:/app/cloudflare-ddns.sh:Z,ro"
+        "/mnt/main/appdata/ddns/v6:/config:Z"
+        "/mnt/main/appdata/ddns/v6-cloudflare-ddns.sh:/app/cloudflare-ddns.sh:Z,ro"
       ];
       extraOptions = [
         "--network" "host"

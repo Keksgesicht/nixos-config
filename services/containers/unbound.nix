@@ -96,7 +96,7 @@
         TZ = "Europe/Berlin";
       };
       volumes = [
-        "/mnt/cache/appdata/unbound:/etc/unbound:Z"
+        "/mnt/main/appdata/unbound:/etc/unbound:Z"
       ];
       extraOptions = [
         "--network" "server"

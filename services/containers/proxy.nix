@@ -31,7 +31,7 @@
         ];
         description = "Updates Cloudflares Proxy IPs for reverse proxy (swag)";
         serviceConfig = {
-          ReadWritePaths = "/mnt/cache/appdata/swag/nginx";
+          ReadWritePaths = "/mnt/main/appdata/swag/nginx";
           BindReadOnlyPaths = [
             "/etc/ssl"
             "/etc/static/ssl"
@@ -96,7 +96,7 @@
         PGID = "200";
       };
       volumes = [
-        "/mnt/cache/appdata/swag:/config:Z"
+        "/mnt/main/appdata/swag:/config:Z"
       ];
       extraOptions = [
         "--network" "host"

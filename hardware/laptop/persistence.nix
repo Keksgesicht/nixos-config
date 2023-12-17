@@ -3,9 +3,9 @@
 {
   environment.persistence = {
     # only start with:
-    # /etc -> /mnt/cache/etc (BTRFS subvolume)
-    # /var -> /mnt/cache/var (BTRFS subvolume)
-    "/mnt/cache" = {
+    # /etc -> /mnt/main/etc (BTRFS subvolume)
+    # /var -> /mnt/main/var (BTRFS subvolume)
+    "/mnt/main" = {
       directories = [
         "/etc/NetworkManager/system-connections"
         "/etc/nixos"
@@ -27,7 +27,7 @@
       ];
     };
 
-    # /root -> /home/root -> /mnt/cache/home/root
+    # /root -> /home/root -> /mnt/main/home/root
     "/home" = {
       directories = [
       ];

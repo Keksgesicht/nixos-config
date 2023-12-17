@@ -12,10 +12,10 @@
           pkgs.podman
         ];
         after = [
-          "mnt-cache.mount"
+          "mnt-main.mount"
           "mnt-array.mount"
           "mnt-ram.mount"
-          "backup-snapshot@cache.service"
+          "backup-snapshot@main.service"
           "backup-snapshot@array.service"
         ];
         serviceConfig = {
@@ -36,7 +36,7 @@
             "-/mnt/array/appdata2/nextcloud/janb/files/.Calendar-Backup"
             "-/mnt/array/appdata2/nextcloud/janb/files/.Contacts-Backup"
             "-/mnt/array/appdata2/nextcloud/janb/files/InstantUpload/SignalBackup"
-            "-/mnt/cache/appdata/ddns"
+            "-/mnt/main/appdata/ddns"
             "-/mnt/ram/appdata3/pkgcache"
 
             "-/root/.cache"
@@ -101,7 +101,7 @@
       ".svn"
       # my additional directory names
       "backup_array"
-      "backup_cache"
+      "backup_main"
       "cache"
       "Cache"
       "CachedData"

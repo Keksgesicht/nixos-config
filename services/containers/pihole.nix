@@ -50,9 +50,9 @@
         WEBUIBOXEDLAYOUT = "boxed";
       };
       volumes = [
-        "/mnt/cache/appdata/pihole/cron.d/pihole:/etc/cron.d/pihole:z"
-        "/mnt/cache/appdata/pihole/dnsmasq.d:/etc/dnsmasq.d:Z"
-        "/mnt/cache/appdata/pihole/pihole:/etc/pihole:Z"
+        "/mnt/main/appdata/pihole/cron.d/pihole:/etc/cron.d/pihole:z"
+        "/mnt/main/appdata/pihole/dnsmasq.d:/etc/dnsmasq.d:Z"
+        "/mnt/main/appdata/pihole/pihole:/etc/pihole:Z"
         #"/tmp/containers/pihole:/var/log"
       ];
       extraOptions = [
@@ -61,7 +61,7 @@
         "--ip6" "fd00:172:23::aaaa:1"
         "--dns" "172.23.53.2"
         "--dns" "fd00:172:23::aaaa:2"
-        # /mnt/cache/appdata/pihole/dnsmasq.d/99-upstream-dns-server.conf
+        # /mnt/main/appdata/pihole/dnsmasq.d/99-upstream-dns-server.conf
         "--cap-add" "CAP_CHOWN"
       ];
     };

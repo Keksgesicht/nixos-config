@@ -45,8 +45,8 @@
         description = "Updates Lancache DNS records for unbound";
         serviceConfig = {
           ReadWritePaths = [
-            "/mnt/cache/appdata/lancache/cache-domains"
-            "/mnt/cache/appdata/unbound/conf"
+            "/mnt/main/appdata/lancache/cache-domains"
+            "/mnt/main/appdata/unbound/conf"
           ];
           BindReadOnlyPaths = [
             "/etc/ssl"
@@ -97,7 +97,7 @@
       volumes = [
         "/mnt/ram/appdata3/lancache/data:/data/cache:Z"
         "/mnt/ram/appdata3/lancache/logs:/data/logs:Z"
-        "/mnt/cache/appdata/lancache/cache-domains:/data/cachedomains:z"
+        "/mnt/main/appdata/lancache/cache-domains:/data/cachedomains:z"
         "lancache_www:/var/www:Z"
       ];
       extraOptions = [

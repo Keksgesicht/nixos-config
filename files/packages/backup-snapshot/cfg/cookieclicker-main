@@ -5,6 +5,6 @@ monthly=2
 
 scrub=150
 
-source="/mnt/cache"
-backup="$source/backup_cache"
+source="/mnt/main"
+backup="$source/backup_main"
 shares="appdata etc home var vm"

@@ -9,7 +9,7 @@
     fileSystems =
       if (config.networking.hostName == "cookieclicker") then
         [
-          "/mnt/cache"
+          "/mnt/main"
           "/mnt/array"
           "/mnt/ram"
         ]

@@ -4,10 +4,10 @@ OLDIFS=${IFS}
 
 
 ### only keep last 3 lines of DDNS log
-if [ -d "/mnt/cache/appdata/ddns" ]; then
-	ddns_file="/mnt/cache/appdata/ddns/v4/cf-ddns-updates.json"
+if [ -d "/mnt/main/appdata/ddns" ]; then
+	ddns_file="/mnt/main/appdata/ddns/v4/cf-ddns-updates.json"
 	tail -n 3 ${ddns_file} | sponge ${ddns_file}
-	ddns_file="/mnt/cache/appdata/ddns/v6/cf-ddns-updates.json"
+	ddns_file="/mnt/main/appdata/ddns/v6/cf-ddns-updates.json"
 	tail -n 3 ${ddns_file} | sponge ${ddns_file}
 fi
 

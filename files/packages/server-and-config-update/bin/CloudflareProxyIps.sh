@@ -4,7 +4,7 @@
 ### valid cloudflare proxy IPs ###
 ### -------------------------- ###
 
-cloudflare_files="/mnt/cache/appdata/swag/nginx/cloudflare-proxy"
+cloudflare_files="/mnt/main/appdata/swag/nginx/cloudflare-proxy"
 
 # reset files
 truncate -s 0 ${cloudflare_files}-ipv4.txt.tmp

@@ -5,7 +5,7 @@
     services."server-and-config-update@" = {
       description = "Container and Webservice Updater (config)";
       after = [
-        "mnt-cache.mount"
+        "mnt-main.mount"
       ];
       serviceConfig = {
         Type      = "oneshot";

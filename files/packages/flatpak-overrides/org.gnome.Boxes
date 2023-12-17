@@ -2,4 +2,4 @@
 shared=network
 sockets=pulseaudio
 devices=kvm
-filesystems=/mnt/array/vm2;/mnt/cache/vm;/mnt/array/resources/iso-images:ro
+filesystems=/mnt/array/vm2;/mnt/main/vm;/mnt/array/resources/iso-images:ro

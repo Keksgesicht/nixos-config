@@ -4,9 +4,9 @@
 ### lancache ###
 ### -------- ###
 
-unbound_config_file="/mnt/cache/appdata/unbound/conf/lancache.conf"
+unbound_config_file="/mnt/main/appdata/unbound/conf/lancache.conf"
 
-cd /mnt/cache/appdata/lancache/cache-domains/
+cd /mnt/main/appdata/lancache/cache-domains/
 git pull
 
 cd scripts/

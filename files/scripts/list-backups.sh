@@ -19,15 +19,15 @@ if [ 4 -le ${sep_count} ] && [ "${path_d}" == "mnt" ]; then
 else
 	case ${path_d} in
 	"etc")
-		path_r="/mnt/cache/etc"
+		path_r="/mnt/main/etc"
 		path_s=$(echo "${rpath}" | cut -d '/' -f3-)
 	;;
 	"home")
-		path_r="/mnt/cache/home"
+		path_r="/mnt/main/home"
 		path_s=$(echo "${rpath}" | cut -d '/' -f3-)
 	;;
 	"var")
-		path_r="/mnt/cache/var"
+		path_r="/mnt/main/var"
 		path_s=$(echo "${rpath}" | cut -d '/' -f3-)
 	;;
 	"dev" | "proc" | "run" | "sys" | "tmp" )
@@ -35,7 +35,7 @@ else
 		exit 2
 	;;
 	*)
-		path_r="/mnt/cache/root"
+		path_r="/mnt/main/root"
 		path_s=$(echo "${rpath}" | cut -d '/' -f2-)
 	;;
 	esac

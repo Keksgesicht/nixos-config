@@ -81,9 +81,9 @@ setup_root() {
 	pushd '/mnt'
 
 	btrfs subvolume create 'mnt'
-	mkdir -p 'mnt/cache'
-	mkdir -p 'backup_cache/date'
-	mkdir -p 'backup_cache/name'
+	mkdir -p 'mnt/main'
+	mkdir -p 'backup_main/date'
+	mkdir -p 'backup_main/name'
 
 	btrfs subvolume create 'root'
 	mkdir -p 'root/boot'
@@ -91,13 +91,13 @@ setup_root() {
 
 	btrfs subvolume create 'etc'
 	mkdir -p 'root/etc'
-	ln -s '../backup_cache/name/etc' 'etc/.backup'
+	ln -s '../backup_main/name/etc' 'etc/.backup'
 
 	btrfs subvolume create 'home'
 	mkdir 'root/home'
 	mount -o 'compress=zstd:3,subvol=home' \
 		'/dev/mapper/target_root' 'root/home'
-	ln -s '../backup_cache/name/home' 'home/.backup'
+	ln -s '../backup_main/name/home' 'home/.backup'
 
 	btrfs subvolume create 'nix'
 	mkdir -p 'root/nix'

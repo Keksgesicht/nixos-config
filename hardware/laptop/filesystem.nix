@@ -57,7 +57,7 @@ in
       fsType = "btrfs";
       options = bfs-opts ++ [ "subvol=mnt-array" ];
     };
-    "/mnt/cache" = {
+    "/mnt/main" = {
       device = "/dev/mapper/root";
       fsType = "btrfs";
       options = bfs-opts ++ [ "subvol=/" ];
