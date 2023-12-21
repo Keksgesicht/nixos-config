@@ -10,8 +10,8 @@
     ../tpm2.nix
 
     ./filesystem.nix
+    ./impermanence.nix
     ./gaming.nix
-    ./persistence.nix
     ./services.nix
     ./sysctl.nix
   ];

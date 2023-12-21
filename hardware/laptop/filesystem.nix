@@ -6,13 +6,9 @@ let
   ];
 in
 {
-  boot = {
-    initrd = {
-      luks.devices = {
-        "root" = {
-          device = "/dev/disk/by-uuid/c720b152-baf0-4336-bb04-83f01857cfab";
-        };
-      };
+  boot.initrd.luks.devices = {
+    "root" = {
+      device = "/dev/disk/by-uuid/c720b152-baf0-4336-bb04-83f01857cfab";
     };
   };
 
@@ -21,10 +17,15 @@ in
       device = "tmpfs";
       fsType = "tmpfs";
       options = [
+        "nr_inodes=65536"
         "size=256M"
         "mode=755"
+        "nodev"
+        "noexec"
+        "nosuid"
       ];
     };
+
     "/boot" = {
       device = "/dev/disk/by-uuid/90CE-7A63";
       fsType = "vfat";
@@ -32,12 +33,6 @@ in
         "umask=0077"
         "shortname=winnt"
       ];
-    };
-    "/home" = {
-      device = "/dev/mapper/root";
-      fsType = "btrfs";
-      options = bfs-opts ++ [ "subvol=home" ];
-      neededForBoot = true;
     };
     "/nix" = {
       device = "/dev/mapper/root";

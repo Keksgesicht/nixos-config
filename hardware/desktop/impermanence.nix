@@ -6,6 +6,7 @@
     # /etc -> /mnt/main/etc (BTRFS subvolume)
     # /var -> /mnt/main/var (BTRFS subvolume)
     "/mnt/main" = {
+      hideMounts = true;
       directories = [
         "/etc/NetworkManager/system-connections"
         "/etc/nixos"
@@ -28,8 +29,9 @@
       ];
     };
 
-    # /root -> /home/root -> /mnt/main/home/root
-    "/home" = {
+    # /root -> /mnt/main/home/root
+    "/mnt/main/home" = {
+      hideMounts = true;
       directories = [
         "/root/.secrets/ssh"
       ];
@@ -51,7 +53,7 @@
     "L+ /mnt/user/appdata3     - - - - /mnt/ram/appdata3"
     "L+ /mnt/user/backup_array - - - - /mnt/array/backup_array"
     "L+ /mnt/user/backup_main  - - - - /mnt/main/backup_main"
-    "L+ /mnt/user/games        - - - - /mnt/ram/games"
+    "L+ /mnt/user/Games        - - - - /mnt/ram/Games"
     "L+ /mnt/user/homeBraunJan - - - - /mnt/array/homeBraunJan"
     "L+ /mnt/user/homeGaming   - - - - /mnt/array/homeGaming"
     # additional data

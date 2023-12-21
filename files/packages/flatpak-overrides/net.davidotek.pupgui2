@@ -1,4 +1,4 @@
 [Context]
 shared=!ipc;network
 sockets=!fallback-x11
-filesystems=!~/stl;~/.kshrc:ro;~/.zshrc:ro;~/.bashrc:ro;/mnt/ram/games/SteamLibrary/steamapps/common:ro
+filesystems=!~/stl;~/.kshrc:ro;~/.zshrc:ro;~/.bashrc:ro;/mnt/ram/Games/SteamLibrary/steamapps/common:ro

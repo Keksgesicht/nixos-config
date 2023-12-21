@@ -12,6 +12,7 @@
     ./environment-desktop.nix
     ./flatpak.nix
     ./home-manager.nix
+    ./impermanence.nix
     ./kde-plasma.nix
     ./openssh.nix
     ./packages.nix

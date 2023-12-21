@@ -6,6 +6,7 @@
     # /etc -> /mnt/main/etc (BTRFS subvolume)
     # /var -> /mnt/main/var (BTRFS subvolume)
     "/mnt/main" = {
+      hideMounts = true;
       directories = [
         "/etc/NetworkManager/system-connections"
         "/etc/nixos"
@@ -27,8 +28,9 @@
       ];
     };
 
-    # /root -> /home/root -> /mnt/main/home/root
-    "/home" = {
+    # /root -> /mnt/main/home/root
+    "/mnt/main/home" = {
+      hideMounts = true;
       directories = [
       ];
       files = [

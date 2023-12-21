@@ -7,26 +7,22 @@
 { config, lib, pkgs, ... }:
 
 {
-  boot = {
-    initrd = {
-      /*
-       * fTPM not working under Linux
-       * TEMPORARY SOLUTION (throwing away single drives without thinking should work and I can still use Wake on LAN)
-       * find -L /dev/disk -samefile /dev/sdh2
-       * dd status=progress bs=2048 if=/etc/nixos/secrets/keys/luks/main of=/dev/sdh2 seek=0
-       */
-      luks.devices = {
-        "main1" = {
-          device = "/dev/disk/by-label/main1";
-          keyFile = "/dev/disk/by-partuuid/c58965ae-8061-714c-94ef-11c57da14a63";
-          keyFileSize = 2048;
-        };
-        "main2" = {
-          device = "/dev/disk/by-label/main2";
-          keyFile = "/dev/disk/by-partuuid/c58965ae-8061-714c-94ef-11c57da14a63";
-          keyFileSize = 2048;
-        };
-      };
+  /*
+   * fTPM not working under Linux
+   * TEMPORARY SOLUTION (throwing away single drives without thinking should work and I can still use Wake on LAN)
+   * find -L /dev/disk -samefile /dev/sdh2
+   * dd status=progress bs=2048 if=/etc/nixos/secrets/keys/luks/main of=/dev/sdh2 seek=0
+   */
+  boot.initrd.luks.devices = {
+    "main1" = {
+      device = "/dev/disk/by-label/main1";
+      keyFile = "/dev/disk/by-partuuid/c58965ae-8061-714c-94ef-11c57da14a63";
+      keyFileSize = 2048;
+    };
+    "main2" = {
+      device = "/dev/disk/by-label/main2";
+      keyFile = "/dev/disk/by-partuuid/c58965ae-8061-714c-94ef-11c57da14a63";
+      keyFileSize = 2048;
     };
   };
 
@@ -53,10 +49,15 @@
       device = "tmpfs";
       fsType = "tmpfs";
       options = [
+        "nr_inodes=65536"
         "size=256M"
         "mode=755"
+        "nodev"
+        "noexec"
+        "nosuid"
       ];
     };
+
     "/boot" = {
       device = "/dev/disk/by-uuid/F6A6-57AC";
       fsType = "vfat";
@@ -64,12 +65,6 @@
         "umask=0077"
         "shortname=winnt"
       ];
-    };
-    "/home" = {
-      device = "/dev/disk/by-label/main";
-      fsType = "btrfs";
-      options = bfs-opts ++ [ "subvol=home" ];
-      neededForBoot = true;
     };
     "/nix" = {
       device = "/dev/disk/by-label/main";

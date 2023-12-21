@@ -17,7 +17,6 @@ in
   programs.zsh = {
     enable = true;
     interactiveShellInit = ''
-      truncate -s 0 ~/.zshrc
       export ZSHCFGDIR=${my_zsh_config}
       source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
     '';

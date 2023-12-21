@@ -19,7 +19,11 @@ zstyle ':completion:*' rehash true                              # automatically 
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh
-HISTFILE=~/.zhistory
+if [ -w /mnt/main/home/keks/.zhistory ]; then
+  HISTFILE=/mnt/main/home/keks/.zhistory
+else
+  HISTFILE=~/.zhistory
+fi
 HISTSIZE=65536
 SAVEHIST=65536
 #export EDITOR=/usr/bin/nano
