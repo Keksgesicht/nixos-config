@@ -14,6 +14,7 @@ let
     options = [
       "bind"
       "nofail"
+      "x-gvfs-hide"
     ];
   };
   data-opts = {
@@ -52,6 +53,9 @@ in
     "${home-dir}/Pictures" = bind-opts // data-opts // {
       device = "${data-dir}/Pictures";
     };
+    "${home-dir}/Videos" = bind-opts // data-opts // {
+      device = "${data-dir}/Videos";
+    };
 
     "${home-dir}/devel" = bind-opts // data-opts // {
       device = "${data-dir}/Documents/development";
@@ -75,29 +79,22 @@ in
   environment.persistence = {
     "${ssd-mnt}" = {
       hideMounts = true;
-      directories = [
-        "${home-dir}/.cache"
-        "${home-dir}/.config"
-        "${home-dir}/.icons"
-        "${home-dir}/.local/bin"
-        "${home-dir}/.local/share"
-        "${home-dir}/.local/state/wireplumber"
-        "${home-dir}/.secrets"
-        "${home-dir}/.tpm2_pkcs11"
-        "${home-dir}/.var/app"
-        "${home-dir}/background"
-        "${home-dir}/Desktop"
-        "${home-dir}/Public"
-        "${home-dir}/Templates"
-        "${home-dir}/texmf"
-        "${home-dir}/WinePrefixes"
-      ];
-      files = [
-        "${home-dir}/.face"
-        "${home-dir}/.gtkrc-2.0"
-        "${home-dir}/.gtkrc-2.0-kde4"
-        "${home-dir}/.xscreensaver"
-      ];
+      users."keks" = {
+        directories = [
+          ".cache"
+          ".config"
+          ".icons"
+          ".local/bin"
+          ".local/share"
+          { directory = ".local/state/wireplumber"; user = username; group = username; }
+          { directory = ".secrets"; mode = "0700"; }
+          { directory = ".tpm2_pkcs11"; mode = "0700"; }
+          ".var/app"
+          "background"
+          "texmf"
+          "WinePrefixes"
+        ];
+      };
     };
   };
 
@@ -105,5 +102,11 @@ in
     "L+ ${home-dir}/.face.icon                - - - - .face"
     "f+ ${home-dir}/.sudo_as_admin_successful - - - - -"
     "f+ ${home-dir}/.zshrc                    - - - - -"
+
+    # the persist file mount units do not wait for home-keks.mount
+    "L+ ${home-dir}/.face           - - - - ${ssd-mnt}${home-dir}/.face"
+    "L+ ${home-dir}/.gtkrc-2.0      - - - - ${ssd-mnt}${home-dir}/.gtkrc-2.0"
+    "L+ ${home-dir}/.gtkrc-2.0-kde4 - - - - ${ssd-mnt}${home-dir}/.gtkrc-2.0-kde4"
+    "L+ ${home-dir}/.xscreensaver   - - - - ${ssd-mnt}${home-dir}/.xscreensaver"
   ];
 }
