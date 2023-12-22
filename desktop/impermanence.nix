@@ -1,4 +1,4 @@
-{ config, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 
 let
   impermanence = inputs.impermanence;
@@ -25,16 +25,43 @@ let
   };
 in
 {
+  systemd.services = {
+    "setup-volume@home-keks" = {
+      description = "Setup new subvolume for ${home-dir}";
+      unitConfig = { DefaultDependencies = "no"; };
+      wantedBy = [ "mnt-main.mount" ];
+      after    = [ "mnt-main.mount" ];
+      before   = [ "home-keks.mount" ];
+      path = with pkgs; [
+        btrfs-progs
+        util-linux
+      ];
+      script = ''
+        mountpoint ${home-dir} && exit 0
+        TMP_HOME_DIR="${ssd-mnt}/home.tmp"
+        BACKUP_DIR="${ssd-mnt}/backup_main/boot/home-keks"
+
+        mkdir -p $TMP_HOME_DIR
+        mkdir -p $BACKUP_DIR
+        find $BACKUP_DIR -mindepth 1 -maxdepth 1 -mtime +2 -exec \
+          btrfs subvolume delete {} \;
+        [ -e $TMP_HOME_DIR/keks ] && \
+          mv $TMP_HOME_DIR/keks $BACKUP_DIR/$(date +%Y%m%d_%H%M%S)
+
+        btrfs subvolume create $TMP_HOME_DIR/keks
+        chown ${username}:${username} $TMP_HOME_DIR/keks
+        chmod 700 $TMP_HOME_DIR/keks
+      '';
+    };
+  };
+
   fileSystems = {
     "${home-dir}" = {
-      device = "tmpfs";
-      fsType = "tmpfs";
+      device = config.fileSystems."/mnt/main".device;
+      fsType = "btrfs";
       options = [
-        "nr_inodes=1048576"
-        "size=2G"
-        "uid=${username}"
-        "gid=${username}"
-        "mode=700"
+        "subvol=home.tmp/keks"
+        "compress=zstd:3"
         "nodev"
         "noexec"
         "nosuid"

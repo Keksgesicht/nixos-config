@@ -37,7 +37,7 @@
       music     = "/mnt/array/homeBraunJan/Music";
       pictures  = "/mnt/array/homeBraunJan/Pictures";
       videos    = "/mnt/array/homeBraunJan/Videos";
-      publicShare = "/var/tmp/publicshare-keks";
+      publicShare = "$HOME/Public";
       templates   = "$HOME/Templates";
     };
   };
