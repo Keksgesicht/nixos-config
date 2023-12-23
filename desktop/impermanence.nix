@@ -129,14 +129,10 @@ in
   };
 
   systemd.tmpfiles.rules = [
+    "L+ ${home-dir}/.face                     - - - - .local/share/face.png"
     "L+ ${home-dir}/.face.icon                - - - - .face"
     "f+ ${home-dir}/.sudo_as_admin_successful - - - - -"
+    "L+ ${home-dir}/.xscreensaver             - - - - .config/xscreensaver/config"
     "f+ ${home-dir}/.zshrc                    - - - - -"
-
-    # the persist file mount units do not wait for home-keks.mount
-    "L+ ${home-dir}/.face           - - - - ${ssd-mnt}${home-dir}/.face"
-    "L+ ${home-dir}/.gtkrc-2.0      - - - - ${ssd-mnt}${home-dir}/.gtkrc-2.0"
-    "L+ ${home-dir}/.gtkrc-2.0-kde4 - - - - ${ssd-mnt}${home-dir}/.gtkrc-2.0-kde4"
-    "L+ ${home-dir}/.xscreensaver   - - - - ${ssd-mnt}${home-dir}/.xscreensaver"
   ];
 }
