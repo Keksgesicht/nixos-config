@@ -87,8 +87,11 @@ in
     "${home-dir}/devel" = bind-opts // data-opts // {
       device = "${data-dir}/Documents/development";
     };
-    "${home-dir}/git" = bind-opts // data-opts // {
+    "${home-dir}/git/hdd" = bind-opts // data-opts // {
       device = "${data-dir}/Documents/development/git";
+    };
+    "${home-dir}/git/ssd" = bind-opts // data-opts // {
+      device = "${ssd-mnt}${home-dir}/git";
     };
     "${home-dir}/Module" = bind-opts // data-opts // {
       device = "${data-dir}/Documents/Studium/Module";
