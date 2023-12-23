@@ -2,6 +2,7 @@
 
 {
   imports = [
+    #./binfmt.nix
     ./uefi.nix
     ../.
   ];
