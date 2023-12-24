@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Define a user account.
-  # Don't forget to set a password with ‘passwd’.
   users.users."keks" = {
     isNormalUser = true;
     description = "Jan B.";
@@ -16,6 +14,7 @@
       "networkmanager"
       "wheel"
     ];
+    # Don't forget to create a password with `mkpasswd`.
     hashedPassword = (lib.removeSuffix "\n"
       (builtins.readFile "/etc/nixos/secrets/keys/passwd/keks")
     );

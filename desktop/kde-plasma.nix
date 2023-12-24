@@ -1,5 +1,5 @@
 # https://nixos.wiki/wiki/KDE
-{ config, pkgs, ...}:
+{ config, pkgs, inputs, ...}:
 
 {
   services.xserver = {
@@ -104,4 +104,14 @@
     "L+ /usr/lib/qt/plugins/plasmacalendarplugins/pimevents             - - - - ${kdepim-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/pimevents"
     "L+ /usr/lib/qt/plugins/plasmacalendarplugins/pimevents.so          - - - - ${kdepim-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/pimevents.so"
   ];
+
+  home-manager.users."keks" =
+  let
+    plasma-manager = inputs.plasma-manager;
+    # nix run github:pjones/plasma-manager > plasma-manager.nix
+    plasma-config  = (import home-manager/plasma-manager.nix);
+  in
+  {
+    imports = [ plasma-manager.homeManagerModules.plasma-manager ];
+  } // plasma-config;
 }
