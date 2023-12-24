@@ -33,4 +33,10 @@
       }
     ];
   };
+
+  environment.shellAliases = {
+    poweroff  = "${pkgs.systemd}/bin/poweroff";
+    reboot    = "${pkgs.systemd}/bin/reboot";
+    systemctl = "${pkgs.systemd}/bin/systemctl";
+  };
 }
