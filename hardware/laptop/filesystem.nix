@@ -13,19 +13,6 @@ in
   };
 
   fileSystems = {
-    "/" = {
-      device = "tmpfs";
-      fsType = "tmpfs";
-      options = [
-        "nr_inodes=65536"
-        "size=256M"
-        "mode=755"
-        "nodev"
-        "noexec"
-        "nosuid"
-      ];
-    };
-
     "/boot" = {
       device = "/dev/disk/by-uuid/90CE-7A63";
       fsType = "vfat";
@@ -38,12 +25,6 @@ in
       device = "/dev/mapper/root";
       fsType = "btrfs";
       options = bfs-opts ++ [ "subvol=nix" ];
-      # implicit neededForBoot
-    };
-    "/var" = {
-      device = "/dev/mapper/root";
-      fsType = "btrfs";
-      options = bfs-opts ++ [ "subvol=var" ];
       # implicit neededForBoot
     };
 

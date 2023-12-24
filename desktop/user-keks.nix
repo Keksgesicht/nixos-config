@@ -9,6 +9,9 @@
     shell = pkgs.zsh;
     uid = 1000;
     group = "keks";
+    home = "/home/keks";
+    homeMode = "700";
+    createHome = true;
     extraGroups = [
       "networkmanager"
       "wheel"

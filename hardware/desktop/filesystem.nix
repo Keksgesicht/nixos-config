@@ -45,19 +45,6 @@
     bfs-opts = [ "compress=zstd:3" ];
   in
   {
-    "/" = {
-      device = "tmpfs";
-      fsType = "tmpfs";
-      options = [
-        "nr_inodes=65536"
-        "size=256M"
-        "mode=755"
-        "nodev"
-        "noexec"
-        "nosuid"
-      ];
-    };
-
     "/boot" = {
       device = "/dev/disk/by-uuid/F6A6-57AC";
       fsType = "vfat";
@@ -70,12 +57,6 @@
       device = "/dev/disk/by-label/main";
       fsType = "btrfs";
       options = bfs-opts ++ [ "subvol=nix" ];
-      # implicit neededForBoot
-    };
-    "/var" = {
-      device = "/dev/disk/by-label/main";
-      fsType = "btrfs";
-      options = bfs-opts ++ [ "subvol=var" ];
       # implicit neededForBoot
     };
 
