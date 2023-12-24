@@ -2,43 +2,59 @@
 
 let
   ssd-mnt = "/mnt/main";
-  ssd-dev = config.fileSystems."${ssd-mnt}".device;
+  ssd-fs-cfg = config.fileSystems."${ssd-mnt}";
+  ssd-fs-opt-str = (lib.concatStringsSep "," ssd-fs-cfg.options);
+  biss = config.boot.initrd.systemd.services;
 in
 {
-  systemd.services = {
-    "setup-impermanence-root-volume" = {
-      description = "Setup new subvolume for /";
-      unitConfig = {
-        DefaultDependencies = false;
-        RefuseManualStart   = true;
-        RefuseManualStop    = true;
+  boot.initrd.systemd = {
+    storePaths = biss."setup-impermanence-root-volume".path;
+    services = {
+      "setup-impermanence-root-volume" = {
+        description = "Setup new subvolume for /";
+        unitConfig = {
+          DefaultDependencies = false;
+          # only exists in initrd, so this should not be needed
+          #RefuseManualStart   = true;
+          #RefuseManualStop    = true;
+        };
+        wantedBy = [ "initrd-root-device.target" ];
+        after    = [ "initrd-root-device.target" ];
+        before   = [ "initrd-root-fs.target" "sysroot.mount" ];
+        serviceConfig = { Type = "oneshot"; };
+        path = with pkgs; [
+          btrfs-progs
+          coreutils
+          findutils
+          util-linux
+        ];
+        script = ''
+          TMP_MNT="/mnt-main"
+          TMP_ROOT_DIR="$TMP_MNT/root"
+          BACKUP_DIR="$TMP_MNT/backup_main/boot/root"
+
+          mkdir -p $TMP_MNT
+          mount -t ${ssd-fs-cfg.fsType} -o ${ssd-fs-opt-str} \
+            ${ssd-fs-cfg.device} $TMP_MNT
+
+          mkdir -p $BACKUP_DIR
+          find $BACKUP_DIR -mindepth 1 -maxdepth 1 -mtime +2 -exec \
+            btrfs subvolume delete {} \;
+          [ -e $TMP_ROOT_DIR ] && \
+            mv $TMP_ROOT_DIR $BACKUP_DIR/$(date +%Y%m%d_%H%M%S)
+
+          btrfs subvolume create $TMP_ROOT_DIR
+          umount $TMP_MNT
+          exit 0
+        '';
       };
-      wantedBy = [ "mnt-main.mount" ];
-      after    = [ "mnt-main.mount" ];
-      before   = [ "-.mount" ];
-      path = with pkgs; [
-        btrfs-progs
-        util-linux
-      ];
-      script = ''
-        TMP_ROOT_DIR="${ssd-mnt}/root"
-        BACKUP_DIR="${ssd-mnt}/backup_main/boot/root"
-
-        mkdir -p $BACKUP_DIR
-        find $BACKUP_DIR -mindepth 1 -maxdepth 1 -mtime +2 -exec \
-          btrfs subvolume delete {} \;
-        [ -e $TMP_ROOT_DIR ] && \
-          mv $TMP_ROOT_DIR $BACKUP_DIR/$(date +%Y%m%d_%H%M%S)
-
-        btrfs subvolume create $TMP_ROOT_DIR
-      '';
     };
   };
 
   fileSystems = {
     "/" = {
-      device = ssd-dev;
-      fsType = "btrfs";
+      device = ssd-fs-cfg.device;
+      fsType = ssd-fs-cfg.fsType;
       options = [
         "subvol=root"
         "compress=zstd:3"
@@ -80,4 +96,8 @@ in
       ];
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "f+ /var/db/sudo/lectured/1000 - - - - -"
+  ];
 }
