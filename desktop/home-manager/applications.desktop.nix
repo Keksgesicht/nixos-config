@@ -1,8 +1,8 @@
 # ~/.local/share/applications/*.desktop
 # https://nix-community.github.io/home-manager/options.xhtml#opt-xdg.desktopEntries
 # https://github.com/nix-community/home-manager/blob/master/modules/misc/xdg-desktop-entries.nix
+{ pkgs, ... }:
 
-pkgs:
 let
   my-audio = pkgs.callPackage ../../packages/my-audio.nix {};
   obsrebuf = pkgs.callPackage ../../packages/obs-hotkeys.nix {};

@@ -1,18 +1,17 @@
-{ config, pkgs, ...}:
+{ config, pkgs, lib, ...}:
 
 {
-  home-manager.users."keks" =
-  let
-    cfg-applications-desktop = (import ./applications.desktop.nix pkgs);
-  in
-  {
+  home-manager.users."keks" = {
     # The home.stateVersion option does not have a default and must be set
     home.stateVersion  = "23.05";
     # Some modules do not do anything without it.
     home.homeDirectory = config.users.users."keks".home;
-  }
-  // cfg-applications-desktop
-  ;
+
+    imports = [
+      ./applications.desktop.nix
+      ((import ./autostart.nix) config)
+    ];
+  };
 
   # By default, Home Manager uses a private pkgs instance [...]
   # To instead use the global pkgs that is configured via the system level nixpkgs options,
