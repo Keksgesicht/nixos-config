@@ -12,10 +12,6 @@ if [ -d "/mnt/main/appdata/ddns" ]; then
 fi
 
 
-### clear old cache files
-find /home/*/.cache -type f -mtime +42 ! -name 'p10k*' ! -name 'gitstatus*' -delete
-find /home/*/.cache -type d -empty -delete
-
 ### clear flatpak cache files
 rm -r /home/*/.var/app/io.gitlab.librewolf-community/cache
 rm -r /home/*/.var/app/org.kde.kdenlive/cache
@@ -31,12 +27,6 @@ find /mnt/array/homeBraunJan/Downloads/STG-backups/ -type f -atime +2 -delete
 
 ### delete unnecessary screenshots
 find /mnt/array/homeBraunJan/Pictures/Screenshots -type f -name 'Screenshot*' -atime +3 -delete
-
-
-### cleanup /root directory
-find /root/.cache -mindepth 1 -delete
-find /root/.dbus  -mindepth 1 -delete
-find /root/.local -mindepth 1 -delete
 
 
 ### LaTex

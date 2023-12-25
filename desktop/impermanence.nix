@@ -69,7 +69,6 @@ in
       hideMounts = true;
       users."keks" = {
         directories = [
-          ".cache"
           ".config"
           ".icons"
           ".local/bin"

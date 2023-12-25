@@ -39,10 +39,6 @@
             "-/mnt/main/appdata/ddns"
             "-/mnt/ram/appdata3/pkgcache"
 
-            "-/root/.cache"
-            "-/root/.dbus"
-            "-/root/.local"
-            "-/home/keks/.cache"
             "-/home/keks/.local/share/flatpak/overrides"
             "-/home/keks/.var/app/io.gitlab.librewolf-community/cache"
             "-/home/keks/.var/app/org.kde.kdenlive/cache"
