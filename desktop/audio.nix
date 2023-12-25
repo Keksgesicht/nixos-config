@@ -53,6 +53,13 @@ in
       };
       enable = (config.networking.hostName == "cookieclicker");
     };
+
+    "wireplumber/main.lua.d/51-device-rename.lua" = {
+      source = ../files/linux-root/etc/wireplumber/main.lua.d/51-device-rename.lua;
+    };
+    "wireplumber/main.lua.d/51-stream-rename.lua" = {
+      source = ../files/linux-root/etc/wireplumber/main.lua.d/51-stream-rename.lua;
+    };
   };
 
   # (re)connect virtual devices
