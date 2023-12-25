@@ -230,8 +230,6 @@
       "mediacontrol"."stopmedia" = [ ];
       "org.gnome.Calculator.desktop"."_launch" = ["Meta+R" "Launch (1)"];
       "org.kde.dolphin.desktop"."_launch" = "Meta+E";
-      "org.kde.kate.desktop"."Session a0b64ba1baaa6510aa1dc37c6744b45a" = [ ];
-      "org.kde.kate.desktop"."Session c21f969b5f03d33d43e04f8f136e7682" = [ ];
       "org.kde.kate.desktop"."_launch" = "Meta+N";
       "org.kde.kclock.desktop"."_launch" = "Meta+U";
       "org.kde.kinfocenter.desktop"."_launch" = "Meta+Pause";
@@ -290,8 +288,8 @@
       "plasmashell"."switch to next activity" = [ ];
       "plasmashell"."switch to previous activity" = [ ];
       "plasmashell"."toggle do not disturb" = [ ];
-      "relink-virtual-devices.sh.desktop"."_launch" = "Ctrl+Alt+Shift+A";
-      "restart-audio.sh.desktop"."_launch" = "Meta+Ctrl+Alt+Shift+A";
+      "relink-virtual-devices.sh.desktop"."_launch" = "Meta+Ctrl+A";
+      "restart-audio.sh.desktop"."_launch" = "Meta+Ctrl+Shift+A";
       "rfkill.desktop"."_launch" = "Ctrl+Alt+Shift+B";
       "saveReplayBuffer.sh.desktop"."_launch" = "Alt+F10";
       "systemsettings.desktop"."_launch" = ["Tools" "Meta+I"];
@@ -340,12 +338,15 @@
       "kcminputrc"."Keyboard"."NumLock" = 0;
       "kcminputrc"."Keyboard"."RepeatDelay" = 420;
       "kcminputrc"."Keyboard"."RepeatRate" = 23;
+      "kcminputrc"."Libinput.1267.12655.ELAN0415:00 04F3:316F Mouse"."PointerAccelerationProfile" = 1;
       "kcminputrc"."Libinput.1267.12655.ELAN0415:00 04F3:316F Touchpad"."NaturalScroll" = true;
       "kcminputrc"."Libinput.1267.12655.ELAN0415:00 04F3:316F Touchpad"."TapToClick" = true;
       "kcminputrc"."Libinput.1386.221.Wacom Bamboo Connect Pen"."LeftHanded" = false;
       "kcminputrc"."Libinput.7805.11601.ROCCAT ROCCAT Kone\\x5b+\\x5d"."PointerAcceleration" = "-0.200";
       "kcminputrc"."Libinput.7805.11601.ROCCAT ROCCAT Kone\\x5b+\\x5d"."ScrollFactor" = 1;
+      "kcminputrc"."Mouse"."X11LibInputXAccelProfileFlat" = false;
       "kcminputrc"."Mouse"."XLbInptAccelProfileFlat" = true;
+      "kcminputrc"."Mouse"."XLbInptNaturalScroll" = false;
       "kcminputrc"."Mouse"."XLbInptPointerAcceleration" = 0.200000;
       "kcminputrc"."Mouse"."cursorSize" = 36;
       "kcminputrc"."Mouse"."cursorTheme" = "LyraG-cursors";

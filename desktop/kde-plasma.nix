@@ -1,5 +1,5 @@
 # https://nixos.wiki/wiki/KDE
-{ config, pkgs, inputs, ...}:
+{ config, pkgs, lib, inputs, ...}:
 
 {
   services.xserver = {
@@ -113,5 +113,12 @@
   in
   {
     imports = [ plasma-manager.homeManagerModules.plasma-manager ];
+
+    programs.plasma =
+    if (config.networking.hostName == "cookiethinker") then
+    {
+      "kcminputrc"."Keyboard"."NumLock"    = lib.mkForce 1;
+      "kscreenlockerrc"."Daemon"."Timeout" = lib.mkForce 3;
+    } else {};
   } // plasma-config;
 }
