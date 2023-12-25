@@ -342,8 +342,8 @@
       "kcminputrc"."Libinput.1267.12655.ELAN0415:00 04F3:316F Touchpad"."NaturalScroll" = true;
       "kcminputrc"."Libinput.1267.12655.ELAN0415:00 04F3:316F Touchpad"."TapToClick" = true;
       "kcminputrc"."Libinput.1386.221.Wacom Bamboo Connect Pen"."LeftHanded" = false;
-      "kcminputrc"."Libinput.7805.11601.ROCCAT ROCCAT Kone\\x5b+\\x5d"."PointerAcceleration" = "-0.200";
-      "kcminputrc"."Libinput.7805.11601.ROCCAT ROCCAT Kone\\x5b+\\x5d"."ScrollFactor" = 1;
+      #"kcminputrc"."Libinput.7805.11601.ROCCAT ROCCAT Kone\\x5b+\\x5d"."PointerAcceleration" = "-0.200";
+      #"kcminputrc"."Libinput.7805.11601.ROCCAT ROCCAT Kone\\x5b+\\x5d"."ScrollFactor" = 1;
       "kcminputrc"."Mouse"."X11LibInputXAccelProfileFlat" = false;
       "kcminputrc"."Mouse"."XLbInptAccelProfileFlat" = true;
       "kcminputrc"."Mouse"."XLbInptNaturalScroll" = false;
@@ -678,7 +678,7 @@
       "kwinrulesrc"."00ec9805-0617-4cf8-be5a-a66d5a8d19ca"."sizerule" = 3;
       "kwinrulesrc"."00ec9805-0617-4cf8-be5a-a66d5a8d19ca"."title" = "Brave";
       "kwinrulesrc"."00ec9805-0617-4cf8-be5a-a66d5a8d19ca"."types" = 1;
-      "kwinrulesrc"."00ec9805-0617-4cf8-be5a-a66d5a8d19ca"."wmclass" = "\\sbrave-browser";
+      #"kwinrulesrc"."00ec9805-0617-4cf8-be5a-a66d5a8d19ca"."wmclass" = ''\sbrave-browser'';
       "kwinrulesrc"."00ec9805-0617-4cf8-be5a-a66d5a8d19ca"."wmclasscomplete" = true;
       "kwinrulesrc"."00ec9805-0617-4cf8-be5a-a66d5a8d19ca"."wmclassmatch" = 1;
       "kwinrulesrc"."02e4fcd6-c32d-4ab0-bb4b-09ff5daa919c"."Description" = "Akonadi - Confirm Website Access";
@@ -704,7 +704,7 @@
       "kwinrulesrc"."1"."title" = "Mozilla Thunderbird";
       "kwinrulesrc"."1"."types" = 1;
       "kwinrulesrc"."1"."windowrole" = "pop-up";
-      "kwinrulesrc"."1"."wmclass" = "\\sorg.mozilla.Thunderbird";
+      #"kwinrulesrc"."1"."wmclass" = ''\sorg.mozilla.Thunderbird'';
       "kwinrulesrc"."1"."wmclasscomplete" = true;
       "kwinrulesrc"."1"."wmclassmatch" = 1;
       "kwinrulesrc"."10"."Description" = "Window settings for org.kde.kate";
@@ -749,7 +749,7 @@
       "kwinrulesrc"."2"."title" = "Brave";
       "kwinrulesrc"."2"."types" = 1;
       "kwinrulesrc"."2"."windowrole" = "pop-up";
-      "kwinrulesrc"."2"."wmclass" = "\\sbrave-browser";
+      #"kwinrulesrc"."2"."wmclass" = ''\sbrave-browser'';
       "kwinrulesrc"."2"."wmclasscomplete" = true;
       "kwinrulesrc"."2"."wmclassmatch" = 1;
       "kwinrulesrc"."2f694a56-6653-4c90-91cd-93c4f57d810d"."Description" = "Window settings for org.kde.kruler";
@@ -757,7 +757,7 @@
       "kwinrulesrc"."2f694a56-6653-4c90-91cd-93c4f57d810d"."aboverule" = 3;
       "kwinrulesrc"."2f694a56-6653-4c90-91cd-93c4f57d810d"."title" = "KRuler — KDE Screen Ruler";
       "kwinrulesrc"."2f694a56-6653-4c90-91cd-93c4f57d810d"."types" = 1;
-      "kwinrulesrc"."2f694a56-6653-4c90-91cd-93c4f57d810d"."wmclass" = "\\sorg.kde.kruler";
+      #"kwinrulesrc"."2f694a56-6653-4c90-91cd-93c4f57d810d"."wmclass" = ''\sorg.kde.kruler'';
       "kwinrulesrc"."2f694a56-6653-4c90-91cd-93c4f57d810d"."wmclasscomplete" = true;
       "kwinrulesrc"."2f694a56-6653-4c90-91cd-93c4f57d810d"."wmclassmatch" = 1;
       "kwinrulesrc"."3"."Description" = "Window settings for ferdium";
@@ -837,7 +837,7 @@
       "kwinrulesrc"."698d9b3e-51c2-4e53-9491-5efbf244c1d9"."sizerule" = 3;
       "kwinrulesrc"."698d9b3e-51c2-4e53-9491-5efbf244c1d9"."title" = "Mozilla Thunderbird";
       "kwinrulesrc"."698d9b3e-51c2-4e53-9491-5efbf244c1d9"."types" = 1;
-      "kwinrulesrc"."698d9b3e-51c2-4e53-9491-5efbf244c1d9"."wmclass" = "\\sorg.mozilla.Thunderbird";
+      #"kwinrulesrc"."698d9b3e-51c2-4e53-9491-5efbf244c1d9"."wmclass" = ''\sorg.mozilla.Thunderbird'';
       "kwinrulesrc"."698d9b3e-51c2-4e53-9491-5efbf244c1d9"."wmclasscomplete" = true;
       "kwinrulesrc"."698d9b3e-51c2-4e53-9491-5efbf244c1d9"."wmclassmatch" = 1;
       "kwinrulesrc"."7"."Description" = "Window settings for org.kde.kate";
@@ -864,7 +864,7 @@
       "kwinrulesrc"."8"."title" = "KRuler — KDE Screen Ruler";
       "kwinrulesrc"."8"."types" = 1;
       "kwinrulesrc"."8"."windowrole" = "pop-up";
-      "kwinrulesrc"."8"."wmclass" = "\\sorg.kde.kruler";
+      #"kwinrulesrc"."8"."wmclass" = ''\sorg.kde.kruler'';
       "kwinrulesrc"."8"."wmclasscomplete" = true;
       "kwinrulesrc"."8"."wmclassmatch" = 1;
       "kwinrulesrc"."9"."Description" = "Akonadi - Confirm Website Access";
