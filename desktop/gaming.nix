@@ -1,6 +1,11 @@
 { config, pkgs, ...}:
 
 let
+  username = "keks";
+  home-dir = "/home/${username}";
+  xdg-config = "${home-dir}/.config";
+
+  mango-hud = pkgs.callPackage ../packages/MangoHud.nix {};
   usb-bind-pkg = pkgs.callPackage ../packages/usb-bind.nix {};
 in
 {
@@ -57,6 +62,10 @@ in
       };
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "C+ ${xdg-config}/MangoHud - - - - ${mango-hud}"
+  ];
 
   security.sudo.extraRules = [ {
     users = [ "keks" ];
