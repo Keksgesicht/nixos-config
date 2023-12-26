@@ -100,7 +100,7 @@
     "L+ /usr/lib/qt/plugins/plasmacalendarplugins/astronomicalevents    - - - - ${plasma-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/astronomicalevents"
     "L+ /usr/lib/qt/plugins/plasmacalendarplugins/astronomicalevents.so - - - - ${plasma-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/astronomicalevents.so"
     "L+ /usr/lib/qt/plugins/plasmacalendarplugins/holidays              - - - - ${workspace-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/holidays"
-    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/holidays.so           - - - - ${workspace-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/holidaysevents.so"
+    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/holidaysevents.so     - - - - ${workspace-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/holidaysevents.so"
     "L+ /usr/lib/qt/plugins/plasmacalendarplugins/pimevents             - - - - ${kdepim-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/pimevents"
     "L+ /usr/lib/qt/plugins/plasmacalendarplugins/pimevents.so          - - - - ${kdepim-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/pimevents.so"
   ];
@@ -108,11 +108,14 @@
   home-manager.users."keks" =
   let
     plasma-manager = inputs.plasma-manager;
-    # nix run github:pjones/plasma-manager > plasma-manager.nix
-    plasma-config  = (import home-manager/plasma-manager.nix);
   in
   {
-    imports = [ plasma-manager.homeManagerModules.plasma-manager ];
+    imports = [
+      plasma-manager.homeManagerModules.plasma-manager
+      # nix run github:pjones/plasma-manager
+      home-manager/plasma-manager.nix
+      home-manager/plasma-manager-extra.nix
+    ];
 
     programs.plasma =
     if (config.networking.hostName == "cookiethinker") then
@@ -120,5 +123,5 @@
       "kcminputrc"."Keyboard"."NumLock"    = lib.mkForce 1;
       "kscreenlockerrc"."Daemon"."Timeout" = lib.mkForce 3;
     } else {};
-  } // plasma-config;
+  };
 }

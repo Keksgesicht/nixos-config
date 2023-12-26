@@ -40,6 +40,9 @@
       publicShare = "$HOME/Public";
       templates   = "$HOME/Templates";
     };
+    xdg.configFile."user-dirs.locale".text = ''
+      en_US
+    '';
   };
 
   # git security

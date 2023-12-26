@@ -537,6 +537,7 @@
       "ksmserverrc"."General"."loginMode" = "emptySession";
       "ksmserverrc"."General"."shutdownType" = 1;
       "ksplashrc"."KSplash"."Engine" = "KSplashQML";
+      "ksplashrc"."KSplash"."Theme" = "Aura-FlipClock-Splash";
       "kwalletrc"."Wallet"."Close When Idle" = false;
       "kwalletrc"."Wallet"."Close on Screensaver" = false;
       "kwalletrc"."Wallet"."Default Wallet" = "kdewallet";

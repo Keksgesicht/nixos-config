@@ -69,10 +69,28 @@ in
       hideMounts = true;
       users."keks" = {
         directories = [
-          ".config"
-          ".icons"
+          ".config/akonadi"
+          ".config/dconf"
+          ".config/git"
+          { directory = ".config/gnupg"; user = username; group = username; mode = "0700"; }
+          ".config/gtk-2.0"
+          ".config/gtk-3.0"
+          ".config/gtk-4.0"
+          ".config/htop"
+          ".config/KDE"
+          ".config/kde.org"
+          ".config/kdeconnect"
+          ".config/keepassxc"
+          ".config/libaccounts-glib"
+          ".config/Nextcloud"
+          ".config/plasma-workspace"
+          { directory = ".config/ssh"; user = username; group = username; mode = "0700"; }
+          ".config/xscreensaver"
+          ".config/xsettingsd"
+
           ".local/bin"
           ".local/share"
+          ".icons"
           { directory = ".local/state/wireplumber"; user = username; group = username; }
           { directory = ".secrets"; mode = "0700"; }
           { directory = ".tpm2_pkcs11"; mode = "0700"; }
@@ -80,6 +98,29 @@ in
           "background"
           "texmf"
           "WinePrefixes"
+        ];
+        files = [
+          ".config/akonadi_davgroupware_resource_0rc"
+          ".config/filetypesrc"
+          ".config/gwenviewrc"
+          ".config/kactivitymanagerd-statsrc"
+          ".config/katemoderc"
+          ".config/katerc"
+          ".config/katesyntaxhighlightingrc"
+          ".config/katevirc"
+          ".config/kcminputrc"
+          ".config/kdeglobals"
+          ".config/kwalletrc"
+          ".config/kwinrc"
+          ".config/kwinrulesrc"
+          ".config/kwriterc"
+          ".config/merkuro.calendarrc"
+          ".config/mimeapps.list"
+          ".config/plasmashellrc"
+          ".config/plasma-org.kde.plasma.desktop-appletsrc"
+          ".config/plasma_calendar_holiday_regions"
+          { file = ".config/session/dolphin_dolphin_dolphin";
+            parentDirectory = { user = username; group = username; }; }
         ];
       };
     };
