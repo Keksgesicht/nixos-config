@@ -28,6 +28,4 @@
     xdot
     zellij
   ];
-
-  programs.tmux.enable = true;
 }

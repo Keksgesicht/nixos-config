@@ -7,5 +7,6 @@
     ./desktop.nix
     ./neovim.nix
     ./NixOS-wrappers
+    ./tmux.nix
   ];
 }
