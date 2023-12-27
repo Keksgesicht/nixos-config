@@ -117,11 +117,13 @@
       home-manager/plasma-manager-extra.nix
     ];
 
-    programs.plasma =
+    programs.plasma.configFile =
     if (config.networking.hostName == "cookiethinker") then
     {
-      "kcminputrc"."Keyboard"."NumLock"    = lib.mkForce 1;
+      "kcminputrc"."Keyboard"."NumLock"    = lib.mkForce 0;
       "kscreenlockerrc"."Daemon"."Timeout" = lib.mkForce 3;
+      "kwinrulesrc"."General"."count"      = lib.mkForce 3;
+      "kwinrulesrc"."General"."rules"      = lib.mkForce "6,8,9";
     } else {};
   };
 }
