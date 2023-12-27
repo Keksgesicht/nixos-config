@@ -59,7 +59,6 @@ in
         "subvol=root"
         "compress=zstd:3"
         "nodev"
-        "noexec"
         "nosuid"
       ];
     };
