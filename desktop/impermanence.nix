@@ -110,6 +110,7 @@ in
           ".config/katevirc"
           ".config/kcminputrc"
           ".config/kdeglobals"
+          ".config/kscreenlockerrc"
           ".config/kwalletrc"
           ".config/kwinrc"
           ".config/kwinrulesrc"

@@ -510,9 +510,9 @@
       "kscreenlockerrc"."Daemon"."Timeout" = 7;
       "kscreenlockerrc"."Greeter"."WallpaperPlugin" = "org.kde.slideshow";
       "kscreenlockerrc"."Greeter.LnF.General"."showMediaControls" = false;
-      "kscreenlockerrc"."Greeter.Wallpaper.org.kde.slideshow.General"."FillMode" = 0;
-      "kscreenlockerrc"."Greeter.Wallpaper.org.kde.slideshow.General"."SlideInterval" = 60;
-      "kscreenlockerrc"."Greeter.Wallpaper.org.kde.slideshow.General"."SlidePaths" = "/home/keks/background/landscape/";
+      #"kscreenlockerrc"."Greeter.Wallpaper.org.kde.slideshow.General"."FillMode" = 0;
+      #"kscreenlockerrc"."Greeter.Wallpaper.org.kde.slideshow.General"."SlideInterval" = 60;
+      #"kscreenlockerrc"."Greeter.Wallpaper.org.kde.slideshow.General"."SlidePaths" = "/home/keks/background/landscape/";
       "kservicemenurc"."Show"."compressfileitemaction" = true;
       "kservicemenurc"."Show"."extractfileitemaction" = true;
       "kservicemenurc"."Show"."forgetfileitemaction" = true;
@@ -666,9 +666,9 @@
       "kwinrc"."Windows"."Placement" = "UnderMouse";
       "kwinrc"."Windows"."WindowSnapZone" = 25;
       "kwinrc"."Xwayland"."Scale" = 1;
-      "kwinrc"."org.kde.kdecoration2"."BorderSizeAuto" = false;
-      "kwinrc"."org.kde.kdecoration2"."ButtonsOnLeft" = "MNSH";
-      "kwinrc"."org.kde.kdecoration2"."ButtonsOnRight" = "LIAX";
+      #"kwinrc"."org.kde.kdecoration2"."BorderSizeAuto" = false;
+      #"kwinrc"."org.kde.kdecoration2"."ButtonsOnLeft" = "MNSH";
+      #"kwinrc"."org.kde.kdecoration2"."ButtonsOnRight" = "LIAX";
       "kwinrulesrc"."00ec9805-0617-4cf8-be5a-a66d5a8d19ca"."Description" = "Window settings for brave-browser";
       "kwinrulesrc"."00ec9805-0617-4cf8-be5a-a66d5a8d19ca"."ignoregeometry" = true;
       "kwinrulesrc"."00ec9805-0617-4cf8-be5a-a66d5a8d19ca"."ignoregeometryrule" = 2;
