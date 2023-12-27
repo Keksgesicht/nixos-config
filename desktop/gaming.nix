@@ -80,4 +80,8 @@ in
       }
     ];
   } ];
+
+  environment.shellAliases = {
+    "usb-bind-devices-by-name.sh" = "sudo ${usb-bind-pkg}/bin/usb-bind-devices-by-name.sh";
+  };
 }
