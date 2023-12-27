@@ -17,11 +17,6 @@ rm -r /home/*/.var/app/io.gitlab.librewolf-community/cache
 rm -r /home/*/.var/app/org.kde.kdenlive/cache
 rm -r /home/*/.var/app/org.mozilla.firefox/cache
 
-### delete temporary flatpak overrides
-### they are now managed by nix
-### /var/lib/flatpak/overrides -> pkgs.flatpak-overrides
-rm -fr /home/*/.local/share/flatpak/overrides
-
 ### delete old Tab Group backups
 find /mnt/array/homeBraunJan/Downloads/STG-backups/ -type f -atime +2 -delete
 

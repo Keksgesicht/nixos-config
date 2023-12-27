@@ -1,21 +1,20 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 let
-  impermanence = inputs.impermanence;
-
   username = "keks";
   home-dir = "/home/${username}";
   ssd-mnt  = "/mnt/main";
   hdd-mnt  = "/mnt/array";
   data-dir = "${hdd-mnt}/homeBraunJan";
+  bind-opt = [
+    "bind"
+    "nofail"
+    "x-gvfs-hide"
+  ];
 
   bind-opts = {
     fsType = "none";
-    options = [
-      "bind"
-      "nofail"
-      "x-gvfs-hide"
-    ];
+    options = bind-opt;
   };
   data-opts = {
     depends = [
@@ -61,6 +60,15 @@ in
       ];
       device = "/mnt/ram/Games";
     };
+
+    "${home-dir}/.local/share/Trash" = data-opts // {
+      device = "${hdd-mnt}/Trash/1000";
+      fsType = "none";
+      options = bind-opt ++ [
+        "uid=${username}"
+        "gid=${username}"
+      ];
+    };
   };
 
   # do not even try using the home-manager impermanence module
@@ -89,7 +97,35 @@ in
           ".config/xsettingsd"
 
           ".local/bin"
-          ".local/share"
+          ".local/share/akonadi"
+          ".local/share/akonadi-davgroupware"
+          ".local/share/akonadi_davgroupware_resource_0"
+          ".local/share/akonadi_migration_agent"
+          ".local/share/applications"
+          ".local/share/baloo"
+          ".local/share/color-schemes"
+          ".local/share/containers"
+          ".local/share/dolphin"
+          ".local/share/flatpak/db"
+          ".local/share/icons"
+          ".local/share/kactivitymanagerd"
+          ".local/share/kate"
+          ".local/share/knewstuff3"
+          ".local/share/konsole"
+          ".local/share/kscreen"
+          ".local/share/kwalletd"
+          ".local/share/kwin"
+          ".local/share/kwrite"
+          ".local/share/kxmlgui5"
+          ".local/share/Nextcloud"
+          ".local/share/nix-cage"
+          ".local/share/org.kde.syntax-highlighting"
+          ".local/share/plasma"
+          ".local/share/plasma-systemmonitor"
+          ".local/share/systemd/timers"
+          ".local/share/themes"
+          ".local/share/waydroid"
+
           ".icons"
           { directory = ".local/state/wireplumber"; user = username; group = username; }
           { directory = ".secrets"; mode = "0700"; }
@@ -122,6 +158,10 @@ in
           ".config/plasma_calendar_holiday_regions"
           { file = ".config/session/dolphin_dolphin_dolphin";
             parentDirectory = { user = username; group = username; }; }
+
+          ".local/share/face.png"
+          ".local/share/krunnerstaterc"
+          ".local/share/user-places.xbel"
         ];
       };
     };

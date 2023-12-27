@@ -1,5 +1,9 @@
 { config, pkgs, ...}:
 
+let
+  username = "keks";
+  home-dir = "/home/${username}";
+in
 {
   # base environment variables
   # https://nixos.wiki/wiki/Environment_variables
@@ -62,6 +66,11 @@
       (nerdfonts.override { fonts = [ "Noto" ]; })
       # Microsoft TrueType core fonts
       corefonts
+      (pkgs.callPackage ../packages/my-fonts.nix {})
     ];
   };
+
+  systemd.tmpfiles.rules = [
+    "L+ ${home-dir}/.local/share/fonts - - - - /run/current-system/sw/share/X11/fonts"
+  ];
 }
