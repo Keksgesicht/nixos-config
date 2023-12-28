@@ -84,7 +84,6 @@ in
           ".config/gtk-2.0"
           ".config/gtk-3.0"
           ".config/gtk-4.0"
-          ".config/htop"
           ".config/KDE"
           ".config/kde.org"
           ".config/kdeconnect"

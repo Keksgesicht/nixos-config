@@ -11,7 +11,6 @@
     entr
     eza
     lm_sensors
-    htop
     moreutils
     nano
     neofetch
