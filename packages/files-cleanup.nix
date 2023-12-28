@@ -1,4 +1,4 @@
-{ pkgs, lib, stdenv, bash, subversion }:
+{ pkgs, lib, stdenv, bash, }:
 
 stdenv.mkDerivation {
   pname = "files-cleanup";
@@ -6,7 +6,7 @@ stdenv.mkDerivation {
   version = "1.0.0";
   src = ../files/packages/files-cleanup;
 
-  buildInputs = [ bash subversion pkgs.gnused ];
+  buildInputs = [ bash pkgs.gnused ];
   installPhase = ''
     mkdir -p $out/{bin,cfg}
     cp -r $src/bin/. $out/bin/

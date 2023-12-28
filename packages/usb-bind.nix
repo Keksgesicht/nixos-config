@@ -1,4 +1,4 @@
-{ stdenv, lib, bash, subversion }:
+{ stdenv, lib, bash }:
 
 stdenv.mkDerivation {
   pname = "usb-bind";
@@ -6,7 +6,7 @@ stdenv.mkDerivation {
   version = "1.0.0";
   src = ../files/packages/usb-bind;
 
-  buildInputs = [ bash subversion ];
+  buildInputs = [ bash ];
   installPhase = ''
     mkdir -p $out/bin
     cp -r $src/bin/. $out/bin/

@@ -1,4 +1,4 @@
-{ stdenv, lib, bash, subversion }:
+{ stdenv, lib, bash }:
 
 stdenv.mkDerivation {
   pname = "server-and-config-update";
@@ -6,7 +6,7 @@ stdenv.mkDerivation {
   version = "1.0.0";
   src = ../files/packages/server-and-config-update;
 
-  buildInputs = [ bash subversion ];
+  buildInputs = [ bash ];
   installPhase = ''
     mkdir -p $out/bin
     cp -r $src/bin/. $out/bin/

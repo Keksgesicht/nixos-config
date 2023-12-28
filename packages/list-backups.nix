@@ -1,4 +1,4 @@
-{ stdenv, lib, nix-gitignore, bash, subversion }:
+{ stdenv, lib, nix-gitignore, bash }:
 
 let
   patterns = ''
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   version = "1.0.0";
   src = nix-gitignore.gitignoreSourcePure patterns ../files/scripts;
 
-  buildInputs = [ bash subversion ];
+  buildInputs = [ bash ];
   dontBuild = true;
 
   installPhase = ''

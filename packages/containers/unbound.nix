@@ -1,4 +1,4 @@
-{ stdenv, lib, bash, subversion }:
+{ stdenv, lib, bash }:
 
 stdenv.mkDerivation {
   pname = "container-unbound";
@@ -11,7 +11,7 @@ stdenv.mkDerivation {
     sha256 = (builtins.readFile "/etc/unCookie/root-dns-server.hash");
   };
 
-  buildInputs = [ bash subversion ];
+  buildInputs = [ bash ];
   installPhase = ''
     mkdir -p $out/scripts
     cp -r $src/. $out/scripts/

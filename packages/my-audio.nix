@@ -1,4 +1,4 @@
-{ stdenv, lib, bash, subversion }:
+{ stdenv, lib, bash }:
 
 # nix-build -E 'with import <nixpkgs> {}; callPackage ./packages/my-audio.nix {}'
 stdenv.mkDerivation {
@@ -7,7 +7,7 @@ stdenv.mkDerivation {
   version = "1.0.0";
   src = ../files/packages/my-audio;
 
-  buildInputs = [ bash subversion ];
+  buildInputs = [ bash ];
   installPhase = ''
     mkdir -p $out/{bin,lib}
     cp -r $src/bin/. $out/bin/
