@@ -1,9 +1,5 @@
-{ config, pkgs, ...}:
+{ config, ... }:
 
-let
-  username = "keks";
-  home-dir = "/home/${username}";
-in
 {
   # base environment variables
   # https://nixos.wiki/wiki/Environment_variables
@@ -51,26 +47,6 @@ in
 
   # git security
   environment.sessionVariables = rec {
-    GIT_CEILING_DIRECTORIES = "/home:$HOME/git:/mnt:/mnt/array/homeBraunJan/Documents/development/git:/var/home:/var/mnt:/var/mnt/array/homeBraunJan/Documents/development/git";
+    GIT_CEILING_DIRECTORIES = "/home:$HOME/git:/mnt:/mnt/array/homeBraunJan/Documents/development/git:/mnt/main/home/keks/git";
   };
-
-  fonts = {
-    # https://nixos.wiki/wiki/Fonts#Flatpak_applications_can.27t_find_system_fonts
-    # ln -s /run/current-system/sw/share/X11/fonts ~/.local/share/fonts
-    fontDir.enable = true;
-    packages = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-color-emoji
-      # Noto + NerdFont => Noto-Nerdfonts
-      (nerdfonts.override { fonts = [ "Noto" ]; })
-      # Microsoft TrueType core fonts
-      corefonts
-      (pkgs.callPackage ../packages/my-fonts.nix {})
-    ];
-  };
-
-  systemd.tmpfiles.rules = [
-    "L+ ${home-dir}/.local/share/fonts - - - - /run/current-system/sw/share/X11/fonts"
-  ];
 }
