@@ -22,8 +22,8 @@
    * https://github.com/mchehab/rasdaemon
    */
   hardware.rasdaemon = {
-    #enable = true;
-    #record = true;
+    enable = true;
+    record = true;
     config = ''
       # defaults from included config
       PAGE_CE_REFRESH_CYCLE="24h"
@@ -32,12 +32,5 @@
     '';
      #mainboard = "";
      #labels = "";
-  };
-
-  # firmware update
-  services.fwupd = {
-    enable = true;
-    #extraRemotes = [];
-    #EspLocation = /boot;
   };
 }
