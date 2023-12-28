@@ -100,7 +100,6 @@ in
           ".local/share/akonadi-davgroupware"
           ".local/share/akonadi_davgroupware_resource_0"
           ".local/share/akonadi_migration_agent"
-          ".local/share/applications"
           ".local/share/baloo"
           ".local/share/color-schemes"
           ".local/share/containers"
