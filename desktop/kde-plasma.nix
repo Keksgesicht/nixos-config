@@ -74,6 +74,7 @@ in
           #"~QObject:"
           #"~QFont::"
           "~kwin_screencast: Dropping"
+          "~ERROR: SSL connect error ::::: FUNCTION: curl::curl_easy::perform"
         ];
       };
     };

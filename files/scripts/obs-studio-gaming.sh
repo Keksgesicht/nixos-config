@@ -2,7 +2,7 @@ EXEC_FILE="$0"
 EXEC_MODE="$1"
 user_id=$(id -u)
 
-include_filter="mnt[\/]ram[\/]games|org.prismlauncher.PrismLauncher|[\/]WinePrefixes[\/]"
+include_filter="mnt[\/]ram[\/]Games|org.prismlauncher.PrismLauncher|[\/]WinePrefixes[\/]"
 exclude_filter="Battle\.net|dolphin|d3ddriverquery64.exe|fossilize_replay|grep|konsole|legendary install"
 
 run_stop() {
@@ -20,9 +20,6 @@ check_games_running() {
 	if [ ${games_count} -lt 1 ]; then
 		return 1
 	fi
-
-#	echo ${games_text}
-#	echo ${games_count}
 
 	return 0
 }
