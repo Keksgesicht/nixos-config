@@ -1,6 +1,9 @@
 # https://nixos.wiki/wiki/KDE
 { config, pkgs, lib, inputs, ...}:
 
+let
+  qt-lib = "/usr/lib/qt";
+in
 {
   services.xserver = {
     # Enable the X11 windowing system.
@@ -83,27 +86,53 @@
     };
   };
 
+  systemd.user.services = {
+    # calendar of digital clock widget is not configureable without it
+    # fix showing duplicate events in calendar widget of plasma panel
+    "plasma-plasmashell" = {
+      overrideStrategy = "asDropin";
+      environment = {
+        # prevent defaults
+        PATH = lib.mkForce null;
+        TZDIR = lib.mkForce null;
+        LOCALE_ARCHIVE = lib.mkForce null;
+        # will get extended by NixOS Qt Wrapper in binary itself
+        QT_PLUGIN_PATH = "${qt-lib}/plugins";
+        QML2_IMPORT_PATH = "${qt-lib}/qml";
+      };
+    };
+  };
+
   systemd.tmpfiles.rules =
   let
     qtver = pkgs.libsForQt5.qtbase.version;
+
+    cal-plug-path = "plugins/plasmacalendarplugins";
+    qt-cal-plug   = "${qt-lib}/${cal-plug-path}";
+
+    kdepim-addons = pkgs.libsForQt5.kdepim-addons;
     plasma-addons = pkgs.libsForQt5.kdeplasma-addons;
     workspace-addons = pkgs.libsForQt5.plasma-workspace;
-    kdepim-addons = pkgs.libsForQt5.kdepim-addons;
-  in [
+
+    mkCalPlugSym = p: l: (lib.lists.forEach l (e:
+      "L+ ${qt-cal-plug}/${e} - - - - ${p}/lib/qt-${qtver}/${cal-plug-path}/${e}"
+    ));
+  in
+  [
     # calendar does not show events without it
     # https://github.com/NixOS/nixpkgs/issues/143272
     # https://bugs.kde.org/show_bug.cgi?id=400451
     # https://invent.kde.org/plasma/plasma-workspace/-/blob/4df78f841cc16a61d862b5b183e773e9f66436b8/ktimezoned/ktimezoned.cpp#L124
     "L+ /usr/share/zoneinfo - - - - ${pkgs.tzdata}/share/zoneinfo"
 
+    # calendar of digital clock widget is not configureable without it
     # fix showing duplicate events in calendar widget of plasma panel
-    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/astronomicalevents    - - - - ${plasma-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/astronomicalevents"
-    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/astronomicalevents.so - - - - ${plasma-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/astronomicalevents.so"
-    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/holidays              - - - - ${workspace-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/holidays"
-    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/holidaysevents.so     - - - - ${workspace-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/holidaysevents.so"
-    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/pimevents             - - - - ${kdepim-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/pimevents"
-    "L+ /usr/lib/qt/plugins/plasmacalendarplugins/pimevents.so          - - - - ${kdepim-addons}/lib/qt-${qtver}/plugins/plasmacalendarplugins/pimevents.so"
-  ];
+    "L+ ${qt-lib}/qml                        - - - - /run/current-system/sw/lib/qt-${qtver}/qml"
+  ]
+  ++ mkCalPlugSym plasma-addons    [ "astronomicalevents" "astronomicalevents.so" ]
+  ++ mkCalPlugSym workspace-addons [ "holidays" "holidaysevents.so" ]
+  ++ mkCalPlugSym kdepim-addons    [ "pimevents" "pimevents.so" ]
+  ;
 
   home-manager.users."keks" =
   let
