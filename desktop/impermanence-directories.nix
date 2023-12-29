@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 
 let
   username = "keks";
@@ -6,12 +6,12 @@ let
   ssd-mnt  = "/mnt/main";
   hdd-mnt  = "/mnt/array";
   data-dir = "${hdd-mnt}/homeBraunJan";
+
   bind-opt = [
     "bind"
     "nofail"
     "x-gvfs-hide"
   ];
-
   bind-opts = {
     fsType = "none";
     options = bind-opt;
@@ -132,62 +132,7 @@ in
           "texmf"
           "WinePrefixes"
         ];
-        # does symlinking only work with the home-manager module?
-        # idc, systemd tmpfiles does the job too
-        files = [ ];
       };
     };
   };
-
-  # https://www.freedesktop.org/software/systemd/man/latest/tmpfiles.d.html
-  systemd.tmpfiles.rules =
-  let
-    symHomeFiles = fileList: (lib.lists.forEach fileList (elem:
-      "L+ ${home-dir}/${elem} - - - - ${ssd-mnt}${home-dir}/${elem}"
-    ));
-    myHomeFiles = [
-      ".config/akonadi-firstrunrc"
-      ".config/akonadi_akonotes_resource_0rc"
-      ".config/akonadi_contacts_resource_0rc"
-      ".config/akonadi_davgroupware_resource_0rc"
-      ".config/akonadi_ical_resource_0rc"
-      ".config/akonadi_indexing_agentrc"
-      ".config/akonadi_maildir_resource_0rc"
-
-      ".config/filetypesrc"
-      ".config/gwenviewrc"
-      ".config/kactivitymanagerd-statsrc"
-      ".config/katemoderc"
-      ".config/katerc"
-      ".config/katesyntaxhighlightingrc"
-      ".config/katevirc"
-      ".config/kcminputrc"
-      ".config/kdeglobals"
-      ".config/kscreenlockerrc"
-      ".config/kwalletrc"
-      ".config/kwinrc"
-      ".config/kwinrulesrc"
-      ".config/kwriterc"
-      ".config/merkuro.calendarrc"
-      ".config/mimeapps.list"
-      ".config/plasma-org.kde.plasma.desktop-appletsrc"
-      ".config/plasma_calendar_holiday_regions"
-      ".config/plasmashellrc"
-      ".config/session/dolphin_dolphin_dolphin"
-
-      ".local/share/face.png"
-      ".local/share/user-places.xbel"
-    ];
-  in
-  [
-    "L+ ${home-dir}/.face                     - - - - .local/share/face.png"
-    "L+ ${home-dir}/.face.icon                - - - - .face"
-    "f+ ${home-dir}/.sudo_as_admin_successful - - - - -"
-    "L+ ${home-dir}/.xscreensaver             - - - - .config/xscreensaver/config"
-    "f+ ${home-dir}/.zshrc                    - - - - -"
-  ] ++ [
-    "d  ${home-dir}/.config/session - ${username} ${username} - -"
-  ]
-  ++ symHomeFiles myHomeFiles
-  ;
 }

@@ -1,0 +1,17 @@
+[DownloadDialog Settings]
+Height 1080=544
+Width 1920=700
+
+[KFileDialog Settings]
+detailViewIconSize=16
+
+[MainWindow]
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAAAAA/wAAAK8AAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgAAAAAA/////wAAAAAAAAAA
+ToolBarsMovable=Disabled
+
+[Open-with settings]
+CompletionMode=1
+
+[systemsettings_sidebar_mode]
+HighlightNonDefaultSettings=false

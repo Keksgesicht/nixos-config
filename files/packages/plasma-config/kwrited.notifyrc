@@ -1,0 +1,5 @@
+[Event/NewMessage]
+Action=Sound|Popup|Taskbar
+Execute=
+Logfile=
+TTS=

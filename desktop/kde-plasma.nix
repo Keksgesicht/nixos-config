@@ -143,14 +143,17 @@ in
     imports = [
       plasma-manager.homeManagerModules.plasma-manager
       # nix run github:pjones/plasma-manager
-      home-manager/plasma-manager.nix
-      home-manager/plasma-manager-extra.nix
+      # slows down boot process by 10 seconds
+      #home-manager/plasma-manager.nix
+      #home-manager/plasma-manager-extra.nix
     ];
 
+    # luckily home-manager runs after systemd tmpfiles on boot
+    programs.plasma.enable = true;
     programs.plasma.configFile =
     if (config.networking.hostName == "cookiethinker") then
     {
-      "kcminputrc"."Keyboard"."NumLock"    = lib.mkForce 0;
+      "kcminputrc"."Keyboard"."NumLock"    = lib.mkForce 1;
       "kscreenlockerrc"."Daemon"."Timeout" = lib.mkForce 3;
       "kwinrulesrc"."General"."count"      = lib.mkForce 3;
       "kwinrulesrc"."General"."rules"      = lib.mkForce "6,8,9";

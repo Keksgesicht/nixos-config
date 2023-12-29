@@ -1,0 +1,167 @@
+[$Version]
+update_info=kwinrules.upd:replace-placement-string-to-enum,kwinrules.upd:use-virtual-desktop-ids
+
+[1]
+Description=Window settings for org.mozilla.Thunderbird
+above=true
+clientmachine=localhost
+desktops=\\0
+desktopsrule=3
+ignoregeometry=true
+ignoregeometryrule=2
+noborderrule=3
+position=2,2
+positionrule=3
+size=1612,2110
+sizerule=3
+title=Mozilla Thunderbird
+types=1
+windowrole=pop-up
+wmclass=\sorg.mozilla.Thunderbird
+wmclasscomplete=true
+wmclassmatch=1
+
+[2]
+Description=Window settings for brave-browser
+clientmachine=localhost
+desktops=\\0
+desktopsrule=3
+ignoregeometry=true
+ignoregeometryrule=2
+noborderrule=3
+position=1616,0
+positionrule=3
+size=2222,1304
+sizerule=3
+title=Brave
+types=1
+windowrole=pop-up
+wmclass=\sbrave-browser
+wmclasscomplete=true
+wmclassmatch=1
+
+[3]
+Description=Window settings for ferdium
+above=true
+clientmachine=localhost
+desktops=\\0
+desktopsrule=3
+ignoregeometry=true
+ignoregeometryrule=2
+position=1618,1304
+positionrule=3
+size=1255,807
+sizerule=3
+title=Ferdium
+titlematch=2
+types=1
+windowrole=pop-up
+wmclass=ferdium
+
+[4]
+Description=Window settings for vlc
+clientmachine=localhost
+desktops=\\0
+ignoregeometry=true
+ignoregeometryrule=2
+maximizehorizrule=3
+maximizevertrule=3
+position=1618,845
+positionrule=3
+size=2120,1250
+sizerule=3
+title=Vorlesung05_cut.mp4 - VLC media player
+types=1
+windowrole=vlc-main
+windowrolematch=1
+wmclass=vlc
+wmclassmatch=1
+
+[5]
+Description=Window settings for firefox
+clientmachine=localhost
+desktops=e134cfca-0b72-44b8-b120-0870feec7d94
+desktopsrule=3
+ignoregeometry=true
+ignoregeometryrule=2
+maximizevert=true
+maximizevertrule=3
+position=70,2160
+positionrule=3
+size=1690,1440
+sizerule=3
+title=Mozilla Firefox
+titlematch=2
+types=1
+windowrole=msgcompose
+wmclass=firefox
+wmclassmatch=1
+
+[6]
+Description=Window settings for org.kde.dolphin
+clientmachine=localhost
+desktops=\\0
+ignoregeometry=true
+ignoregeometryrule=2
+placement=8
+position=1618,845
+size=1325,1000
+sizerule=3
+title=New Tab - Chromium
+windowrole=pop-up
+wmclass=dolphin org.kde.dolphin
+wmclasscomplete=true
+wmclassmatch=1
+
+[7]
+Description=Window settings for org.kde.kate
+clientmachine=localhost
+desktops=e134cfca-0b72-44b8-b120-0870feec7d94
+ignoregeometry=true
+ignoregeometryrule=2
+maximizevert=true
+noborder=true
+placement=8
+position=70,2160
+size=1380,920
+sizerule=3
+title=New Tab - Chromium
+types=1
+windowrole=msgcompose
+wmclass=kate org.kde.kate
+wmclasscomplete=true
+wmclassmatch=1
+
+[8]
+Description=Window settings for org.kde.kruler
+above=true
+aboverule=3
+clientmachine=localhost
+title=KRuler — KDE Screen Ruler
+types=1
+windowrole=pop-up
+wmclass=\sorg.kde.kruler
+wmclasscomplete=true
+wmclassmatch=1
+
+[9]
+Description=Akonadi - Confirm Website Access
+clientmachine=localhost
+ignoregeometry=true
+maximizehoriz=true
+maximizevert=true
+minimize=true
+minimizerule=3
+placement=8
+position=3902,2160
+size=1325,1000
+skiptaskbar=true
+skiptaskbarrule=2
+title=Confirm Website Access
+titlematch=2
+types=1
+windowrole=msgcompose
+
+[General]
+count=9
+rules=1,2,3,4,5,6,7,8,9

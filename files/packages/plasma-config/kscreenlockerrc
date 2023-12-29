@@ -1,0 +1,17 @@
+[$Version]
+update_info=kscreenlocker.upd:0.1-autolock
+
+[Daemon]
+LockGrace=23
+Timeout=7
+
+[Greeter]
+WallpaperPlugin=org.kde.slideshow
+
+[Greeter][LnF][General]
+showMediaControls=false
+
+[Greeter][Wallpaper][org.kde.slideshow][General]
+FillMode=0
+SlideInterval=60
+SlidePaths=/home/keks/background/landscape/

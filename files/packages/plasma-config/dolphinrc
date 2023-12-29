@@ -1,0 +1,49 @@
+[$Version]
+update_info=dolphin_detailsmodesettings.upd:rename-leading-padding,dolphin_detailsmodesettings.upd:move-content-display
+
+[CompactMode]
+PreviewSize=32
+
+[ContextMenu]
+ShowCopyMoveMenu=true
+
+[Desktop Entry]
+DefaultProfile=Breath2.profile
+
+[DetailsMode]
+PreviewSize=16
+
+[General]
+BrowseThroughArchives=true
+CloseActiveSplitView=false
+GlobalViewProps=false
+LockPanels=false
+OpenNewTabAfterLastTab=true
+ShowFullPathInTitlebar=true
+UseTabForSwitchingSplitView=true
+Version=202
+ViewPropsTimestamp=2023,12,29,18,3,15.06
+
+[IconsMode]
+IconSize=64
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=22
+detailViewIconSize=16
+
+[MainWindow]
+MenuBar=Disabled
+ToolBarsMovable=Disabled
+
+[Notification Messages]
+ConfirmTrash=true
+
+[Open-with settings]
+CompletionMode=1
+
+[PreviewSettings]
+Plugins=audiothumbnail,comicbookthumbnail,cursorthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,jpegthumbnail,rawthumbnail,svgthumbnail,textthumbnail,ffmpegthumbs
+
+[VersionControl]
+enabledPlugins=Git

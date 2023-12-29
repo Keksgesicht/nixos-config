@@ -1,0 +1,7 @@
+[Actions]
+EnableMagicMimeActions=false
+StripWhiteSpace=false
+
+[General]
+KeepClipboardContents=false
+PreventEmptyClipboard=false

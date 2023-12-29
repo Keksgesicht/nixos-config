@@ -1,0 +1,16 @@
+[General]
+height=952
+lastVisitedPage=overview.page
+pageOrder=overview.page,applications.page,history.page,processes.page,new_page.page
+width=1232
+
+[TaskDialog]
+ioInformation=5
+ioUnits=1
+normalizeCPUUsage=true
+showCommandLineOptions=false
+showTooltips=true
+showTotals=true
+units=1
+updateIntervalMSecs=2000
+version=10

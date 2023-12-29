@@ -1,7 +1,7 @@
 # file: user/desktop.nix
 # desc: focus on user specific settings for systems with DE/WM
 
-{ config, pkgs, ...}:
+{ config, ... }:
 
 {
   # Enable CUPS to print documents.
@@ -12,7 +12,8 @@
     ./environment-desktop.nix
     ./flatpak.nix
     ./home-manager
-    ./impermanence.nix
+    ./impermanence-directories.nix
+    ./impermanence-files.nix
     ./kde-plasma.nix
     ./openssh.nix
     ./packages.nix

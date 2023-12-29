@@ -1,0 +1,6 @@
+[/home/keks/][local/share/Trash]
+Days=30
+LimitReachedAction=1
+Percent=3
+UseSizeLimit=true
+UseTimeLimit=true

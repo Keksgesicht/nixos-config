@@ -1,0 +1,10 @@
+[General Options]
+ColorIndex=0
+FPSIndex=2
+Geometry=460,390
+Mode=followmouse
+RotationIndex=0
+SelRect=1,1,230,158
+ShowMouse=2
+StaysOnTop=true
+ZoomIndex=4

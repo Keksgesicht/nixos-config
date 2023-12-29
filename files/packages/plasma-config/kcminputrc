@@ -1,0 +1,30 @@
+[$Version]
+update_info=delete_cursor_old_default_size.upd:DeleteCursorOldDefaultSize,kcminputrc_repeat.upd:kcminputrc_migrate_repeat_value,kcminputrc_fix_botched_5_21_0.upd:kcminputrc_fix_botched_5_21_0_pre,kcminputrc_fix_botched_5_21_0.upd:kcminputrc_fix_botched_5_21_0,kcminputrc_repeat.upd:kcminputrc_migrate_key_repeat
+
+[Keyboard]
+KeyRepeat=repeat
+NumLock=0
+RepeatDelay=420
+RepeatRate=23
+
+[Libinput][1267][12655][ELAN0415:00 04F3:316F Mouse]
+PointerAccelerationProfile=1
+
+[Libinput][1267][12655][ELAN0415:00 04F3:316F Touchpad]
+NaturalScroll=true
+TapToClick=true
+
+[Libinput][1386][221][Wacom Bamboo Connect Pen]
+LeftHanded=false
+
+[Libinput][7805][11601][ROCCAT ROCCAT Kone\x5b+\x5d]
+PointerAcceleration=-0.200
+ScrollFactor=1
+
+[Mouse]
+X11LibInputXAccelProfileFlat=false
+XLbInptAccelProfileFlat=true
+XLbInptNaturalScroll=false
+XLbInptPointerAcceleration=0.200000
+cursorSize=36
+cursorTheme=LyraG-cursors

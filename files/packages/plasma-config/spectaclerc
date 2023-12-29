@@ -1,0 +1,24 @@
+[$Version]
+update_info=spectacle_clipboard.upd:clipboard-settings-change,spectacle_rememberregion.upd:spectacle-migrate-rememberregion
+
+[Annotations]
+annotationToolType=7
+
+[General]
+autoSaveImage=true
+clipboardGroup=PostScreenshotCopyImage
+onLaunchAction=DoNotTakeScreenshot
+printKeyActionRunning=StartNewInstance
+rememberLastRectangularRegion=Always
+showMagnifier=true
+
+[GuiConfig]
+captureDelay=2
+
+[KFileDialog Settings]
+detailViewIconSize=16
+
+[Save]
+compressionQuality=75
+defaultSaveLocation=file:///home/keks/Pictures/Screenshots
+lastUsedSaveMode=Save
