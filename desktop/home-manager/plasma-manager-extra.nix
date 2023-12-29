@@ -24,6 +24,7 @@
     "kwin_dialogsrc",
     "kwrited.notifyrc",
     "pavucontrol.ini",
+    "plasmanotifyrc",
     "plasmaparc",
     "plasma-welcomerc",
     "plasma_calendar_astronomicalevents",
@@ -97,6 +98,13 @@
       "plasma-welcomerc"."General"."ShouldShow" = false;
       "plasma_calendar_astronomicalevents"."General"."showLunarPhase" = true;
       "plasma_calendar_astronomicalevents"."General"."showSeason" = true;
+      "plasmanotifyrc"."Notifications"."LowPriorityHistory" = true;
+      "plasmanotifyrc"."Notifications"."PopupPosition" = "BottomRight";
+      "plasmanotifyrc"."Notifications"."PopupTimeout" = 7000;
+      "plasmanotifyrc"."Services.freespacenotifier"."ShowPopupsInDndMode" = true;
+      "plasmanotifyrc"."Services.kcm_touchpad"."ShowPopupsInDndMode" = true;
+      "plasmanotifyrc"."Services.powerdevil"."ShowPopupsInDndMode" = true;
+      "plasmanotifyrc"."Services.wacomtablet"."ShowPopupsInDndMode" = true;
       "plasmaparc"."General"."RaiseMaximumVolume" = true;
       "powerdevilrc"."BatteryManagement"."BatteryCriticalAction" = 0;
       "powerdevilrc"."BatteryManagement"."BatteryCriticalLevel" = 10;
