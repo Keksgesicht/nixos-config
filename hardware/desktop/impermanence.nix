@@ -37,11 +37,20 @@ in
           mount -t ${ssd-fs-cfg.fsType} -o ${ssd-fs-opt-str} \
             ${ssd-fs-cfg.device} $TMP_MNT
 
+          delete_subvolumes() {
+              IFS=$'\n'
+              for sv in $(btrfs subvolume list -o "$1" | cut -d' ' -f9); do
+                  btrfs subvolume delete /mnt-main/$sv
+              done
+              btrfs subvolume delete $1
+          }
           mkdir -p $BACKUP_DIR
-          find $BACKUP_DIR -mindepth 1 -maxdepth 1 -mtime +2 -exec \
-            btrfs subvolume delete {} \;
-          [ -e $TMP_ROOT_DIR ] && \
+          for sv in $(find $BACKUP_DIR -mindepth 1 -maxdepth 1 -mtime +2); do
+            delete_subvolumes $sv
+          done
+          if [ -e $TMP_ROOT_DIR ]; then
             mv $TMP_ROOT_DIR $BACKUP_DIR/$(date +%Y%m%d_%H%M%S)
+          fi
 
           btrfs subvolume create $TMP_ROOT_DIR
           umount $TMP_MNT
