@@ -276,6 +276,10 @@ _launch=Meta+N,none,
 _k_friendly_name=Clock
 _launch=Meta+U,none,
 
+[org.kde.khelpcenter.desktop]
+_k_friendly_name=Help
+_launch=none,none,Help
+
 [org.kde.kinfocenter.desktop]
 _k_friendly_name=Info Center
 _launch=Meta+Pause,none,
@@ -371,35 +375,35 @@ switch to previous activity=none,,Switch to Previous Activity
 toggle do not disturb=none,,Toggle do not disturb
 
 [relink-virtual-devices.sh.desktop]
-_k_friendly_name=relink-virtual-devices.sh
+_k_friendly_name=Reconnect wires between virtual audio sinks/sources
 _launch=Meta+Ctrl+A,none,
 
 [restart-audio.sh.desktop]
-_k_friendly_name=restart-audio.sh
+_k_friendly_name=Restart all Audio Services
 _launch=Meta+Ctrl+Shift+A,none,
 
-[rfkill.desktop]
-_k_friendly_name=rfkill toggle bluetooth
+[rfkill-bluetooth.desktop]
+_k_friendly_name=Enable/Disable Bluetooth Device
 _launch=Ctrl+Alt+Shift+B,none,
 
-[saveReplayBuffer.sh.desktop]
-_k_friendly_name=saveReplayBuffer.sh
+[save-replay-buffer.sh.desktop]
+_k_friendly_name=Save OBS-Studio ReplayBuffer
 _launch=Alt+F10,none,
 
 [systemsettings.desktop]
 _k_friendly_name=System Settings
 _launch=Tools\tMeta+I,none,
 
-[toggle_mute_chat.sh.desktop]
-_k_friendly_name=toggle_mute_chat.sh
+[toggle-mute-chat.sh.desktop]
+_k_friendly_name=Toggle mute of virtual sink for Chat Apps
 _launch=Shift+F10,none,
 
-[toggle_mute_gaming.sh.desktop]
-_k_friendly_name=toggle_mute_gaming.sh
+[toggle-mute-gaming.sh.desktop]
+_k_friendly_name=Toggle mute special virtual sink for Gaming Apps
 _launch=Shift+F11,none,
 
-[toggle_mute_mic.sh.desktop]
-_k_friendly_name=toggle_mute_mic.sh
+[toggle-mute-mic.sh.desktop]
+_k_friendly_name=Toggle mute of main Microphone 
 _launch=Shift+F9,none,
 
 [wacomtablet]
@@ -413,6 +417,6 @@ Toggle stylus mode=Meta+Ctrl+S,none,
 Toggle touch tool=Meta+Ctrl+T,none,
 _k_friendly_name=Wacom Tablet
 
-[xscreensaver.sh.desktop]
-_k_friendly_name=xscreensaver.sh
+[toggle-xscreensaver.sh.desktop]
+_k_friendly_name=Run/Stop XScreensaver
 _launch=Meta+X,none,

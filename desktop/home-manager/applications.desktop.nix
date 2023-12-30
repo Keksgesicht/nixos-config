@@ -20,54 +20,51 @@ in
 
     "relink-virtual-devices.sh" = {
       exec = "${my-audio}/bin/audio-relink-virtual-devices.sh";
-      name = "relink-virtual-devices.sh";
+      name = "Reconnect wires between virtual audio sinks/sources";
       type = "Application";
       noDisplay = true;
     };
     "restart-audio.sh" = {
-      exec = "${my-audio}/bin/restart-audio.sh";
-      name = "restart-audio.sh";
+      exec = "${my-audio}/bin/audio-restart.sh";
+      name = "Restart all Audio Services";
       type = "Application";
       noDisplay = true;
     };
     "toggle-mute-chat.sh" = {
-      exec = "${my-audio}/bin/toggle-mute-chat.sh";
-      name = "toggle_mute_chat.sh";
+      exec = "${my-audio}/bin/audio-toggle-mute-chat.sh";
+      name = "Toggle mute of virtual sink for Chat Apps";
       type = "Application";
       noDisplay = true;
     };
     "toggle-mute-gaming.sh" = {
-      exec = "${my-audio}/bin/toggle-mute-gaming.sh";
-      name = "toggle_mute_gaming.sh";
+      exec = "${my-audio}/bin/audio-toggle-mute-gaming.sh";
+      name = "Toggle mute special virtual sink for Gaming Apps";
       type = "Application";
       noDisplay = true;
     };
     "toggle-mute-mic.sh" = {
-      exec = "${my-audio}/bin/toggle-mute-mic.sh";
-      name = "toggle_mute_mic.sh";
+      exec = "${my-audio}/bin/audio-toggle-mute-mic.sh";
+      name = "Toggle mute of main Microphone";
       type = "Application";
       noDisplay = true;
     };
     "rfkill-bluetooth" = {
       exec = "rfkill toggle bluetooth";
-      name = "rfkill toggle bluetooth";
+      name = "Enable/Disable Bluetooth Device";
       type = "Application";
       noDisplay = true;
       startupNotify = false;
-      settings = {
-        X-KDE-GlobalAccel-CommandShortcut = "true";
-      };
     };
 
-    "toggle-xscreensaver" = {
+    "toggle-xscreensaver.sh" = {
       exec = "${xs-saver}/bin/toggle-xscreensaver.sh";
-      name = "xscreensaver.sh";
+      name = "Run/Stop XScreensaver";
       type = "Application";
       noDisplay = true;
     };
-    "save-replay-buffer" = {
+    "save-replay-buffer.sh" = {
       exec = "${obsrebuf}/bin/saveReplayBuffer.sh";
-      name = "saveReplayBuffer.sh";
+      name = "Save OBS-Studio ReplayBuffer";
       type = "Application";
       noDisplay = true;
     };
@@ -277,7 +274,7 @@ in
     };
   };
 
-  # aahh.. flatpak is ealier in XDG_DATA_DIRS
+  # aarggg.. flatpak is ealier in XDG_DATA_DIRS
   xdg.dataFile = {
     "applications/com.axosoft.GitKraken.desktop".source         = mkOOSS "${profile-dir}/com.axosoft.GitKraken.desktop";
     "applications/com.heroicgameslauncher.hgl.desktop".source   = mkOOSS "${profile-dir}/com.heroicgameslauncher.hgl.desktop";
