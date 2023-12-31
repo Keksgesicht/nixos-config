@@ -2,9 +2,9 @@
 use=kgammarc
 
 [Screen 0]
-bgamma=0.900000
-ggamma=0.900000
-rgamma=0.900000
+bgamma=0.9
+ggamma=0.9
+rgamma=0.9
 
 [SyncBox]
 sync=no

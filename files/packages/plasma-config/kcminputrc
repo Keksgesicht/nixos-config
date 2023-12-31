@@ -25,6 +25,6 @@ ScrollFactor=1
 X11LibInputXAccelProfileFlat=false
 XLbInptAccelProfileFlat=true
 XLbInptNaturalScroll=false
-XLbInptPointerAcceleration=0.200000
+XLbInptPointerAcceleration=0.2
 cursorSize=36
 cursorTheme=LyraG-cursors

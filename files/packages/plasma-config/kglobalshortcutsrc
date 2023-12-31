@@ -251,11 +251,11 @@ view_zoom_out=Meta+-,Meta+-,Zoom Out
 
 [mediacontrol]
 _k_friendly_name=Media Controller
-mediavolumedown=none,,Media volume down
-mediavolumeup=none,,Media volume up
+mediavolumedown=none,none,Media volume down
+mediavolumeup=none,none,Media volume up
 nextmedia=Media Next,Media Next,Media playback next
 pausemedia=none,Media Pause,Pause media playback
-playmedia=none,,Play media playback
+playmedia=none,none,Play media playback
 playpausemedia=Media Play,Media Play,Play/Pause media playback
 previousmedia=Media Previous,Media Previous,Media playback previous
 stopmedia=none,Media Stop,Stop media playback
@@ -403,8 +403,12 @@ _k_friendly_name=Toggle mute special virtual sink for Gaming Apps
 _launch=Shift+F11,none,
 
 [toggle-mute-mic.sh.desktop]
-_k_friendly_name=Toggle mute of main Microphone 
+_k_friendly_name=Toggle mute of main Microphone
 _launch=Shift+F9,none,
+
+[toggle-xscreensaver.sh.desktop]
+_k_friendly_name=Run/Stop XScreensaver
+_launch=Meta+X,none,
 
 [wacomtablet]
 Map to fullscreen=Meta+Ctrl+F,none,
@@ -416,7 +420,3 @@ Toggle screen map selection=Meta+Ctrl+M,none,
 Toggle stylus mode=Meta+Ctrl+S,none,
 Toggle touch tool=Meta+Ctrl+T,none,
 _k_friendly_name=Wacom Tablet
-
-[toggle-xscreensaver.sh.desktop]
-_k_friendly_name=Run/Stop XScreensaver
-_launch=Meta+X,none,

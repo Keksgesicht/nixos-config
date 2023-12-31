@@ -132,11 +132,11 @@ toolBarFont=Noto Sans,9,-1,5,50,0,0,0,0,0
 Theme=candy-icons
 
 [KDE]
-AnimationDurationFactor=0.500000
+AnimationDurationFactor=0.5
 LookAndFeelPackage=org.kde.breezedark.desktop
 ScrollbarLeftClickNavigatesByPage=false
 ShowDeleteCommand=true
-SingleClick=false
+SingleClick=true
 contrast=4
 
 [KFileDialog Settings]

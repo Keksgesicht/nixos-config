@@ -1,5 +1,5 @@
 [$Version]
-update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-effect-to-js,kwin.upd:port-scale-effect-to-js,kwin.upd:port-dimscreen-effect-to-js,kwin.upd:auto-bordersize,kwin.upd:animation-speed,kwin.upd:desktop-grid-click-behavior,kwin.upd:no-swap-encourage,kwin.upd:make-translucency-effect-disabled-by-default,kwin.upd:remove-flip-switch-effect,kwin.upd:remove-cover-switch-effect,kwin.upd:remove-cubeslide-effect,kwin.upd:remove-xrender-backend
+update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-effect-to-js,kwin.upd:port-scale-effect-to-js,kwin.upd:port-dimscreen-effect-to-js,kwin.upd:auto-bordersize,kwin.upd:animation-speed,kwin.upd:desktop-grid-click-behavior,kwin.upd:no-swap-encourage,kwin.upd:make-translucency-effect-disabled-by-default,kwin.upd:remove-flip-switch-effect,kwin.upd:remove-cover-switch-effect,kwin.upd:remove-cubeslide-effect,kwin.upd:remove-xrender-backend,kwin.upd:enable-scale-effect-by-default,kwin.upd:animation-speed-cleanup,kwin.upd:replace-cascaded-zerocornered,kwin.upd:overview-group-plugin-id
 
 [Compositing]
 GLCore=true
@@ -100,7 +100,7 @@ BorderActivateAll=9
 [Effect-zoom]
 IndividualMenuConfig=true
 MoveResize=40
-ZoomFactor=1.100000
+ZoomFactor=1.1
 
 [ElectricBorders]
 TopLeft=None
@@ -185,7 +185,7 @@ BorderSnapZone=25
 CenterSnapZone=25
 DelayFocusInterval=420
 ElectricBorderCooldown=750
-ElectricBorderCornerRatio=0.200000
+ElectricBorderCornerRatio=0.2
 ElectricBorderDelay=450
 FocusPolicy=FocusFollowsMouse
 FocusStealingPreventionLevel=2

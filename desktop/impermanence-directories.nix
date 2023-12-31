@@ -94,7 +94,6 @@ in
           ".config/Nextcloud"
           { directory = ".config/ssh"; user = username; group = username; mode = "0700"; }
           ".config/xscreensaver"
-          ".config/xsettingsd"
 
           ".local/bin"
           ".local/share/akonadi"
