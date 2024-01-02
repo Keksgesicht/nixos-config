@@ -1,2 +1,2 @@
 [Context]
-filesystems=/mnt/array/homeBraunJan/Documents/development/ghidra:create;/mnt/array/homeBraunJan/Documents/development:ro
+filesystems=~/devel/ghidra:create;~/devel:ro;~/git:ro
