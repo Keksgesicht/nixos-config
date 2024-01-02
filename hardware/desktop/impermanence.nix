@@ -99,7 +99,6 @@ in
         "/etc/ssh/ssh_host_rsa_key"
         "/etc/ssh/ssh_host_rsa_key.pub"
         "/var/cache/locatedb"
-        "/var/lib/logrotate.status"
         "/var/lib/rasdaemon/ras-mc_event.db"
         "/var/nix-serve/public-key.pem"
         "/var/nix-serve/secret-key.pem"
