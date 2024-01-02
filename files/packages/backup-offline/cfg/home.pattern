@@ -1,3 +1,5 @@
+- */build/*
+- */ccache/*
 - *.log
 - /*/.cache/**
 - /*/.config/*/*Cache*/**
