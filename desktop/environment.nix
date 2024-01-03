@@ -14,9 +14,6 @@
 
     # Not officially in the specification
     XDG_BIN_HOME    = "$HOME/.local/bin";
-    PATH = [
-      "${XDG_BIN_HOME}"
-    ];
     AUTH = "sudo";
 
     # force usage of XDG directories
@@ -26,6 +23,10 @@
     LESSHISTFILE  = "${XDG_CACHE_HOME}/lesshst";
     #XAUTHORITY    = "${XDG_RUNTIME_DIR}/Xauthority";
     #XINITRC       = "${XDG_CONFIG_HOME}/X11/xinitrc";
+
+    # git security
+    # https://github.blog/2022-04-12-git-security-vulnerability-announced/
+    GIT_CEILING_DIRECTORIES = "/home:$HOME/git:/mnt:/mnt/array/homeBraunJan/Documents/development/git:/mnt/main/home/keks/git";
   };
 
   home-manager.users."keks" = {
@@ -43,10 +44,5 @@
     xdg.configFile."user-dirs.locale".text = ''
       en_US
     '';
-  };
-
-  # git security
-  environment.sessionVariables = rec {
-    GIT_CEILING_DIRECTORIES = "/home:$HOME/git:/mnt:/mnt/array/homeBraunJan/Documents/development/git:/mnt/main/home/keks/git";
   };
 }

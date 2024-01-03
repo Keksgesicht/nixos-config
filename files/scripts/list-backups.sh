@@ -6,9 +6,10 @@ if ! [ -e "${file}" ]; then
 	exit 1
 fi
 
-rpath=$(realpath "${file}" | \
-	sed -e 's|^/var/mnt/|/mnt/|' | \
-	sed -e 's|^/var/home/|/home/|')
+rpath=$(realpath "${file}")
+for rr in $(awk '$4 ~ /bind/ {printf "s|%s|%s|\n", $2, $1}' /etc/fstab); do
+	 rpath=$(echo "${rpath}" | sed -e "${rr}")
+done
 
 sep_count=$(echo "${rpath}" | awk -F'/' '{print NF}')
 path_d=$(echo "${rpath}" | cut -d '/' -f2)

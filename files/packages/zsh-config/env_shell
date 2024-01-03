@@ -1,7 +1,5 @@
 #!/usr/bin/zsh
 
-export XDG_CONFIG_HOME="$HOME/.config"
-
 export EDITOR="nano"
 export VISUAL="nano"
 export SUDO_EDITOR="nano"

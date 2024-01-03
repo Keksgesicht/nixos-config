@@ -117,6 +117,8 @@ CommandTitlebarWheel=Raise/Lower
 
 [NightColor]
 Active=true
+LatitudeAuto=50.0000
+LongitudeAuto=8.5000
 NightTemperature=2700
 
 [Plugins]

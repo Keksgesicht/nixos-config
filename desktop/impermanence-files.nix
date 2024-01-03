@@ -25,8 +25,6 @@ in
       ".config/filetypesrc"
       ".config/gwenviewrc"
       ".config/kactivitymanagerd-statsrc"
-      ".config/katemoderc"
-      ".config/katesyntaxhighlightingrc"
       ".config/kwalletrc"
       ".config/merkuro.calendarrc"
       ".config/mimeapps.list"

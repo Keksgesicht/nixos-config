@@ -69,12 +69,6 @@ if [[ -e ${ZSHCFGDIR}/alias_container ]]; then
 fi
 
 
-# add scripts to PATH
-if [[ -d ${OLDHOME}/.local/bin ]] \
-&& ! echo $PATH | grep -q "${OLDHOME}/.local/bin"; then
-  PATH="${PATH}:${OLDHOME}/.local/bin"
-fi
-
 # unbind insert for overtype mode
 # https://unix.stackexchange.com/questions/320326/delete-keymap-and-completely-disable-key-in-zsh
 bindkey -s '\e[2~' ''
