@@ -4,7 +4,7 @@
   # https://nixos.wiki/wiki/Automatic_system_upgrades
   system.autoUpgrade = {
     enable = true;
-    dates = "02:22";
+    dates = "*-*-2,4,6,8,12,14,16,18,22,24,26,28 02:22:19";
     randomizedDelaySec = "123min";
 
     operation =
@@ -12,8 +12,8 @@
       else "switch";
     allowReboot = !(config.services.xserver.enable);
     rebootWindow = {
-      lower = "02:00";
-      upper = "07:00";
+      lower = "04:20";
+      upper = "05:45";
     };
 
     flake = inputs.self.outPath;
