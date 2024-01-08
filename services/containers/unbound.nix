@@ -93,7 +93,7 @@
         "2053:53/udp"
       ];
       environment = {
-        TZ = "Europe/Berlin";
+        TZ = config.time.timeZone;
       };
       volumes = [
         "/mnt/main/appdata/unbound:/etc/unbound:Z"

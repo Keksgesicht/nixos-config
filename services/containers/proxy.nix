@@ -82,7 +82,7 @@
       );
 
       environment = {
-        TZ = "Europe/Berlin";
+        TZ = config.time.timeZone;
         URL = "keksgesicht.net";
         EMAIL = "certbot@keksgesicht.net";
         SUBDOMAINS = "cloud,pihole,nix.mirror";

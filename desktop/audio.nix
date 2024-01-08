@@ -105,7 +105,7 @@ in
         ExecStop = "${pkgs.flatpak}/bin/flatpak kill org.ferdium.Ferdium";
       };
       environment = {
-        TZ = "Europe/Berlin";
+        TZ = config.time.timeZone;
       };
     };
   };

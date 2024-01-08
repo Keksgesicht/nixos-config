@@ -22,6 +22,9 @@ in
         after    = [ "initrd-root-device.target" ];
         before   = [ "initrd-root-fs.target" "sysroot.mount" ];
         serviceConfig = { Type = "oneshot"; };
+        environment = {
+          TZ = config.time.timeZone;
+        };
         path = with pkgs; [
           btrfs-progs
           coreutils

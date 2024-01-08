@@ -39,7 +39,7 @@
       );
 
       environment = {
-        TZ = "Europe/Berlin";
+        TZ = config.time.timeZone;
         LOG_LEVEL = "2";
         INTERVAL = "1000";
         CF_RECORDTYPES = "A";
@@ -73,7 +73,7 @@
       );
 
       environment = {
-        TZ = "Europe/Berlin";
+        TZ = config.time.timeZone;
         LOG_LEVEL = "2";
         INTERVAL = "1000";
         CF_RECORDTYPES = "AAAA";

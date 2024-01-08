@@ -120,7 +120,7 @@
       );
 
       environment = {
-        TZ = "Europe/Berlin";
+        TZ = config.time.timeZone;
         #PHP_MEMORY_LIMIT = "512M";
       };
       volumes = [
@@ -152,7 +152,7 @@
 
       entrypoint = "/cron.sh";
       environment = {
-        TZ = "Europe/Berlin";
+        TZ = config.time.timeZone;
       };
       volumes = [
         "/mnt/main/appdata/nextcloud/www:/var/www/html"
@@ -174,7 +174,7 @@
         "--binlog-format=ROW"
       ];
       environment = {
-        TZ = "Europe/Berlin";
+        TZ = config.time.timeZone;
         MYSQL_DATABASE = "nextcloud";
         MYSQL_USER = "nextcloud";
       };
@@ -209,7 +209,7 @@
       ];
       */
       environment = {
-        TZ = "Europe/Berlin";
+        TZ = config.time.timeZone;
       };
       environmentFiles = [
         "/etc/nixos/secrets/services/containers/nextcloud/REDIS"

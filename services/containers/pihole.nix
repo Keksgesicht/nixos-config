@@ -43,7 +43,7 @@
         #"5353:5353/udp"
       ];
       environment = {
-        TZ = "Europe/Berlin";
+        TZ = config.time.timeZone;
         IPv6 = "True";
         ServerIP = "192.168.178.150";
         INTERFACE = "eth0";

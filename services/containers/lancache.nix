@@ -86,7 +86,7 @@
       );
 
       environment = {
-        TZ = "Europe/Berlin";
+        TZ = config.time.timeZone;
         LANCACHE_IP = "192.168.178.150";
         UPSTREAM_DNS = "172.23.53.2";
         CACHE_MAX_AGE = "1234d";
