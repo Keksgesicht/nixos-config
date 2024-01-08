@@ -99,6 +99,7 @@ BorderActivateAll=9
 
 [Effect-zoom]
 IndividualMenuConfig=true
+MouseTracking=2
 MoveResize=40
 ZoomFactor=1.1
 
