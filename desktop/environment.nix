@@ -1,5 +1,12 @@
 { config, ... }:
 
+let
+  username = "keks";
+  home-dir = "/home/${username}";
+  ssd-mnt  = "/mnt/main";
+  hdd-mnt  = "/mnt/array";
+  data-dir = "${hdd-mnt}/homeBraunJan";
+in
 {
   # base environment variables
   # https://nixos.wiki/wiki/Environment_variables
@@ -26,18 +33,18 @@
 
     # git security
     # https://github.blog/2022-04-12-git-security-vulnerability-announced/
-    GIT_CEILING_DIRECTORIES = "/home:$HOME/git:/mnt:/mnt/array/homeBraunJan/Documents/development/git:/mnt/main/home/keks/git";
+    GIT_CEILING_DIRECTORIES = "/home:$HOME/git:/mnt:${data-dir}/Documents/development/git:${ssd-mnt}${home-dir}/git";
   };
 
   home-manager.users."keks" = {
     xdg.userDirs = {
       enable = true;
       desktop   = "$HOME/Desktop";
-      documents = "/mnt/array/homeBraunJan/Documents";
-      download  = "/mnt/array/homeBraunJan/Downloads";
-      music     = "/mnt/array/homeBraunJan/Music";
-      pictures  = "/mnt/array/homeBraunJan/Pictures";
-      videos    = "/mnt/array/homeBraunJan/Videos";
+      download  = "$HOME/Downloads";
+      documents = "${data-dir}/Documents";
+      music     = "${data-dir}/Music";
+      pictures  = "${data-dir}/Pictures";
+      videos    = "${data-dir}/Videos";
       publicShare = "$HOME/Public";
       templates   = "$HOME/Templates";
     };

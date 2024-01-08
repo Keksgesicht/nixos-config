@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 let
   username = "keks";
@@ -6,6 +6,9 @@ let
   ssd-mnt  = "/mnt/main";
   hdd-mnt  = "/mnt/array";
   data-dir = "${hdd-mnt}/homeBraunJan";
+
+  forEach  = lib.lists.forEach;
+  flatList = lib.lists.flatten;
 
   bind-opt = [
     "bind"
@@ -27,9 +30,6 @@ in
   fileSystems = {
     "${home-dir}/Documents" = bind-opts // data-opts // {
       device = "${data-dir}/Documents";
-    };
-    "${home-dir}/Downloads" = bind-opts // data-opts // {
-      device = "${data-dir}/Downloads";
     };
     "${home-dir}/Music" = bind-opts // data-opts // {
       device = "${data-dir}/Music";
@@ -53,6 +53,13 @@ in
     "${home-dir}/Module" = bind-opts // data-opts // {
       device = "${data-dir}/Documents/Studium/Module";
     };
+
+    "${data-dir}/Documents/Gaming" = bind-opts // data-opts // {
+      device = "${hdd-mnt}/homeGaming/Documents";
+    };
+    "${data-dir}/Videos/Gaming/Desktop" = bind-opts // data-opts // {
+      device = "${hdd-mnt}/homeGaming/Videos/Desktop";
+    };
     "${home-dir}/Games" = bind-opts // {
       depends = [
         "/mnt/ram"
@@ -73,11 +80,17 @@ in
 
   # https://nixos.wiki/wiki/Impermanence#Home_Managing
   # https://github.com/nix-community/impermanence
-  environment.persistence = {
+  environment.persistence =
+  let
+    usernameDir = list: (forEach list (e:
+      { directory = "${e}"; user = username; group = username; }
+    ));
+  in
+  {
     "${ssd-mnt}" = {
       hideMounts = true;
       # do not even try using the home-manager impermanence module
-      users."keks" = {
+      users."${username}" = {
         directories = [
           ".config/akonadi"
           ".config/dconf"
@@ -122,10 +135,12 @@ in
           ".local/share/themes"
           ".local/share/waydroid"
 
+          { directory = ".secrets";     user = username; group = username; mode = "0700"; }
+          { directory = ".tpm2_pkcs11"; user = username; group = username; mode = "0700"; }
+        ]
+        ++ usernameDir [
           ".icons"
-          { directory = ".local/state/wireplumber"; user = username; group = username; }
-          { directory = ".secrets"; mode = "0700"; }
-          { directory = ".tpm2_pkcs11"; mode = "0700"; }
+          ".local/state/wireplumber"
           ".var/app"
           "background"
           "texmf"
@@ -133,5 +148,48 @@ in
         ];
       };
     };
+    # exclude impermant directories inside permant directories from persistence
+    "${ssd-mnt}/root" = {
+      hideMounts = true;
+      # do not even try using the home-manager impermanence module
+      users."${username}" = {
+        directories = usernameDir [
+          "Pictures/Screenshots"
+        ];
+      };
+    };
   };
+
+  # https://www.freedesktop.org/software/systemd/man/latest/tmpfiles.d.html
+  systemd.tmpfiles.rules =
+  let
+    resetUserDir = list: (flatList (forEach list (e:
+      [
+        "d  ${e} 0755 ${username} ${username} - -"
+        "z  ${e} 0755 ${username} ${username} - -"
+      ]
+    )));
+  in
+  [
+    "L+ ${data-dir}/devel  - - - - ${data-dir}/Documents/development"
+    "L+ ${data-dir}/git    - - - - ${data-dir}/Documents/development/git"
+    "L+ ${data-dir}/Module - - - - ${data-dir}/Documents/Studium/Module"
+  ]
+  ++ resetUserDir [
+    "${data-dir}/Documents"
+    "${home-dir}/Downloads"
+    "${data-dir}/Music"
+    "${data-dir}/Pictures"
+    "${data-dir}/Videos"
+    "${hdd-mnt}/Trash/1000"
+
+    "${ssd-mnt}${home-dir}/git"
+    "${data-dir}/Documents/development/git"
+    "${data-dir}/Documents/Studium/Module"
+
+    "${hdd-mnt}/homeGaming/Documents"
+    "${hdd-mnt}/homeGaming/Videos"
+    "${hdd-mnt}/homeGaming/Videos/Desktop"
+    "/mnt/ram/Games"
+  ];
 }

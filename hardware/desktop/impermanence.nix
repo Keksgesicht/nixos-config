@@ -1,7 +1,12 @@
 { config, pkgs, lib, ... }:
 
 let
-  ssd-mnt = "/mnt/main";
+  username = "keks";
+  home-dir = "/home/${username}";
+  ssd-mnt  = "/mnt/main";
+  hdd-mnt  = "/mnt/array";
+  link-dir = "/mnt/user";
+
   ssd-fs-cfg = config.fileSystems."${ssd-mnt}";
   ssd-fs-opt-str = (lib.concatStringsSep "," ssd-fs-cfg.options);
   biss = config.boot.initrd.systemd.services;
@@ -32,14 +37,16 @@ in
           util-linux
         ];
         script = ''
+          BACKUPS_DAYS=3
           TMP_MNT="/mnt-main"
           TMP_ROOT_DIR="$TMP_MNT/root"
           BACKUP_DIR="$TMP_MNT/backup_main/boot/root"
 
-          mkdir -p $TMP_MNT
-          mount -t ${ssd-fs-cfg.fsType} -o ${ssd-fs-opt-str} \
-            ${ssd-fs-cfg.device} $TMP_MNT
-
+          list_backups() {
+            find $BACKUP_DIR \
+              -mindepth 1 -maxdepth 1 \
+              -mtime +$BACKUPS_DAYS
+          }
           delete_subvolumes() {
               IFS=$'\n'
               for sv in $(btrfs subvolume list -o "$1" | cut -d' ' -f9); do
@@ -47,10 +54,18 @@ in
               done
               btrfs subvolume delete $1
           }
+
+          mkdir -p $TMP_MNT
+          mount -t ${ssd-fs-cfg.fsType} -o ${ssd-fs-opt-str} \
+            ${ssd-fs-cfg.device} $TMP_MNT
+
           mkdir -p $BACKUP_DIR
-          for sv in $(find $BACKUP_DIR -mindepth 1 -maxdepth 1 -mtime +2); do
-            delete_subvolumes $sv
-          done
+          back_num=$(list_backups | wc -l)
+          if [ $BACKUPS_DAYS -lt "$back_num" ]; then
+            for sv in $(list_backups); do
+              delete_subvolumes $sv
+            done
+          fi
           if [ -e $TMP_ROOT_DIR ]; then
             mv $TMP_ROOT_DIR $BACKUP_DIR/$(date +%Y%m%d_%H%M%S)
           fi
@@ -123,24 +138,31 @@ in
 
   systemd.tmpfiles.rules = [
     # essential
-    "L+ /mnt/user/etc          - - - - /mnt/main/etc"
-    "L+ /mnt/user/home         - - - - /mnt/main/home"
-    "L+ /mnt/user/var          - - - - /mnt/main/var"
+    "L+ ${link-dir}/etc  - - - - ${ssd-mnt}/etc"
+    "L+ ${link-dir}/home - - - - ${ssd-mnt}/home"
+    "L+ ${link-dir}/var  - - - - ${ssd-mnt}/var"
     # stuff
-    "L+ /mnt/user/appdata      - - - - /mnt/main/appdata"
-    "L+ /mnt/user/appdata2     - - - - /mnt/array/appdata2"
-    "L+ /mnt/user/appdata3     - - - - /mnt/ram/appdata3"
-    "L+ /mnt/user/backup_array - - - - /mnt/array/backup_array"
-    "L+ /mnt/user/backup_main  - - - - /mnt/main/backup_main"
-    "L+ /mnt/user/Games        - - - - /mnt/ram/Games"
-    "L+ /mnt/user/homeBraunJan - - - - /mnt/array/homeBraunJan"
-    "L+ /mnt/user/homeGaming   - - - - /mnt/array/homeGaming"
+    "L+ ${link-dir}/appdata      - - - - ${ssd-mnt}/appdata"
+    "L+ ${link-dir}/appdata2     - - - - ${hdd-mnt}/appdata2"
+    "L+ ${link-dir}/appdata3     - - - - /mnt/ram/appdata3"
+    "L+ ${link-dir}/backup_array - - - - ${hdd-mnt}/backup_array"
+    "L+ ${link-dir}/backup_main  - - - - ${ssd-mnt}/backup_main"
+    "L+ ${link-dir}/Games        - - - - /mnt/ram/Games"
+    "L+ ${link-dir}/homeBraunJan - - - - ${hdd-mnt}/homeBraunJan"
+    "L+ ${link-dir}/homeGaming   - - - - ${hdd-mnt}/homeGaming"
+    # useful subvolumes
+    "q  ${ssd-mnt}/appdata      - - - - -"
+    "q  ${hdd-mnt}/appdata2     - - - - -"
+    "q  /mnt/ram/appdata3       - - - - -"
+    "q  /mnt/ram/Games          0755 ${username} ${username} - -"
+    "q  ${hdd-mnt}/homeBraunJan 0755 ${username} ${username} - -"
+    "q  ${hdd-mnt}/homeGaming   0755 ${username} ${username} - -"
     # additional data
-    "L+ /mnt/user/binWin       - - - - /mnt/main/binWin"
-    "L+ /mnt/user/system       - - - - /mnt/main/system"
-    "L+ /mnt/user/resources    - - - - /mnt/array/resources"
-    "L+ /mnt/user/vm           - - - - /mnt/main/vm"
-    "L+ /mnt/user/vm2          - - - - /mnt/array/vm2"
+    "L+ ${link-dir}/binWin    - - - - ${ssd-mnt}/binWin"
+    "L+ ${link-dir}/system    - - - - ${ssd-mnt}/system"
+    "L+ ${link-dir}/resources - - - - ${hdd-mnt}/resources"
+    "L+ ${link-dir}/vm        - - - - ${ssd-mnt}/vm"
+    "L+ ${link-dir}/vm2       - - - - ${hdd-mnt}/vm2"
 
     # suppress warning/info after every reboot
     "f+ /var/db/sudo/lectured/1000 - - - - -"

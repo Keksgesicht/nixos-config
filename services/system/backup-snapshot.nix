@@ -1,4 +1,4 @@
-{ config, pkgs, ...}:
+{ config, pkgs, lib, ...}:
 
 {
   environment.systemPackages = with pkgs; [
@@ -141,5 +141,37 @@
         #wantedBy = [ "timers.target" ];
       };
     };
+
+    # https://www.freedesktop.org/software/systemd/man/latest/tmpfiles.d.html
+    tmpfiles.rules =
+    let
+      forEach = lib.lists.forEach;
+      backupLink = mnt: list: (forEach list (e:
+        "L+ /mnt/${mnt}/${e}/.backup - - - - ../backup_${mnt}/name/${e}"
+      ));
+    in
+    if (config.networking.hostName == "cookieclicker") then
+      # /mnt/main
+      backupLink "main" [
+        "appdata"
+        "etc"
+        "home"
+        "var"
+        "vm"
+      ] ++
+      # /mnt/array
+      backupLink "array" [
+        "appdata2"
+        "homeBraunJan"
+        "homeGaming"
+        "resources"
+      ]
+    else if (config.networking.hostName == "cookiethinker") then
+      # /mnt/main
+      backupLink "main" [ "etc" "home" ]
+      ++
+      # /mnt/array
+      backupLink "array" [ "homeBraunJan" ]
+    else [];
   };
 }

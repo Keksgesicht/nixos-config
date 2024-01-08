@@ -17,12 +17,6 @@ rm -r /home/*/.var/app/io.gitlab.librewolf-community/cache
 rm -r /home/*/.var/app/org.kde.kdenlive/cache
 rm -r /home/*/.var/app/org.mozilla.firefox/cache
 
-### delete old Tab Group backups
-find /mnt/array/homeBraunJan/Downloads/STG-backups/ -type f -atime +2 -delete
-
-### delete unnecessary screenshots
-find /mnt/array/homeBraunJan/Pictures/Screenshots -type f -name 'Screenshot*' -atime +3 -delete
-
 
 ### LaTex
 export LC_ALL='en_US.utf8'

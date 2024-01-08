@@ -1,4 +1,4 @@
-#!/run/current-system/sw/bin/bash
+#!/usr/bin/env bash
 
 UMASK_DEF="022"
 UUID_EFI="90CE-7A63"
@@ -80,44 +80,22 @@ setup_root() {
 		'/dev/mapper/target_root' '/mnt'
 	pushd '/mnt'
 
-	btrfs subvolume create 'mnt'
-	mkdir -p 'mnt/main'
-	mkdir -p 'backup_main/date'
-	mkdir -p 'backup_main/name'
-
 	btrfs subvolume create 'root'
 	mkdir -p 'root/boot'
 	mount '/dev/disk/by-uuid/90CE-7A63' 'root/boot'
-
-	btrfs subvolume create 'etc'
-	mkdir -p 'root/etc'
-	ln -s '../backup_main/name/etc' 'etc/.backup'
-
-	btrfs subvolume create 'home'
-	mkdir 'root/home'
-	mount -o 'compress=zstd:3,subvol=home' \
-		'/dev/mapper/target_root' 'root/home'
-	ln -s '../backup_main/name/home' 'home/.backup'
 
 	btrfs subvolume create 'nix'
 	mkdir -p 'root/nix'
 	mount -o 'compress=zstd:3,subvol=nix' \
 		'/dev/mapper/target_root' 'root/nix'
 
+	btrfs subvolume create 'etc'
+	btrfs subvolume create 'home'
 	btrfs subvolume create 'var'
-	mkdir -p 'root/var'
-	mount -o 'compress=zstd:3,subvol=var' \
-		'/dev/mapper/target_root' 'root/var'
 
 		btrfs subvolume create 'mnt-array'
-		mkdir -p 'mnt-array/backup_array/date'
-		mkdir -p 'mnt-array/backup_array/name'
-
 		pushd 'mnt-array'
-
 		btrfs subvolume create 'homeBraunJan'
-		ln -s '../backup_array/name/homeBraunJan' 'homeBraunJan/.backup'
-
 		popd
 
 	popd
