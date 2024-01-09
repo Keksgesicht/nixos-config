@@ -15,9 +15,9 @@
     ./impermanence-directories.nix
     ./impermanence-files.nix
     ./kde-plasma.nix
+    ./my-user.nix
     ./openssh.nix
     ./packages.nix
-    ./user-keks.nix
     ../services/user/xscreensaver.nix
   ];
 }

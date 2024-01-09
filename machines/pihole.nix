@@ -8,7 +8,7 @@
 
   imports = [
     ../desktop/environment.nix
-    ../desktop/user-keks.nix
+    ../desktop/my-user.nix
     ../hardware/rpi-pihole
     ../development/base-devel.nix
     ../development/neovim.nix
