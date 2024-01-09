@@ -3,14 +3,12 @@
 , ... }:
 
 let
-  fs = lib.filesystem;
-  forEach = lib.lists.forEach;
-  flatList = lib.lists.flatten;
-  listFilesRec = fs.listFilesRecursive;
-
   xdgConfig = "${home-dir}/.config";
   plasma-config = (pkgs.callPackage ../packages/plasma-config.nix {});
+
+  my-functions = (import ../nix/my-functions.nix lib);
 in
+with my-functions;
 {
   # https://www.freedesktop.org/software/systemd/man/latest/tmpfiles.d.html
   systemd.tmpfiles.rules =

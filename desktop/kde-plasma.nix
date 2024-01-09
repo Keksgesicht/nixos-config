@@ -3,7 +3,10 @@
 
 let
   qt-lib = "/usr/lib/qt";
+
+  my-functions = (import ../nix/my-functions.nix lib);
 in
+with my-functions;
 {
   services.xserver = {
     # Enable the X11 windowing system.
@@ -115,7 +118,7 @@ in
     plasma-addons = pkgs.libsForQt5.kdeplasma-addons;
     workspace-addons = pkgs.libsForQt5.plasma-workspace;
 
-    mkCalPlugSym = p: l: (lib.lists.forEach l (e:
+    mkCalPlugSym = p: l: (forEach l (e:
       "L+ ${qt-cal-plug}/${e} - - - - ${p}/lib/qt-${qtver}/${cal-plug-path}/${e}"
     ));
   in

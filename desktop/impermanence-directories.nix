@@ -4,9 +4,6 @@
 , ... }:
 
 let
-  forEach  = lib.lists.forEach;
-  flatList = lib.lists.flatten;
-
   bind-opt = [
     "bind"
     "nofail"
@@ -22,7 +19,10 @@ let
       "${home-dir}"
     ];
   };
+
+  my-functions = (import ../nix/my-functions.nix lib);
 in
+with my-functions;
 {
   fileSystems = {
     "${home-dir}/Documents" = bind-opts // data-opts // {

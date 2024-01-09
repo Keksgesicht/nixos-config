@@ -1,5 +1,9 @@
 { config, pkgs, lib, ssd-name, hdd-name, ...}:
 
+let
+  my-functions = (import ../../nix/my-functions.nix lib);
+in
+with my-functions;
 {
   environment.systemPackages = with pkgs; [
     (callPackage ../../packages/list-backups.nix {})
@@ -145,7 +149,6 @@
     # https://www.freedesktop.org/software/systemd/man/latest/tmpfiles.d.html
     tmpfiles.rules =
     let
-      forEach = lib.lists.forEach;
       backupLink = mnt: list: (forEach list (e:
         "L+ /mnt/${mnt}/${e}/.backup - - - - ../backup_${mnt}/name/${e}"
       ));
