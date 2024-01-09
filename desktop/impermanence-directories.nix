@@ -50,6 +50,9 @@ in
     "${home-dir}/Module" = bind-opts // data-opts // {
       device = "${data-dir}/Documents/Studium/Module";
     };
+    "${data-dir}/Pictures/Screenshots" = bind-opts // data-opts // {
+      device = "${ssd-mnt}/root${home-dir}/Pictures/Screenshots";
+    };
 
     "${data-dir}/Documents/Gaming" = bind-opts // data-opts // {
       device = "${hdd-mnt}/homeGaming/Documents";
@@ -142,16 +145,6 @@ in
           "background"
           "texmf"
           "WinePrefixes"
-        ];
-      };
-    };
-    # exclude impermant directories inside permant directories from persistence
-    "${ssd-mnt}/root" = {
-      hideMounts = true;
-      # do not even try using the home-manager impermanence module
-      users."${username}" = {
-        directories = usernameDir [
-          "Pictures/Screenshots"
         ];
       };
     };
