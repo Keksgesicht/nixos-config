@@ -1,5 +1,9 @@
 { config, pkgs, cookie-dir, ...}:
 
+let
+  update-days = (builtins.head (builtins.split " " config.system.autoUpgrade.dates));
+  image-updater = (pkgs.callPackage ../../packages/containers/image-updater.nix {});
+in
 {
   imports = [
     # https://search.nixos.org/options?channel=23.05&query=virtualisation.podman
@@ -18,7 +22,7 @@
       description = "Bump up container image version hashes [%i]";
       serviceConfig = {
         Type      = "oneshot";
-        ExecStart = "${pkgs.callPackage ../../packages/containers/image-updater.nix {}}/bin/get-container-image-hash.sh";
+        ExecStart = "${image-updater}/bin/get-container-image-hash.sh";
 
         PrivateTmp   = "yes";
         ProtectHome  = "yes";
@@ -33,8 +37,8 @@
     timers."container-image-updater@" = {
       description = "Automatic container image version updater [%i]";
       timerConfig = {
-        OnCalendar = "*-*-* 06:42:00";
-        RandomizedDelaySec = "42min";
+        OnCalendar = "${update-days} 01:44:12";
+        RandomizedDelaySec = "30min";
         Persistent = "true";
       };
     };
