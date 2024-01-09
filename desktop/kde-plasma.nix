@@ -1,5 +1,5 @@
 # https://nixos.wiki/wiki/KDE
-{ config, pkgs, lib, inputs, ...}:
+{ config, pkgs, lib, inputs, username, ...}:
 
 let
   qt-lib = "/usr/lib/qt";
@@ -41,7 +41,7 @@ in
     plasma-browser-integration
   ];
 
-  users.users."keks" = {
+  users.users."${username}" = {
     packages = with pkgs.libsForQt5; with pkgs; [
       kate
       kruler
@@ -128,14 +128,14 @@ in
 
     # calendar of digital clock widget is not configureable without it
     # fix showing duplicate events in calendar widget of plasma panel
-    "L+ ${qt-lib}/qml                        - - - - /run/current-system/sw/lib/qt-${qtver}/qml"
+    "L+ ${qt-lib}/qml - - - - /run/current-system/sw/lib/qt-${qtver}/qml"
   ]
   ++ mkCalPlugSym plasma-addons    [ "astronomicalevents" "astronomicalevents.so" ]
   ++ mkCalPlugSym workspace-addons [ "holidays" "holidaysevents.so" ]
   ++ mkCalPlugSym kdepim-addons    [ "pimevents" "pimevents.so" ]
   ;
 
-  home-manager.users."keks" =
+  home-manager.users."${username}" =
   let
     plasma-manager = inputs.plasma-manager;
   in
@@ -143,9 +143,6 @@ in
     imports = [
       plasma-manager.homeManagerModules.plasma-manager
       # nix run github:pjones/plasma-manager
-      # slows down boot process by 10 seconds
-      #home-manager/plasma-manager.nix
-      #home-manager/plasma-manager-extra.nix
     ];
 
     # luckily home-manager runs after systemd tmpfiles on boot

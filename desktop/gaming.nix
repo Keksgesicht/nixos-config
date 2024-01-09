@@ -1,15 +1,13 @@
-{ config, pkgs, ...}:
+{ config, pkgs, username, home-dir, ...}:
 
 let
-  username = "keks";
-  home-dir = "/home/${username}";
   xdg-config = "${home-dir}/.config";
 
   mango-hud = pkgs.callPackage ../packages/MangoHud.nix {};
   usb-bind-pkg = pkgs.callPackage ../packages/usb-bind.nix {};
 in
 {
-  users.users."keks".packages = with pkgs; [
+  users.users."${username}".packages = with pkgs; [
     # enable saving replaybuffer through a hotkey
     (callPackage ../packages/obs-cli.nix {})
     # enable/disable USB devices
@@ -68,7 +66,7 @@ in
   ];
 
   security.sudo.extraRules = [ {
-    users = [ "keks" ];
+    users = [ username ];
     commands = [
       {
         command = "${usb-bind-pkg}/bin/usb-bind-devices-by-name.sh Xbox360 bind";

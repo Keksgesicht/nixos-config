@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, ssd-mnt, hdd-mnt, nvm-mnt, ... }:
 
 {
   services.btrfs.autoScrub = {
@@ -9,9 +9,9 @@
     fileSystems =
       if (config.networking.hostName == "cookieclicker") then
         [
-          "/mnt/main"
-          "/mnt/array"
-          "/mnt/ram"
+          "${ssd-mnt}"
+          "${hdd-mnt}"
+          "${nvm-mnt}"
         ]
       else [ "/" ];
   };

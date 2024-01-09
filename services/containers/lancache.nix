@@ -1,4 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, cookie-dir
+, ssd-mnt, nvm-mnt, nvm-name
+, ... }:
 
 {
   imports = [
@@ -9,10 +11,10 @@
     services = {
       "podman-lancache" = (import ./_stop_timeout.nix lib 17) // {
         after = [
-          "mnt-ram.mount"
+          "mnt-${nvm-name}.mount"
         ];
         requires = [
-          "mnt-ram.mount"
+          "mnt-${nvm-name}.mount"
         ];
       };
       "container-image-updater@lancache" = {
@@ -45,8 +47,8 @@
         description = "Updates Lancache DNS records for unbound";
         serviceConfig = {
           ReadWritePaths = [
-            "/mnt/main/appdata/lancache/cache-domains"
-            "/mnt/main/appdata/unbound/conf"
+            "${ssd-mnt}/appdata/lancache/cache-domains"
+            "${ssd-mnt}/appdata/unbound/conf"
           ];
           BindReadOnlyPaths = [
             "/etc/ssl"
@@ -82,7 +84,7 @@
 
       image = "localhost/lancache-monolithic:latest";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/lancache-monolithic.json")
+        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/lancache-monolithic.json")
       );
 
       environment = {
@@ -95,9 +97,9 @@
         CACHE_SLICE_SIZE = "8m";
       };
       volumes = [
-        "/mnt/ram/appdata3/lancache/data:/data/cache:Z"
-        "/mnt/ram/appdata3/lancache/logs:/data/logs:Z"
-        "/mnt/main/appdata/lancache/cache-domains:/data/cachedomains:z"
+        "${nvm-mnt}/appdata3/lancache/data:/data/cache:Z"
+        "${nvm-mnt}/appdata3/lancache/logs:/data/logs:Z"
+        "${ssd-mnt}/appdata/lancache/cache-domains:/data/cachedomains:z"
         "lancache_www:/var/www:Z"
       ];
       extraOptions = [

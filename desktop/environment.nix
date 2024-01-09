@@ -1,12 +1,8 @@
-{ config, ... }:
+{ config
+, username, home-dir
+, ssd-mnt, hdd-mnt, data-dir
+, ... }:
 
-let
-  username = "keks";
-  home-dir = "/home/${username}";
-  ssd-mnt  = "/mnt/main";
-  hdd-mnt  = "/mnt/array";
-  data-dir = "${hdd-mnt}/homeBraunJan";
-in
 {
   # base environment variables
   # https://nixos.wiki/wiki/Environment_variables
@@ -36,7 +32,7 @@ in
     GIT_CEILING_DIRECTORIES = "/home:$HOME/git:/mnt:${data-dir}/Documents/development/git:${ssd-mnt}${home-dir}/git";
   };
 
-  home-manager.users."keks" = {
+  home-manager.users."${username}" = {
     xdg.userDirs = {
       enable = true;
       desktop   = "$HOME/Desktop";

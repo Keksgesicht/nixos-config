@@ -1,4 +1,4 @@
-{ config, pkgs, ...}:
+{ config, pkgs, data-dir, ...}:
 
 {
   imports = [ ../system/server-and-config-update.nix ];
@@ -21,7 +21,7 @@
         BindReadOnlyPaths = [
           "/etc/ssh/ssh_config"
         ];
-        ReadWritePaths = "/mnt/array/homeBraunJan/Documents/BackUp";
+        ReadWritePaths = "${data-dir}/Documents/BackUp";
       };
     };
     timers."server-and-config-update@DownloadBackup" = {

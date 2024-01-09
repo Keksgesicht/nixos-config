@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, username, ... }:
 
 let
   vscut = (pkgs.callPackage ../packages/silence-cutter.nix {});
@@ -16,7 +16,7 @@ let
   };
 in
 {
-  users.users."keks".packages = with pkgs; [
+  users.users."${username}".packages = with pkgs; [
     gnome.gnome-calculator
     keepassxc
     nextcloud-client

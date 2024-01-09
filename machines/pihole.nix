@@ -1,4 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib
+, username, secrets-dir
+, ... }:
 
 {
   # Define your hostname
@@ -20,9 +22,9 @@
     ../system/container.nix
   ];
 
-  users.users."keks" = {
+  users.users."${username}" = {
     openssh.authorizedKeys.keys = [
-      (builtins.readFile "/etc/nixos/secrets/keys/ssh/id_rsa_pihole.pub")
+      (builtins.readFile "${secrets-dir}/keys/ssh/id_rsa_pihole.pub")
     ];
     initialPassword = "";
   };

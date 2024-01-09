@@ -1,4 +1,4 @@
-{ config, pkgs, ...}:
+{ config, pkgs, username, ...}:
 
 {
   environment.systemPackages = with pkgs; [
@@ -15,5 +15,5 @@
   };
 
   # tss group has access to TPM devices
-  users.users.keks.extraGroups = [ "tss" ];
+  users.users."${username}".extraGroups = [ "tss" ];
 }

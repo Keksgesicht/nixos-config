@@ -1,4 +1,7 @@
-{ config, pkgs, ...}:
+{ config, pkgs, home-dir, data-dir
+, ssd-mnt, ssd-name
+, hdd-mnt, hdd-name
+, ...}:
 
 {
   systemd = {
@@ -12,11 +15,10 @@
           pkgs.podman
         ];
         after = [
-          "mnt-main.mount"
-          "mnt-array.mount"
-          "mnt-ram.mount"
-          "backup-snapshot@main.service"
-          "backup-snapshot@array.service"
+          "mnt-${ssd-name}.mount"
+          "mnt-${hdd-name}.mount"
+          "backup-snapshot@${ssd-name}.service"
+          "backup-snapshot@${hdd-name}.service"
         ];
         serviceConfig = {
           Type = "oneshot";
@@ -31,17 +33,16 @@
           #ExecPaths = "/usr/bin";
 
           ReadWritePaths = [
-            "/mnt/array/homeBraunJan"
+            "${data-dir}"
 
-            "-/mnt/array/appdata2/nextcloud/janb/files/.Calendar-Backup"
-            "-/mnt/array/appdata2/nextcloud/janb/files/.Contacts-Backup"
-            "-/mnt/array/appdata2/nextcloud/janb/files/InstantUpload/SignalBackup"
-            "-/mnt/main/appdata/ddns"
-            "-/mnt/ram/appdata3/pkgcache"
+            "-${hdd-mnt}/appdata2/nextcloud/janb/files/.Calendar-Backup"
+            "-${hdd-mnt}/appdata2/nextcloud/janb/files/.Contacts-Backup"
+            "-${hdd-mnt}/appdata2/nextcloud/janb/files/InstantUpload/SignalBackup"
+            "-${ssd-mnt}/appdata/ddns"
 
-            "-/home/keks/.var/app/io.gitlab.librewolf-community/cache"
-            "-/home/keks/.var/app/org.kde.kdenlive/cache"
-            "-/home/keks/.var/app/org.mozilla.firefox/cache"
+            "-${home-dir}/.var/app/io.gitlab.librewolf-community/cache"
+            "-${home-dir}/.var/app/org.kde.kdenlive/cache"
+            "-${home-dir}/.var/app/org.mozilla.firefox/cache"
 
             "-/var/lib/containers/storage"
           ];
@@ -51,7 +52,7 @@
       # script in unit above needs updatedb/locate
       "update-locatedb" = {
         after = [
-          "mnt-array.mount"
+          "mnt-${hdd-name}.mount"
         ];
       };
     };
@@ -95,8 +96,8 @@
       ".hg"
       ".svn"
       # my additional directory names
-      "backup_array"
-      "backup_main"
+      "backup_${hdd-name}"
+      "backup_${ssd-name}"
       "cache"
       "Cache"
       "CachedData"

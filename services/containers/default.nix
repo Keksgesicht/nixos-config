@@ -1,4 +1,4 @@
-{ config, pkgs, ...}:
+{ config, pkgs, cookie-dir, ...}:
 
 {
   imports = [
@@ -26,7 +26,7 @@
         ProtectProc  = "invisible";
 
         ReadOnlyPaths  = "/";
-        ReadWritePaths = "/etc/unCookie/containers";
+        ReadWritePaths = "${cookie-dir}/containers";
         #TemporaryFileSystem = "/etc:ro";
       };
     };

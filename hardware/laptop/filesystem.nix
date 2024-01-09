@@ -1,6 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ssd-mnt, hdd-mnt, ... }:
 
 let
+  ssd-dev = "/dev/mapper/root";
   bfs-opts = [
     "compress=zstd:3"
   ];
@@ -22,19 +23,19 @@ in
       ];
     };
     "/nix" = {
-      device = "/dev/mapper/root";
+      device = ssd-dev;
       fsType = "btrfs";
       options = bfs-opts ++ [ "subvol=nix" ];
       # implicit neededForBoot
     };
 
-    "/mnt/array" = {
-      device = "/dev/mapper/root";
+    "${hdd-mnt}" = {
+      device = ssd-dev;
       fsType = "btrfs";
       options = bfs-opts ++ [ "subvol=mnt-array" ];
     };
-    "/mnt/main" = {
-      device = "/dev/mapper/root";
+    "${ssd-mnt}" = {
+      device = ssd-dev;
       fsType = "btrfs";
       options = bfs-opts ++ [ "subvol=/" ];
       neededForBoot = true;

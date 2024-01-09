@@ -1,8 +1,7 @@
-systemConfig:
+systemConfig: username:
 { config, ... }:
 
 let
-  username = "keks";
   flatpak-dir = "/var/lib/flatpak/exports/share/applications";
   profile-dir = "/etc/profiles/per-user/${username}/share/applications";
   mkOOSS = config.lib.file.mkOutOfStoreSymlink;

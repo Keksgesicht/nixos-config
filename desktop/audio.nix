@@ -1,10 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, username, ... }:
 
 let
   my-audio = pkgs.callPackage ../packages/my-audio.nix {};
 in
 {
-  users.users."keks".packages = with pkgs; [
+  users.users."${username}".packages = with pkgs; [
     patchage
     pavucontrol
     pulseaudio

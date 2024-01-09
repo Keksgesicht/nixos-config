@@ -1,4 +1,4 @@
-{ stdenv, lib, bash }:
+{ stdenv, lib, bash, cookie-dir }:
 
 stdenv.mkDerivation {
   pname = "container-unbound";
@@ -8,7 +8,7 @@ stdenv.mkDerivation {
   src = ../../files/packages/containers/unbound;
   dnssrc = builtins.fetchurl {
     url = "https://www.internic.net/domain/named.cache";
-    sha256 = (builtins.readFile "/etc/unCookie/root-dns-server.hash");
+    sha256 = (builtins.readFile "${cookie-dir}/root-dns-server.hash");
   };
 
   buildInputs = [ bash ];

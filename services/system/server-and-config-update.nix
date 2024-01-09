@@ -1,15 +1,18 @@
-{ config, pkgs, ...}:
+{ config, pkgs, ssd-name, ...}:
 
+let
+  pkg-scu = (pkgs.callPackage ../../packages/server-and-config-update.nix {});
+in
 {
   systemd = {
     services."server-and-config-update@" = {
       description = "Container and Webservice Updater (config)";
       after = [
-        "mnt-main.mount"
+        "mnt-${ssd-name}.mount"
       ];
       serviceConfig = {
         Type      = "oneshot";
-        ExecStart = "${pkgs.callPackage ../../packages/server-and-config-update.nix {}}/bin/%i.sh";
+        ExecStart = "${pkg-scu}/bin/%i.sh";
 
         PrivateTmp     = "yes";
         ProtectHome    = "yes";

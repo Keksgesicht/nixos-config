@@ -45,12 +45,29 @@
     plasma-manager,
     tuxedo-nixos,
   }@inputs: {
-    nixosConfigurations = {
+    nixosConfigurations =
+    let
+      myArgs = rec {
+        username = "keks";
+        home-dir = "/home/${username}";
 
+        ssd-name = "main";
+        ssd-mnt  = "/mnt/${ssd-name}";
+        hdd-name = "array";
+        hdd-mnt  = "/mnt/${hdd-name}";
+        nvm-name = "ram";
+        nvm-mnt  = "/mnt/${nvm-name}";
+        data-dir = "${hdd-mnt}/homeBraunJan";
+
+        cookie-dir  = "/etc/unCookie";
+        secrets-dir = "/etc/nixos/secrets";
+      };
+    in
+    {
       # sudo nixos-rebuild test -L --impure --flake .
       "cookieclicker" = nixpkgs-unstable.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = {
+        specialArgs = myArgs // {
           inherit inputs;
           pkgs-unstable = import nixpkgs-unstable {
             system = system;
@@ -67,7 +84,7 @@
 
       "cookiethinker" = nixpkgs-unstable.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = {
+        specialArgs = myArgs // {
           inherit inputs;
           pkgs-unstable = import nixpkgs-unstable {
             system = system;

@@ -1,6 +1,6 @@
 # This module defines a NixOS installation CD.
 # It does contain graphical stuff.
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, username ... }:
 
 # nix-build '<nixpkgs/nixos>' -A config.system.build.isoImage -I nixos-config=installer-x86_64-iso-image-graphics.nix
 {
@@ -39,6 +39,6 @@
   networking.wireless.enable = lib.mkForce false;
 
   # enable login for custom user
-  users.users."keks".initialPassword = "qwerty123";
-  services.xserver.displayManager.autoLogin.user = "keks";
+  users.users."${username}".initialPassword = "qwerty123";
+  services.xserver.displayManager.autoLogin.user = username;
 }

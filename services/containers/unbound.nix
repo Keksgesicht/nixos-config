@@ -1,4 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib
+, ssd-mnt, cookie-dir
+, ... }:
 
 {
   systemd = {
@@ -15,7 +17,7 @@
           set -e
           set -o pipefail
 
-          HASHFILE="/etc/unCookie/root-dns-server.hash"
+          HASHFILE="${cookie-dir}/root-dns-server.hash"
           mkdir -p $(dirname $HASHFILE)
 
           URL="https://www.internic.net/domain/named.cache"
@@ -71,13 +73,15 @@
         tag = "latest";
 
         fromImage = pkgs.dockerTools.pullImage (
-          builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/alpinelinux-unbound.json")
+          builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/alpinelinux-unbound.json")
         );
 
         copyToRoot = pkgs.buildEnv {
           name = "image-root";
           paths = [
-            (pkgs.callPackage ../../packages/containers/unbound.nix {})
+            (pkgs.callPackage ../../packages/containers/unbound.nix {
+              inherit cookie-dir;
+            })
           ];
           pathsToLink = [
             "/scripts"
@@ -96,7 +100,7 @@
         TZ = config.time.timeZone;
       };
       volumes = [
-        "/mnt/main/appdata/unbound:/etc/unbound:Z"
+        "${ssd-mnt}/appdata/unbound:/etc/unbound:Z"
       ];
       extraOptions = [
         "--network" "server"

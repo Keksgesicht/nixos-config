@@ -1,10 +1,10 @@
 # ~/.local/share/applications/*.desktop
 # https://nix-community.github.io/home-manager/options.xhtml#opt-xdg.desktopEntries
 # https://github.com/nix-community/home-manager/blob/master/modules/misc/xdg-desktop-entries.nix
+username:
 { config, pkgs, lib, ... }:
 
 let
-  username = "keks";
   profile-dir = "/etc/profiles/per-user/${username}/share/applications";
   mkOOSS = config.lib.file.mkOutOfStoreSymlink;
 

@@ -1,4 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib
+, ssd-mnt, cookie-dir, secrets-dir
+, ... }:
 
 {
   systemd = {
@@ -35,7 +37,7 @@
 
       image = "localhost/dyndns:latest";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/dyndns.json")
+        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/dyndns.json")
       );
 
       environment = {
@@ -51,10 +53,10 @@
         UMASK = "002";
       };
       environmentFiles = [
-        "/etc/nixos/secrets/services/containers/ddns/CF_APITOKEN"
+        "${secrets-dir}/services/containers/ddns/CF_APITOKEN"
       ];
       volumes = [
-        "/mnt/main/appdata/ddns/v4:/config:Z"
+        "${ssd-mnt}/appdata/ddns/v4:/config:Z"
       ];
       extraOptions = [
         "--network" "server"
@@ -69,7 +71,7 @@
 
       image = "localhost/dyndns:latest";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/dyndns.json")
+        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/dyndns.json")
       );
 
       environment = {
@@ -85,11 +87,11 @@
         UMASK = "002";
       };
       environmentFiles = [
-        "/etc/nixos/secrets/services/containers/ddns/CF_APITOKEN"
+        "${secrets-dir}/services/containers/ddns/CF_APITOKEN"
       ];
       volumes = [
-        "/mnt/main/appdata/ddns/v6:/config:Z"
-        "/mnt/main/appdata/ddns/v6-cloudflare-ddns.sh:/app/cloudflare-ddns.sh:Z,ro"
+        "${ssd-mnt}/appdata/ddns/v6:/config:Z"
+        "${ssd-mnt}/appdata/ddns/v6-cloudflare-ddns.sh:/app/cloudflare-ddns.sh:Z,ro"
       ];
       extraOptions = [
         "--network" "host"

@@ -1,15 +1,17 @@
-{ config, pkgs, lib, ...}:
+{ config, pkgs, lib
+, username, home-dir
+, ...}:
 
 {
-  home-manager.users."keks" = {
+  home-manager.users."${username}" = {
     # The home.stateVersion option does not have a default and must be set
     home.stateVersion  = "23.05";
     # Some modules do not do anything without it.
-    home.homeDirectory = config.users.users."keks".home;
+    home.homeDirectory = home-dir;
 
     imports = [
-      ./applications.desktop.nix
-      ((import ./autostart.nix) config)
+      ((import ./applications.desktop.nix) username)
+      ((import ./autostart.nix) config username)
     ];
   };
 

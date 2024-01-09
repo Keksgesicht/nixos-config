@@ -8,7 +8,7 @@
 
   # enable Android Debugging Bridge (ADB)
   programs.adb.enable = true;
-  #users.users."keks".extraGroups = [ "adbusers" ];
+  #users.users."${username}".extraGroups = [ "adbusers" ];
 
   # https://nixos.wiki/wiki/WayDroid
   virtualisation.waydroid.enable = true;

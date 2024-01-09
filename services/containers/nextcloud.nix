@@ -1,4 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, cookie-dir, secrets-dir
+, ssd-mnt, hdd-mnt, hdd-name
+, ... }:
 
 {
   imports = [
@@ -10,10 +12,10 @@
     let
       serviceExtraConfig = {
         after = [
-          "mnt-array.mount"
+          "mnt-${hdd-name}.mount"
         ];
         requires = [
-          "mnt-array.mount"
+          "mnt-${hdd-name}.mount"
         ];
       };
     in
@@ -75,7 +77,7 @@
         description = "Update Nextcloud itself";
         serviceConfig = {
           ReadWritePaths = [
-            "/mnt/array/appdata2/nextcloud"
+            "${hdd-mnt}/appdata2/nextcloud"
             "/var/lib/containers/storage"
           ];
         };
@@ -116,7 +118,7 @@
 
       image = "localhost/nextcloud:stable";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/nextcloud.json")
+        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/nextcloud.json")
       );
 
       environment = {
@@ -124,11 +126,11 @@
         #PHP_MEMORY_LIMIT = "512M";
       };
       volumes = [
-        "/mnt/main/appdata/nextcloud/www:/var/www/html"
-        "/mnt/main/appdata/nextcloud/log:/var/log/apache2:z"
-        "/mnt/array/appdata2/nextcloud:/var/www/html/data"
-        "/mnt/array/homeBraunJan:/mnt/external_storage/homeBraunJan:ro"
-        "/mnt/array/homeGaming:/mnt/external_storage/homeGaming:ro"
+        "${ssd-mnt}/appdata/nextcloud/www:/var/www/html"
+        "${ssd-mnt}/appdata/nextcloud/log:/var/log/apache2:z"
+        "${hdd-mnt}/appdata2/nextcloud:/var/www/html/data"
+        "${hdd-mnt}/homeBraunJan:/mnt/external_storage/homeBraunJan:ro"
+        "${hdd-mnt}/homeGaming:/mnt/external_storage/homeGaming:ro"
       ];
       extraOptions = [
         "--network" "server"
@@ -147,7 +149,7 @@
 
       image = "localhost/nextcloud:stable";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/nextcloud.json")
+        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/nextcloud.json")
       );
 
       entrypoint = "/cron.sh";
@@ -155,8 +157,8 @@
         TZ = config.time.timeZone;
       };
       volumes = [
-        "/mnt/main/appdata/nextcloud/www:/var/www/html"
-        "/mnt/array/appdata2/nextcloud:/var/www/html/data"
+        "${ssd-mnt}/appdata/nextcloud/www:/var/www/html"
+        "${hdd-mnt}/appdata2/nextcloud:/var/www/html/data"
       ];
     };
 
@@ -166,7 +168,7 @@
 
       image = "localhost/nextcloud-db:10.5";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/nextcloud-db.json")
+        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/nextcloud-db.json")
       );
 
       cmd = [
@@ -179,11 +181,11 @@
         MYSQL_USER = "nextcloud";
       };
       environmentFiles = [
-        "/etc/nixos/secrets/services/containers/nextcloud/MYSQL"
-        "/etc/nixos/secrets/services/containers/nextcloud/MYSQL_ROOT"
+        "${secrets-dir}/services/containers/nextcloud/MYSQL"
+        "${secrets-dir}/services/containers/nextcloud/MYSQL_ROOT"
       ];
       volumes = [
-        "/mnt/main/appdata/database/nextcloud:/var/lib/mysql:Z"
+        "${ssd-mnt}/appdata/database/nextcloud:/var/lib/mysql:Z"
       ];
       extraOptions = [
         "--network" "server"
@@ -198,7 +200,7 @@
 
       image = "localhost/nextcloud-redis:latest";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/nextcloud-redis.json")
+        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/nextcloud-redis.json")
       );
 
       /*
@@ -212,10 +214,10 @@
         TZ = config.time.timeZone;
       };
       environmentFiles = [
-        "/etc/nixos/secrets/services/containers/nextcloud/REDIS"
+        "${secrets-dir}/services/containers/nextcloud/REDIS"
       ];
       volumes = [
-        "/mnt/main/appdata/redis/nextcloud:/data"
+        "${ssd-mnt}/appdata/redis/nextcloud:/data"
       ];
       extraOptions = [
         "--network" "server"

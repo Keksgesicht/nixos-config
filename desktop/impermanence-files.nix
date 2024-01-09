@@ -1,23 +1,21 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs
+, username, home-dir, ssd-mnt
+, ... }:
 
 let
-  username = "keks";
-  home-dir = "/home/${username}";
-  xdgConfig = "${home-dir}/.config";
-  ssd-mnt  = "/mnt/main";
-
   fs = lib.filesystem;
   forEach = lib.lists.forEach;
   flatList = lib.lists.flatten;
   listFilesRec = fs.listFilesRecursive;
 
+  xdgConfig = "${home-dir}/.config";
   plasma-config = (pkgs.callPackage ../packages/plasma-config.nix {});
 in
 {
   # https://www.freedesktop.org/software/systemd/man/latest/tmpfiles.d.html
   systemd.tmpfiles.rules =
   let
-    mkSymHomeFiles = fileList: (lib.lists.forEach fileList (elem:
+    mkSymHomeFiles = fileList: (forEach fileList (elem:
       "L+ ${home-dir}/${elem} - - - - ${ssd-mnt}${home-dir}/${elem}"
     ));
     myHomeFiles = [
@@ -49,6 +47,7 @@ in
     "L+ ${home-dir}/.face.icon                - - - - .face"
     "f+ ${home-dir}/.sudo_as_admin_successful - - - - -"
     "L+ ${home-dir}/.xscreensaver             - - - - .config/xscreensaver/config"
+    "L+ ${home-dir}/.zhistory                 - - - - ${ssd-mnt}${home-dir}/.zhistory"
     "f+ ${home-dir}/.zshrc                    - - - - -"
   ] ++ [
     "d  ${home-dir}/.config/session - ${username} ${username} - -"

@@ -1,8 +1,6 @@
-{ config, pkgs, ...}:
+{ config, pkgs, home-dir, ...}:
 
 let
-  username = "keks";
-  home-dir = "/home/${username}";
   xdg-data = "${home-dir}/.local/share";
 in
 {

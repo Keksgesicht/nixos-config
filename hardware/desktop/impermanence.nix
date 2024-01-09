@@ -1,10 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib
+, username, home-dir
+, ssd-mnt, ssd-name
+, hdd-mnt, hdd-name
+, nvm-mnt, cookie-dir
+, ... }:
 
 let
-  username = "keks";
-  home-dir = "/home/${username}";
-  ssd-mnt  = "/mnt/main";
-  hdd-mnt  = "/mnt/array";
   link-dir = "/mnt/user";
 
   ssd-fs-cfg = config.fileSystems."${ssd-mnt}";
@@ -38,9 +39,9 @@ in
         ];
         script = ''
           BACKUPS_DAYS=3
-          TMP_MNT="/mnt-main"
+          TMP_MNT="/mnt-${ssd-name}"
           TMP_ROOT_DIR="$TMP_MNT/root"
-          BACKUP_DIR="$TMP_MNT/backup_main/boot/root"
+          BACKUP_DIR="$TMP_MNT/backup_${ssd-name}/boot/root"
 
           list_backups() {
             find $BACKUP_DIR \
@@ -50,7 +51,7 @@ in
           delete_subvolumes() {
               IFS=$'\n'
               for sv in $(btrfs subvolume list -o "$1" | cut -d' ' -f9); do
-                  btrfs subvolume delete /mnt-main/$sv
+                  btrfs subvolume delete /mnt-${ssd-name}/$sv
               done
               btrfs subvolume delete $1
           }
@@ -95,13 +96,13 @@ in
     # only start with:
     # /etc -> /mnt/main/etc (BTRFS subvolume)
     # /var -> /mnt/main/var (BTRFS subvolume)
-    "/mnt/main" = {
+    "${ssd-mnt}" = {
       hideMounts = true;
       directories = [
         "/etc/NetworkManager/system-connections"
         "/etc/nixos"
         "/etc/secureboot"
-        "/etc/unCookie"
+        "${cookie-dir}"
         "/var/lib/bluetooth"
         "/var/lib/containers"
         "/var/lib/flatpak"
@@ -124,7 +125,7 @@ in
     };
 
     # /root -> /mnt/main/home/root
-    "/mnt/main/home" = {
+    "${ssd-mnt}/home" = {
       hideMounts = true;
       directories = [
         "/root/.secrets/ssh"
@@ -142,19 +143,19 @@ in
     "L+ ${link-dir}/home - - - - ${ssd-mnt}/home"
     "L+ ${link-dir}/var  - - - - ${ssd-mnt}/var"
     # stuff
+    "L+ ${link-dir}/backup_${hdd-name} - - - - ${hdd-mnt}/backup_${hdd-name}"
+    "L+ ${link-dir}/backup_${ssd-name} - - - - ${ssd-mnt}/backup_${ssd-name}"
     "L+ ${link-dir}/appdata      - - - - ${ssd-mnt}/appdata"
     "L+ ${link-dir}/appdata2     - - - - ${hdd-mnt}/appdata2"
-    "L+ ${link-dir}/appdata3     - - - - /mnt/ram/appdata3"
-    "L+ ${link-dir}/backup_array - - - - ${hdd-mnt}/backup_array"
-    "L+ ${link-dir}/backup_main  - - - - ${ssd-mnt}/backup_main"
-    "L+ ${link-dir}/Games        - - - - /mnt/ram/Games"
+    "L+ ${link-dir}/appdata3     - - - - ${nvm-mnt}/appdata3"
+    "L+ ${link-dir}/Games        - - - - ${nvm-mnt}/Games"
     "L+ ${link-dir}/homeBraunJan - - - - ${hdd-mnt}/homeBraunJan"
     "L+ ${link-dir}/homeGaming   - - - - ${hdd-mnt}/homeGaming"
     # useful subvolumes
     "q  ${ssd-mnt}/appdata      - - - - -"
     "q  ${hdd-mnt}/appdata2     - - - - -"
-    "q  /mnt/ram/appdata3       - - - - -"
-    "q  /mnt/ram/Games          0755 ${username} ${username} - -"
+    "q  ${nvm-mnt}/appdata3       - - - - -"
+    "q  ${nvm-mnt}/Games        0755 ${username} ${username} - -"
     "q  ${hdd-mnt}/homeBraunJan 0755 ${username} ${username} - -"
     "q  ${hdd-mnt}/homeGaming   0755 ${username} ${username} - -"
     # additional data

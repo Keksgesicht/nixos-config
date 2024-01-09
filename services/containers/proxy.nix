@@ -1,4 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib
+, ssd-mnt, cookie-dir
+, ... }:
 
 {
   imports = [
@@ -31,7 +33,7 @@
         ];
         description = "Updates Cloudflares Proxy IPs for reverse proxy (swag)";
         serviceConfig = {
-          ReadWritePaths = "/mnt/main/appdata/swag/nginx";
+          ReadWritePaths = "${ssd-mnt}/appdata/swag/nginx";
           BindReadOnlyPaths = [
             "/etc/ssl"
             "/etc/static/ssl"
@@ -78,7 +80,7 @@
 
       image = "localhost/linuxserver-swag:latest";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "/etc/unCookie/containers/linuxserver-swag.json")
+        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/linuxserver-swag.json")
       );
 
       environment = {
@@ -96,7 +98,7 @@
         PGID = "200";
       };
       volumes = [
-        "/mnt/main/appdata/swag:/config:Z"
+        "${ssd-mnt}/appdata/swag:/config:Z"
       ];
       extraOptions = [
         "--network" "host"

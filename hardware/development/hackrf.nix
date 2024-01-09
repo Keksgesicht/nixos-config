@@ -1,9 +1,9 @@
-{ config, ... }:
+{ config, username, ... }:
 
 {
   # use HackRF as desktop user
   hardware.hackrf.enable = true;
-  users.users."keks".extraGroups = [ "plugdev" ]; # reboot needed?
+  users.users."${username}".extraGroups = [ "plugdev" ]; # reboot needed?
 
   /*
    * prefer GQRX

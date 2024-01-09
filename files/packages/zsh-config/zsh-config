@@ -19,8 +19,8 @@ zstyle ':completion:*' rehash true                              # automatically 
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh
-if [ -w /mnt/main/home/keks/.zhistory ]; then
-  HISTFILE=/mnt/main/home/keks/.zhistory
+if [ -w "/mnt/main${HOME}/.zhistory" ]; then
+  HISTFILE="/mnt/main${HOME}/.zhistory"
 else
   HISTFILE=~/.zhistory
 fi

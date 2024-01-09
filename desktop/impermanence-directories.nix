@@ -1,12 +1,9 @@
-{ config, lib, ... }:
+{ config, lib
+, username, home-dir
+, ssd-mnt, hdd-mnt, nvm-mnt, data-dir
+, ... }:
 
 let
-  username = "keks";
-  home-dir = "/home/${username}";
-  ssd-mnt  = "/mnt/main";
-  hdd-mnt  = "/mnt/array";
-  data-dir = "${hdd-mnt}/homeBraunJan";
-
   forEach  = lib.lists.forEach;
   flatList = lib.lists.flatten;
 
@@ -62,10 +59,10 @@ in
     };
     "${home-dir}/Games" = bind-opts // {
       depends = [
-        "/mnt/ram"
+        "${nvm-mnt}"
         "${home-dir}"
       ];
-      device = "/mnt/ram/Games";
+      device = "${nvm-mnt}/Games";
     };
 
     "${home-dir}/.local/share/Trash" = data-opts // {
@@ -190,6 +187,6 @@ in
     "${hdd-mnt}/homeGaming/Documents"
     "${hdd-mnt}/homeGaming/Videos"
     "${hdd-mnt}/homeGaming/Videos/Desktop"
-    "/mnt/ram/Games"
+    "${nvm-mnt}/Games"
   ];
 }
