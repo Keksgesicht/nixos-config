@@ -20,10 +20,10 @@
       };
     in
     {
-      "podman-nextcloud" = (import ./_stop_timeout.nix lib 23) // serviceExtraConfig;
-      "podman-nextcloud-cron" = (import ./_stop_timeout.nix lib 25) // serviceExtraConfig;
-      "podman-nextcloud-db" = (import ./_stop_timeout.nix lib 27);
-      "podman-nextcloud-redis" = (import ./_stop_timeout.nix lib 27);
+      "podman-nextcloud" = (import ./podman-systemd-service.nix lib 23) // serviceExtraConfig;
+      "podman-nextcloud-cron" = (import ./podman-systemd-service.nix lib 25) // serviceExtraConfig;
+      "podman-nextcloud-db" = (import ./podman-systemd-service.nix lib 27);
+      "podman-nextcloud-redis" = (import ./podman-systemd-service.nix lib 27);
       "container-image-updater@nextcloud" = {
         overrideStrategy = "asDropin";
         path = [
@@ -123,6 +123,7 @@
 
       environment = {
         TZ = config.time.timeZone;
+        APACHE_BODY_LIMIT = "4294967296"; # 4G
         #PHP_MEMORY_LIMIT = "512M";
       };
       volumes = [

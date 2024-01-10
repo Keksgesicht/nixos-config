@@ -9,7 +9,7 @@
 
   systemd = {
     services = {
-      "podman-lancache" = (import ./_stop_timeout.nix lib 17) // {
+      "podman-lancache" = (import ./podman-systemd-service.nix lib 17) // {
         after = [
           "mnt-${nvm-name}.mount"
         ];

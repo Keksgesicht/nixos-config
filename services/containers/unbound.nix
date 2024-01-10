@@ -5,7 +5,7 @@
 {
   systemd = {
     services = {
-      "podman-unbound" = (import ./_stop_timeout.nix lib 17);
+      "podman-unbound" = (import ./podman-systemd-service.nix lib 17);
       "update-root-dns-servers" = {
         description = "Download root DNS server list";
         path = [

@@ -9,7 +9,7 @@
 
   systemd = {
     services = {
-      "podman-proxy" = (import ./_stop_timeout.nix lib 25);
+      "podman-proxy" = (import ./podman-systemd-service.nix lib 25);
       "container-image-updater@proxy" = {
         overrideStrategy = "asDropin";
         path = [

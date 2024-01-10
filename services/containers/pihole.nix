@@ -5,7 +5,7 @@
 {
   systemd = {
     services = {
-      "podman-pihole" = (import ./_stop_timeout.nix lib 27);
+      "podman-pihole" = (import ./podman-systemd-service.nix lib 27);
       "container-image-updater@pihole" = {
         overrideStrategy = "asDropin";
         path = [
