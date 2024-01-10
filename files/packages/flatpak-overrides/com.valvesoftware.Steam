@@ -2,9 +2,10 @@
 shared=network
 sockets=pulseaudio
 devices=all
-filesystems=!xdg-music;!xdg-pictures;xdg-documents/Gaming;/mnt/ram/Games/SteamLibrary;xdg-pictures/Games/Steam;~/WinePrefixes/Steam:create
+filesystems=!xdg-music;!xdg-pictures;~/Games/SteamLibrary:create;~/WinePrefixes/Steam:create;xdg-documents/Gaming;xdg-pictures/Gaming/Steam;xdg-videos/Gaming/sandbox:create
 
 [Environment]
 PULSE_SINK=recording_out_sink
-XDG_PICTURES_DIR=/mnt/array/homeGaming/Pictures/Steam
-XDG_DOCUMENTS_DIR=/mnt/array/homeGaming/Documents
+XDG_DOCUMENTS_DIR=/home/keks/Documents/Gaming
+XDG_PICTURES_DIR=/home/keks/Pictures/Gaming/Steam
+XDG_VIDEOS_DIR=/home/keks/Videos/Gaming/sandbox

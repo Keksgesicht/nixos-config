@@ -57,8 +57,11 @@ with my-functions;
     "${data-dir}/Documents/Gaming" = bind-opts // data-opts // {
       device = "${hdd-mnt}/homeGaming/Documents";
     };
-    "${data-dir}/Videos/Gaming/Desktop" = bind-opts // data-opts // {
-      device = "${hdd-mnt}/homeGaming/Videos/Desktop";
+    "${data-dir}/Videos/Gaming" = bind-opts // data-opts // {
+      device = "${hdd-mnt}/homeGaming/Videos";
+    };
+    "${data-dir}/Pictures/Gaming" = bind-opts // data-opts // {
+      device = "${hdd-mnt}/homeGaming/Pictures";
     };
     "${home-dir}/Games" = bind-opts // {
       depends = [
@@ -178,8 +181,8 @@ with my-functions;
     "${data-dir}/Documents/Studium/Module"
 
     "${hdd-mnt}/homeGaming/Documents"
+    "${hdd-mnt}/homeGaming/Pictures"
     "${hdd-mnt}/homeGaming/Videos"
-    "${hdd-mnt}/homeGaming/Videos/Desktop"
     "${nvm-mnt}/Games"
   ];
 }

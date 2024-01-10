@@ -2,4 +2,7 @@
 shared=network
 sockets=pulseaudio
 devices=dri
-filesystems=!xdg-desktop;!xdg-documents;!xdg-download;!xdg-videos;!xdg-music;!xdg-pictures;/mnt/ram/Games/SteamLibrary;~/WinePrefixes/Steam
+filesystems=!xdg-desktop;!xdg-documents;!xdg-download;!xdg-videos;!xdg-music;!xdg-pictures;~/Games;~/WinePrefixes
+
+[Environment]
+PULSE_SINK=recording_out_sink
