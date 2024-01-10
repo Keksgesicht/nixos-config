@@ -1,0 +1,5 @@
+[Context]
+devices=dri;
+filesystems=!xdg-download;!xdg-pictures;!xdg-videos;
+shared=network;
+sockets=pulseaudio;!x11;
