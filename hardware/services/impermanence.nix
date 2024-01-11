@@ -28,25 +28,30 @@ in
         after    = [ "initrd-root-device.target" ];
         before   = [ "initrd-root-fs.target" "sysroot.mount" ];
         serviceConfig = { Type = "oneshot"; };
-        environment = {
-          TZ = config.time.timeZone;
-        };
         path = with pkgs; [
           btrfs-progs
           coreutils
           findutils
+          tzdata
           util-linux
         ];
-        script = ''
-          BACKUPS_DAYS=3
-          TMP_MNT="/mnt-${ssd-name}"
-          TMP_ROOT_DIR="$TMP_MNT/root"
-          BACKUP_DIR="$TMP_MNT/backup_${ssd-name}/boot/root"
+        environment =
+        let
+          tmp-mnt = "/mnt-${ssd-name}";
+        in
+        {
+          TZ = config.time.timeZone;
+          TZDIR = "${pkgs.tzdata}/share/zoneinfo";
 
+          BACKUPS_DAYS = "3";
+          TMP_MNT = "${tmp-mnt}";
+          TMP_ROOT_DIR = "${tmp-mnt}/root";
+          BACKUP_DIR = "${tmp-mnt}/backup_${ssd-name}/boot/root";
+        };
+        script = ''
           list_backups() {
-            find $BACKUP_DIR \
-              -mindepth 1 -maxdepth 1 \
-              -mtime +$BACKUPS_DAYS
+            bck_dirs=$(realpath $BACKUP_DIR/* | sort -r | tail -n +$BACKUPS_DAYS)
+            find $bck_dirs -maxdepth 0 -mtime +$BACKUPS_DAYS
           }
           delete_subvolumes() {
               IFS=$'\n'
@@ -61,12 +66,9 @@ in
             ${ssd-fs-cfg.device} $TMP_MNT
 
           mkdir -p $BACKUP_DIR
-          back_num=$(list_backups | wc -l)
-          if [ $BACKUPS_DAYS -lt "$back_num" ]; then
-            for sv in $(list_backups); do
-              delete_subvolumes $sv
-            done
-          fi
+          for sv in $(list_backups); do
+            delete_subvolumes $sv
+          done
           if [ -e $TMP_ROOT_DIR ]; then
             mv $TMP_ROOT_DIR $BACKUP_DIR/$(date +%Y%m%d_%H%M%S)
           fi
@@ -152,9 +154,9 @@ in
     "L+ ${link-dir}/homeBraunJan - - - - ${hdd-mnt}/homeBraunJan"
     "L+ ${link-dir}/homeGaming   - - - - ${hdd-mnt}/homeGaming"
     # useful subvolumes
-    "q  ${ssd-mnt}/appdata      - - - - -"
-    "q  ${hdd-mnt}/appdata2     - - - - -"
-    "q  ${nvm-mnt}/appdata3       - - - - -"
+    "q  ${ssd-mnt}/appdata  - - - - -"
+    "q  ${hdd-mnt}/appdata2 - - - - -"
+    "q  ${nvm-mnt}/appdata3 - - - - -"
     "q  ${nvm-mnt}/Games        0755 ${username} ${username} - -"
     "q  ${hdd-mnt}/homeBraunJan 0755 ${username} ${username} - -"
     "q  ${hdd-mnt}/homeGaming   0755 ${username} ${username} - -"
