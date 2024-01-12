@@ -1,15 +1,26 @@
 { config, pkgs, secrets-dir, ... }:
 
+let
+  secrets-pkg = (pkgs.callPackage ../../packages/my-secrets.nix {});
+  wg-path-data = "${secrets-pkg}/wireguard";
+  wg-path-keys = "${secrets-dir}/keys/wireguard";
+in
 {
+  environment.etc = {
+    "flake-output/my-secrets" = {
+      source = secrets-pkg;
+    };
+  };
+
   networking.wireguard.interfaces =
     if (config.networking.hostName == "cookieclicker") then {
       "wg-server" = {
-        privateKeyFile = "${secrets-dir}/keys/wireguard/private/wg-server";
+        privateKeyFile = "${wg-path-keys}/private/wg-server";
         ips = [
           "192.168.176.1"
           "fd00:2307::1"
         ];
-        listenPort = (import "${secrets-dir}/keys/wireguard/server-port");
+        listenPort = (import "${wg-path-data}/server-port");
         postSetup = ''
           ${pkgs.iptables}/bin/iptables -A FORWARD -i wg-server -j ACCEPT
           ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 192.168.176.1/24 -o enp4s0 -j MASQUERADE
@@ -28,7 +39,7 @@
           {
             name = "handy";
             publicKey = "ZfoguOSX/s4VQLjjWUnDdR6qkjNgl5xZPUEj8AFvHRs=";
-            presharedKeyFile = "${secrets-dir}/keys/wireguard/preshared/handy";
+            presharedKeyFile = "${wg-path-keys}/preshared/handy";
             allowedIPs = [
               "192.168.176.2"
               "fd00:2307::2"
@@ -53,7 +64,7 @@
     if (config.networking.hostName == "cookiethinker") then {
       "wg-laptop" = {
         autostart = false;
-        privateKeyFile = "${secrets-dir}/keys/wireguard/private/wg-laptop";
+        privateKeyFile = "${wg-path-keys}/private/wg-laptop";
         address = [
           "192.168.176.3/24"
           "fd00:2307::3/64"
@@ -65,8 +76,8 @@
         peers = [
           {
             publicKey = "hcFGcDc2l7fMsP1eOOiZY3df8ATGAmPQszyhQj+FAFE=";
-            presharedKeyFile = "${secrets-dir}/keys/wireguard/preshared/server";
-            endpoint = (builtins.readFile "${secrets-dir}/keys/wireguard/server-endpoint");
+            presharedKeyFile = "${wg-path-keys}/preshared/server";
+            endpoint = (builtins.readFile "${wg-path-data}/server-endpoint");
             allowedIPs = [
               "0.0.0.0/0"
               "::/0"

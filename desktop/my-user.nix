@@ -18,9 +18,7 @@
       "wheel"
     ];
     # Don't forget to create a password with `mkpasswd`.
-    hashedPassword = (lib.removeSuffix "\n"
-      (builtins.readFile "${secrets-dir}/keys/passwd/${username}")
-    );
+    hashedPasswordFile = "${secrets-dir}/keys/passwd/${username}";
   };
   users.groups."${username}" = {
     gid = 1000;
