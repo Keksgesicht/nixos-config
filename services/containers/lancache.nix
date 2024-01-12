@@ -1,10 +1,16 @@
-{ config, pkgs, lib, cookie-dir
+{ config, pkgs, lib
 , ssd-mnt, nvm-mnt, nvm-name
 , ... }:
 
+let
+  cookie-pkg = (pkgs.callPackage ../../packages/unCookie.nix {});
+  cc-dir = "${cookie-pkg}/containers";
+in
 {
   imports = [
+    ../../system/container.nix
     ../system/server-and-config-update.nix
+    ./container-image-updater.nix
   ];
 
   systemd = {
@@ -84,7 +90,7 @@
 
       image = "localhost/lancache-monolithic:latest";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/lancache-monolithic.json")
+        builtins.fromJSON (builtins.readFile "${cc-dir}/lancache-monolithic.json")
       );
 
       environment = {

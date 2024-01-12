@@ -1,10 +1,16 @@
-{ config, pkgs, lib, cookie-dir, secrets-dir
+{ config, pkgs, lib, secrets-dir
 , ssd-mnt, hdd-mnt, hdd-name
 , ... }:
 
+let
+  cookie-pkg = (pkgs.callPackage ../../packages/unCookie.nix {});
+  cc-dir = "${cookie-pkg}/containers";
+in
 {
   imports = [
+    ../../system/container.nix
     ../system/server-and-config-update.nix
+    ./container-image-updater.nix
   ];
 
   systemd = {
@@ -118,7 +124,7 @@
 
       image = "localhost/nextcloud:stable";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/nextcloud.json")
+        builtins.fromJSON (builtins.readFile "${cc-dir}/nextcloud.json")
       );
 
       environment = {
@@ -150,7 +156,7 @@
 
       image = "localhost/nextcloud:stable";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/nextcloud.json")
+        builtins.fromJSON (builtins.readFile "${cc-dir}/nextcloud.json")
       );
 
       entrypoint = "/cron.sh";
@@ -169,7 +175,7 @@
 
       image = "localhost/nextcloud-db:10.5";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/nextcloud-db.json")
+        builtins.fromJSON (builtins.readFile "${cc-dir}/nextcloud-db.json")
       );
 
       cmd = [
@@ -201,7 +207,7 @@
 
       image = "localhost/nextcloud-redis:latest";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/nextcloud-redis.json")
+        builtins.fromJSON (builtins.readFile "${cc-dir}/nextcloud-redis.json")
       );
 
       /*

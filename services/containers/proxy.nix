@@ -1,10 +1,14 @@
-{ config, pkgs, lib
-, ssd-mnt, cookie-dir
-, ... }:
+{ config, pkgs, lib, ssd-mnt, ... }:
 
+let
+  cookie-pkg = (pkgs.callPackage ../../packages/unCookie.nix {});
+  cc-dir = "${cookie-pkg}/containers";
+in
 {
   imports = [
+    ../../system/container.nix
     ../system/server-and-config-update.nix
+    ./container-image-updater.nix
   ];
 
   systemd = {
@@ -80,7 +84,7 @@
 
       image = "localhost/linuxserver-swag:latest";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/linuxserver-swag.json")
+        builtins.fromJSON (builtins.readFile "${cc-dir}/linuxserver-swag.json")
       );
 
       environment = {

@@ -1,5 +1,3 @@
-# file: packages/container.nix
-
 { config, pkgs, ...}:
 
 {

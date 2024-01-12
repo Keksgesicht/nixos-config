@@ -21,6 +21,15 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    # https://github.com/thiagokokada/nix-cage
+    nix-cage = {
+      type = "github";
+      owner = "thiagokokada";
+      repo = "nix-cage";
+      rev = "b831a0197efe69ae552182318f553e651474ff96";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     # https://github.com/pjones/plasma-manager
     plasma-manager = {
       url = "github:pjones/plasma-manager";
@@ -42,6 +51,7 @@
     home-manager,
     impermanence,
     lanzaboote,
+    nix-cage,
     plasma-manager,
     tuxedo-nixos,
   }@inputs: {
@@ -59,7 +69,6 @@
         nvm-mnt  = "/mnt/${nvm-name}";
         data-dir = "${hdd-mnt}/homeBraunJan";
 
-        cookie-dir  = "/etc/unCookie";
         secrets-dir = "/etc/nixos/secrets";
       };
     in
@@ -69,10 +78,7 @@
         system = "x86_64-linux";
         specialArgs = myArgs // {
           inherit inputs;
-          pkgs-unstable = import nixpkgs-unstable {
-            system = system;
-            #config.allowUnfree = true;
-          };
+          inherit system;
         };
         modules = [
           ./machines/cookieclicker.nix
@@ -86,10 +92,7 @@
         system = "x86_64-linux";
         specialArgs = myArgs // {
           inherit inputs;
-          pkgs-unstable = import nixpkgs-unstable {
-            system = system;
-            #config.allowUnfree = true;
-          };
+          inherit system;
         };
         modules = [
           ./machines/cookiethinker.nix

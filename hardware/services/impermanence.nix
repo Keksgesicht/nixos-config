@@ -104,7 +104,7 @@ in
         "/etc/NetworkManager/system-connections"
         "/etc/nixos"
         "/etc/secureboot"
-        "${cookie-dir}"
+        "/etc/unCookie"
         "/var/lib/bluetooth"
         "/var/lib/containers"
         "/var/lib/flatpak"

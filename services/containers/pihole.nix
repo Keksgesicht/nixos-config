@@ -1,8 +1,15 @@
-{ config, pkgs, lib
-, ssd-mnt, cookie-dir
-, ... }:
+{ config, pkgs, lib, ssd-mnt, ... }:
 
+let
+  cookie-pkg = (pkgs.callPackage ../../packages/unCookie.nix {});
+  cc-dir = "${cookie-pkg}/containers";
+in
 {
+  imports = [
+    ../../system/container.nix
+    ./container-image-updater.nix
+  ];
+
   systemd = {
     services = {
       "podman-pihole" = (import ./podman-systemd-service.nix lib 27);
@@ -36,7 +43,7 @@
 
       image = "localhost/pihole:latest";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/pihole.json")
+        builtins.fromJSON (builtins.readFile "${cc-dir}/pihole.json")
       );
 
       ports = [

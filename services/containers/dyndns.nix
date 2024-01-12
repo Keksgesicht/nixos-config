@@ -1,8 +1,17 @@
 { config, pkgs, lib
-, ssd-mnt, cookie-dir, secrets-dir
+, ssd-mnt, secrets-dir
 , ... }:
 
+let
+  cookie-pkg = (pkgs.callPackage ../../packages/unCookie.nix {});
+  cc-dir = "${cookie-pkg}/containers";
+in
 {
+  imports = [
+    ../../system/container.nix
+    ./container-image-updater.nix
+  ];
+
   systemd = {
     services = {
       "podman-ddns-v4" = (import ./podman-systemd-service.nix lib 13);
@@ -37,7 +46,7 @@
 
       image = "localhost/dyndns:latest";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/dyndns.json")
+        builtins.fromJSON (builtins.readFile "${cc-dir}/dyndns.json")
       );
 
       environment = {
@@ -71,7 +80,7 @@
 
       image = "localhost/dyndns:latest";
       imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/dyndns.json")
+        builtins.fromJSON (builtins.readFile "${cc-dir}/dyndns.json")
       );
 
       environment = {

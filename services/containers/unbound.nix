@@ -1,8 +1,15 @@
-{ config, pkgs, lib
-, ssd-mnt, cookie-dir
-, ... }:
+{ config, pkgs, lib, ssd-mnt, ... }:
 
+let
+  cookie-pkg = (pkgs.callPackage ../../packages/unCookie.nix {});
+  cc-dir = "${cookie-pkg}/containers";
+in
 {
+  imports = [
+    ../../system/container.nix
+    ./container-image-updater.nix
+  ];
+
   systemd = {
     services = {
       "podman-unbound" = (import ./podman-systemd-service.nix lib 17);
@@ -17,7 +24,7 @@
           set -e
           set -o pipefail
 
-          HASHFILE="${cookie-dir}/root-dns-server.hash"
+          HASHFILE="/etc/unCookie/root-dns-server.hash"
           mkdir -p $(dirname $HASHFILE)
 
           URL="https://www.internic.net/domain/named.cache"
@@ -73,14 +80,14 @@
         tag = "latest";
 
         fromImage = pkgs.dockerTools.pullImage (
-          builtins.fromJSON (builtins.readFile "${cookie-dir}/containers/alpinelinux-unbound.json")
+          builtins.fromJSON (builtins.readFile "${cc-dir}/alpinelinux-unbound.json")
         );
 
         copyToRoot = pkgs.buildEnv {
           name = "image-root";
           paths = [
             (pkgs.callPackage ../../packages/containers/unbound.nix {
-              inherit cookie-dir;
+              inherit cookie-pkg;
             })
           ];
           pathsToLink = [
