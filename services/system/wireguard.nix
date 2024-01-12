@@ -4,12 +4,12 @@
   networking.wireguard.interfaces =
     if (config.networking.hostName == "cookieclicker") then {
       "wg-server" = {
-        privateKeyFile = "${secrets-dir}/services/wireguard/private/wg-server";
+        privateKeyFile = "${secrets-dir}/keys/wireguard/private/wg-server";
         ips = [
           "192.168.176.1"
           "fd00:2307::1"
         ];
-        listenPort = (import "${secrets-dir}/services/wireguard/server-port");
+        listenPort = (import "${secrets-dir}/keys/wireguard/server-port");
         postSetup = ''
           ${pkgs.iptables}/bin/iptables -A FORWARD -i wg-server -j ACCEPT
           ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 192.168.176.1/24 -o enp4s0 -j MASQUERADE
@@ -28,7 +28,7 @@
           {
             name = "handy";
             publicKey = "ZfoguOSX/s4VQLjjWUnDdR6qkjNgl5xZPUEj8AFvHRs=";
-            presharedKeyFile = "${secrets-dir}/services/wireguard/preshared/handy";
+            presharedKeyFile = "${secrets-dir}/keys/wireguard/preshared/handy";
             allowedIPs = [
               "192.168.176.2"
               "fd00:2307::2"
@@ -37,7 +37,7 @@
           {
             name = "laptop";
             publicKey = "dPEm0MGVEzRh+BYrROxXKGF9suOsQdQHldluvKryWQ4=";
-            presharedKeyFile = "${secrets-dir}/services/wireguard/preshared/laptop";
+            presharedKeyFile = "${secrets-dir}/keys/wireguard/preshared/laptop";
             allowedIPs = [
               "192.168.176.3"
               "fd00:2307::3"
@@ -53,7 +53,7 @@
     if (config.networking.hostName == "cookiethinker") then {
       "wg-laptop" = {
         autostart = false;
-        privateKeyFile = "${secrets-dir}/services/wireguard/private/wg-laptop";
+        privateKeyFile = "${secrets-dir}/keys/wireguard/private/wg-laptop";
         address = [
           "192.168.176.3/24"
           "fd00:2307::3/64"
@@ -65,8 +65,8 @@
         peers = [
           {
             publicKey = "hcFGcDc2l7fMsP1eOOiZY3df8ATGAmPQszyhQj+FAFE=";
-            presharedKeyFile = "${secrets-dir}/services/wireguard/preshared/server";
-            endpoint = (builtins.readFile "${secrets-dir}/services/wireguard/server-endpoint");
+            presharedKeyFile = "${secrets-dir}/keys/wireguard/preshared/server";
+            endpoint = (builtins.readFile "${secrets-dir}/keys/wireguard/server-endpoint");
             allowedIPs = [
               "0.0.0.0/0"
               "::/0"

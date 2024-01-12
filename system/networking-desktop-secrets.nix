@@ -1,11 +1,16 @@
-{ config, pkgs, secrets-dir, ...}:
+{ config, pkgs, ... }:
 
 let
+  secrets-pkg = (pkgs.callPackage ../packages/my-secrets.nix {});
   nmsc-path = "linux-root/etc/NetworkManager/system-connections";
-  nmsc-data = "${secrets-dir}/${nmsc-path}";
+  nmsc-data = "${secrets-pkg}/${nmsc-path}";
 in
 {
   environment.etc = {
+    "flake-output/my-secrets" = {
+      source = secrets-pkg;
+    };
+
     # network connections on all systems
     "NetworkManager/system-connections/TU_Darmstadt.nmconnection" = {
       mode = "0600";

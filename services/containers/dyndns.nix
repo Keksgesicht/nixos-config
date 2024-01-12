@@ -53,7 +53,7 @@
         UMASK = "002";
       };
       environmentFiles = [
-        "${secrets-dir}/services/containers/ddns/CF_APITOKEN"
+        "${secrets-dir}/keys/containers/ddns/CF_APITOKEN"
       ];
       volumes = [
         "${ssd-mnt}/appdata/ddns/v4:/config:Z"
@@ -87,7 +87,7 @@
         UMASK = "002";
       };
       environmentFiles = [
-        "${secrets-dir}/services/containers/ddns/CF_APITOKEN"
+        "${secrets-dir}/keys/containers/ddns/CF_APITOKEN"
       ];
       volumes = [
         "${ssd-mnt}/appdata/ddns/v6:/config:Z"

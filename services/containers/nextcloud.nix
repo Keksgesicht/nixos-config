@@ -182,8 +182,8 @@
         MYSQL_USER = "nextcloud";
       };
       environmentFiles = [
-        "${secrets-dir}/services/containers/nextcloud/MYSQL"
-        "${secrets-dir}/services/containers/nextcloud/MYSQL_ROOT"
+        "${secrets-dir}/keys/containers/nextcloud/MYSQL"
+        "${secrets-dir}/keys/containers/nextcloud/MYSQL_ROOT"
       ];
       volumes = [
         "${ssd-mnt}/appdata/database/nextcloud:/var/lib/mysql:Z"
@@ -215,7 +215,7 @@
         TZ = config.time.timeZone;
       };
       environmentFiles = [
-        "${secrets-dir}/services/containers/nextcloud/REDIS"
+        "${secrets-dir}/keys/containers/nextcloud/REDIS"
       ];
       volumes = [
         "${ssd-mnt}/appdata/redis/nextcloud:/data"
