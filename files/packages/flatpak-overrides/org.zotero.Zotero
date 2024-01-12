@@ -1,2 +1,2 @@
 [Context]
-filesystems=!xdg-desktop;!xdg-documents;!xdg-videos;!xdg-public-share;!xdg-pictures;!xdg-music;~/git/Studium;xdg-documents/Studium/Module
+filesystems=!xdg-desktop;!xdg-documents;!xdg-videos;!xdg-public-share;!xdg-pictures;!xdg-music;~/git;xdg-documents/Studium/Module

@@ -1,5 +1,5 @@
 [Context]
 shared=!ipc
 sockets=x11
-filesystems=!xdg-run/gvfs;!/run/media;!/mnt;!xdg-run/gvfsd;!/media;xdg-config/git:ro;~/git;xdg-documents/Studium/Module
+filesystems=!/mnt;!/media;!/run/media;!xdg-run/gvfs;!xdg-run/gvfsd;xdg-config/git:ro;~/git
 persistent=.gitkraken
