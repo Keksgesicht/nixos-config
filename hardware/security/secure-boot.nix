@@ -6,6 +6,7 @@
   ];
 
   # https://nixos.wiki/wiki/Secure_Boot
+  # https://github.com/nix-community/lanzaboote
   boot = {
     bootspec.enable = true;
     loader.systemd-boot.enable = lib.mkForce false;

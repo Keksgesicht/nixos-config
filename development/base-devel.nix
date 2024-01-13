@@ -5,6 +5,7 @@
     binutils
     binwalk
     fd
+    file
     fzf
     git
     graphviz
