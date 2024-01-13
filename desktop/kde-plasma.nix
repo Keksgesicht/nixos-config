@@ -157,6 +157,13 @@ with my-functions;
       "kscreenlockerrc"."Daemon"."Timeout" = lib.mkForce 3;
       "kwinrulesrc"."General"."count"      = lib.mkForce 3;
       "kwinrulesrc"."General"."rules"      = lib.mkForce "6,8,9";
-    } else {};
+    }
+    else if (config.networking.hostName == "cookieclicker") then
+    {
+      # UPS will drain much faster
+      "powerdevilrc"."BatteryManagement"."BatteryLowLevel" = lib.mkForce 42;
+      "powerdevilrc"."BatteryManagement"."BatteryCriticalLevel" = lib.mkForce 32;
+    }
+    else {};
   };
 }

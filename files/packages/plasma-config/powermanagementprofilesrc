@@ -12,10 +12,18 @@ lidAction=32
 powerButtonAction=1
 triggerLidActionWhenExternalMonitorPresent=true
 
+[AC][KeyboardBrightnessControl]
+value=50
+
 [AC][SuspendSession]
 idleTime=2520000
 suspendThenHibernate=false
 suspendType=1
+
+[AC][WirelessPowerSaving]
+btOption=0
+wifiOption=0
+wwanOption=0
 
 [Battery]
 icon=battery-060
@@ -30,6 +38,9 @@ idleTime=180000
 lidAction=1
 powerButtonAction=1
 triggerLidActionWhenExternalMonitorPresent=true
+
+[Battery][KeyboardBrightnessControl]
+value=20
 
 [Battery][SuspendSession]
 idleTime=780000
@@ -57,6 +68,9 @@ idleTime=60000
 lidAction=8
 powerButtonAction=8
 triggerLidActionWhenExternalMonitorPresent=true
+
+[LowBattery][KeyboardBrightnessControl]
+value=20
 
 [LowBattery][SuspendSession]
 idleTime=120000
