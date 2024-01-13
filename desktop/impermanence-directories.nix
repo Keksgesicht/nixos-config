@@ -116,7 +116,6 @@ with my-functions;
           ".local/share/akonadi-davgroupware"
           ".local/share/baloo"
           ".local/share/color-schemes"
-          ".local/share/containers"
           ".local/share/dolphin"
           ".local/share/flatpak/db"
           ".local/share/icons"
@@ -134,7 +133,6 @@ with my-functions;
           ".local/share/org.kde.syntax-highlighting"
           ".local/share/plasma"
           ".local/share/plasma-systemmonitor"
-          ".local/share/systemd/timers"
           ".local/share/themes"
           ".local/share/waydroid"
 
