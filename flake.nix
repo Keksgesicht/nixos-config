@@ -1,9 +1,11 @@
 {
   inputs = rec {
+    # https://github.com/NixOS/nixpkgs
     nixpkgs-stable.url = "nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
     # https://nixos.wiki/wiki/Home_Manager
+    # https://github.com/nix-community/home-manager
     # https://nix-community.github.io/home-manager/
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -11,11 +13,14 @@
     };
 
     # https://nixos.wiki/wiki/Impermanence
+    # https://github.com/nix-community/impermanence
     impermanence = {
       url = "github:nix-community/impermanence/master";
       #inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
     # https://nixos.wiki/wiki/Secure_Boot
+    # https://github.com/nix-community/lanzaboote
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -36,12 +41,6 @@
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
-    # https://nixos.wiki/wiki/TUXEDO_Devices
-    tuxedo-nixos = {
-      url = "github:blitz/tuxedo-nixos";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
   };
 
   outputs = {
@@ -53,7 +52,6 @@
     lanzaboote,
     nix-cage,
     plasma-manager,
-    tuxedo-nixos,
   }@inputs: {
     nixosConfigurations =
     let
@@ -99,7 +97,6 @@
           home-manager.nixosModules.home-manager
           impermanence.nixosModules.impermanence
           lanzaboote.nixosModules.lanzaboote
-          tuxedo-nixos.nixosModules.default
         ];
       };
 
