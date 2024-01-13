@@ -1,6 +1,22 @@
-{ config, inputs, ... }:
+{ config, pkgs, lib, inputs, username, ... }:
 
+let
+  secrets-pkg = (pkgs.callPackage ../packages/my-secrets.nix {});
+  git-repo = lib.removeSuffix "\n" (
+    builtins.readFile "${secrets-pkg}/git-repo.txt"
+  );
+  latest-system-cfg-dir = "/nix/var/nix/profiles/system/etc/flake-output/nixos-config";
+in
 {
+  environment.etc = {
+    "flake-output/my-secrets" = {
+      source = secrets-pkg;
+    };
+    "flake-output/nixos-config" = {
+      source = inputs.self.outPath;
+    };
+  };
+
   # https://nixos.wiki/wiki/Automatic_system_upgrades
   system.autoUpgrade = {
     enable = true;
@@ -20,18 +36,14 @@
     flags = [
       "--update-input" "nixpkgs-stable"
       "--update-input" "nixpkgs-unstable"
-      "-L" # print build logs
-      "--impure" # using absolute paths in config
+      "--print-build-logs" # -L
+      #"--verbose"         # -v
     ];
   };
 
-  environment.etc = {
-    "flake-output/nixos/config" = {
-      source = inputs.self.outPath;
-    };
-    "flake-output/nixos/flake.lock" = {
-      source = builtins.toFile "flake.lock"
-        (builtins.readFile "${inputs.self.outPath}/flake.lock");
-    };
-  };
+  systemd.tmpfiles.rules = [
+    "r  ${git-repo}/flake.lock - - - - -"
+    "C+ ${git-repo}/flake.lock - - - - ${latest-system-cfg-dir}/flake.lock"
+    "Z  ${git-repo}/flake.lock 0644 ${username} ${username} - -"
+  ];
 }

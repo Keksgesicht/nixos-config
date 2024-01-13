@@ -1,4 +1,5 @@
 configuration.nix
 .directory
-*.kate-swp
+flake.lock
 result*
+*.kate-swp
