@@ -160,7 +160,7 @@ run-box() {
 }
 
 
-nix-cage-shell() {
+nix-cage-setup() {
 	case "${PWD}" in
 	"${HOME}")
 		echo "Not in this directory ${PWD}" >&2
@@ -171,10 +171,19 @@ nix-cage-shell() {
 	mkdir -p ${XDG_CACHE_HOME}/"nix-cage"
 	mkdir -p ${XDG_DATA_HOME}/"nix-cage"/home
 	touch    ${XDG_DATA_HOME}/"nix-cage"/home/.zhistory
+	#cdrp
 
-	cdrp
-	nix-shell $@ \
-		--command "nix-cage
-			--config /etc/nix-cage/devel.json
-			--command zsh"
+	NIX_CAGE_COMMAND="nix-cage"
+	NIX_CAGE_COMMAND+=" --config /etc/nix-cage/devel.json"
+}
+
+nix-cage-shell() {
+	nix-cage-setup
+	NIX_CAGE_COMMAND+=" --command zsh"
+	nix-shell $@ --command "${NIX_CAGE_COMMAND}"
+}
+
+nix-cage-dev() {
+	nix-cage-setup
+	eval nix develop $@ --command ${NIX_CAGE_COMMAND}
 }
