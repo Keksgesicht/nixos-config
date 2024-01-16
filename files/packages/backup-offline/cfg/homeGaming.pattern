@@ -1,9 +1,8 @@
-- /.Recycle.Bin
-+ /Documents/
++ /Documents
++ /Documents/_docs/***
++ /Documents/_install/***
 + /Documents/Proton_Flags.txt
 + /Documents/scripts/***
-+ /Documents/_docs/***
 - /Documents/**
-- /Downloads
-+ /Pictures
-- /Videos
++ /Pictures/***
+- /**

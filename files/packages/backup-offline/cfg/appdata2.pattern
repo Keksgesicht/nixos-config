@@ -1,13 +1,13 @@
 - *.log
 - *.mp4
 + /
-+ /nextcloud/
++ /nextcloud
 + /nextcloud/.htaccess
 + /nextcloud/.ocdata
 + /nextcloud/appdata*/***
 + /nextcloud/files_external/***
 + /nextcloud/index.html
-+ /nextcloud/janb/
++ /nextcloud/janb
 - /nextcloud/janb/files/Documents/BackUp/cookietower
 + /nextcloud/janb/files/***
 - /**

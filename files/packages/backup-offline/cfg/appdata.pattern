@@ -3,8 +3,11 @@
 + /database
 + /database/nextcloud/***
 + /ddns/***
++ /lancache/***
 + /nextcloud/***
 + /pihole/***
++ /redis
++ /redis/nextcloud/***
 + /swag/***
 + /unbound/***
 - /**

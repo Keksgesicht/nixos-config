@@ -4,8 +4,6 @@
 - /*/.cache/**
 - /*/.config/*/*Cache*/**
 - /*/.config/*/*/*Cache*/**
-- /*/.containerbox/home/***
-- /*/.containerbox/root/***
 - /*/.local/share/containers/**
 - /*/.var/app/com.valvesoftware.Steam/.local/share/Steam/compatibilitytools.d/**
 - /*/.var/app/com.valvesoftware.Steam/.local/share/Steam/config/htmlcache/**
@@ -13,7 +11,6 @@
 - /*/.var/app/com.valvesoftware.Steam/.local/share/Steam/ubuntu12_32/steam-runtime.tar.xz*
 - /*/.var/app/com.valvesoftware.Steam/.local/share/Steam/userdata/*/760/**
 - /*/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/**
-+ /*/.var/app/org.keepassxc.KeePassXC/cache/keepassxc/***
 - /*/.var/app/*/cache/**
 - /*/.var/app/*/config/*/*Cache*/**
 - /*/.var/app/*/config/*/*/*Cache*/**
@@ -21,5 +18,4 @@
 + /*/WinePrefixes/*/*/pfx/drive_c/users
 - /*/WinePrefixes/*/*/pfx/drive_c/windows
 - /*/WinePrefixes/*/*/pfx/drive_c/Program*
-- /janb/***
 + /***
