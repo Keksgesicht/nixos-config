@@ -66,8 +66,11 @@ alias gitu='git add . && git commit && git push'
 
 # Theming section  
 autoload -U compinit colors zcalc
-compinit -d ${HOME}/.cache/zsh/zcompdump-${ZSH_VERSION}
 colors
+
+if [ "$(awk -F'=' '$1 ~ /^NAME$/ {print $2}' /etc/os-release)" != "NixOS" ]; then
+  compinit -d ${HOME}/.cache/zsh/zcompdump-${ZSH_VERSION}
+fi
 
 # Color man pages
 export LESS_TERMCAP_mb=$'\E[01;32m'
