@@ -25,7 +25,7 @@ in
       enable = (config.networking.hostName == "cookieclicker");
       mode = "0600";
       source = pkgs.substituteAll {
-        src     =        ../files + "/${nmsc-path}//dmz.nmconnection";
+        src     =        ../files + "/${nmsc-path}/dmz.nmconnection";
         macaddr = (builtins.readFile "${nmsc-data}/cookieclicker-dmz-macaddr");
       };
     };
@@ -36,19 +36,19 @@ in
       source =
         if (config.networking.hostName == "cookieclicker") then
           pkgs.substituteAll {
-            src       =        ../files + "/${nmsc-path}//home.nmconnection";
+            src       =        ../files + "/${nmsc-path}/home.nmconnection";
             dnsserver = (builtins.readFile "${nmsc-data}/cookieclicker-home-dnsserver");
             ipaddr    = (builtins.readFile "${nmsc-data}/cookieclicker-home-ipaddr");
             macaddr   = (builtins.readFile "${nmsc-data}/cookieclicker-home-macaddr");
           }
         else if (config.networking.hostName == "pihole") then
           pkgs.substituteAll {
-            src       =        ../files + "/${nmsc-path}//home.nmconnection";
+            src       =        ../files + "/${nmsc-path}/home.nmconnection";
             dnsserver = (builtins.readFile "${nmsc-data}/pihole-home-dnsserver");
             ipaddr    = (builtins.readFile "${nmsc-data}/pihole-home-ipaddr");
             macaddr   = "";
           }
-        else        ../files + "/${nmsc-path}//home.nmconnection";
+        else ../files + "/${nmsc-path}/home.nmconnection";
     };
 
     # network connections on laptop
@@ -56,7 +56,7 @@ in
       enable = (config.networking.hostName == "cookiethinker");
       mode = "0600";
       source = pkgs.substituteAll {
-        src      =        ../files + "/${nmsc-path}//eduroam.nmconnection";
+        src      =        ../files + "/${nmsc-path}/eduroam.nmconnection";
         username = (builtins.readFile "${nmsc-data}/wlan01-username");
       };
     };
@@ -64,7 +64,7 @@ in
       enable = (config.networking.hostName == "cookiethinker");
       mode = "0600";
       source = pkgs.substituteAll {
-        src      =        ../files + "/${nmsc-path}//nach_Hause_telefonieren.nmconnection";
+        src      =        ../files + "/${nmsc-path}/nach_Hause_telefonieren.nmconnection";
         hostname = (builtins.readFile "${nmsc-data}/vpn-nachHause-host");
         username = (builtins.readFile "${nmsc-data}/vpn-nachHause-user");
       };
@@ -73,7 +73,7 @@ in
       enable = (config.networking.hostName == "cookiethinker");
       mode = "0600";
       source = pkgs.substituteAll {
-        src  =        ../files + "/${nmsc-path}//wlan00.nmconnection";
+        src  =        ../files + "/${nmsc-path}/wlan00.nmconnection";
         ssid = (builtins.readFile "${nmsc-data}/wlan00-ssid");
       };
     };

@@ -13,7 +13,7 @@ key-mgmt=wpa-eap
 
 [802-1x]
 anonymous-identity=eduroam@tu-darmstadt.de
-ca-cert=/etc/ssl/certs/T-TeleSec_GlobalRoot_Class_2.crt
+ca-cert=/etc/ssl/certs/unbundled/T-TeleSec_GlobalRoot_Class_2.crt
 domain-suffix-match=tu-darmstadt.de
 eap=peap;
 identity=@username@

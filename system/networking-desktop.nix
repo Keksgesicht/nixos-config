@@ -1,18 +1,40 @@
 { config, pkgs, lib, username, ... }:
 
+let
+  my-functions = (import ../nix/my-functions.nix lib);
+in
+with my-functions;
 {
   users.users."${username}".packages = with pkgs; [
-    cacert.unbundled
     dig
     ethtool
     wakeonlan
   ];
 
-  environment.etc = {
-    # symlinks certificate for eduroam
-    "ssl/certs/T-TeleSec_GlobalRoot_Class_2.crt" = {
-      source = "${pkgs.cacert.unbundled}/etc/ssl/certs/T-TeleSec_GlobalRoot_Class_2:1.crt";
-    };
+  # symlinks for all certificates
+  environment.etc =
+  let
+    cert-dir = "ssl/certs";
+    cacert-dir = "${pkgs.cacert.unbundled}/etc/${cert-dir}";
+    cert-set = builtins.listToAttrs
+    ( map
+      ( e:
+        let
+          eCert = lib.removePrefix "${cacert-dir}/" e;
+          certName = builtins.head (builtins.split ":" eCert) + ".crt";
+        in
+        {
+          name = "${cert-dir}/unbundled/${certName}";
+          value = {
+            source = e;
+          };
+        }
+      )
+      (listFilesRec cacert-dir)
+    );
+  in
+  cert-set // {
+    "ssl/certs/cacert-unbundled".source = cacert-dir;
   };
 
   # Enable networking via NetworkManager
