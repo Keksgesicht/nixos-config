@@ -8,7 +8,7 @@ dpart="/dev/sdi1"
 $AUTH cryptsetup luksFormat ${dpart}
 
 # set partition label
-$AUTH cryptsetup config ${dpart} --label 'usb-backup-luks'
+$AUTH cryptsetup config ${dpart} --label 'usb-backup'
 
 # open luks partition
 $AUTH cryptsetup open ${dpart} 'usb-backup'

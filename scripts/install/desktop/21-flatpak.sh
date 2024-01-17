@@ -14,6 +14,7 @@ flatpak install -y 'flathub' \
 	com.brave.Browser \
 	com.github.Eloston.UngoogledChromium \
 	com.github.micahflee.torbrowser-launcher \
+	dev.vencord.Vesktop \
 	io.gitlab.librewolf-community \
 	org.ferdium.Ferdium \
 	org.mozilla.firefox \

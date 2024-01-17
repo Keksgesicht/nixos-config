@@ -1,4 +1,4 @@
-#!/run/current-system/sw/bin/bash
+#!/usr/bin/env bash
 
 flatpak remote-add --if-not-exists \
 	'flathub' \

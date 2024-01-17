@@ -2,6 +2,8 @@
 
 set -ex
 
+TMP2_LIB_FILE="/run/current-system/sw/lib/libtpm2_pkcs11.so"
+
 your_sopin() {
 	[ -n "${YOUR_SOPIN}" ] && return
 
@@ -34,7 +36,7 @@ if ! tpm2_ptool listtokens --pid 1 | grep -q 'label: ssh'; then
 		--sopin=${YOUR_SOPIN}
 fi
 
-if ! ssh-keygen -D /run/current-system/sw/lib/libtpm2_pkcs11.so 2>/dev/null | grep -q 'tpm2@'; then
+if ! ssh-keygen -D ${TMP2_LIB_FILE} 2>/dev/null | grep -q 'tpm2@'; then
 	your_pin
 
 	tpm2_ptool addkey \
@@ -45,4 +47,5 @@ if ! ssh-keygen -D /run/current-system/sw/lib/libtpm2_pkcs11.so 2>/dev/null | gr
 fi
 
 # copy this to remote ~/.config/ssh/tpm2_ecc256.pub
-ssh-keygen -D /run/current-system/sw/lib/libtpm2_pkcs11.so 2>/dev/null | tee ${XDG_CONFIG_HOME}/ssh/tpm2_ecc256.pub
+ssh-keygen -D ${TMP2_LIB_FILE} 2>/dev/null | \
+	tee ${XDG_CONFIG_HOME}/ssh/tpm2_ecc256.pub

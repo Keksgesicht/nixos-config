@@ -2,10 +2,14 @@
 
 sudo mkdir -p /tmp/secrets
 
-ssh cookieclicker sudo -S tar -C /home/keks/git/nixos/config/secrets -cf - --zstd . | \
+ssh cookieclicker \
+	sudo -S \
+		tar -C /home/keks/git/hdd/nixos/config/secrets -cf - --zstd . | \
 	sudo tar -C /tmp/secrets -xf - --zstd
 
-sudo rsync -rlptv --delete /tmp/secrets/ ~/git/nixos/config/secrets/
+sudo rsync -rlptv --delete \
+	/tmp/secrets/ \
+	~/git/hdd/nixos/config/secrets/
 
 sudo rm -r /tmp/secrets
 

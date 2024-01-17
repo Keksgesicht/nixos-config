@@ -1,11 +1,13 @@
-#!/bin/bash -e
+#!/usr/bin/env bash -e
 
 if [ $(id -u) != 0 ]; then
 	echo "please rerun as root!"
 	exit 1
 fi
 
-secboot_status=$(bootctl status 2>/dev/null | awk -F':' '$1 ~ /Secure Boot/ {print $2}' | awk '{print $1}')
+secboot_status=$(bootctl status 2>/dev/null | \
+                 awk -F':' '$1 ~ /Secure Boot/ {print $2}' | \
+                 awk '{print $1}')
 if [ "$secboot_status" == "disabled" ]; then
 	echo "WARNING: secure boot not enabled!"
 	tpm_regs="0+1+2+3+5+6"

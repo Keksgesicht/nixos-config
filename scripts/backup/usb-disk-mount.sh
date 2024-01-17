@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # open luks partition
-$AUTH cryptsetup open ${dpart} 'usb-backup'
+dev_path="/dev/disk/by-label/usb-backup-luks"
+$AUTH cryptsetup open ${dev_path} 'usb-backup'
 
 # mount filesystems
 $AUTH mount /mnt/backup/USB/data
