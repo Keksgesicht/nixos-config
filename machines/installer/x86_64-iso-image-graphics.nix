@@ -26,7 +26,7 @@
     ../system/qemu-user-binfmt.nix
   ];
 
-  environment.systemPackages = with pkgs; [
+  users.users."${username}".packages = with pkgs; [
     firefox
     librewolf
     ungoogled-chromium

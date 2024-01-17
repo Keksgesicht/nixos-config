@@ -1,4 +1,4 @@
-{ config, pkgs, home-dir, ...}:
+{ config, pkgs, username, home-dir, ...}:
 
 let
   xdg-data = "${home-dir}/.local/share";
@@ -16,12 +16,24 @@ in
       pkgs.xdg-desktop-portal-gtk
     ];
   };
+
   # https://nixos.wiki/wiki/KDE#GTK_themes_are_not_applied_in_Wayland_applications
   programs.dconf.enable = true;
   environment.sessionVariables = {
     GTK_USE_PORTAL    = "1";
     GTK_THEME_VARIANT = "dark";
   };
+
+  users.users."${username}".packages = with pkgs; [
+    aspell
+    aspellDicts.en
+    aspellDicts.en-computers
+    aspellDicts.en-science
+    aspellDicts.de
+    #hunspell
+    #hunspellDicts.en_US
+    #hunspellDicts.de_DE
+  ];
 
   fonts = {
     # https://nixos.wiki/wiki/Fonts#Flatpak_applications_can.27t_find_system_fonts

@@ -27,12 +27,16 @@ in
   users.users."${username}".packages = with pkgs; [
     gnome.gnome-calculator
     keepassxc
+    meld
     nextcloud-client
     #pdfdiff
     pdfgrep
     pympress
     qrencode
     silence-cutter
+    (ventoy.override {
+      withQt5 = (config.services.xserver.enable);
+    })
     waypipe
     wireguard-tools
     xorg.xlsclients

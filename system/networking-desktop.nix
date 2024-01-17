@@ -1,9 +1,7 @@
-# file: system/neworking.nix
-# desc: connecting with LAN and internet (e.g., ip addr, firewall, services)
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, username, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
+  users.users."${username}".packages = with pkgs; [
     cacert.unbundled
     dig
     ethtool
@@ -133,9 +131,9 @@
     # Pihole
     "192.168.178.23" = [ "rpi.pihole.local" ];
     "172.23.53.1" = [ "docker.pihole.local" ];
-
     # Router
     "192.168.178.1" = [ "fritz.box" ];
+
     # TUDa ESA-Infrastruktur (sshuttle)
     "10.5.0.38" = [ "gitlab.esa.informatik.tu-darmstadt.de" ];
   };

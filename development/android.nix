@@ -1,7 +1,7 @@
-{ config, pkgs, ...}:
+{ config, pkgs, username, ...}:
 
 {
-  environment.systemPackages = with pkgs; [
+  users.users."${username}".packages = with pkgs; [
     # https://nixos.wiki/wiki/WayDroid#Clipboard_sharing
     wl-clipboard
   ];

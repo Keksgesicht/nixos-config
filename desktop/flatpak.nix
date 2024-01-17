@@ -1,12 +1,10 @@
-# file: packages/flatpak-flathub.nix
-
-{ config, pkgs, ...}:
+{ config, pkgs, username, ... }:
 
 let
   flatpak-overrides = pkgs.callPackage ../packages/flatpak-overrides.nix {};
 in
 {
-  environment.systemPackages = with pkgs; [
+  users.users."${username}".packages = with pkgs; [
     (callPackage ../packages/flatpak-rollback.nix {})
   ];
 

@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, username, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
+  users.users."${username}".packages = with pkgs; [
     piper
   ];
 

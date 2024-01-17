@@ -1,4 +1,4 @@
-{ config, pkgs, username, home-dir, ...}:
+{ config, pkgs, username, home-dir, ... }:
 
 let
   xdg-config = "${home-dir}/.config";

@@ -1,4 +1,4 @@
-{ config, pkgs, ...}:
+{ config, pkgs, username, ...}:
 
 {
   virtualisation = {
@@ -30,7 +30,7 @@
     oci-containers.backend = "podman";
   };
 
-  environment.systemPackages = with pkgs; [
+  users.users."${username}".packages = with pkgs; [
     docker-compose
     podman-compose
   ];

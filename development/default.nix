@@ -4,7 +4,7 @@
   imports = [
     #./android.nix
     ./base-devel.nix
-    ./desktop.nix
+    ./gnupg.nix
     ./neovim.nix
     ./NixOS-wrappers
     ./tmux.nix
