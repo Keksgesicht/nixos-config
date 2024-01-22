@@ -1,6 +1,8 @@
 + /etc
 + /etc/cron.*
 + /etc/cron.*/mailcow*
++ /etc/network/if-up.d/99-additional-ipv6
++ /etc/network/interfaces.d/50-cloud-init
 + /etc/systemd
 + /etc/systemd/journald.conf
 + /mnt
@@ -8,6 +10,7 @@
 + /mnt/backup/mailcow/***
 + /opt
 + /opt/mailcow-dockerized/***
++ /opt/tandoor-recipes/***
 + /root
 + /root/.bashrc
 + /root/.profile
