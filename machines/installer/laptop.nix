@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./laptop/tuxedo.nix
+    ../../hardware/laptop/tuxedo.nix
   ];
 
   environment.systemPackages = with pkgs; [

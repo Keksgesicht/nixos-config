@@ -1,7 +1,4 @@
-# file: nix/nix.nix
-# desc: basic settings for nix tools itself
-
-{ config, pkgs, ... }:
+{ config, ... }:
 
 {
   imports = [

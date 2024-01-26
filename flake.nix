@@ -71,7 +71,32 @@
       };
     in
     {
-      # sudo nixos-rebuild test -L --impure --flake .
+      # nix build -L .#nixosConfigurations."live-cd".config.system.build.toplevel
+      "live-cd" = nixpkgs-stable.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = myArgs // {
+          inherit inputs;
+          inherit system;
+        };
+        modules = [
+          ./machines/installer
+          home-manager.nixosModules.home-manager
+        ];
+      };
+      "live-cd-graphics" = nixpkgs-stable.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = myArgs // {
+          inherit inputs;
+          inherit system;
+        };
+        modules = [
+          ./machines/installer
+          ./machines/installer/graphics.nix
+          home-manager.nixosModules.home-manager
+        ];
+      };
+
+      # sudo nixos-rebuild --flake . test -L
       "cookieclicker" = nixpkgs-unstable.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = myArgs // {
