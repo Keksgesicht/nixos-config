@@ -20,14 +20,15 @@ in
         description = "Setup new subvolume for /";
         unitConfig = {
           DefaultDependencies = false;
-          # only exists in initrd, so this should not be needed
-          #RefuseManualStart   = true;
-          #RefuseManualStop    = true;
         };
         wantedBy = [ "initrd-root-device.target" ];
         after    = [ "initrd-root-device.target" ];
-        before   = [ "initrd-root-fs.target" "sysroot.mount" ];
-        serviceConfig = { Type = "oneshot"; };
+        before     = [ "initrd-root-fs.target" "sysroot.mount" ];
+        requiredBy = [ "initrd-root-fs.target" "sysroot.mount" ];
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+        };
         path = with pkgs; [
           btrfs-progs
           coreutils
@@ -106,7 +107,6 @@ in
         "/etc/secureboot"
         "/etc/unCookie"
         "/var/lib/bluetooth"
-        "/var/lib/containers"
         "/var/lib/flatpak"
         "/var/lib/systemd/backlight"
         "/var/lib/systemd/timers"
