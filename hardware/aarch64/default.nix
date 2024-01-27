@@ -1,10 +1,7 @@
-{ config, lib, ... }:
+{ config, ... }:
 
 {
   imports = [
     ./binfmt.nix
-    ../.
   ];
-
-  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }

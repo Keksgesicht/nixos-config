@@ -118,8 +118,7 @@ in
     "com.axosoft.GitKraken" = {
       exec = (lib.concatStringsSep " " [
         "${pkgs.flatpak}/bin/flatpak" "run"
-        "--branch=stable" "--arch=x86_64"
-        "--command=gitkraken" "--file-forwarding" "com.axosoft.GitKraken"
+        "--file-forwarding" "com.axosoft.GitKraken"
         "--enable-features=UseOzonePlatform" "--ozone-platform=wayland"
         "@@u %U @@"
       ]);
@@ -142,8 +141,7 @@ in
     "com.heroicgameslauncher.hgl" = {
       exec = (lib.concatStringsSep " " [
         "${pkgs.flatpak}/bin/flatpak" "run"
-        "--branch=stable" "--arch=x86_64"
-        "--command=heroic-run" "com.heroicgameslauncher.hgl"
+        "com.heroicgameslauncher.hgl"
         "--enable-features=UseOzonePlatform" "--ozone-platform=wayland"
       ]);
       name = "Heroic Games Launcher";
@@ -165,8 +163,7 @@ in
     "org.ferdium.Ferdium" = {
       exec = (lib.concatStringsSep " " [
         "${pkgs.flatpak}/bin/flatpak" "run"
-        "--branch=stable" "--arch=x86_64"
-        "--command=ferdium" "--file-forwarding" "org.ferdium.Ferdium"
+        "--file-forwarding" "org.ferdium.Ferdium"
         "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations"
         "--ozone-platform-hint=auto"
         "@@u %U @@"
@@ -193,8 +190,7 @@ in
     "com.obsproject.Studio" = {
       exec = (lib.concatStringsSep " " [
         "${pkgs.flatpak}/bin/flatpak" "run"
-        "--branch=stable" "--arch=x86_64"
-        "--command=obs" "com.obsproject.Studio"
+        "com.obsproject.Studio"
         "--profile" "\"Default\"" "--collection" "\"Default\""
       ]);
       name = "OBS Studio";
@@ -215,8 +211,7 @@ in
     "io.gitlab.librewolf-community" = {
       exec = (lib.concatStringsSep " " [
         "${pkgs.flatpak}/bin/flatpak" "run"
-        "--branch=stable" "--arch=x86_64"
-        "--command=librewolf" "--file-forwarding" "io.gitlab.librewolf-community"
+        "--file-forwarding" "io.gitlab.librewolf-community"
         "@@u %U @@"
       ]);
       name = "LibreWolf";
@@ -248,16 +243,14 @@ in
           name = "Open a New Window";
           exec = (lib.concatStringsSep " " [
             "${pkgs.flatpak}/bin/flatpak" "run"
-            "--branch=stable" "--arch=x86_64"
-            "--command=librewolf" "--file-forwarding" "io.gitlab.librewolf-community"
+            "--file-forwarding" "io.gitlab.librewolf-community"
           ]);
         };
         "new-private-window" = {
           name = "Open a New Private Window";
           exec = (lib.concatStringsSep " " [
             "${pkgs.flatpak}/bin/flatpak" "run"
-            "--branch=stable" "--arch=x86_64"
-            "--command=librewolf" "--file-forwarding" "io.gitlab.librewolf-community"
+            "--file-forwarding" "io.gitlab.librewolf-community"
             "--private-window"
           ]);
         };
@@ -265,8 +258,7 @@ in
           name = "Open the Profile Manager";
           exec = (lib.concatStringsSep " " [
             "${pkgs.flatpak}/bin/flatpak" "run"
-            "--branch=stable" "--arch=x86_64"
-            "--command=librewolf" "--file-forwarding" "io.gitlab.librewolf-community"
+            "--file-forwarding" "io.gitlab.librewolf-community"
             "--ProfileManager"
           ]);
         };

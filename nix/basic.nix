@@ -1,8 +1,26 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, system, ... }:
 
+let
+  pkgsAllowedUnfree = [
+    pkgs.corefonts
+    pkgs.steamPackages.steam
+  ];
+
+  my-functions = (import ./my-functions.nix lib);
+in
+with my-functions;
 {
-  # allow packages with closed source code or paid products
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    # allow packages with closed source code or paid products
+    config.allowUnfreePredicate = (pkg: builtins.elem
+      (lib.getName pkg)
+      (forEach pkgsAllowedUnfree (x: lib.getName x))
+    );
+    # set hardware architecture and os platform
+    hostPlatform = {
+      inherit system;
+    };
+  };
 
   nix = {
     # https://discord.com/channels/@me/998534079425286214/1135687806459584662

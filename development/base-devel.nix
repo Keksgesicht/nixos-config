@@ -24,7 +24,6 @@
     sshuttle
     strace
     unixtools.xxd
-    unrar
     unzip
     xdot
     zellij
