@@ -16,6 +16,7 @@ Last Session=default
 Modified Notification=false
 Mouse back button action=0
 Mouse forward button action=0
+Open New Tab To The Right Of Current=false
 Output History Limit=100
 Quickopen Filter Mode=0
 Quickopen List Mode=true
@@ -221,6 +222,29 @@ showFullPathOnRoots=true
 showToolbar=true
 sortRole=0
 viewShade=193,208,209
+
+[lspclient]
+AllowedServerCommandLines=
+AutoHover=true
+AutoImport=true
+BlockedServerCommandLines=
+CompletionDocumentation=true
+CompletionParens=true
+Diagnostics=true
+FormatOnSave=false
+HighlightGoto=true
+IncrementalSync=false
+InlayHints=false
+Messages=true
+ReferencesDeclaration=true
+SemanticHighlighting=true
+ServerConfiguration=
+SignatureHelp=true
+SymbolDetails=false
+SymbolExpand=true
+SymbolSort=false
+SymbolTree=true
+TypeFormatting=false
 
 [project]
 autorepository=git

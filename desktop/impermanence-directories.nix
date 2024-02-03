@@ -102,6 +102,7 @@ with my-functions;
           ".config/gtk-2.0"
           ".config/gtk-3.0"
           ".config/gtk-4.0"
+          ".config/kate"
           ".config/KDE"
           ".config/kde.org"
           ".config/kdeconnect"
@@ -112,9 +113,7 @@ with my-functions;
           ".config/xscreensaver"
 
           ".local/bin"
-          ".local/share/akonadi"
-          ".local/share/akonadi-davgroupware"
-          ".local/share/baloo"
+          ".local/share/aurorae"
           ".local/share/color-schemes"
           ".local/share/dolphin"
           ".local/share/flatpak/db"
@@ -168,6 +167,13 @@ with my-functions;
   ]
   ++ resetUserDir [
     "${data-dir}/Documents"
+    "${data-dir}/Documents/development"
+    "${data-dir}/Documents/development/git"
+    "${data-dir}/Documents/development/git/nixos"
+    "${data-dir}/Documents/development/git/nixos/config"
+    "${data-dir}/Documents/Studium"
+    "${data-dir}/Documents/Studium/Module"
+
     "${home-dir}/Downloads"
     "${data-dir}/Music"
     "${data-dir}/Pictures"

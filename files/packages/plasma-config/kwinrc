@@ -203,3 +203,5 @@ Scale=1
 BorderSizeAuto=false
 ButtonsOnLeft=MNSH
 ButtonsOnRight=LIAX
+library=org.kde.kwin.aurorae
+theme=__aurorae__svg__Sweet-Dark

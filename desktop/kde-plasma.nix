@@ -46,6 +46,7 @@ with my-functions;
 
   users.users."${username}" = {
     packages = with pkgs.libsForQt5; with pkgs; [
+      discover
       kate
       kruler
       # use digital clock with PIM plugin
