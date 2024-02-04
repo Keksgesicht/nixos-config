@@ -1,5 +1,3 @@
-#!/usr/bin/env bash -e
-
 if [ $(id -u) != 0 ]; then
 	echo "please rerun as root!"
 	exit 1

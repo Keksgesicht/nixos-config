@@ -1,8 +1,9 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash
+
+set -e
 
 SCRIPT_DIR=$(dirname $(realpath $0))
 source ${SCRIPT_DIR}/luks-tpm2-setup
-
 
 # reenroll key to TPM 2.0
 systemd-cryptenroll --wipe-slot=tpm2 ${luks_device}
