@@ -23,12 +23,12 @@
   };
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "altgr-weur";
-    xkbModel = "pc104";
-    xkbVariant = "altgr-weur";
+    model = "pc104";
+    variant = "altgr-weur";
     # disable caps-lock key
-    xkbOptions = "compose:menu,caps:none";
+    options = "compose:menu,caps:none";
     extraLayouts."altgr-weur" = {
       description  = "English (Western European AltGr dead keys)";
       # US-Layout with typical European characters on AltGr combinations
