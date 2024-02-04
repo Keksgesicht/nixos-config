@@ -20,6 +20,9 @@ let
     ];
   };
 
+  trash-dir = "${hdd-mnt}/Trash/1000";
+  git-ssd-dir = "${ssd-mnt}${home-dir}/git";
+
   my-functions = (import ../nix/my-functions.nix lib);
 in
 with my-functions;
@@ -45,13 +48,10 @@ with my-functions;
       device = "${data-dir}/Documents/development/git";
     };
     "${home-dir}/git/ssd" = bind-opts // data-opts // {
-      device = "${ssd-mnt}${home-dir}/git";
+      device = "${git-ssd-dir}";
     };
     "${home-dir}/Module" = bind-opts // data-opts // {
       device = "${data-dir}/Documents/Studium/Module";
-    };
-    "${data-dir}/Pictures/Screenshots" = bind-opts // data-opts // {
-      device = "${ssd-mnt}/root${home-dir}/Pictures/Screenshots";
     };
 
     "${data-dir}/Documents/Gaming" = bind-opts // data-opts // {
@@ -71,11 +71,11 @@ with my-functions;
       device = "${trash-dir}";
     };
     "${home-dir}/Games" = bind-opts // {
+      device = "${nvm-mnt}/Games";
       depends = [
         "${nvm-mnt}"
         "${home-dir}"
       ];
-      device = "${nvm-mnt}/Games";
     };
     "${data-dir}/Pictures/Screenshots" = bind-opts // {
       device = "${ssd-mnt}/root${home-dir}/Pictures/Screenshots";
@@ -93,6 +93,9 @@ with my-functions;
     usernameDir = list: (forEach list (e:
       { directory = "${e}"; user = username; group = username; }
     ));
+    secureHomeDir = list: (forEach list (e:
+      { directory = "${e}"; user = username; group = username; mode = "0700"; }
+    ));
   in
   {
     "${ssd-mnt}" = {
@@ -100,10 +103,8 @@ with my-functions;
       # do not even try using the home-manager impermanence module
       users."${username}" = {
         directories = [
-          ".config/akonadi"
           ".config/dconf"
           ".config/git"
-          { directory = ".config/gnupg"; user = username; group = username; mode = "0700"; }
           ".config/gtk-2.0"
           ".config/gtk-3.0"
           ".config/gtk-4.0"
@@ -111,10 +112,7 @@ with my-functions;
           ".config/KDE"
           ".config/kde.org"
           ".config/kdeconnect"
-          ".config/keepassxc"
           ".config/libaccounts-glib"
-          ".config/Nextcloud"
-          { directory = ".config/ssh"; user = username; group = username; mode = "0700"; }
           ".config/xscreensaver"
 
           ".local/bin"
@@ -128,25 +126,32 @@ with my-functions;
           ".local/share/knewstuff3"
           ".local/share/konsole"
           ".local/share/kscreen"
-          ".local/share/kwalletd"
           ".local/share/kwin"
           ".local/share/kwrite"
           ".local/share/kxmlgui5"
-          ".local/share/Nextcloud"
           ".local/share/nix-cage"
           ".local/share/org.kde.syntax-highlighting"
           ".local/share/plasma"
           ".local/share/plasma-systemmonitor"
           ".local/share/themes"
           ".local/share/waydroid"
-
-          { directory = ".secrets";     user = username; group = username; mode = "0700"; }
-          { directory = ".tpm2_pkcs11"; user = username; group = username; mode = "0700"; }
+        ]
+        ++ secureHomeDir [
+          ".config/akonadi"
+          ".config/gnupg"
+          ".config/keepassxc"
+          ".config/Nextcloud"
+          ".config/ssh"
+          ".local/share/akonadi"
+          ".local/share/akonadi-davgroupware"
+          ".local/share/kwalletd"
+          ".secrets"
+          ".tpm2_pkcs11"
+          ".var/app"
         ]
         ++ usernameDir [
           ".icons"
           ".local/state/wireplumber"
-          ".var/app"
           "background"
           "texmf"
           "WinePrefixes"
@@ -164,13 +169,20 @@ with my-functions;
         "z  ${e} 0755 ${username} ${username} - -"
       ]
     )));
+    secureUserDir = list: (forEach list (e:
+      "d  ${e} 0700 ${username} ${username} - -"
+    ));
   in
-  [
-    "L+ ${data-dir}/devel  - - - - ${data-dir}/Documents/development"
-    "L+ ${data-dir}/git    - - - - ${data-dir}/Documents/development/git"
-    "L+ ${data-dir}/Module - - - - ${data-dir}/Documents/Studium/Module"
-  ]
-  ++ resetUserDir [
+  resetUserDir [
+    # overrides home-dir creation,
+    # but allows SDDM to access ~/.face
+    "${ssd-mnt}/root${home-dir}"
+
+    "${ssd-mnt}/root${home-dir}/git"
+    "${ssd-mnt}/root${home-dir}/Pictures"
+    "${ssd-mnt}/root${home-dir}/Pictures/Screenshots"
+
+
     "${data-dir}/Documents"
     "${data-dir}/Documents/development"
     "${data-dir}/Documents/development/git"
@@ -183,15 +195,20 @@ with my-functions;
     "${data-dir}/Music"
     "${data-dir}/Pictures"
     "${data-dir}/Videos"
-    "${hdd-mnt}/Trash/1000"
-
-    "${ssd-mnt}${home-dir}/git"
-    "${data-dir}/Documents/development/git"
-    "${data-dir}/Documents/Studium/Module"
 
     "${hdd-mnt}/homeGaming/Documents"
     "${hdd-mnt}/homeGaming/Pictures"
     "${hdd-mnt}/homeGaming/Videos"
     "${nvm-mnt}/Games"
-  ];
+  ]
+  ++ secureUserDir [
+    "${trash-dir}"
+    "${ssd-mnt}/root${home-dir}/.cache"
+    "${ssd-mnt}/root${home-dir}/.local/share"
+  ] ++ [
+    "L+ ${data-dir}/devel  - - - - ${data-dir}/Documents/development"
+    "L+ ${data-dir}/git    - - - - ${data-dir}/Documents/development/git"
+    "L+ ${data-dir}/Module - - - - ${data-dir}/Documents/Studium/Module"
+  ]
+  ;
 }
