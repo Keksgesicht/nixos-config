@@ -6,7 +6,7 @@ permissions=user:keks:;
 zone=external
 
 [vpn]
-cacert=/etc/ssl/certs/T-TeleSec_GlobalRoot_Class_2.crt
+ca-cert=/etc/ssl/certs/unbundled/T-TeleSec_GlobalRoot_Class_2.crt
 cookie-flags=2
 enable_csd_trojan=no
 form:main:password-flags=1
