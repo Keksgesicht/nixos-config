@@ -15,3 +15,9 @@ ordering=applications:systemsettings.desktop,applications:com.github.tchx84.Flat
 
 [Favorites-org.kde.plasma.kickoff.favorites.instance-27-global]
 ordering=applications:systemsettings.desktop,applications:com.github.tchx84.Flatseal.desktop,applications:org.kde.discover.desktop,applications:pavucontrol.desktop,applications:patchage.desktop,applications:com.axosoft.GitKraken.desktop,applications:net.davidotek.pupgui2.desktop,applications:com.valvesoftware.Steam.desktop,applications:com.heroicgameslauncher.hgl.desktop,applications:net.lutris.Lutris.desktop,applications:org.prismlauncher.PrismLauncher.desktop,applications:org.signal.Signal.desktop,applications:net.jami.Jami.desktop,applications:dev.vencord.Vesktop.desktop
+
+[Favorites-org.kde.plasma.kickoff.favorites.instance-30-ed353e5a-8fcc-48ba-a2e0-c308d96fdb9d]
+ordering=applications:systemsettings.desktop,applications:com.github.tchx84.Flatseal.desktop,applications:patchage.desktop,applications:pavucontrol.desktop,applications:com.axosoft.GitKraken.desktop,applications:org.kde.discover.desktop,applications:org.signal.Signal.desktop,applications:com.obsproject.Studio.desktop
+
+[Favorites-org.kde.plasma.kickoff.favorites.instance-30-global]
+ordering=applications:systemsettings.desktop,applications:com.github.tchx84.Flatseal.desktop,applications:patchage.desktop,applications:pavucontrol.desktop,applications:com.axosoft.GitKraken.desktop,applications:org.kde.discover.desktop,applications:org.signal.Signal.desktop,applications:com.obsproject.Studio.desktop

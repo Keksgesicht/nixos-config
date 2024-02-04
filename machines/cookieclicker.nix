@@ -12,7 +12,7 @@
     ../desktop/gaming.nix
     ../development
     ../hardware
-    ../hardware/desktop
+    ../hardware/tower
     ../nix
     ../nix/build-cache-server.nix
     ../nix/version-23-05.nix

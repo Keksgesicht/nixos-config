@@ -28,6 +28,7 @@ with my-functions;
       ".config/session/dolphin_dolphin_dolphin"
       ".local/share/user-places.xbel"
     ];
+
     initPlasmaFiles = flatList (forEach (listFilesRec plasma-config) (e:
       let
         eFile = lib.removePrefix "${plasma-config}/" e;
@@ -37,6 +38,13 @@ with my-functions;
         "Z  ${xdgConfig}/${eFile} 0644 ${username} ${username} - -"
       ]
     ));
+
+    appletFile = "${xdgConfig}/plasma-org.kde.plasma.desktop-appletsrc";
+    appletSrcPrefix = "${plasma-config}/plasma-desktop-appletsrc";
+    placePlasmaAppletFile = name: [
+      "C  ${appletFile} - - - - ${appletSrcPrefix}.${name}"
+      "Z  ${appletFile} 0644 ${username} ${username} - -"
+    ];
   in
   [
     "L+ ${home-dir}/.face                     - - - - ${inputs.self}/files/face.png"
@@ -50,5 +58,9 @@ with my-functions;
   ]
   ++ mkSymHomeFiles myHomeFiles
   ++ initPlasmaFiles
+  ++ lib.optionals (config.networking.hostName == "cookieclicker")
+      (placePlasmaAppletFile "tower")
+  ++ lib.optionals (config.networking.hostName == "cookiethinker")
+      (placePlasmaAppletFile "laptop")
   ;
 }
