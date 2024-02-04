@@ -41,7 +41,7 @@ in
     ];
   };
 
-  systemd.tmpfiles.rules = [
+  systemd.tmpfiles.rules = lib.mkAfter [
     "r  ${git-repo}/flake.lock - - - - -"
     "C+ ${git-repo}/flake.lock - - - - ${latest-system-cfg-dir}/flake.lock"
     "Z  ${git-repo}/flake.lock 0644 ${username} ${username} - -"

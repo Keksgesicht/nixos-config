@@ -1,7 +1,4 @@
-# file: packages/common.nix
-# desc: packages which probably all systems need
-
-{ config, pkgs, ... }:
+{ config, ... }:
 
 {
   imports = [

@@ -1,7 +1,6 @@
 # file: system/systemd.nix
 # desc: changes to systemd, journald, resolved
-
-{ config, pkgs, lib, ...}:
+{ config, ... }:
 
 {
   # desktop / server
