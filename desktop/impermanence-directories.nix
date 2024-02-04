@@ -57,11 +57,18 @@ with my-functions;
     "${data-dir}/Documents/Gaming" = bind-opts // data-opts // {
       device = "${hdd-mnt}/homeGaming/Documents";
     };
-    "${data-dir}/Videos/Gaming" = bind-opts // data-opts // {
-      device = "${hdd-mnt}/homeGaming/Videos";
-    };
     "${data-dir}/Pictures/Gaming" = bind-opts // data-opts // {
       device = "${hdd-mnt}/homeGaming/Pictures";
+    };
+    "${data-dir}/Videos/Gaming/Desktop" = bind-opts // data-opts // {
+      device = "${hdd-mnt}/homeGaming/Videos/Desktop";
+    };
+    "${data-dir}/Videos/Gaming/sandbox" = bind-opts // data-opts // {
+      device = "${hdd-mnt}/homeGaming/Videos/sandbox";
+    };
+
+    "${home-dir}/.local/share/Trash" = bind-opts // data-opts // {
+      device = "${trash-dir}";
     };
     "${home-dir}/Games" = bind-opts // {
       depends = [
@@ -70,13 +77,11 @@ with my-functions;
       ];
       device = "${nvm-mnt}/Games";
     };
-
-    "${home-dir}/.local/share/Trash" = data-opts // {
-      device = "${hdd-mnt}/Trash/1000";
-      fsType = "none";
-      options = bind-opt ++ [
-        "uid=${username}"
-        "gid=${username}"
+    "${data-dir}/Pictures/Screenshots" = bind-opts // {
+      device = "${ssd-mnt}/root${home-dir}/Pictures/Screenshots";
+      depends = [
+        "${nvm-mnt}"
+        "${data-dir}"
       ];
     };
   };
