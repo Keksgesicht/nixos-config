@@ -78,36 +78,30 @@ wmclass=vlc
 wmclassmatch=1
 
 [5]
-Description=Window settings for firefox
+Description=Window settings for org.mozilla.firefox
 clientmachine=localhost
 desktops=e134cfca-0b72-44b8-b120-0870feec7d94
-desktopsrule=3
 ignoregeometry=true
 ignoregeometryrule=2
-maximizevert=true
-maximizevertrule=3
-position=70,2160
+position=72,2162
 positionrule=3
-size=1690,1440
+size=1687,1436
 sizerule=3
 title=Mozilla Firefox
-titlematch=2
 types=1
-windowrole=msgcompose
-wmclass=firefox
+windowrole=pop-up
+wmclass=\sorg.mozilla.firefox
+wmclasscomplete=true
 wmclassmatch=1
 
 [6]
 Description=Window settings for org.kde.dolphin
 clientmachine=localhost
-desktops=\\0
 ignoregeometry=true
 ignoregeometryrule=2
-placement=8
-position=1618,845
 size=1325,1000
 sizerule=3
-title=New Tab - Chromium
+title=New Tab
 windowrole=pop-up
 wmclass=dolphin org.kde.dolphin
 wmclasscomplete=true
@@ -146,6 +140,7 @@ wmclassmatch=1
 
 [9]
 Description=Akonadi - Confirm Website Access
+above=true
 clientmachine=localhost
 ignoregeometry=true
 maximizehoriz=true
@@ -165,3 +160,17 @@ windowrole=msgcompose
 [General]
 count=9
 rules=1,2,3,4,5,6,7,8,9
+
+[c0a4e141-a164-400e-9a46-352b1294bbbd]
+Description=Window settings for org.mozilla.firefox
+ignoregeometry=true
+ignoregeometryrule=2
+position=72,2162
+positionrule=3
+size=1687,1436
+sizerule=3
+title=Mozilla Firefox
+types=1
+wmclass=\sorg.mozilla.firefox
+wmclasscomplete=true
+wmclassmatch=1
