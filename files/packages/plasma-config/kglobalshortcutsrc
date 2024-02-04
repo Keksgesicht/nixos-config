@@ -316,14 +316,14 @@ _k_friendly_name=Emoji Selector
 _launch=Meta+.,none,
 
 [org.kde.spectacle.desktop]
-ActiveWindowScreenShot=Meta+Print,none,
-CurrentMonitorScreenShot=Ctrl+Print,none,
-FullScreenScreenShot=Shift+Print,none,
-OpenWithoutScreenshot=Print,none,
-RectangularRegionScreenShot=Meta+Shift+S\tMeta+Shift+Print,none,
-WindowUnderCursorScreenShot=Meta+Ctrl+Print,none,
+ActiveWindowScreenShot=Meta+Print,Meta+Print,Capture Active Window
+CurrentMonitorScreenShot=Ctrl+Print,none,Capture Current Monitor
+FullScreenScreenShot=Shift+Print,Shift+Print,Capture Entire Desktop
+OpenWithoutScreenshot=Print,none,Launch Spectacle without capturing
+RectangularRegionScreenShot=Meta+Shift+S\tMeta+Shift+Print,Meta+Shift+Print,Capture Rectangular Region
+WindowUnderCursorScreenShot=Meta+Ctrl+Print,Meta+Ctrl+Print,Capture Window Under Cursor
 _k_friendly_name=Spectacle
-_launch=none,none,
+_launch=none,Print,Launch Spectacle
 
 [org.keepassxc.KeePassXC.desktop]
 _k_friendly_name=KeePassXC
@@ -354,7 +354,7 @@ activate task manager entry 6=Meta+6,Meta+6,Activate Task Manager Entry 6
 activate task manager entry 7=Meta+7,Meta+7,Activate Task Manager Entry 7
 activate task manager entry 8=Meta+8,Meta+8,Activate Task Manager Entry 8
 activate task manager entry 9=Meta+9,Meta+9,Activate Task Manager Entry 9
-activate widget 170=Alt+F1,none,Activate Application Launcher Widget
+activate widget 30=Alt+F1,none,Activate Application Launcher Widget
 activate widget 186=Meta+Alt+C,none,Activate Digital Clock Widget
 clear-history=none,none,
 clipboard_action=Ctrl+Alt+X,none,
@@ -365,7 +365,7 @@ edit_clipboard=none,none,
 manage activities=Meta+Q,Meta+Q,Show Activity Switcher
 next activity=Meta+Tab,none,Walk through activities
 previous activity=Meta+Shift+Tab,none,Walk through activities (Reverse)
-repeat_action=Ctrl+Alt+R,none,
+repeat_action=Ctrl+Alt+R,none,Manually Invoke Action on Current Clipboard
 show dashboard=Ctrl+F12,Ctrl+F12,Show Desktop
 show-barcode=none,none,
 show-on-mouse-pos=none,none,
