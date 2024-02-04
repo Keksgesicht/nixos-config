@@ -20,7 +20,6 @@ with my-functions;
       ".config/akonadi_davgroupware_resource_0rc"
       ".config/filetypesrc"
       ".config/gwenviewrc"
-      ".config/kactivitymanagerd-statsrc"
       ".config/kwalletrc"
       ".config/merkuro.calendarrc"
       ".config/mimeapps.list"
