@@ -211,4 +211,8 @@ with my-functions;
     "L+ ${data-dir}/Module - - - - ${data-dir}/Documents/Studium/Module"
   ]
   ;
+
+  # disable home-dir create,
+  # as this is done by systemd-tmpfiles now.
+  users.users."${username}".createHome = lib.mkForce false;
 }
