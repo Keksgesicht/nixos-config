@@ -7,6 +7,7 @@
 
 let
   link-dir = "/mnt/user";
+  etc-nmsc = "/etc/NetworkManager/system-connections";
 
   ssd-fs-cfg = config.fileSystems."${ssd-mnt}";
   ssd-fs-opt-str = (lib.concatStringsSep "," ssd-fs-cfg.options);
@@ -82,7 +83,24 @@ in
     };
   };
 
-  fileSystems = {
+  fileSystems =
+  let
+    mkBootBind = (dir: {
+      device = "${ssd-mnt}${dir}";
+      fsType = "none";
+      options = [
+        "bind"
+        "nofail"
+        "x-gvfs-hide"
+      ];
+      depends = [
+        "${ssd-mnt}"
+        "/"
+      ];
+      neededForBoot = true;
+    });
+  in
+  {
     "/" = {
       device = ssd-fs-cfg.device;
       fsType = ssd-fs-cfg.fsType;
@@ -93,6 +111,7 @@ in
         "nosuid"
       ];
     };
+    "${etc-nmsc}" = mkBootBind "${etc-nmsc}";
   };
 
   environment.persistence = {
@@ -169,5 +188,8 @@ in
 
     # suppress warning/info after every reboot
     "f+ /var/db/sudo/lectured/1000 - - - - -"
+
+    # reset permissions for NM connections
+    "z ${etc-nmsc} 0700 root root -"
   ];
 }
