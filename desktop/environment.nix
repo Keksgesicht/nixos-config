@@ -37,10 +37,10 @@
       enable = true;
       desktop   = "$HOME/Desktop";
       download  = "$HOME/Downloads";
-      documents = "${data-dir}/Documents";
-      music     = "${data-dir}/Music";
-      pictures  = "${data-dir}/Pictures";
-      videos    = "${data-dir}/Videos";
+      documents = "$HOME/Documents";
+      music     = "$HOME/Music";
+      pictures  = "$HOME/Pictures";
+      videos    = "$HOME/Videos";
       publicShare = "$HOME/Public";
       templates   = "$HOME/Templates";
     };
