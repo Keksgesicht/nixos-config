@@ -170,7 +170,7 @@ immutability=1
 plugin=org.kde.plasma.systemtray
 
 [Containments][29][Applets][34][Configuration]
-PreloadWeight=80
+PreloadWeight=100
 SystrayContainmentId=35
 
 [Containments][29][Applets][47]
@@ -360,7 +360,7 @@ immutability=1
 plugin=org.kde.plasma.systemtray
 
 [Containments][3][Applets][8][Configuration]
-PreloadWeight=95
+PreloadWeight=100
 SystrayContainmentId=9
 
 [Containments][3][General]
@@ -426,6 +426,7 @@ plugin=org.kde.plasma.volume
 
 [Containments][35][Applets][46][Configuration][General]
 migrated=true
+showVirtualDevices=true
 
 [Containments][35][Applets][49]
 immutability=1
@@ -645,6 +646,7 @@ plugin=org.kde.plasma.volume
 
 [Containments][60][Applets][71][Configuration][General]
 migrated=true
+showVirtualDevices=true
 
 [Containments][60][Applets][74]
 immutability=1
@@ -864,7 +866,9 @@ immutability=1
 plugin=org.kde.plasma.volume
 
 [Containments][9][Applets][20][Configuration][General]
+currentTab=streams
 migrated=true
+showVirtualDevices=true
 
 [Containments][9][Applets][23]
 immutability=1
