@@ -11,5 +11,6 @@
     ../services/btrfs.nix
     ../services/firmware.nix
     ../services/monitoring.nix
+    ../services/power-management.nix
   ];
 }
