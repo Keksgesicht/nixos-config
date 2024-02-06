@@ -12,6 +12,7 @@
     imports = [
       ((import ./applications.desktop.nix) username)
       ((import ./autostart.nix) config username)
+      ./mimeapps.nix
     ];
   };
 

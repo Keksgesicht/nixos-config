@@ -1,3 +1,5 @@
+# ~/.config/autostart/
+# https://nix-community.github.io/home-manager/options.xhtml#opt-xdg.configFile
 systemConfig: username:
 { config, ... }:
 

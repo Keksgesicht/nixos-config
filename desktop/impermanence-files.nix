@@ -22,7 +22,6 @@ with my-functions;
       ".config/gwenviewrc"
       ".config/kwalletrc"
       ".config/merkuro.calendarrc"
-      ".config/mimeapps.list"
       ".config/plasma_calendar_holiday_regions"
       ".config/plasmashellrc"
       ".config/session/dolphin_dolphin_dolphin"
