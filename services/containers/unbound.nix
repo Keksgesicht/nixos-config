@@ -1,6 +1,7 @@
 { config, pkgs, lib, ssd-mnt, ... }:
 
 let
+  cookie-dir = "/etc/unCookie";
   cookie-pkg = (pkgs.callPackage ../../packages/unCookie.nix {});
   cc-dir = "${cookie-pkg}/containers";
 in
@@ -24,7 +25,7 @@ in
           set -e
           set -o pipefail
 
-          HASHFILE="/etc/unCookie/root-dns-server.hash"
+          HASHFILE="${cookie-dir}/root-dns-server.hash"
           mkdir -p $(dirname $HASHFILE)
 
           URL="https://www.internic.net/domain/named.cache"

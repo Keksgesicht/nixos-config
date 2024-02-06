@@ -4,8 +4,8 @@ let
   update-days = (builtins.head (builtins.split " " config.system.autoUpgrade.dates));
   image-updater = (pkgs.callPackage ../../packages/containers/image-updater.nix {});
 
+  cookie-dir = "/etc/unCookie";
   cookie-pkg = (pkgs.callPackage ../../packages/unCookie.nix {});
-  cc-dir = "${cookie-pkg}/containers";
 in
 {
   environment.etc = {
@@ -27,7 +27,7 @@ in
         ProtectProc  = "invisible";
 
         ReadOnlyPaths  = "/";
-        ReadWritePaths = "${cc-dir}";
+        ReadWritePaths = "${cookie-dir}/containers";
         #TemporaryFileSystem = "/etc:ro";
       };
     };
