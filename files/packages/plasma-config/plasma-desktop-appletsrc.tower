@@ -124,7 +124,7 @@ plugin=org.kde.plasma.systemmonitor
 
 [Containments][29][Applets][32][Configuration]
 CurrentPreset=org.kde.plasma.systemmonitor
-PreloadWeight=65
+PreloadWeight=70
 
 [Containments][29][Applets][32][Configuration][Appearance]
 chartFace=org.kde.ksysguard.linechart
@@ -178,7 +178,7 @@ immutability=1
 plugin=org.kde.plasma.digitalclock
 
 [Containments][29][Applets][47][Configuration]
-PreloadWeight=90
+PreloadWeight=95
 popupHeight=450
 popupWidth=810
 
@@ -227,7 +227,7 @@ plugin=org.kde.plasma.systemmonitor
 
 [Containments][3][Applets][109][Configuration]
 CurrentPreset=org.kde.plasma.systemmonitor
-PreloadWeight=55
+PreloadWeight=70
 
 [Containments][3][Applets][109][Configuration][Appearance]
 chartFace=org.kde.ksysguard.linechart
@@ -303,7 +303,9 @@ popupHeight=450
 popupWidth=932
 
 [Containments][3][Applets][21][Configuration][Appearance]
+customDateFormat=ddd dd.MM.yy
 dateDisplayFormat=BelowTime
+dateFormat=custom
 enabledCalendarPlugins=/usr/lib/qt/plugins/plasmacalendarplugins/astronomicalevents.so,/usr/lib/qt/plugins/plasmacalendarplugins/holidaysevents.so,/usr/lib/qt/plugins/plasmacalendarplugins/pimevents.so
 firstDayOfWeek=1
 showSeconds=true
