@@ -25,15 +25,14 @@ tmp_file_endings="$(dirname $(realpath $0))/../cfg/LaTex"
 tmp_file_dir=$(mktemp)
 cat << 'EOF' > $tmp_file_dir
 array/homeBraunJan/Documents/Studium/Module
-array/homeBraunJan/Documents/Office/Finanzen/Freiberufler
+array/homeBraunJan/Documents/Office
 array/homeBraunJan/Documents/development/git/Studium
 EOF
 
 IFS=$'\n'   # forloop separator - only newlines
 for dir in $(cat $tmp_file_dir); do
-	for file in $(plocate '*/'"${dir}"'/*/*.tex'); do
+	for file in $(plocate '*/'"${dir}"'/*.tex'); do
 		texdir=$(dirname "${file}")
-		cd "${texdir}"
 		for end in $(cat $tmp_file_endings); do
 			find "${texdir}" -maxdepth 1 -type f -name '*.'"${end}" -print -delete
 		done
@@ -45,10 +44,11 @@ rm $tmp_file_dir
 
 ### only keep newest version of nextcloud or mobile phone backups
 if [ -d "/mnt/array/appdata2/nextcloud" ]; then
+	sleep 3s
 	while ! systemctl is-active podman-nextcloud.service; do
 		sleep 5s
 	done
-	sleep 10s
+	sleep 3s
 
 	##
 	### Cleanup older Backups in Nextcloud

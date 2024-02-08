@@ -14,7 +14,12 @@
           pkgs.plocate
           pkgs.podman
         ];
+        wants = [
+          "update-locatedb.service"
+        ];
         after = [
+          "update-locatedb.service"
+          "podman-nextcloud.service"
           "mnt-${ssd-name}.mount"
           "mnt-${hdd-name}.mount"
           "backup-snapshot@${ssd-name}.service"
@@ -52,6 +57,7 @@
       # script in unit above needs updatedb/locate
       "update-locatedb" = {
         after = [
+          "mnt-${ssd-name}.mount"
           "mnt-${hdd-name}.mount"
         ];
       };
@@ -87,6 +93,7 @@
     interval = "08:15";
     package = pkgs.plocate;
     localuser = null;
+    output = "${ssd-mnt}/var/cache/locatedb";
     pruneNames = [
       # NixOS default
       # https://search.nixos.org/options?channel=unstable&show=services.locate.pruneNames

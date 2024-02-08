@@ -114,6 +114,7 @@ in
     "${etc-nmsc}" = mkBootBind "${etc-nmsc}";
   };
 
+  # https://github.com/nix-community/impermanence
   environment.persistence = {
     # only start with:
     # /etc -> /mnt/main/etc (BTRFS subvolume)
@@ -138,7 +139,6 @@ in
         "/etc/ssh/ssh_host_ed25519_key.pub"
         "/etc/ssh/ssh_host_rsa_key"
         "/etc/ssh/ssh_host_rsa_key.pub"
-        "/var/cache/locatedb"
         "/var/lib/NetworkManager/NetworkManager.state"
         "/var/lib/rasdaemon/ras-mc_event.db"
         "/var/nix-serve/public-key.pem"
