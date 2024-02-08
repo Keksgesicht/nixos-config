@@ -331,8 +331,8 @@ plugin=org.kde.plasma.kickoff
 
 [Containments][3][Applets][4][Configuration]
 PreloadWeight=100
-popupHeight=512
-popupWidth=663
+popupHeight=603
+popupWidth=1440
 
 [Containments][3][Applets][4][Configuration][General]
 favoritesPortedToKAstats=true
@@ -555,7 +555,7 @@ immutability=1
 plugin=org.kde.plasma.systemtray
 
 [Containments][54][Applets][59][Configuration]
-PreloadWeight=70
+PreloadWeight=80
 SystrayContainmentId=60
 
 [Containments][54][Applets][59][Configuration][General]
@@ -569,7 +569,7 @@ immutability=1
 plugin=org.kde.plasma.digitalclock
 
 [Containments][54][Applets][72][Configuration]
-PreloadWeight=70
+PreloadWeight=75
 popupHeight=450
 popupWidth=810
 
@@ -666,7 +666,7 @@ immutability=1
 plugin=org.kde.plasma.networkmanagement
 
 [Containments][60][Applets][76][Configuration]
-PreloadWeight=55
+PreloadWeight=60
 
 [Containments][60][Applets][77]
 immutability=1
