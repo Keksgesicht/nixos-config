@@ -2,7 +2,7 @@
 shared=network
 sockets=fallback-x11
 devices=dri
-filesystems=/mnt/array/homeBraunJan:ro
+filesystems=xdg-documents:ro;xdg-download:ro;~/git:ro
 
 [Environment]
 MOZ_ENABLE_WAYLAND=1

@@ -1,6 +1,6 @@
 [Context]
 sockets=cups
-filesystems=xdg-documents/Studium;xdg-download;/mnt/array/homeBraunJan:ro
+filesystems=xdg-documents;xdg-download
 
 [Environment]
 XDG_DATA_DIRS=/app/share:/usr/share:/usr/share/runtime/share:/run/host/user-share:/run/host/share:~/.local/share
