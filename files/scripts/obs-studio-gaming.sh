@@ -3,25 +3,12 @@ EXEC_MODE="$1"
 user_id=$(id -u)
 
 include_filter="mnt[\/]ram[\/]Games|org.prismlauncher.PrismLauncher|[\/]WinePrefixes[\/]"
-exclude_filter="Battle\.net|dolphin|d3ddriverquery64.exe|fossilize_replay|grep|konsole|legendary install"
+exclude_filter="grep|konsole|dolphin|Battle\.net|d3ddriverquery64.exe|fossilize_replay|legendary install"
+
 
 run_stop() {
 	nohup bash -c "${EXEC_FILE} stop 2>&1 | logger -t obs-studio-gaming.stopper" >/dev/null &
 	disown
-}
-
-check_games_running() {
-	check_obs
-
-	games_text=$(ps -u ${user_id} -o cmd -w | grep -E "${include_filter}" | grep -Ev "${exclude_filter}")
-	games_count=$(echo -n "${games_text}" | wc -l)
-
-	# only the grep process?
-	if [ ${games_count} -lt 1 ]; then
-		return 1
-	fi
-
-	return 0
 }
 
 check_obs() {
@@ -32,6 +19,15 @@ check_obs() {
 		echo "OBS Studio is not running anymore running"
 		exit 0
 	fi
+}
+
+check_games_running() {
+	check_obs
+
+	games_text=$(ps -u ${user_id} -o cmd -w | grep -E "${include_filter}" | grep -Ev "${exclude_filter}")
+	[ -z "${games_text}" ] && return 1
+
+	return 0
 }
 
 start_obs() {
@@ -66,6 +62,7 @@ run_obs() {
 
 	echo "OBS Studio exited with error code $?"
 }
+
 
 case ${EXEC_MODE} in
 	"start")
