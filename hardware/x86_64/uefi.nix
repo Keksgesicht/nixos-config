@@ -15,11 +15,8 @@
         "tpm_crb"
         "tpm_tis"
       ];
-      kernelModules = [ ];
       systemd.enable = true;
     };
-    kernelModules = [ ];
-    extraModulePackages = [ ];
 
     # Bootloader
     loader = {
