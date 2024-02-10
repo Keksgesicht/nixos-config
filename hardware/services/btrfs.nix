@@ -1,6 +1,12 @@
-{ config, ssd-mnt, hdd-mnt, nvm-mnt, ... }:
+{ config, pkgs, ssd-mnt, hdd-mnt, nvm-mnt, ... }:
 
 {
+  environment.systemPackages = with pkgs; [
+    btrfs-progs
+    compsize
+    duperemove
+  ];
+
   services.btrfs.autoScrub = {
     enable = true;
     # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/tasks/filesystems/btrfs.nix

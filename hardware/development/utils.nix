@@ -2,7 +2,6 @@
 
 {
   environment.systemPackages = with pkgs; [
-    compsize
     dmidecode
     efibootmgr
     e2fsprogs
