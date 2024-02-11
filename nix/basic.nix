@@ -23,20 +23,19 @@ with my-functions;
   };
 
   nix = {
-    # https://discord.com/channels/@me/998534079425286214/1135687806459584662
+    # https://search.nixos.org/options?query=nix.daemon*
     # make system useable during (re)build
     daemonCPUSchedPolicy =
       if (config.services.xserver.enable) then "idle"
-      else "other";
+      else "batch";
     daemonIOSchedClass =
       if (config.services.xserver.enable) then "idle"
       else "best-effort";
     daemonIOSchedPriority =
-      if (config.services.xserver.enable) then 6
+      if (config.services.xserver.enable) then 7
       else 3;
 
-    # https://discord.com/channels/@me/998534079425286214/1135859766376267886
-    # "könnte ordentlich festplattenspeicher sparen" ~Moritz
+    # dublicates by creating hardlinks for matching files
     # $AUTH nix-store --optimise
     settings.auto-optimise-store = true;
 
