@@ -9,9 +9,10 @@ stdenv.mkDerivation {
 
   buildInputs = [ bash ];
   installPhase = ''
-    mkdir -p $out/{bin,lib}
-    cp -r $src/bin/. $out/bin/
-    cp -r $src/lib/. $out/lib/
+    mkdir -p $out/{bin,lib,state}
+    cp -r $src/bin/.   $out/bin/
+    cp -r $src/lib/.   $out/lib/
+    cp -r $src/state/. $out/state/
   '';
 
   meta = with lib; {

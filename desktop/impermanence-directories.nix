@@ -151,7 +151,6 @@ with my-functions;
         ]
         ++ usernameDir [
           ".icons"
-          ".local/state/wireplumber"
           "background"
           "texmf"
           "WinePrefixes"

@@ -4,6 +4,9 @@
 
 let
   xdgConfig = "${home-dir}/.config";
+  xdgState = "${home-dir}/.local/state";
+
+  my-audio = (pkgs.callPackage ../packages/my-audio.nix {});
   plasma-config = (pkgs.callPackage ../packages/plasma-config.nix {});
 
   my-functions = (import ../nix/my-functions.nix lib);
@@ -37,6 +40,15 @@ with my-functions;
         "Z  ${xdgConfig}/${eFile} 0644 ${username} ${username} - -"
       ]
     ));
+    initWireplumberState = flatList (forEach (listFilesRec "${my-audio}/state") (e:
+      let
+        eFile = lib.removePrefix "${my-audio}/state/" e;
+      in
+      [
+        "C  ${xdgState}/wireplumber/${eFile} - - - - ${e}"
+        "Z  ${xdgState}/wireplumber/${eFile} 0644 ${username} ${username} - -"
+      ]
+    ));
 
     appletFile = "${xdgConfig}/plasma-org.kde.plasma.desktop-appletsrc";
     appletSrcPrefix = "${plasma-config}/plasma-desktop-appletsrc";
@@ -54,9 +66,12 @@ with my-functions;
     "f+ ${home-dir}/.zshrc                    - - - - -"
   ] ++ [
     "d  ${home-dir}/.config/session - ${username} ${username} - -"
+    "d  ${xdgState}              0700 ${username} ${username} - -"
+    "d  ${xdgState}/wireplumber     - ${username} ${username} - -"
   ]
   ++ mkSymHomeFiles myHomeFiles
   ++ initPlasmaFiles
+  ++ initWireplumberState
   ++ lib.optionals (config.networking.hostName == "cookieclicker")
       (placePlasmaAppletFile "tower")
   ++ lib.optionals (config.networking.hostName == "cookiethinker")
