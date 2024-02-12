@@ -1,4 +1,4 @@
-{ config, pkgs, lib
+{ config, pkgs, lib, inputs
 , username, home-dir
 , ssd-mnt, ssd-name
 , hdd-mnt, hdd-name
@@ -7,7 +7,9 @@
 
 let
   link-dir = "/mnt/user";
+
   etc-nmsc = "/etc/NetworkManager/system-connections";
+  nm-state-file = "/var/lib/NetworkManager/NetworkManager.state";
 
   ssd-fs-cfg = config.fileSystems."${ssd-mnt}";
   ssd-fs-opt-str = (lib.concatStringsSep "," ssd-fs-cfg.options);
@@ -128,6 +130,7 @@ in
         "/etc/unCookie"
         "/var/lib/bluetooth"
         "/var/lib/flatpak"
+        "/var/lib/rasdaemon"
         "/var/lib/systemd/backlight"
         "/var/lib/systemd/timers"
         "/var/lib/waydroid"
@@ -139,8 +142,6 @@ in
         "/etc/ssh/ssh_host_ed25519_key.pub"
         "/etc/ssh/ssh_host_rsa_key"
         "/etc/ssh/ssh_host_rsa_key.pub"
-        "/var/lib/NetworkManager/NetworkManager.state"
-        "/var/lib/rasdaemon/ras-mc_event.db"
         "/var/nix-serve/public-key.pem"
         "/var/nix-serve/secret-key.pem"
       ];
@@ -192,5 +193,12 @@ in
 
     # reset permissions for NM connections
     "z ${etc-nmsc} 0700 root root -"
-  ];
+  ]
+  # disable WLAN by default on desktop/tower
+  ++ lib.optionals (config.networking.networkmanager.enable
+                && (config.networking.hostName == "cookieclicker"))
+  [
+    "C  ${nm-state-file} - - - - ${inputs.self}/files/linux-root${nm-state-file}"
+  ]
+  ;
 }
