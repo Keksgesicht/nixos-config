@@ -185,8 +185,9 @@ with my-functions;
     "${data-dir}/Documents"
     "${data-dir}/Documents/development"
     "${data-dir}/Documents/development/git"
-    "${data-dir}/Documents/development/git/nixos"
-    "${data-dir}/Documents/development/git/nixos/config"
+    "${data-dir}/Documents/development/git/nix"
+    "${data-dir}/Documents/development/git/nix/config"
+    "${data-dir}/Documents/development/git/nix/config/nixos"
     "${data-dir}/Documents/Studium"
     "${data-dir}/Documents/Studium/Module"
 
