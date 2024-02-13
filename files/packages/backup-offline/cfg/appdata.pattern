@@ -4,6 +4,7 @@
 + /database/nextcloud/***
 + /ddns/***
 + /lancache/***
+- /nextcloud/www/nextcloud/apps
 + /nextcloud/***
 + /pihole/***
 + /redis

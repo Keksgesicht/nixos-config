@@ -38,9 +38,9 @@ in
           pkgs.skopeo
         ];
         environment = {
-          IMAGE_UPSTREAM_HOST = "docker.io";
-          IMAGE_UPSTREAM_NAME = "nextcloud";
-          IMAGE_UPSTREAM_TAG = "stable";
+          IMAGE_UPSTREAM_HOST = "lscr.io";
+          IMAGE_UPSTREAM_NAME = "linuxserver/nextcloud";
+          IMAGE_UPSTREAM_TAG = "latest";
           IMAGE_FINAL_NAME = "localhost/nextcloud";
           IMAGE_FINAL_TAG = "stable";
         };
@@ -73,19 +73,6 @@ in
           IMAGE_UPSTREAM_TAG = "latest";
           IMAGE_FINAL_NAME = "localhost/nextcloud-redis";
           IMAGE_FINAL_TAG = "latest";
-        };
-      };
-      "server-and-config-update@NextcloudUpdates" = {
-        overrideStrategy = "asDropin";
-        path = [
-          pkgs.podman
-        ];
-        description = "Update Nextcloud itself";
-        serviceConfig = {
-          ReadWritePaths = [
-            "${hdd-mnt}/appdata2/nextcloud"
-            "/var/lib/containers/storage"
-          ];
         };
       };
     };
@@ -129,13 +116,11 @@ in
 
       environment = {
         TZ = config.time.timeZone;
-        APACHE_BODY_LIMIT = "4294967296"; # 4G
         #PHP_MEMORY_LIMIT = "512M";
       };
       volumes = [
-        "${ssd-mnt}/appdata/nextcloud/www:/var/www/html"
-        "${ssd-mnt}/appdata/nextcloud/log:/var/log/apache2:z"
-        "${hdd-mnt}/appdata2/nextcloud:/var/www/html/data"
+        "${ssd-mnt}/appdata/nextcloud:/config"
+        "${hdd-mnt}/appdata2/nextcloud:/data"
         "${hdd-mnt}/homeBraunJan:/mnt/external_storage/homeBraunJan:ro"
         "${hdd-mnt}/homeGaming:/mnt/external_storage/homeGaming:ro"
       ];
@@ -145,27 +130,6 @@ in
         "--ip6" "fd00:172:23::443:2"
         "--dns" "172.23.53.2"
         "--dns" "fd00:172:23::aaaa:2"
-      ];
-    };
-
-    "nextcloud-cron" = {
-      autoStart = true;
-      dependsOn = [
-        "nextcloud"
-      ];
-
-      image = "localhost/nextcloud:stable";
-      imageFile = pkgs.dockerTools.pullImage (
-        builtins.fromJSON (builtins.readFile "${cc-dir}/nextcloud.json")
-      );
-
-      entrypoint = "/cron.sh";
-      environment = {
-        TZ = config.time.timeZone;
-      };
-      volumes = [
-        "${ssd-mnt}/appdata/nextcloud/www:/var/www/html"
-        "${hdd-mnt}/appdata2/nextcloud:/var/www/html/data"
       ];
     };
 

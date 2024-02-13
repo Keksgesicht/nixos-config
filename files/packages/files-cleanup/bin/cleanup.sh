@@ -54,7 +54,7 @@ if [ -d "/mnt/array/appdata2/nextcloud" ]; then
 	### Cleanup older Backups in Nextcloud
 	##
 	docexe-nextcloud() {
-		podman exec -w /var/www/html -u www-data nextcloud $@
+		podman exec nextcloud $@
 	}
 
 	### limit Calendar Backups
@@ -66,15 +66,15 @@ if [ -d "/mnt/array/appdata2/nextcloud" ]; then
 		done
 	done
 	IFS=${OLDIFS}
-	docexe-nextcloud ./occ files:scan --path=/janb/files/.Calendar-Backup/ >/dev/null
+	docexe-nextcloud occ files:scan --path=/janb/files/.Calendar-Backup/ >/dev/null
 
 	### limit Contact Backups
 	find /mnt/array/appdata2/nextcloud/janb/files/.Contacts-Backup -type f -name '*.vcf' | \
 		head -n -3 | xargs --no-run-if-empty /bin/rm -v
-	docexe-nextcloud ./occ files:scan --path=/janb/files/.Contacts-Backup/ >/dev/null
+	docexe-nextcloud occ files:scan --path=/janb/files/.Contacts-Backup/ >/dev/null
 
 	### limit Signal Chat Backups
 	find /mnt/array/appdata2/nextcloud/janb/files/InstantUpload/SignalBackup -type f -name 'signal-*.backup' | \
 		head -n -3 | xargs --no-run-if-empty /bin/rm -v
-	docexe-nextcloud ./occ files:scan --path=/janb/files/InstantUpload/SignalBackup/ >/dev/null
+	docexe-nextcloud occ files:scan --path=/janb/files/InstantUpload/SignalBackup/ >/dev/null
 fi
