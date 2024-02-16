@@ -386,6 +386,10 @@ _launch=Meta+Ctrl+Shift+A,none,
 _k_friendly_name=Enable/Disable Bluetooth Device
 _launch=Ctrl+Alt+Shift+B,none,
 
+[rfkill-wlan.desktop]
+_k_friendly_name=Enable/Disable WLAN Device
+_launch=Ctrl+Alt+Shift+W,none,
+
 [save-replay-buffer.sh.desktop]
 _k_friendly_name=Save OBS-Studio ReplayBuffer
 _launch=Alt+F10,none,

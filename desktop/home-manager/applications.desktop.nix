@@ -13,6 +13,7 @@ let
   xs-saver = pkgs.writeShellScriptBin "toggle-xscreensaver.sh" (''
     export PATH=${pkgs.systemd}/bin
   '' + (builtins.readFile ../../files/scripts/toggle-xscreensaver.sh));
+  nm-wifi  = ../../files/scripts/toggle-nm-wifi.sh;
 in
 {
   xdg.desktopEntries = {
@@ -50,6 +51,13 @@ in
     };
     "rfkill-bluetooth" = {
       exec = "rfkill toggle bluetooth";
+      name = "Enable/Disable Bluetooth Device";
+      type = "Application";
+      noDisplay = true;
+      startupNotify = false;
+    };
+    "rfkill-wlan" = {
+      exec = "${nm-wifi}";
       name = "Enable/Disable Bluetooth Device";
       type = "Application";
       noDisplay = true;
