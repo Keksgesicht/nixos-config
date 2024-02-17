@@ -7,12 +7,19 @@ let
   xdgState = "${home-dir}/.local/state";
 
   my-audio = (pkgs.callPackage ../packages/my-audio.nix {});
+  secrets-pkg = (pkgs.callPackage ../packages/my-secrets.nix {});
   plasma-config = (pkgs.callPackage ../packages/plasma-config.nix {});
 
   my-functions = (import ../nix/my-functions.nix lib);
 in
 with my-functions;
 {
+  environment.etc = {
+    "flake-output/my-secrets" = {
+      source = secrets-pkg;
+    };
+  };
+
   # https://www.freedesktop.org/software/systemd/man/latest/tmpfiles.d.html
   systemd.tmpfiles.rules =
   let
@@ -20,15 +27,7 @@ with my-functions;
       "L+ ${home-dir}/${elem} - - - - ${ssd-mnt}${home-dir}/${elem}"
     ));
     myHomeFiles = [
-      ".config/akonadi_davgroupware_resource_0rc"
-      ".config/filetypesrc"
-      ".config/gwenviewrc"
-      ".config/kwalletrc"
-      ".config/merkuro.calendarrc"
-      ".config/plasma_calendar_holiday_regions"
-      ".config/plasmashellrc"
       ".config/session/dolphin_dolphin_dolphin"
-      ".local/share/user-places.xbel"
     ];
 
     initPlasmaFiles = flatList (forEach (listFilesRec plasma-config) (e:
@@ -38,6 +37,15 @@ with my-functions;
       [
         "C  ${xdgConfig}/${eFile} - - - - ${e}"
         "Z  ${xdgConfig}/${eFile} 0644 ${username} ${username} - -"
+      ]
+    ));
+    initSecretFiles = flatList (forEach (listFilesRec "${secrets-pkg}/linux-root/home") (e:
+      let
+        eFile = lib.removePrefix "${secrets-pkg}/linux-root/home/" e;
+      in
+      [
+        "C  ${home-dir}/${eFile} - - - - ${e}"
+        "Z  ${home-dir}/${eFile} 0644 ${username} ${username} - -"
       ]
     ));
     initWireplumberState = flatList (forEach (listFilesRec "${my-audio}/state") (e:
@@ -71,6 +79,7 @@ with my-functions;
   ]
   ++ mkSymHomeFiles myHomeFiles
   ++ initPlasmaFiles
+  ++ initSecretFiles
   ++ initWireplumberState
   ++ lib.optionals (config.networking.hostName == "cookieclicker")
       (placePlasmaAppletFile "tower")
