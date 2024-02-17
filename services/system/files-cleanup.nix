@@ -3,6 +3,9 @@
 , hdd-mnt, hdd-name
 , ...}:
 
+let
+  locate-path = "/var/cache/locatedb";
+in
 {
   systemd = {
     services = {
@@ -85,6 +88,11 @@
         };
       };
     };
+
+    # environment variable LOCATE_PATH does not seem to be used by `locate`
+    tmpfiles.rules = [
+      "L+ ${locate-path} - - - - ${ssd-mnt}${locate-path}"
+    ];
   };
 
   # script in unit above needs updatedb/locate
@@ -93,7 +101,7 @@
     interval = "08:15";
     package = pkgs.plocate;
     localuser = null;
-    output = "${ssd-mnt}/var/cache/locatedb";
+    output = "${ssd-mnt}${locate-path}";
     pruneNames = [
       # NixOS default
       # https://search.nixos.org/options?channel=unstable&show=services.locate.pruneNames
