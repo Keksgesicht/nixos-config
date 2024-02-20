@@ -154,6 +154,7 @@ with my-functions;
     programs.plasma.configFile =
     if (config.networking.hostName == "cookiethinker") then
     {
+      "akonadi_davgroupware_resource_0rc"."General"."refreshInterval" = "15";
       "kcminputrc"."Keyboard"."NumLock"    = lib.mkForce 1;
       "kscreenlockerrc"."Daemon"."Timeout" = lib.mkForce 3;
       "kwinrulesrc"."General"."count"      = lib.mkForce 3;
@@ -162,8 +163,8 @@ with my-functions;
     else if (config.networking.hostName == "cookieclicker") then
     {
       # UPS will drain much faster
-      "powerdevilrc"."BatteryManagement"."BatteryLowLevel" = lib.mkForce 42;
-      "powerdevilrc"."BatteryManagement"."BatteryCriticalLevel" = lib.mkForce 32;
+      "powerdevilrc"."BatteryManagement"."BatteryLowLevel" = 42;
+      "powerdevilrc"."BatteryManagement"."BatteryCriticalLevel" = 32;
     }
     else {};
   };

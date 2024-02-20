@@ -1,0 +1,39 @@
+[Crop]
+CropAdvancedSettingsEnabled=true
+CropRatioHeight=9
+CropRatioIndex=5
+CropRatioWidth=16
+
+[General]
+DefaultExportPluginText=Install Plugins
+SideBarPage=operations
+
+[ImageView]
+AnimationMethod=DocumentView::GLAnimation
+EnlargeSmallerImages=true
+MouseWheelBehavior=MouseWheelBehavior::Zoom
+ThumbnailSplitterSizes=1044,277
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=32
+detailViewIconSize=16
+
+[MainWindow]
+MenuBar=Disabled
+ToolBarsMovable=Disabled
+
+[Open-with settings]
+CompletionMode=1
+
+[Phonon::AudioOutput]
+Gwenview_Volume=1
+
+[SideBar]
+InformationSplitterSizes=327,148
+IsVisible ViewMode=true
+PreferredMetaInfoKeyList=General.Name,General.Size,General.Time,General.ImageSize,Exif.Photo.WhiteBalance,Exif.Image.YCbCrPositioning,Exif.Image.Make,Exif.Photo.ExposureProgram,Exif.Photo.ExposureMode,Exif.Photo.ColorSpace,Exif.Photo.ExposureTime,Exif.Photo.ComponentsConfiguration,Exif.MakerNote.ByteOrder,Exif.Image.Software,Exif.Image.ProcessingSoftware,Exif.Photo.FocalLength,Exif.Photo.DateTimeDigitized,Exif.Photo.DateTimeOriginal,Exif.Photo.ShutterSpeedValue,Exif.Thumbnail.Compression,Exif.Thumbnail.YResolution,Exif.Photo.ISOSpeedRatings,Exif.Image.Model,Exif.Image.DateTime,Exif.Photo.ApertureValue,Xmp.xmp.CreatorTool
+SideBarSplitterSizes=306,4673
+
+[ThumbnailView]
+ThumbnailSize=552

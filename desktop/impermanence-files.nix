@@ -35,8 +35,8 @@ with my-functions;
         eFile = lib.removePrefix "${plasma-config}/" e;
       in
       [
-        "C  ${xdgConfig}/${eFile} - - - - ${e}"
-        "Z  ${xdgConfig}/${eFile} 0644 ${username} ${username} - -"
+        "C  ${home-dir}/${eFile} - - - - ${e}"
+        "Z  ${home-dir}/${eFile} 0644 ${username} ${username} - -"
       ]
     ));
     initSecretFiles = flatList (forEach (listFilesRec "${secrets-pkg}/linux-root/home") (e:
@@ -59,7 +59,7 @@ with my-functions;
     ));
 
     appletFile = "${xdgConfig}/plasma-org.kde.plasma.desktop-appletsrc";
-    appletSrcPrefix = "${plasma-config}/plasma-desktop-appletsrc";
+    appletSrcPrefix = "${plasma-config}/.config/plasma-desktop-appletsrc";
     placePlasmaAppletFile = name: [
       "C  ${appletFile} - - - - ${appletSrcPrefix}.${name}"
       "Z  ${appletFile} 0644 ${username} ${username} - -"
