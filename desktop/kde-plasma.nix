@@ -2,6 +2,8 @@
 { config, pkgs, lib, inputs, username, ...}:
 
 let
+  libsQT = pkgs.libsForQt5;
+  plasma = "plasma5";
   qt-lib = "/usr/lib/qt";
 
   my-functions = (import ../nix/my-functions.nix lib);
@@ -27,7 +29,7 @@ with my-functions;
       };
       defaultSession = "plasmawayland";
     };
-    desktopManager.plasma5.enable = true;
+    desktopManager."${plasma}".enable = true;
 
     # Enable touchpad support (enabled default in most desktopManager).
     libinput.enable = true;
@@ -37,7 +39,7 @@ with my-functions;
   programs.kdeconnect.enable = true;
 
   # I do not need this from nix packages
-  environment.plasma5.excludePackages = with pkgs.libsForQt5; [
+  environment."${plasma}".excludePackages = with libsQT; [
     kmailtransport
     okular
     oxygen
@@ -45,7 +47,7 @@ with my-functions;
   ];
 
   users.users."${username}" = {
-    packages = with pkgs.libsForQt5; with pkgs; [
+    packages = with libsQT; with pkgs; [
       discover
       kate
       kruler
@@ -110,14 +112,14 @@ with my-functions;
 
   systemd.tmpfiles.rules =
   let
-    qtver = pkgs.libsForQt5.qtbase.version;
+    qtver = libsQT.qtbase.version;
 
     cal-plug-path = "plugins/plasmacalendarplugins";
     qt-cal-plug   = "${qt-lib}/${cal-plug-path}";
 
-    kdepim-addons = pkgs.libsForQt5.kdepim-addons;
-    plasma-addons = pkgs.libsForQt5.kdeplasma-addons;
-    workspace-addons = pkgs.libsForQt5.plasma-workspace;
+    kdepim-addons = libsQT.kdepim-addons;
+    plasma-addons = libsQT.kdeplasma-addons;
+    workspace-addons = libsQT.plasma-workspace;
 
     mkCalPlugSym = p: l: (forEach l (e:
       "L+ ${qt-cal-plug}/${e} - - - - ${p}/lib/qt-${qtver}/${cal-plug-path}/${e}"
