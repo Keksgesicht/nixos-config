@@ -6,6 +6,7 @@ let
   plasma = "plasma5";
   qt-lib = "/usr/lib/qt";
 
+  lsp-wrapper = (import ../development/language-server-wrapper.nix);
   my-functions = (import ../nix/my-functions.nix lib);
 in
 with my-functions;
@@ -49,8 +50,8 @@ with my-functions;
   users.users."${username}" = {
     packages = with libsQT; with pkgs; [
       discover
-      kate
       kruler
+      (lsp-wrapper pkgs lib kate "kate")
       # use digital clock with PIM plugin
       akonadi-calendar
       kdepim-addons
