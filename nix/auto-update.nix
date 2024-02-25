@@ -2,10 +2,8 @@
 
 let
   secrets-pkg = (pkgs.callPackage ../packages/my-secrets.nix {});
-  git-repo = lib.removeSuffix "\n" (
-    builtins.readFile "${secrets-pkg}/git-repo.txt"
-  );
-  latest-system-cfg-dir = "/nix/var/nix/profiles/system/etc/flake-output/nixos-config";
+  nixos-cfg-path = "/etc/nixos";
+  latest-lock-file = "/nix/var/nix/profiles/system/etc/flake-output/flake.lock";
 in
 {
   environment.etc = {
@@ -14,6 +12,9 @@ in
     };
     "flake-output/nixos-config" = {
       source = inputs.self.outPath;
+    };
+    "flake-output/flake.lock" = {
+      source = /etc/nixos/flake.lock;
     };
   };
 
@@ -42,8 +43,9 @@ in
   };
 
   systemd.tmpfiles.rules = lib.mkAfter [
-    "r  ${git-repo}/flake.lock - - - - -"
-    "C+ ${git-repo}/flake.lock - - - - ${latest-system-cfg-dir}/flake.lock"
-    "Z  ${git-repo}/flake.lock 0644 ${username} ${username} - -"
+    "C+ ${nixos-cfg-path}/flake-latest.lock - - - - ${latest-lock-file}"
+  ];
+  nix.settings.extra-sandbox-paths = [
+    nixos-cfg-path
   ];
 }
