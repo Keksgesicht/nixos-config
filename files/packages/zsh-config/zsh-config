@@ -68,7 +68,8 @@ alias gitu='git add . && git commit && git push'
 autoload -U compinit colors zcalc
 colors
 
-if [ "$(awk -F'=' '$1 ~ /^NAME$/ {print $2}' /etc/os-release)" != "NixOS" ]; then
+if [ -f /etc/os-release ] \
+&& [ "$(awk -F'=' '$1 ~ /^NAME$/ {print $2}' /etc/os-release)" != "NixOS" ]; then
   compinit -d ${HOME}/.cache/zsh/zcompdump-${ZSH_VERSION}
 fi
 
@@ -85,8 +86,8 @@ export LESS=-R
 
 ## Plugins section: Enable fish style features
 # Use syntax highlighting
-if   [[ -f /run/current-system/sw/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-	source /run/current-system/sw/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if   [[ -f ${ZSH_PLUGIN_SYNTAX_HIGHTLIGHTING}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+	source ${ZSH_PLUGIN_SYNTAX_HIGHTLIGHTING}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
 	source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
@@ -95,8 +96,8 @@ elif [[ -f ${ZSHCFGDIR}/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.
 	source ${ZSHCFGDIR}/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 # Use history substring search
-if   [[ -f /run/current-system/sw/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]]; then
-	source /run/current-system/sw/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+if   [[ -f ${ZSH_PLUGIN_HISTORY_SEARCH}/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]]; then
+	source ${ZSH_PLUGIN_HISTORY_SEARCH}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 elif [[ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ]]; then
 	source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 elif [[ -f ${ZSHCFGDIR}/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ]]; then

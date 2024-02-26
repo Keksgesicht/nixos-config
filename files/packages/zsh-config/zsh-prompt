@@ -3,8 +3,8 @@
 () {
   emulate -L zsh
 
-  if [[ -f /run/current-system/sw/share/zsh-powerlevel10k/powerlevel10k.zsh-theme ]]; then
-    source /run/current-system/sw/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+  if [[ -f ${ZSH_PLUGIN_POWERLEVEL}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme ]]; then
+    source ${ZSH_PLUGIN_POWERLEVEL}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
   elif [[ -f /usr/share/zsh/plugins/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]]; then
     source /usr/share/zsh/plugins/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
   elif [[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]]; then
@@ -14,8 +14,8 @@
   fi
 
 
-  if [[ -f /run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-    source /run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  if [[ -f ${ZSH_PLUGIN_AUTOSUGGESTIONS}/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+    source ${ZSH_PLUGIN_AUTOSUGGESTIONS}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   elif [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
     source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
   elif [[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
