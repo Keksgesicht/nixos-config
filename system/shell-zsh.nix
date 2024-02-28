@@ -1,10 +1,9 @@
 # file: packages/shell-zsh.nix
 # desc: zsh and its extensions
-
-{ config, pkgs, ...}:
+{ pkgs, ...}:
 
 let
-  my_zsh_config = (pkgs.callPackage ../packages/zsh-config.nix {});
+  my_zsh_config = (pkgs.callPackage ../packages/config-zsh.nix {});
 in
 {
   programs.zsh = {

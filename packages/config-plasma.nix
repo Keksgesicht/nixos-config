@@ -1,15 +1,13 @@
 { stdenv, lib }:
 
 let
-  pkgname = "plasma-config";
+  pkgname = "config-plasma";
 in
 stdenv.mkDerivation {
   pname = "${pkgname}";
   name = "${pkgname}";
-  version = "1.0.0";
   src = ../files/packages/${pkgname};
 
-  buildInputs = [ ];
   installPhase = ''
     cp -r $src/. $out/
   '';

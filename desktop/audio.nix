@@ -16,50 +16,31 @@ in
   ];
 
   # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     jack.enable = true;
     pulse.enable = true;
-    wireplumber.enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
+    configPackages = [
+      (pkgs.callPackage ../packages/config-pipewire.nix {})
+    ];
+    wireplumber = {
+      enable = true;
+      configPackages = [
+        (pkgs.callPackage ../packages/config-wireplumber.nix {})
+      ];
+    };
   };
+
+  systemd.tmpfiles.rules = [
+    "L+ /usr/lib/rnnoise - - - - ${pkgs.rnnoise-plugin}/lib"
+  ];
 
   # enable bluetooth
   hardware.bluetooth = {
     enable = true;
     # https://wiki.archlinux.org/title/bluetooth#Default_adapter_power_state
     powerOnBoot = false;
-  };
-
-  environment.etc = {
-    "pipewire/pipewire.conf.d/50-null-devices.conf" = {
-      source = ../files/linux-root/etc/pipewire/pipewire.d/50-null-devices.conf;
-    };
-    "pipewire/pipewire.conf.d/60-virtual-sinks.conf" = {
-      source = ../files/linux-root/etc/pipewire/pipewire.d/60-virtual-sinks.conf;
-    };
-    "pipewire/pipewire.conf.d/60-mic-loop.conf" = {
-      source = ../files/linux-root/etc/pipewire/pipewire.d/60-mic-loop.conf;
-      enable = (config.networking.hostName == "cookieclicker");
-    };
-    "pipewire/pipewire.conf.d/60-noise-filter.conf" = {
-      source = pkgs.substituteAll {
-        src = ../files/linux-root/etc/pipewire/pipewire.d/60-noise-filter.conf;
-        pkgRnnoisePlugin = "${pkgs.rnnoise-plugin}";
-      };
-      enable = (config.networking.hostName == "cookieclicker");
-    };
-
-    "wireplumber/main.lua.d/51-device-rename.lua" = {
-      source = ../files/linux-root/etc/wireplumber/main.lua.d/51-device-rename.lua;
-    };
-    "wireplumber/main.lua.d/51-stream-rename.lua" = {
-      source = ../files/linux-root/etc/wireplumber/main.lua.d/51-stream-rename.lua;
-    };
   };
 
   # (re)connect virtual devices

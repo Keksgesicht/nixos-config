@@ -1,10 +1,9 @@
 { stdenv, lib }:
 
 stdenv.mkDerivation {
-  pname = "zsh-config";
-  name = "zsh-config";
-  version = "1.0.0";
-  src = ../files/packages/zsh-config;
+  pname = "config-zsh";
+  name = "config-zsh";
+  src = ../files/packages/config-zsh;
 
   installPhase = ''
     cp -r $src/. $out/

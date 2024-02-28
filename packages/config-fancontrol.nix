@@ -1,12 +1,10 @@
-{ stdenv, lib, bash }:
+{ stdenv, lib }:
 
 stdenv.mkDerivation {
-  pname = "fancontrol-config";
-  name = "fancontrol-config";
-  version = "1.0.0";
-  src = ../files/packages/fancontrol-config;
+  pname = "config-fancontrol";
+  name = "config-fancontrol";
+  src = ../files/packages/config-fancontrol;
 
-  buildInputs = [ bash ];
   installPhase = ''
     mkdir -p $out/{bin,cfg}
     cp -r $src/bin/. $out/bin/

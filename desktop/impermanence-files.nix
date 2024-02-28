@@ -8,7 +8,7 @@ let
 
   my-audio = (pkgs.callPackage ../packages/my-audio.nix {});
   secrets-pkg = (pkgs.callPackage ../packages/my-secrets.nix {});
-  plasma-config = (pkgs.callPackage ../packages/plasma-config.nix {});
+  plasma-config = (pkgs.callPackage ../packages/config-plasma.nix {});
 
   my-functions = (import ../nix/my-functions.nix lib);
 in
