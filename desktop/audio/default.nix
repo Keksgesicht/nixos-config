@@ -1,9 +1,14 @@
-{ config, pkgs, username, ... }:
+{ config, pkgs, lib, username, ... }:
 
 let
-  my-audio = pkgs.callPackage ../packages/my-audio.nix {};
+  my-audio = pkgs.callPackage ../../packages/my-audio.nix {};
 in
 {
+  imports = [
+    ./pipewire/mic-loop.nix
+    ./pipewire/noise-filter.nix
+  ];
+
   users.users."${username}".packages = with pkgs; [
     patchage
     pavucontrol
@@ -22,19 +27,15 @@ in
     jack.enable = true;
     pulse.enable = true;
     configPackages = [
-      (pkgs.callPackage ../packages/config-pipewire.nix {})
+      (pkgs.callPackage ../../packages/config-pipewire.nix {})
     ];
     wireplumber = {
       enable = true;
       configPackages = [
-        (pkgs.callPackage ../packages/config-wireplumber.nix {})
+        (pkgs.callPackage ../../packages/config-wireplumber.nix {})
       ];
     };
   };
-
-  systemd.tmpfiles.rules = [
-    "L+ /usr/lib/rnnoise - - - - ${pkgs.rnnoise-plugin}/lib"
-  ];
 
   # enable bluetooth
   hardware.bluetooth = {

@@ -8,7 +8,7 @@
   services.printing.enable = true;
 
   imports = [
-    ./audio.nix
+    ./audio
     ./environment-desktop.nix
     ./flatpak.nix
     ./home-manager
