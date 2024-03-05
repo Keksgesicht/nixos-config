@@ -42,7 +42,6 @@ buildGoModule rec {
   installPhase = ''
     cd $src
     install -Dm755 "../${pkgname}" "$out/bin/${pkgname}"
-    install -Dm644 "LICENSE"  "$out/share/LICENSE"
   '';
 
   meta = with lib; {

@@ -22,8 +22,6 @@ stdenv.mkDerivation {
     cd $src
     install -Dm755 "silence_cutter.py" "$out/bin/silence_cutter.py"
     sed -i '1s/^/#!\/usr\/bin\/env python\n/' "$out/bin/silence_cutter.py"
-    install -Dm644 "AUTHOR" "$out/share/AUTHOR"
-    install -Dm644 "LICENSE" "$out/share/LICENSE"
   '';
   # this does not work
   # see let commands in desktop/packages.nix

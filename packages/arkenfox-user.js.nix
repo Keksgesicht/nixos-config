@@ -37,8 +37,6 @@ stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out
-    cp LICENSE.txt $out/
-    cp README.md $out/
     cp user.js $out/
   '';
 
