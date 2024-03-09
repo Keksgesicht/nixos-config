@@ -17,11 +17,6 @@ fi
 
 echo "Audio connection setup finished!"
 
-if [ "$(cat /etc/hostname)" = "cookieclicker" ]; then
-	sleep 2s
-	systemctl --user --no-block restart flatpak-ferdium.service
-fi
-
 # react on new devices being added and connect them automatically
 ${work_dir}/../lib/audio-auto-relink.sh 'sink' &
 pids[1]=$!

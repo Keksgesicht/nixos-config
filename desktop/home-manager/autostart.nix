@@ -14,6 +14,10 @@ in
       source = mkOOSS "${flatpak-dir}/com.brave.Browser.desktop";
       enable = (systemConfig.networking.hostName == "cookieclicker");
     };
+    "autostart/org.ferdium.Ferdium.desktop" = {
+      source = mkOOSS "${flatpak-dir}/org.ferdium.Ferdium.desktop";
+      enable = (systemConfig.networking.hostName == "cookieclicker");
+    };
     "autostart/org.mozilla.firefox.desktop" = {
       source = mkOOSS "${flatpak-dir}/org.mozilla.firefox.desktop";
       enable = (systemConfig.networking.hostName  == "cookieclicker");

@@ -44,7 +44,6 @@ in
     powerOnBoot = false;
   };
 
-  # (re)connect virtual devices
   systemd.user.services = {
     "my-audio" = {
       description = "Custom Audio Setup (pipewire)";
@@ -76,19 +75,14 @@ in
     };
     # start Ferdium after my-audio
     # Otherwise services like Discord might not be able to use audio
-    "flatpak-ferdium" = {
-      description = "Ferdium (flatpak)";
-      path = [
-        pkgs.flatpak
+    "app-org.ferdium.Ferdium@autostart" = {
+      overrideStrategy = "asDropin";
+      after = [
+        "pipewire.service"
+        "pipewire-pulse.service"
+        "wireplumber.service"
+        "my-audio.service"
       ];
-      preStart = "sleep 1s";
-      serviceConfig = {
-        ExecStart = "${pkgs.flatpak}/bin/flatpak run org.ferdium.Ferdium --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations --ozone-platform-hint=wayland";
-        ExecStop = "${pkgs.flatpak}/bin/flatpak kill org.ferdium.Ferdium";
-      };
-      environment = {
-        TZ = config.time.timeZone;
-      };
     };
   };
 }
