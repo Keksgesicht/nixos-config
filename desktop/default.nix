@@ -18,6 +18,7 @@
     ./my-user.nix
     ./openssh.nix
     ./packages.nix
+    ../packages/nixpak
     ../services/user/xscreensaver.nix
   ];
 }

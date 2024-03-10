@@ -35,6 +35,12 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    # https://github.com/nixpak/nixpak
+    nixpak = {
+      url = "github:nixpak/nixpak";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     # https://github.com/pjones/plasma-manager
     plasma-manager = {
       url = "github:pjones/plasma-manager";
@@ -51,6 +57,7 @@
     impermanence,
     lanzaboote,
     nix-cage,
+    nixpak,
     plasma-manager,
   }@inputs: {
     nixosConfigurations =
