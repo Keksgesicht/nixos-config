@@ -11,6 +11,7 @@ let
   ]);
 
   appCfgList = [
+    ./FireFox.nix
     ./LibreWolf.nix
   ];
   appFuncList = lib.lists.forEach appCfgList (app:
