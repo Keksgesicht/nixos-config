@@ -27,7 +27,7 @@ in
       enable = (systemConfig.networking.hostName == "cookieclicker");
     };
     "autostart/com.github.hluk.copyq.desktop" = {
-      source = mkOOSS "${flatpak-dir}/com.github.hluk.copyq.desktop";
+      source = mkOOSS "${profile-dir}/com.github.hluk.copyq.desktop";
     };
     "autostart/com.nextcloud.desktopclient.nextcloud.desktop" = {
       source = mkOOSS "${profile-dir}/com.nextcloud.desktopclient.nextcloud.desktop";

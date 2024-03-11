@@ -119,7 +119,6 @@ with my-functions;
           ".local/share/aurorae"
           ".local/share/color-schemes"
           ".local/share/dolphin"
-          ".local/share/flatpak/db"
           ".local/share/icons"
           ".local/share/kactivitymanagerd"
           ".local/share/kate"
@@ -138,12 +137,14 @@ with my-functions;
         ]
         ++ secureHomeDir [
           ".config/akonadi"
+          ".config/copyq"
           ".config/gnupg"
           ".config/keepassxc"
           ".config/Nextcloud"
           ".config/ssh"
           ".local/share/akonadi"
           ".local/share/akonadi-davgroupware"
+          ".local/share/flatpak/db"
           ".local/share/kwalletd"
           ".secrets"
           ".tpm2_pkcs11"

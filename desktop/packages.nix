@@ -25,6 +25,7 @@ let
 in
 {
   users.users."${username}".packages = with pkgs; [
+    copyq
     gnome.gnome-calculator
     keepassxc
     meld
