@@ -48,10 +48,6 @@ in
             "-${hdd-mnt}/appdata2/nextcloud/janb/files/InstantUpload/SignalBackup"
             "-${ssd-mnt}/appdata/ddns"
 
-            "-${home-dir}/.var/app/io.gitlab.librewolf-community/cache"
-            "-${home-dir}/.var/app/org.kde.kdenlive/cache"
-            "-${home-dir}/.var/app/org.mozilla.firefox/cache"
-
             "-/var/lib/containers/storage"
           ];
         };

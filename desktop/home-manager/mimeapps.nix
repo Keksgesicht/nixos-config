@@ -10,7 +10,7 @@ let
   imageViewer = "org.kde.gwenview.desktop";
   audioViewer = "org.videolan.VLC.desktop";
   videoViewer = "org.videolan.VLC.desktop";
-  webBrowser  = "io.gitlab.librewolf-community.desktop";
+  webBrowser  = "librewolf.desktop";
 
   metaApps = [
     "fr.romainvigier.MetadataCleaner.desktop"
@@ -37,8 +37,8 @@ let
   webBrowserList = [
     "com.brave.Browser.desktop"
     "com.github.Eloston.UngoogledChromium.desktop"
-    "io.gitlab.librewolf-community.desktop"
-    "org.mozilla.firefox.desktop"
+    "librewolf.desktop"
+    "firefox.desktop"
   ];
 in
 {
@@ -105,7 +105,7 @@ in
       "x-scheme-handler/heroic" = "com.heroicgameslauncher.hgl.desktop";
       "x-scheme-handler/http"   = webBrowser;
       "x-scheme-handler/https"  = webBrowser;
-      "x-scheme-handler/mailto" = "org.mozilla.Thunderbird.desktop";
+      "x-scheme-handler/mailto" = "thunderbird.desktop";
       "x-scheme-handler/smb"    = "org.kde.dolphin.desktop";
       "x-scheme-handler/steam"  = "com.valvesoftware.Steam";
       "x-scheme-handler/tel"    = "org.kde.kdeconnect.handler.desktop";

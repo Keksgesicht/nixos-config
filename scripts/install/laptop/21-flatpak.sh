@@ -10,11 +10,8 @@ flatpak install -y \
 	com.github.Eloston.UngoogledChromium \
 	com.github.hluk.copyq \
 	com.github.tchx84.Flatseal \
-	io.gitlab.librewolf-community \
 	org.ferdium.Ferdium \
-	org.kde.okular \
-	org.mozilla.firefox \
-	org.mozilla.Thunderbird
+	org.kde.okular
 
 # nice to have
 flatpak install -y \

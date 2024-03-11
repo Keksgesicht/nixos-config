@@ -18,12 +18,12 @@ in
       source = mkOOSS "${flatpak-dir}/org.ferdium.Ferdium.desktop";
       enable = (systemConfig.networking.hostName == "cookieclicker");
     };
-    "autostart/org.mozilla.firefox.desktop" = {
-      source = mkOOSS "${flatpak-dir}/org.mozilla.firefox.desktop";
+    "autostart/firefox.desktop" = {
+      source = mkOOSS "${profile-dir}/firefox.desktop";
       enable = (systemConfig.networking.hostName  == "cookieclicker");
     };
-    "autostart/org.mozilla.Thunderbird.desktop" = {
-      source = mkOOSS "${flatpak-dir}/org.mozilla.Thunderbird.desktop";
+    "autostart/thunderbird.desktop" = {
+      source = mkOOSS "${profile-dir}/thunderbird.desktop";
       enable = (systemConfig.networking.hostName == "cookieclicker");
     };
     "autostart/com.github.hluk.copyq.desktop" = {

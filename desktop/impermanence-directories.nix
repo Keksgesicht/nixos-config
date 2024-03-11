@@ -111,8 +111,6 @@ with my-functions;
           ".config/kate"
           ".config/KDE"
           ".config/kde.org"
-          ".config/kdeconnect"
-          ".config/libaccounts-glib"
           ".config/xscreensaver"
 
           ".local/bin"
@@ -139,6 +137,7 @@ with my-functions;
           ".config/akonadi"
           ".config/copyq"
           ".config/gnupg"
+          ".config/kdeconnect"
           ".config/keepassxc"
           ".config/Nextcloud"
           ".config/ssh"

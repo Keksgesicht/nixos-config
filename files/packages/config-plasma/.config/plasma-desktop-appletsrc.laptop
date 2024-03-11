@@ -203,7 +203,7 @@ plugin=org.kde.plasma.icontasks
 
 [Containments][29][Applets][53][Configuration][General]
 groupedTaskVisualization=1
-launchers=applications:org.kde.konsole.desktop,applications:org.kde.dolphin.desktop,applications:org.ferdium.Ferdium.desktop,applications:org.mozilla.Thunderbird.desktop,applications:org.mozilla.firefox.desktop
+launchers=applications:org.kde.konsole.desktop,applications:org.kde.dolphin.desktop,applications:org.ferdium.Ferdium.desktop,applications:thunderbird.desktop,applications:firefox.desktop
 middleClickAction=Close
 minimizeActiveTaskOnClick=false
 onlyGroupWhenFull=false

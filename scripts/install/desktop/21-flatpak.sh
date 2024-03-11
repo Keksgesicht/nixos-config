@@ -15,9 +15,7 @@ flatpak install -y 'flathub' \
 	com.github.Eloston.UngoogledChromium \
 	com.github.micahflee.torbrowser-launcher \
 	dev.vencord.Vesktop \
-	io.gitlab.librewolf-community \
 	org.ferdium.Ferdium \
-	org.mozilla.firefox \
 	org.signal.Signal
 
 # office
@@ -29,7 +27,6 @@ flatpak install -y 'flathub' \
 	org.kde.kclock \
 	org.kde.okular \
 	org.libreoffice.LibreOffice \
-	org.mozilla.Thunderbird \
 	org.onlyoffice.desktopeditors \
 	org.videolan.VLC
 

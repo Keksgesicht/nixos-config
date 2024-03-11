@@ -12,12 +12,6 @@ if [ -d "/mnt/main/appdata/ddns" ]; then
 fi
 
 
-### clear flatpak cache files
-rm -r /home/*/.var/app/io.gitlab.librewolf-community/cache
-rm -r /home/*/.var/app/org.kde.kdenlive/cache
-rm -r /home/*/.var/app/org.mozilla.firefox/cache
-
-
 ### LaTex
 export LC_ALL='en_US.utf8'
 tmp_file_endings="$(dirname $(realpath $0))/../cfg/LaTex"

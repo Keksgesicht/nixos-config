@@ -2,9 +2,8 @@
 update_info=kwinrules.upd:replace-placement-string-to-enum,kwinrules.upd:use-virtual-desktop-ids
 
 [1]
-Description=Window settings for org.mozilla.Thunderbird
+Description=Window settings for thunderbird
 above=true
-clientmachine=localhost
 desktops=\\0
 desktopsrule=3
 ignoregeometry=true
@@ -14,11 +13,8 @@ position=2,2
 positionrule=3
 size=1612,2110
 sizerule=3
-title=Mozilla Thunderbird
 types=1
-windowrole=pop-up
-wmclass=\sorg.mozilla.Thunderbird
-wmclasscomplete=true
+wmclass=thunderbird
 wmclassmatch=1
 
 [2]
@@ -78,20 +74,19 @@ wmclass=vlc
 wmclassmatch=1
 
 [5]
-Description=Window settings for org.mozilla.firefox
-clientmachine=localhost
+Description=Window settings for firefox
 desktops=e134cfca-0b72-44b8-b120-0870feec7d94
+desktopsrule=3
 ignoregeometry=true
 ignoregeometryrule=2
+noborder=true
+noborderrule=3
 position=72,2162
 positionrule=3
 size=1687,1436
 sizerule=3
-title=Mozilla Firefox
 types=1
-windowrole=pop-up
-wmclass=\sorg.mozilla.firefox
-wmclasscomplete=true
+wmclass=firefox
 wmclassmatch=1
 
 [6]
@@ -160,17 +155,3 @@ windowrole=msgcompose
 [General]
 count=9
 rules=1,2,3,4,5,6,7,8,9
-
-[c0a4e141-a164-400e-9a46-352b1294bbbd]
-Description=Window settings for org.mozilla.firefox
-ignoregeometry=true
-ignoregeometryrule=2
-position=72,2162
-positionrule=3
-size=1687,1436
-sizerule=3
-title=Mozilla Firefox
-types=1
-wmclass=\sorg.mozilla.firefox
-wmclasscomplete=true
-wmclassmatch=1
