@@ -11,6 +11,7 @@ let
   ]);
 
   appCfgList = [
+    ./LibreWolf.nix
   ];
   appFuncList = lib.lists.forEach appCfgList (app:
     (import app {

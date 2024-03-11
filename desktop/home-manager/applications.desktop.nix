@@ -216,62 +216,6 @@ in
         X-Flatpak = "com.obsproject.Studio";
       };
     };
-    "io.gitlab.librewolf-community" = {
-      exec = (lib.concatStringsSep " " [
-        "${pkgs.flatpak}/bin/flatpak" "run"
-        "--file-forwarding" "io.gitlab.librewolf-community"
-        "@@u %U @@"
-      ]);
-      name = "LibreWolf";
-      type = "Application";
-      icon = "io.gitlab.librewolf-community";
-      comment = "A fork of Firefox, focused on privacy, security and freedom.";
-      genericName = "Git Client";
-      terminal = false;
-      startupNotify = true;
-      mimeType = [
-        "application/xhtml+xml" "application/x-xpinstall" "application/pdf" "application/json"
-        "text/html" "text/xml"
-        "x-scheme-handler/http" "x-scheme-handler/https"
-      ];
-      categories = [
-        "Network" "WebBrowser"
-      ];
-      settings = {
-        Keywords = (lib.concatStringsSep ";" [
-          "Internet" "Web" "WWW"
-          "Browser" "Explorer"
-        ]);
-        StartupWMClass = "librewolf";
-        X-Flatpak = "io.gitlab.librewolf-community";
-        X-MultipleArgs = "false";
-      };
-      actions = {
-        "new-window" = {
-          name = "Open a New Window";
-          exec = (lib.concatStringsSep " " [
-            "${pkgs.flatpak}/bin/flatpak" "run"
-            "--file-forwarding" "io.gitlab.librewolf-community"
-          ]);
-        };
-        "new-private-window" = {
-          name = "Open a New Private Window";
-          exec = (lib.concatStringsSep " " [
-            "${pkgs.flatpak}/bin/flatpak" "run"
-            "--file-forwarding" "io.gitlab.librewolf-community"
-            "--private-window"
-          ]);
-        };
-        "profilemanager" = {
-          name = "Open the Profile Manager";
-          exec = (lib.concatStringsSep " " [
-            "${pkgs.flatpak}/bin/flatpak" "run"
-            "--file-forwarding" "io.gitlab.librewolf-community"
-            "--ProfileManager"
-          ]);
-        };
-      };
-    };
   };
 
   # aarggg.. flatpak is ealier in XDG_DATA_DIRS
@@ -279,7 +223,6 @@ in
     "applications/com.axosoft.GitKraken.desktop".source         = mkOOSS "${profile-dir}/com.axosoft.GitKraken.desktop";
     "applications/com.heroicgameslauncher.hgl.desktop".source   = mkOOSS "${profile-dir}/com.heroicgameslauncher.hgl.desktop";
     "applications/com.obsproject.Studio.desktop".source         = mkOOSS "${profile-dir}/com.obsproject.Studio.desktop";
-    "applications/io.gitlab.librewolf-community.desktop".source = mkOOSS "${profile-dir}/io.gitlab.librewolf-community.desktop";
     "applications/org.ferdium.Ferdium.desktop".source           = mkOOSS "${profile-dir}/org.ferdium.Ferdium.desktop";
   };
 }

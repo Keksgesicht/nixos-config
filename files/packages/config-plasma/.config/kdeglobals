@@ -105,7 +105,7 @@ Size=22
 [General]
 AccentColor=233,100,58
 AllowKDEAppsToRememberWindowPositions=true
-BrowserApplication=io.gitlab.librewolf-community.desktop
+BrowserApplication=librewolf.desktop
 ColorScheme=SweetAmbarBlue
 ColorSchemeHash=f6df0e9f12a4783afd65d81532865d4d86848c5e
 LastUsedCustomAccentColor=233,100,58

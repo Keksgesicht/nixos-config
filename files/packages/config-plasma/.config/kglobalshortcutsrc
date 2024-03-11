@@ -14,7 +14,7 @@ _launch=Meta+G,none,
 _k_friendly_name=CopyQ
 _launch=Meta+V,none,
 
-[io.gitlab.librewolf-community.desktop]
+[librewolf.desktop]
 _k_friendly_name=LibreWolf
 _launch=none,none,
 new-private-window=none,none,
