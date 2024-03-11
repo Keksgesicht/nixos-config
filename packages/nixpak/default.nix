@@ -13,6 +13,7 @@ let
   appCfgList = [
     ./FireFox.nix
     ./LibreWolf.nix
+    ./ThunderBird.nix
   ];
   appFuncList = lib.lists.forEach appCfgList (app:
     (import app {
