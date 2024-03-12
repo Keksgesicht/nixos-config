@@ -11,6 +11,7 @@ let
   ]);
 
   appCfgList = [
+    ./Ferdium.nix
     ./FireFox.nix
     ./LibreWolf.nix
     ./ThunderBird.nix

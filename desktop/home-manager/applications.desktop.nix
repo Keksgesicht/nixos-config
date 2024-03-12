@@ -168,32 +168,6 @@ in
         X-Flatpak = "com.heroicgameslauncher.hgl";
       };
     };
-    "org.ferdium.Ferdium" = {
-      exec = (lib.concatStringsSep " " [
-        "${pkgs.flatpak}/bin/flatpak" "run"
-        "--file-forwarding" "org.ferdium.Ferdium"
-        "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations"
-        "--ozone-platform-hint=auto"
-        "@@u %U @@"
-      ]);
-      name = "Ferdium";
-      type = "Application";
-      icon = "org.ferdium.Ferdium";
-      comment = "Desktop app bringing all your messaging services into one installable";
-      genericName = "Git Client";
-      terminal = false;
-      mimeType = [
-        "x-scheme-handler/ferdium"
-      ];
-      categories = [
-        "Network" "InstantMessaging"
-      ];
-      settings = {
-        StartupWMClass = "Ferdium";
-        X-Flatpak-RenamedFrom = "ferdium.desktop";
-        X-Flatpak = "org.ferdium.Ferdium";
-      };
-    };
 
     "com.obsproject.Studio" = {
       exec = (lib.concatStringsSep " " [
@@ -223,6 +197,5 @@ in
     "applications/com.axosoft.GitKraken.desktop".source         = mkOOSS "${profile-dir}/com.axosoft.GitKraken.desktop";
     "applications/com.heroicgameslauncher.hgl.desktop".source   = mkOOSS "${profile-dir}/com.heroicgameslauncher.hgl.desktop";
     "applications/com.obsproject.Studio.desktop".source         = mkOOSS "${profile-dir}/com.obsproject.Studio.desktop";
-    "applications/org.ferdium.Ferdium.desktop".source           = mkOOSS "${profile-dir}/org.ferdium.Ferdium.desktop";
   };
 }

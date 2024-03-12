@@ -75,7 +75,7 @@ in
     };
     # start Ferdium after my-audio
     # Otherwise services like Discord might not be able to use audio
-    "app-org.ferdium.Ferdium@autostart" = {
+    "app-ferdium@autostart" = {
       overrideStrategy = "asDropin";
       after = [
         "pipewire.service"

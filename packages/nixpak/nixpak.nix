@@ -32,6 +32,10 @@ let
         type = types.str;
         default = config.binName;
       };
+      extraParams = lib.mkOption {
+        type = types.str;
+        default = "";
+      };
     };
   });
 
@@ -268,6 +272,7 @@ let
       appDesktopCopy = (p:
       let
         pkgName = lib.getName p.package;
+        newExec = "${name} ${p.binName} ${p.extraParams}";
       in
       pkgs.stdenv.mkDerivation {
         name = "${name}-${pkgName}-desktop-file";
@@ -275,10 +280,14 @@ let
         installPhase = ''
           mkdir -p $out/share/applications
           mkdir -p $out/share/icons
+
           cp -r $src/share/icons/. $out/share/icons/
           cp $src/share/applications/${p.appFileSrc}.desktop \
              $out/share/applications/${p.appFileDst}.desktop
-          sed -i 's|Exec=${p.binName}|Exec=${name} ${p.binName}|g' \
+
+          sed -i '/^Exec=/s/%[uU]/@@u %U @@/g' \
+             $out/share/applications/${p.appFileDst}.desktop
+          sed -i 's|^Exec=${p.binName}|Exec=${newExec}|g' \
              $out/share/applications/${p.appFileDst}.desktop
         '';
       });
