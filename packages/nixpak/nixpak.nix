@@ -36,6 +36,10 @@ let
         type = types.str;
         default = "";
       };
+      delParams = lib.mkOption {
+        type = types.str;
+        default = "";
+      };
     };
   });
 
@@ -66,6 +70,10 @@ let
         default = true;
       };
       wrapper.audio = lib.mkOption {
+        type = types.bool;
+        default = false;
+      };
+      wrapper.time = lib.mkOption {
         type = types.bool;
         default = false;
       };
@@ -172,6 +180,13 @@ let
                 (sloth.concat' sloth.xdgDataHome "/fonts")
                 (sloth.concat' sloth.xdgDataHome "/icons")
                 (sloth.concat' sloth.xdgDataHome "/themes")
+              ]
+              ++ lib.optionals (value.wrapper.time) [
+                "/etc/localtime"
+                [
+                  "${pkgs.tzdata}/share/zoneinfo"
+                  "/usr/share/zoneinfo"
+                ]
               ];
               bind.rw = [
                 [
@@ -274,7 +289,7 @@ let
       appDesktopCopy = (p:
       let
         pkgName = lib.getName p.package;
-        newExec = "${name} ${p.binName} ${p.extraParams}";
+        newExec = "${mkNPfileWrapper}/bin/${name} ${p.binName} ${p.extraParams}";
       in
       pkgs.stdenv.mkDerivation {
         name = "${name}-${pkgName}-desktop-file";
@@ -289,9 +304,13 @@ let
 
           cp $src/share/applications/${p.appFileSrc}.desktop \
              $out/share/applications/${p.appFileDst}.desktop
+          if [ "${p.delParams}" != "" ]; then
+            sed -i '/^Exec=/s/${p.delParams}//g' \
+             $out/share/applications/${p.appFileDst}.desktop
+          fi
           sed -i '/^Exec=/s/%[uU]/@@u %U @@/g' \
              $out/share/applications/${p.appFileDst}.desktop
-          sed -i 's|^Exec=${p.binName}|Exec=${newExec}|g' \
+          sed -i 's|^Exec=.*${p.binName}|Exec=${newExec}|g' \
              $out/share/applications/${p.appFileDst}.desktop
         '';
       });

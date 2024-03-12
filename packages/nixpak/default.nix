@@ -15,6 +15,7 @@ let
     ./FireFox.nix
     ./GitKraken.nix
     ./LibreWolf.nix
+    ./Signal.nix
     ./ThunderBird.nix
   ];
   appFuncList = lib.lists.forEach appCfgList (app:

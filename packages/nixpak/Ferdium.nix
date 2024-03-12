@@ -11,6 +11,7 @@ in
           extraParams = "--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations"; }
       ];
       audio = true;
+      time  = true;
     };
 
     dbus.policies = {
