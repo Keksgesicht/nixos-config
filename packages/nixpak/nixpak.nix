@@ -30,7 +30,7 @@ let
       };
       appFileDst = lib.mkOption {
         type = types.str;
-        default = config.binName;
+        default = config.appFileSrc;
       };
       extraParams = lib.mkOption {
         type = types.str;
@@ -119,6 +119,9 @@ let
       };
       output.env    = (mkNixPakPkg name config "env");
       output.script = (mkNixPakPkg name config "script");
+      bubblewrap = {
+        network = false;
+      };
     };
   };
 
@@ -187,7 +190,6 @@ let
                   (sloth.concat' sloth.runtimeDir "/doc")
                 ]
               ];
-              network = lib.mkDefault false;
               sockets = {
                 wayland = lib.mkDefault true;
                 x11     = lib.mkDefault false;
@@ -281,10 +283,12 @@ let
           mkdir -p $out/share/applications
           mkdir -p $out/share/icons
 
-          cp -r $src/share/icons/. $out/share/icons/
+          if [ -d $src/share/icons ]; then
+            cp -r $src/share/icons/. $out/share/icons/
+          fi
+
           cp $src/share/applications/${p.appFileSrc}.desktop \
              $out/share/applications/${p.appFileDst}.desktop
-
           sed -i '/^Exec=/s/%[uU]/@@u %U @@/g' \
              $out/share/applications/${p.appFileDst}.desktop
           sed -i 's|^Exec=${p.binName}|Exec=${newExec}|g' \

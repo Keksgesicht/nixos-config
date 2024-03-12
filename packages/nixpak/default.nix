@@ -13,6 +13,7 @@ let
   appCfgList = [
     ./Ferdium.nix
     ./FireFox.nix
+    ./GitKraken.nix
     ./LibreWolf.nix
     ./ThunderBird.nix
   ];

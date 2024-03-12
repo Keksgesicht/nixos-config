@@ -123,29 +123,6 @@ in
 
     # override flatpak desktop entries
 
-    "com.axosoft.GitKraken" = {
-      exec = (lib.concatStringsSep " " [
-        "${pkgs.flatpak}/bin/flatpak" "run"
-        "--file-forwarding" "com.axosoft.GitKraken"
-        "--enable-features=UseOzonePlatform" "--ozone-platform=wayland"
-        "@@u %U @@"
-      ]);
-      name = "GitKraken";
-      type = "Application";
-      icon = "com.axosoft.GitKraken";
-      comment = "Unleash your repo";
-      genericName = "Git Client";
-      startupNotify = true;
-      categories= [
-        "GNOME" "GTK"
-        "Development" "RevisionControl"
-      ];
-      settings = {
-        StartupWMClass = "gitkraken";
-        X-Flatpak-Tags = "proprietary";
-        X-Flatpak = "com.axosoft.GitKraken";
-      };
-    };
     "com.heroicgameslauncher.hgl" = {
       exec = (lib.concatStringsSep " " [
         "${pkgs.flatpak}/bin/flatpak" "run"
@@ -194,7 +171,6 @@ in
 
   # aarggg.. flatpak is ealier in XDG_DATA_DIRS
   xdg.dataFile = {
-    "applications/com.axosoft.GitKraken.desktop".source         = mkOOSS "${profile-dir}/com.axosoft.GitKraken.desktop";
     "applications/com.heroicgameslauncher.hgl.desktop".source   = mkOOSS "${profile-dir}/com.heroicgameslauncher.hgl.desktop";
     "applications/com.obsproject.Studio.desktop".source         = mkOOSS "${profile-dir}/com.obsproject.Studio.desktop";
   };

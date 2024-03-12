@@ -150,7 +150,7 @@ in
       ];
       "text/x-patch"    = metaApps ++ [
         "io.github.mightycreak.Diffuse.desktop"
-        "com.axosoft.GitKraken.desktop"
+        "GitKraken.desktop"
       ];
       "text/x-python"   = metaApps;
       "text/x-tex"      = metaApps ++ [

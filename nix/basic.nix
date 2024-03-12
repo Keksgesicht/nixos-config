@@ -3,6 +3,7 @@
 let
   pkgsAllowedUnfree = [
     pkgs.corefonts
+    pkgs.gitkraken
     pkgs.steamPackages.steam
   ];
 

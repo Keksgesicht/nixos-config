@@ -6,7 +6,7 @@ switch-to-activity-ed353e5a-8fcc-48ba-a2e0-c308d96fdb9d=none,none,Switch to acti
 Switch to Next Keyboard Layout=Ctrl+Alt+K,Meta+Alt+K,
 _k_friendly_name=Keyboard Layout Switcher
 
-[com.axosoft.GitKraken.desktop]
+[GitKraken.desktop]
 _k_friendly_name=GitKraken
 _launch=Meta+G,none,
 
