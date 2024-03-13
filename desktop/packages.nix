@@ -30,6 +30,7 @@ in
     keepassxc
     meld
     nextcloud-client
+    okteta
     #pdfdiff
     pdfgrep
     pympress

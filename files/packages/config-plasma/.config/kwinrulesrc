@@ -19,7 +19,6 @@ wmclassmatch=1
 
 [2]
 Description=Window settings for brave-browser
-clientmachine=localhost
 desktops=\\0
 desktopsrule=3
 ignoregeometry=true
@@ -29,11 +28,8 @@ position=1616,0
 positionrule=3
 size=2222,1304
 sizerule=3
-title=Brave
 types=1
-windowrole=pop-up
-wmclass=\sbrave-browser
-wmclasscomplete=true
+wmclass=brave-browser
 wmclassmatch=1
 
 [3]
@@ -44,6 +40,8 @@ desktops=\\0
 desktopsrule=3
 ignoregeometry=true
 ignoregeometryrule=2
+noborder=true
+noborderrule=3
 position=1618,1304
 positionrule=3
 size=1255,807

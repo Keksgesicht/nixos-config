@@ -273,7 +273,7 @@ let
                     docPath = os.popen(fpCmd).read().replace('\n', "")
                     if docPath != "":
                         wrappedArgs.append(docPath)
-                    elif arg != "%u":
+                    elif arg != "%U":
                         wrappedArgs.append(arg)
             elif arg == "@@u":
                 mark = True

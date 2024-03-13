@@ -1,4 +1,4 @@
-{ pkgs, bindHomeDir, ... }:
+{ pkgs, sloth, bindHomeDir, ... }:
 
 let
   name = "FireFox";
@@ -23,7 +23,7 @@ in
       ];
       bind.rw = [
         (bindHomeDir name "/.mozilla")
-        (bindHomeDir name "/Downloads/STG-backups")
+        (sloth.mkdir (sloth.concat' sloth.homeDir "/Downloads/STG-backups"))
       ];
       network = true;
     };

@@ -10,8 +10,8 @@ let
 in
 {
   xdg.configFile = {
-    "autostart/com.brave.Browser.desktop" = {
-      source = mkOOSS "${flatpak-dir}/com.brave.Browser.desktop";
+    "autostart/brave-browser.desktop" = {
+      source = mkOOSS "${profile-dir}/brave-browser.desktop";
       enable = (systemConfig.networking.hostName == "cookieclicker");
     };
     "autostart/ferdium.desktop" = {

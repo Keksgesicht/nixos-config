@@ -11,6 +11,7 @@ let
   ]);
 
   appCfgList = [
+    ./Brave.nix
     ./Ferdium.nix
     ./FireFox.nix
     ./GitKraken.nix
