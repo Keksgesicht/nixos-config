@@ -17,6 +17,7 @@ let
     ./FireFox.nix
     ./GitKraken.nix
     ./LibreWolf.nix
+    ./MediaPlayer.nix
     ./Office.nix
     ./Signal.nix
     ./ThunderBird.nix

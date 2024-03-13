@@ -41,7 +41,6 @@ in
     xorg.xlsclients
     xorg.xorgserver
     xorg.xrandr
-    yt-dlp
     yubikey-manager
   ];
 
