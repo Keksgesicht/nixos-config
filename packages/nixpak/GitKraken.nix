@@ -8,7 +8,7 @@ in
     wrapper = {
       packages = [
         { package = pkgs.gitkraken; binName = "gitkraken";
-          extraParams = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
+          #extraParams = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
           appFileSrc = "GitKraken"; }
       ];
     };
