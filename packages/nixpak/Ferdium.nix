@@ -11,11 +11,14 @@ in
           { args.extra = [
             "--ozone-platform-hint=auto"
             "--enable-features=UseOzonePlatform"
-            "--enable-features=WebRTCPipeWireCapturer"
-            "--enable-features=WaylandWindowDecorations"
           ]; }
         ]; }
       ];
+      variables = {
+        LD_LIBRARY_PATH = [
+          "${pkgs.pulseaudio}/lib"
+        ];
+      };
       audio = true;
       time  = true;
     };
