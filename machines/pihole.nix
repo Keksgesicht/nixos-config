@@ -24,7 +24,7 @@
 
   users.users."${username}" = {
     openssh.authorizedKeys.keys = [
-      (builtins.readFile "${secrets-dir}/keys/ssh/id_rsa_pihole.pub")
+      (builtins.readFile "${secrets-dir}/keys/ssh/id_pihole.pub")
     ];
     initialPassword = "";
   };

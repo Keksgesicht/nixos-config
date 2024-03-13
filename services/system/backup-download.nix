@@ -45,8 +45,8 @@
    *
    *   mkdir -p ~/.secrets/ssh
    *   ssh-keygen
-   *   ln -srv ~/.secrets/ssh/id_ed25519 ~/.secrets/ssh/id_rsa_hetzner
-   *   ln -srv ~/.secrets/ssh/id_ed25519 ~/.secrets/ssh/id_rsa_pihole
+   *   ln -srv ~/.secrets/ssh/id_ed25519 ~/.secrets/ssh/id_hetzner
+   *   ln -srv ~/.secrets/ssh/id_ed25519 ~/.secrets/ssh/id_pihole
    *
    *   mkdir -p ~/.config/ssh
    *   ssh hetzner-mailcow

@@ -54,45 +54,45 @@ Host remote-devel
 Host nixos-installer
 	HostName 192.168.178.146
 	User nix
-	IdentityFile ~/.secrets/ssh/id_rsa_nixos
+	IdentityFile ~/.secrets/ssh/id_nixos
 	StrictHostKeyChecking no
 	UserKnownHostsFile /dev/null
 
 Host cookieclicker
 	HostName 192.168.178.150
 	User keks
-	IdentityFile ~/.secrets/ssh/id_rsa_cookieclicker
+	IdentityFile ~/.secrets/ssh/id_cookieclicker
 
 Host pihole
 	HostName 192.168.178.23
 	User cookie
-	IdentityFile ~/.secrets/ssh/id_rsa_pihole
+	IdentityFile ~/.secrets/ssh/id_pihole
 
 Host pihole-root
 	HostName rpi.pihole.local
 	User root
-	IdentityFile ~/.secrets/ssh/id_rsa_pihole
+	IdentityFile ~/.secrets/ssh/id_pihole
 
 Host hetzner-mailcow
 	HostName mail.keksgesicht.net
 	User root
-	IdentityFile ~/.secrets/ssh/id_rsa_hetzner
+	IdentityFile ~/.secrets/ssh/id_hetzner
 
 Host github.com
 	User git
-	IdentityFile ~/.secrets/ssh/id_rsa_git
+	IdentityFile ~/.secrets/ssh/id_git
 
 Host gitlab.com
 	User git
-	IdentityFile ~/.secrets/ssh/id_rsa_git
+	IdentityFile ~/.secrets/ssh/id_git
 
 Host git.rwth-aachen.de
 	User git
-	IdentityFile ~/.secrets/ssh/id_rsa_git
+	IdentityFile ~/.secrets/ssh/id_git
 
 Host *.tu-darmstadt.de
 	User jb64tori
-	IdentityFile ~/.secrets/ssh/id_rsa_tuda
+	IdentityFile ~/.secrets/ssh/id_tuda
 
 Host lcluster*.hrz.tu-darmstadt.de
 	ForwardX11 yes
@@ -100,7 +100,7 @@ Host lcluster*.hrz.tu-darmstadt.de
 Host gitlab.esa.informatik.tu-darmstadt.de
 	User git
 	ProxyJump erebor.esa.informatik.tu-darmstadt.de
-	IdentityFile ~/.secrets/ssh/id_rsa_git
+	IdentityFile ~/.secrets/ssh/id_git
 
 Host rpi-test
 	User keks
