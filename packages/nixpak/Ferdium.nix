@@ -7,8 +7,14 @@ in
   nixpak."${name}" = {
     wrapper = {
       packages = [
-        { package = pkgs.ferdium; binName = "ferdium";
-          extraParams = "--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations"; }
+        { package = pkgs.ferdium; binName = "ferdium"; appFile = [
+          { args.extra = [
+            "--ozone-platform-hint=auto"
+            "--enable-features=UseOzonePlatform"
+            "--enable-features=WebRTCPipeWireCapturer"
+            "--enable-features=WaylandWindowDecorations"
+          ]; }
+        ]; }
       ];
       audio = true;
       time  = true;

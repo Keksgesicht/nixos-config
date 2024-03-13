@@ -7,9 +7,12 @@ in
   nixpak."${name}" = {
     wrapper = {
       packages = [
-        { package = pkgs.ungoogled-chromium; binName = "chromium";
-          #extraParams = "--enable-features=UseOzonePlatform --ozone-platform-hint=auto --force-dark-mode --enable-features=WebUIDarkMode";
-          appFileSrc = "chromium-browser"; }
+        { package = pkgs.ungoogled-chromium; binName = "chromium"; appFile = [
+          { src = "chromium-browser"; args.extra = [
+            #"--enable-features=UseOzonePlatform" "--ozone-platform-hint=auto"
+            #"--force-dark-mode" --enable-features=WebUIDarkMode"
+          ]; }
+        ]; }
       ];
       audio = true;
     };

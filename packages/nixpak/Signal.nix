@@ -7,8 +7,9 @@ in
   nixpak."${name}" = {
     wrapper = {
       packages = [
-        { package = pkgs.signal-desktop; binName = "signal-desktop";
-          delParams = "--use-tray-icon"; }
+        { package = pkgs.signal-desktop; binName = "signal-desktop"; appFile = [
+          { args.remove = "--use-tray-icon"; }
+        ]; }
       ];
       variables = {
         SIGNAL_USE_TRAY_ICON = "0";

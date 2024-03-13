@@ -16,6 +16,7 @@ let
     ./FireFox.nix
     ./GitKraken.nix
     ./LibreWolf.nix
+    ./Office.nix
     ./Signal.nix
     ./ThunderBird.nix
     ./UngoogledChromium.nix

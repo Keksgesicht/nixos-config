@@ -7,9 +7,11 @@ in
   nixpak."${name}" = {
     wrapper = {
       packages = [
-        { package = pkgs.gitkraken; binName = "gitkraken";
-          #extraParams = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
-          appFileSrc = "GitKraken"; }
+        { package = pkgs.gitkraken; binName = "gitkraken"; appFile = [
+          { src = "GitKraken"; args.extra = [
+            #"--enable-features=UseOzonePlatform" "--ozone-platform=wayland"
+          ]; }
+        ]; }
       ];
     };
 

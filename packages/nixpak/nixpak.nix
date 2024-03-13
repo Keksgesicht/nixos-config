@@ -15,6 +15,28 @@ let
   mapAL = lib.attrsets.mapAttrsToList;
   writePyBin = pkgs.writers.writePython3Bin;
 
+  appFileOpts = (binName: types.submodule ({ config, ... }: {
+    options = {
+      src = lib.mkOption {
+        type = types.str;
+        default = binName;
+      };
+      dst = lib.mkOption {
+        type = types.str;
+        default = config.src;
+      };
+      args.extra = lib.mkOption {
+        type = with types; coercedTo (listOf str) (l:
+          lib.strings.concatStringsSep " " l
+        ) str;
+        default = "";
+      };
+      args.remove = lib.mkOption {
+        type = types.str;
+        default = "";
+      };
+    };
+  }));
   pkgWrapOpts = types.submodule ({ config, ... }: {
     options = {
       package = lib.mkOption {
@@ -24,21 +46,9 @@ let
         type = types.str;
         default = config.package.name;
       };
-      appFileSrc = lib.mkOption {
-        type = types.str;
-        default = config.binName;
-      };
-      appFileDst = lib.mkOption {
-        type = types.str;
-        default = config.appFileSrc;
-      };
-      extraParams = lib.mkOption {
-        type = types.str;
-        default = "";
-      };
-      delParams = lib.mkOption {
-        type = types.str;
-        default = "";
+      appFile = lib.mkOption {
+        type = types.listOf (appFileOpts config.binName);
+        default = [ { src = config.binName; } ];
       };
     };
   });
@@ -50,8 +60,7 @@ let
           types.coercedTo types.package (p: {
             package = p;
             binName = "";
-            appFileSrc = "";
-            appFileDst = "";
+            appFile = [];
           }) pkgWrapOpts
         );
         default = [];
@@ -70,6 +79,10 @@ let
         default = true;
       };
       wrapper.audio = lib.mkOption {
+        type = types.bool;
+        default = false;
+      };
+      wrapper.printing = lib.mkOption {
         type = types.bool;
         default = false;
       };
@@ -181,6 +194,9 @@ let
                 (sloth.concat' sloth.xdgDataHome "/icons")
                 (sloth.concat' sloth.xdgDataHome "/themes")
               ]
+              ++ lib.optionals (value.wrapper.printing) [
+                "/run/cups/cups.sock"
+              ]
               ++ lib.optionals (value.wrapper.time) [
                 "/etc/localtime"
                 [
@@ -283,13 +299,30 @@ let
         os.execv(wrappedCmd, wrappedArgs)
       ''));
 
-      appDesktopPkgs = (builtins.filter (p: p.appFileSrc != "")
+      appDesktopPkgs = (builtins.filter (p: p.binName != "")
         value.wrapper.packages
       );
       appDesktopCopy = (p:
       let
         pkgName = lib.getName p.package;
-        newExec = "${mkNPfileWrapper}/bin/${name} ${p.binName} ${p.extraParams}";
+        newBin  = "${mkNPfileWrapper}/bin/${name}";
+        deskFileEdit = (lib.lists.forEach p.appFile (af:
+          let
+            newExec = "${newBin} ${p.binName} ${af.args.extra}";
+          in
+          ''
+            cp $src/share/applications/${af.src}.desktop \
+               $out/share/applications/${af.dst}.desktop
+            if [ "${af.args.remove}" != "" ]; then
+              sed -i '/^Exec=/s/${af.args.remove}//g' \
+               $out/share/applications/${af.dst}.desktop
+            fi
+            sed -i '/^Exec=/s/%[uU]/@@u %U @@/g' \
+               $out/share/applications/${af.dst}.desktop
+            sed -i 's|^Exec=.*${p.binName}|Exec=${newExec}|g' \
+               $out/share/applications/${af.dst}.desktop
+          ''
+        ));
       in
       pkgs.stdenv.mkDerivation {
         name = "${name}-${pkgName}-desktop-file";
@@ -301,18 +334,8 @@ let
           if [ -d $src/share/icons ]; then
             cp -r $src/share/icons/. $out/share/icons/
           fi
-
-          cp $src/share/applications/${p.appFileSrc}.desktop \
-             $out/share/applications/${p.appFileDst}.desktop
-          if [ "${p.delParams}" != "" ]; then
-            sed -i '/^Exec=/s/${p.delParams}//g' \
-             $out/share/applications/${p.appFileDst}.desktop
-          fi
-          sed -i '/^Exec=/s/%[uU]/@@u %U @@/g' \
-             $out/share/applications/${p.appFileDst}.desktop
-          sed -i 's|^Exec=.*${p.binName}|Exec=${newExec}|g' \
-             $out/share/applications/${p.appFileDst}.desktop
-        '';
+        ''
+        + lib.strings.concatStrings deskFileEdit;
       });
       appDesktopList = lib.lists.forEach appDesktopPkgs (p: appDesktopCopy p);
     in

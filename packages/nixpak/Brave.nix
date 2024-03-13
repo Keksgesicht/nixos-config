@@ -7,9 +7,13 @@ in
   nixpak."${name}" = {
     wrapper = {
       packages = [
-        { package = pkgs.brave; binName = "brave";
-          #extraParams = "--enable-features=UseOzonePlatform --ozone-platform-hint=auto --force-dark-mode --enable-features=WebUIDarkMode";
-          appFileSrc = "brave-browser"; }
+        { package = pkgs.brave; binName = "brave"; appFile = [
+          { src = "brave-browser"; args.extra = [
+            #"--enable-features=UseOzonePlatform"
+            #"--ozone-platform-hint=auto" "--force-dark-mode"
+            #"--enable-features=WebUIDarkMode""
+          ]; }
+        ]; }
       ];
       audio = true;
     };
