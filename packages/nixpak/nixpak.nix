@@ -285,6 +285,7 @@ let
                 if arg == "@@":
                     mark = False
                 else:
+                    arg = arg.removeprefix("file://")
                     fpCmd = flatpakCmd + " " + arg
                     docPath = os.popen(fpCmd).read().replace('\n', "")
                     if docPath != "":
@@ -318,6 +319,8 @@ let
                $out/share/applications/${af.dst}.desktop
             fi
             sed -i '/^Exec=/s/%[uU]/@@u %U @@/g' \
+               $out/share/applications/${af.dst}.desktop
+            sed -i '/^Exec=/s/%F/@@u %F @@/g' \
                $out/share/applications/${af.dst}.desktop
             sed -i 's|^Exec=.*${p.binName}|Exec=${newExec}|g' \
                $out/share/applications/${af.dst}.desktop

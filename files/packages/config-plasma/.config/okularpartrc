@@ -1,0 +1,46 @@
+[Core General]
+ExternalEditor=Texstudio
+ObeyDRM=false
+
+[Core Performance]
+TextHinting=Enabled
+
+[Core Presentation]
+SlidesTapNavigation=ForwardBackward
+
+[Dlg Accessibility]
+HighlightLinks=true
+
+[Dlg Performance]
+EnableCompositing=false
+
+[Dlg Presentation]
+SlidesShowProgress=false
+
+[Document]
+RenderMode=InvertLuma
+
+[General]
+DisplayDocumentNameOrPath=Path
+DisplayDocumentTitle=false
+ShellOpenFileInTabs=true
+SwitchToTabIfOpen=true
+ttsEngine=flite
+ttsVoice=kal16
+
+[Identity]
+IdentityAuthor=Jan B.
+
+[Main View]
+SplitterSizes=221,1050
+
+[PageView]
+MouseMode=TextSelect
+ViewColumns=2
+
+[Reviews]
+BuiltinAnnotationTools=<tool name="Yellow Highlighter" id="1" type="highlight"><engine color="#ff5500" type="TextSelector"><annotation color="#ff5500" type="Highlight"/></engine><shortcut>1</shortcut></tool>,<tool id="2" type="underline"><engine color="#ff0000" type="TextSelector"><annotation color="#ffff0000" type="Underline"/></engine></tool>,<tool id="3" type="squiggly"><engine color="#ff0000" type="TextSelector"><annotation color="#ffff0000" type="Squiggly"/></engine></tool>,<tool id="4" type="strikeout"><engine color="#ff0000" type="TextSelector"><annotation color="#ffff0000" type="StrikeOut"/></engine></tool>,<tool id="5" type="typewriter"><engine block="true" type="PickPoint"><annotation textColor="#000000" font="Noto Sans\\\\\\\\\\,10\\\\\\\\\\,-1\\\\\\\\\\,5\\\\\\\\\\,50\\\\\\\\\\,0\\\\\\\\\\,0\\\\\\\\\\,0\\\\\\\\\\,0\\\\\\\\\\,0\\\\\\\\\\,Regular" width="0" color="#00ffffff" type="Typewriter"/></engine></tool>,<tool id="6" type="note-inline"><engine hoverIcon="tool-note-inline" block="true" color="#ffff00" type="PickPoint"><annotation font="Noto Sans\\\\\\\\\\,10\\\\\\\\\\,-1\\\\\\\\\\,5\\\\\\\\\\,50\\\\\\\\\\,0\\\\\\\\\\,0\\\\\\\\\\,0\\\\\\\\\\,0\\\\\\\\\\,0\\\\\\\\\\,Regular" color="#ffffff00" type="FreeText"/></engine></tool>,<tool id="7" type="note-linked"><engine hoverIcon="tool-note" color="#ffff00" type="PickPoint"><annotation icon="Note" color="#ffffff00" type="Text"/></engine></tool>,<tool id="8" type="ink"><engine color="#00ff00" type="SmoothLine"><annotation width="1" color="#ff00ff00" type="Ink"/></engine></tool>,<tool name="Arrow" id="9" type="straight-line"><engine points="2" color="#000000" type="PolyLine"><annotation width="2" color="#ff000000" endStyle="3" type="Line"/></engine></tool>,<tool id="10" type="straight-line"><engine points="2" color="#000000" type="PolyLine"><annotation width="2" color="#ff000000" type="Line"/></engine></tool>,<tool id="11" type="rectangle"><engine block="true" color="#ff0000" type="PickPoint"><annotation width="3" color="#ffff0000" type="GeomSquare"/></engine></tool>,<tool id="12" type="ellipse"><engine block="true" color="#00ffff" type="PickPoint"><annotation width="3" color="#ff00ffff" type="GeomCircle"/></engine></tool>,<tool id="13" type="polygon"><engine points="-1" color="#007eee" type="PolyLine"><annotation width="2" color="#ff007eee" type="Line"/></engine></tool>,<tool id="14" type="stamp"><engine hoverIcon="Approved" block="true" size="64" type="PickPoint"><annotation icon="Approved" type="Stamp"/></engine></tool>
+QuickAnnotationTools=<tool type="highlight" name="Green Highlighter" id="1"><engine color="#ff00e030" type="TextSelector"><annotation color="#ff00e030" type="Highlight"/></engine><shortcut>1</shortcut></tool>,<tool type="highlight" name="Yellow Highlighter" id="2"><engine color="#ffffff00" type="TextSelector"><annotation color="#ffffff00" type="Highlight"/></engine><shortcut>2</shortcut></tool>,<tool type="highlight" name="Orange Highlighter" id="3"><engine color="#ffffa000" type="TextSelector"><annotation color="#ffffa000" type="Highlight"/></engine><shortcut>3</shortcut></tool>,<tool type="squiggly" name="Blue Underline" id="4"><engine color="#ff00007f" type="TextSelector"><annotation color="#ff00007f" type="Squiggly"/></engine><shortcut>4</shortcut></tool>,<tool type="rectangle" name="Red Reactangle" id="5"><engine color="#ffff0000" type="PickPoint" block="true"><annotation width="2" color="#ffff0000" type="GeomSquare"/></engine><shortcut>5</shortcut></tool>,<tool type="note-linked" id="6"><engine color="#ffff00" hoverIcon="tool-note" type="PickPoint"><annotation color="#ffffff00" icon="Note" type="Text"/></engine><shortcut>6</shortcut></tool>
+
+[Zoom]
+ZoomMode=2

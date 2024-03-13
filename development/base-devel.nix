@@ -26,6 +26,5 @@
     unixtools.xxd
     unzip
     xdot
-    zellij
   ];
 }

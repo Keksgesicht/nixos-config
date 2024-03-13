@@ -12,6 +12,7 @@ let
 
   appCfgList = [
     ./Brave.nix
+    ./DocPDF.nix
     ./Ferdium.nix
     ./FireFox.nix
     ./GitKraken.nix
@@ -23,6 +24,7 @@ let
   ];
   appFuncList = lib.lists.forEach appCfgList (app:
     (import app {
+      inherit lib;
       inherit pkgs;
       inherit sloth;
       inherit appDir;

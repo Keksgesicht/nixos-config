@@ -31,9 +31,6 @@ in
     meld
     nextcloud-client
     okteta
-    #pdfdiff
-    pdfgrep
-    pympress
     qrencode
     silence-cutter
     (ventoy.override {

@@ -74,13 +74,13 @@ in
       "text/javascript" = textEditor;
       "text/markdown"   = textEditor;
       "text/plain"      = textEditor;
-      "text/x-bibtex"   = "org.texstudio.TeXstudio.desktop";
+      "text/x-bibtex"   = "texstudio.desktop";
       "text/x-c++src"   = textEditor;
       "text/x-csrc"     = textEditor;
       "text/x-makefile" = textEditor;
       "text/x-patch"    = "org.gnome.meld.desktop";
       "text/x-python"   = textEditor;
-      "text/x-tex"      = "org.texstudio.TeXstudio.desktop";
+      "text/x-tex"      = "texstudio.desktop";
 
       "image/gif"     = imageViewer;
       "image/jpeg"    = imageViewer;
@@ -146,7 +146,7 @@ in
       "text/x-csrc"     = metaApps;
       "text/x-makefile" = metaApps;
       "text/x-bibtex"   = metaApps ++ [
-        "org.texstudio.TeXstudio.desktop"
+        "texstudio.desktop"
       ];
       "text/x-patch"    = metaApps ++ [
         "io.github.mightycreak.Diffuse.desktop"
@@ -154,7 +154,7 @@ in
       ];
       "text/x-python"   = metaApps;
       "text/x-tex"      = metaApps ++ [
-        "org.texstudio.TeXstudio.desktop"
+        "texstudio.desktop"
       ];
 
       "image/gif"     = imageTools;
