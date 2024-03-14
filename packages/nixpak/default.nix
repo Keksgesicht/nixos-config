@@ -22,6 +22,7 @@ let
     ./Signal.nix
     ./ThunderBird.nix
     ./UngoogledChromium.nix
+    ./Vesktop.nix
   ];
   appFuncList = lib.lists.forEach appCfgList (app:
     (import app {
