@@ -33,12 +33,30 @@ let
       ;
     })
   ];
+
+  okularPkg = pkgs.kdePackages.okular;
+  okularBin = "${okularPkg}/bin/okular";
+  okularCfg = pkgs.writeShellScriptBin "okular" (''
+    [ -e "$XDG_CONFIG_HOME/okularpartrc" ] || \
+      cp "$XDG_CONFIG_HOME/okular/okularpartrc" "$XDG_CONFIG_HOME/okularpartrc"
+    [ -e "$XDG_CONFIG_HOME/okularrc" ] || \
+      cp "$XDG_CONFIG_HOME/okular/okularrc" "$XDG_CONFIG_HOME/okularrc"
+    exec -a ${okularBin} ${okularBin} $@
+  '');
+  okularOut = pkgs.symlinkJoin {
+    pname = "okular-cfg-wrapper";
+    name  = "okular-cfg-wrapper";
+    paths = [
+      okularCfg
+      okularPkg
+    ];
+  };
 in
 {
   nixpak."${name}" = {
     wrapper = {
       packages = [
-        { package = pkgs.kdePackages.okular; binName = "okular"; appFile = [
+        { package = okularOut; binName = "okular"; appFile = [
           { src = "org.kde.okular"; }
         ]; }
         { package = pkgs.pdfarranger; binName = "pdfarranger"; appFile = [
@@ -61,14 +79,30 @@ in
       ++ lib.optionals (latexSet == "base") latexBase
       ++ lib.optionals (latexSet == "work") latexWork
       ;
-
+      variables = {
+        QT_PLUGIN_PATH = [
+          "${pkgs.kdePackages.qtwayland}/lib/qt-6/plugins"
+          "${pkgs.kdePackages.breeze}/lib/qt-6/plugins"
+          "${pkgs.kdePackages.breeze-icons}/lib/qt-6/plugins"
+          "${pkgs.kdePackages.frameworkintegration}/lib/qt-6/plugins"
+        ];
+      };
       printing = true;
     };
 
     bubblewrap = {
+      bind.ro = [
+        [
+          (sloth.concat' sloth.xdgConfigHome "/okularpartrc")
+          (sloth.concat' sloth.xdgConfigHome "/okular/okularpartrc")
+        ]
+        [
+          (sloth.concat' sloth.xdgConfigHome "/okularrc")
+          (sloth.concat' sloth.xdgConfigHome "/okular/okularrc")
+        ]
+        "/run/current-system/sw/share/icons"
+      ];
       bind.rw = [
-        (sloth.concat' sloth.xdgConfigHome "/okularpartrc")
-        (sloth.concat' sloth.xdgConfigHome "/okularrc")
         (bindHomeDir name "/.config/pdfarranger")
         (bindHomeDir name "/.config/texstudio")
         (bindHomeDir name "/.config/xournalpp")
