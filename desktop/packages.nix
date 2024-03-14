@@ -1,13 +1,6 @@
 { config, pkgs, username, ... }:
 
 let
-  arkenfox-ff = (pkgs.callPackage ../packages/arkenfox-user.js.nix {
-    patchSet = "FireFox";
-  });
-  arkenfox-lw = (pkgs.callPackage ../packages/arkenfox-user.js.nix {
-    patchSet = "LibreWolf";
-  });
-
   # python script which removes silent regions of videos with ffmpeg
   vscut = (pkgs.callPackage ../packages/silence-cutter.nix {});
   vscut-wrapped = pkgs.writeShellScriptBin "silence_cutter.py" ''
@@ -42,10 +35,5 @@ in
     xorg.xorgserver
     xorg.xrandr
     yubikey-manager
-  ];
-
-  systemd.tmpfiles.rules = [
-    "L+ /usr/share/arkenfox/FireFox   - - - - ${arkenfox-ff}"
-    "L+ /usr/share/arkenfox/LibreWolf - - - - ${arkenfox-lw}"
   ];
 }

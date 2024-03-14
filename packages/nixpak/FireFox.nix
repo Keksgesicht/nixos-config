@@ -2,6 +2,10 @@
 
 let
   name = "FireFox";
+
+  arkenfox-ff = (pkgs.callPackage ../arkenfox-user.js.nix {
+    patchSet = "FireFox";
+  });
 in
 {
   nixpak."${name}" = {
@@ -19,6 +23,10 @@ in
           # mozilla.cfg
           ("${pkgs.firefox}/lib/firefox")
           ("/app/etc/firefox")
+        ]
+        [
+          (arkenfox-ff)
+          (sloth.concat' sloth.homeDir "/.mozilla/user.js")
         ]
       ];
       bind.rw = [
