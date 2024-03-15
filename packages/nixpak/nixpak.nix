@@ -238,7 +238,6 @@ let
                 # https://docs.flatpak.org/en/latest/portal-api-reference.html
                 "org.freedesktop.portal.Desktop" = "talk";
                 "org.freedesktop.portal.Documents" = "talk";
-                "org.freedesktop.portal.FileChooser" = "talk";
               };
             })
             value.dbus
@@ -361,5 +360,9 @@ in
 
   config.users.users."${username}".packages = (mapAL (name: value:
     value.output.env
-  ) config.nixpak);
+  ) config.nixpak)
+  ++ [
+    # https://forum.xfce.org/viewtopic.php?id=14926
+    pkgs.d-spy
+  ];
 }

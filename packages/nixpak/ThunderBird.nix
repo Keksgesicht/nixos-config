@@ -10,6 +10,7 @@ in
     ];
 
     dbus.policies = {
+      "org.freedesktop.Notifications" = "talk";
       "org.mozilla.thunderbird.*" = "own";
     };
 

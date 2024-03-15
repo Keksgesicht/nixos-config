@@ -25,6 +25,7 @@ in
 
     dbus.policies = {
       "org.freedesktop.Notifications" = "talk";
+      "org.freedesktop.PowerManagement.Inhibit" = "talk";
     };
 
     bubblewrap = {

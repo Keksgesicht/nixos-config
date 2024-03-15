@@ -21,8 +21,7 @@ in
 
     dbus.policies = {
       "org.freedesktop.Notifications" = "talk";
-      "org.freedesktop.PowerManagement" = "talk";
-      "org.freedesktop.ScreenSaver" = "talk";
+      "org.freedesktop.PowerManagement.Inhibit" = "talk";
     };
 
     bubblewrap = {

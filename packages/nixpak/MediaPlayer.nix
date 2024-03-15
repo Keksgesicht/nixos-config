@@ -14,6 +14,7 @@ in
     };
 
     dbus.policies = {
+      "org.freedesktop.PowerManagement.Inhibit" = "talk";
       "org.mpris.MediaPlayer2.vlc" = "own";
     };
 
