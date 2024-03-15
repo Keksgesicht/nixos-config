@@ -20,7 +20,7 @@ let
     "org.kde.okteta.desktop"
   ];
   imageTools = [
-    "org.gimp.GIMP"
+    "gimp.desktop"
     "org.kde.gwenview.desktop"
     "org.kde.krita.desktop"
   ];

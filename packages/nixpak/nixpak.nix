@@ -235,6 +235,7 @@ let
             ({
               enable = lib.mkDefault value.wrapper.xdg-portal;
               policies = lib.mkIf (value.wrapper.xdg-portal) {
+                # https://docs.flatpak.org/en/latest/portal-api-reference.html
                 "org.freedesktop.portal.Desktop" = "talk";
                 "org.freedesktop.portal.Documents" = "talk";
                 "org.freedesktop.portal.FileChooser" = "talk";

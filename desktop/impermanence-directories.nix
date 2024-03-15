@@ -135,7 +135,6 @@ with my-functions;
         ]
         ++ secureHomeDir [
           ".config/akonadi"
-          ".config/copyq"
           ".config/gnupg"
           ".config/kdeconnect"
           ".config/keepassxc"

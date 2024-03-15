@@ -8,13 +8,10 @@
     file
     fzf
     git
-    graphviz
-    imagemagick
     jq
     ldns
     lsof
     moar
-    nix-index
     nmap
     psmisc
     pv
@@ -25,6 +22,5 @@
     strace
     unixtools.xxd
     unzip
-    xdot
   ];
 }

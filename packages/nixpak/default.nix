@@ -11,6 +11,7 @@ let
   ]);
 
   appCfgList = [
+    ./BilderAnguck.nix
     ./Brave.nix
     ./DocPDF.nix
     ./Ferdium.nix
