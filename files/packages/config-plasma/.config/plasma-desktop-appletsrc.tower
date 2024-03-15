@@ -298,7 +298,7 @@ immutability=1
 plugin=org.kde.plasma.digitalclock
 
 [Containments][3][Applets][21][Configuration]
-PreloadWeight=70
+PreloadWeight=75
 popupHeight=450
 popupWidth=932
 
@@ -308,6 +308,7 @@ dateDisplayFormat=BelowTime
 dateFormat=custom
 enabledCalendarPlugins=/usr/lib/qt/plugins/plasmacalendarplugins/astronomicalevents.so,/usr/lib/qt/plugins/plasmacalendarplugins/holidaysevents.so,/usr/lib/qt/plugins/plasmacalendarplugins/pimevents.so
 firstDayOfWeek=1
+pin=true
 showSeconds=true
 showWeekNumbers=true
 
@@ -800,7 +801,7 @@ immutability=1
 plugin=org.kde.plasma.battery
 
 [Containments][84][Applets][99][Configuration]
-PreloadWeight=42
+PreloadWeight=34
 
 [Containments][84][Configuration]
 PreloadWeight=42
@@ -895,6 +896,7 @@ plugin=org.kde.plasma.bluetooth
 extraItems=org.kde.plasma.battery,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.merkuro.contact,org.kde.kdeconnect,org.kde.kscreen,org.kde.plasma.bluetooth,org.kde.plasma.keyboardindicator,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.nightcolorcontrol,org.kde.plasma.printmanager,org.kde.plasma.volume
 hiddenItems=Discover Notifier_org.kde.DiscoverNotifier,org.kde.plasma.keyboardlayout,org.kde.merkuro.contact
 knownItems=org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.merkuro.contact,org.kde.kdeconnect,org.kde.kscreen,org.kde.plasma.bluetooth,org.kde.plasma.keyboardindicator,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.nightcolorcontrol,org.kde.plasma.printmanager,org.kde.plasma.volume
+pin=true
 shownItems=org.kde.plasma.bluetooth,org.kde.plasma.mediacontroller,org.kde.plasma.nightcolorcontrol
 
 [ScreenMapping]

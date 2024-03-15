@@ -14,7 +14,7 @@ DefaultProfile=Breath2.profile
 PreviewSize=16
 
 [General]
-BrowseThroughArchives=true
+BrowseThroughArchives=false
 CloseActiveSplitView=false
 GlobalViewProps=false
 LockPanels=false
@@ -43,7 +43,7 @@ ConfirmTrash=true
 CompletionMode=1
 
 [PreviewSettings]
-Plugins=audiothumbnail,comicbookthumbnail,cursorthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,jpegthumbnail,rawthumbnail,svgthumbnail,textthumbnail,ffmpegthumbs
+Plugins=directorythumbnail,textthumbnail
 
 [VersionControl]
 enabledPlugins=Git

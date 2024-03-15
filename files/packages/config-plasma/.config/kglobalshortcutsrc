@@ -2,24 +2,17 @@
 _k_friendly_name=Activity Manager
 switch-to-activity-ed353e5a-8fcc-48ba-a2e0-c308d96fdb9d=none,none,Switch to activity "Default"
 
-[KDE Keyboard Layout Switcher]
-Switch to Next Keyboard Layout=Ctrl+Alt+K,Meta+Alt+K,
-_k_friendly_name=Keyboard Layout Switcher
-
 [GitKraken.desktop]
 _k_friendly_name=GitKraken
 _launch=Meta+G,none,
 
+[KDE Keyboard Layout Switcher]
+Switch to Next Keyboard Layout=Ctrl+Alt+K,Meta+Alt+K,
+_k_friendly_name=Keyboard Layout Switcher
+
 [com.github.hluk.copyq.desktop]
 _k_friendly_name=CopyQ
 _launch=Meta+V,none,
-
-[librewolf.desktop]
-_k_friendly_name=LibreWolf
-_launch=none,none,
-new-private-window=none,none,
-new-window=Meta+B,none,
-profilemanager=none,none,
 
 [kaccess]
 Toggle Screen Reader On and Off=Meta+Alt+S,Meta+Alt+S,Toggle Screen Reader On and Off
@@ -180,7 +173,7 @@ Window Lower=none,,Lower Window
 Window Maximize=Meta+PgUp,Meta+PgUp,Maximize Window
 Window Maximize Horizontal=Meta+Alt+H,,Maximize Window Horizontally
 Window Maximize Vertical=Meta+Alt+V,,Maximize Window Vertically
-Window Minimize=Meta+Alt+Down,Meta+PgDown,Minimize Window
+Window Minimize=Meta+PgDown,Meta+PgDown,Minimize Window
 Window Move=none,,Move Window
 Window Move Center=none,,Move Window to the Center
 Window No Border=none,,Toggle Window Titlebar and Frame
@@ -248,6 +241,13 @@ _k_friendly_name=KWin
 view_actual_size=Meta+0,Meta+0,Zoom to Actual Size
 view_zoom_in=Meta++,Meta++\tMeta+=,Zoom In
 view_zoom_out=Meta+-,Meta+-,Zoom Out
+
+[librewolf.desktop]
+_k_friendly_name=LibreWolf
+_launch=none,none,
+new-private-window=none,none,
+new-window=Meta+B,none,
+profilemanager=none,none,
 
 [mediacontrol]
 _k_friendly_name=Media Controller
