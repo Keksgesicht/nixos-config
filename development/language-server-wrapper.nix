@@ -3,6 +3,7 @@ let
   lsp-pkgs = with pkgs; [
     clang-tools
     nil
+    nodePackages.bash-language-server
     python3Packages.python-lsp-server
   ];
   lsp-string = lib.strings.concatStringsSep ":" (lib.lists.forEach lsp-pkgs (p:
