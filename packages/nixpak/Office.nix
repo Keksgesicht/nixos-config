@@ -1,4 +1,4 @@
-{ pkgs, bindHomeDir, ... }:
+{ pkgs, sloth, bindHomeDir, ... }:
 
 let
   name = "Office";
@@ -24,6 +24,10 @@ in
     bubblewrap = {
       bind.rw = [
         (bindHomeDir name "/.config/libreoffice")
+
+        (sloth.xdgDocumentsDir)
+        (sloth.xdgDownloadDir)
+        (sloth.concat' sloth.homeDir "/Module")
       ];
     };
   };
