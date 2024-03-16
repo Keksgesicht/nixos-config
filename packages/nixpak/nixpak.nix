@@ -1,7 +1,6 @@
-{ config, pkgs, lib, inputs, sloth, username, ... }:
+{ config, pkgs, lib, inputs, username, ... }:
 
 let
-  toplevelConfig = config;
   inherit (lib) types;
 
   # https://github.com/nixpak/nixpak
@@ -174,6 +173,12 @@ let
           bubblewrap = lib.mkMerge [
             ({
               bind.ro = [
+                # Flatpak does this (/sys/devices), why not NixPak :/
+                # https://wiki.alpinelinux.org/wiki/Bubblewrap#Basic_bwrap_setup
+                # additionally to nixpak's default (/sys/devices/pci0000:00).
+                # my system only needs the following (two first gen ryzen dies):
+                "/sys/devices/pci0000:40"
+
                 "/etc/fonts"
                 "/etc/zinputrc"
                 "/etc/zshenv"
