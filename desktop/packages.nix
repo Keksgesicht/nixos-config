@@ -18,6 +18,7 @@ let
 in
 {
   users.users."${username}".packages = with pkgs; [
+    gnome-decoder
     gnome.gnome-calculator
     keepassxc
     meld

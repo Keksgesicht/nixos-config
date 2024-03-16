@@ -1,4 +1,4 @@
-{ pkgs, lib, inputs, sloth, ... }:
+{ config, pkgs, lib, inputs, sloth, ... }:
 
 # https://github.com/nixpak/nixpak
 let
@@ -19,14 +19,17 @@ let
     ./GitKraken.nix
     ./LibreWolf.nix
     ./MediaPlayer.nix
+    ./Mousai.nix
     ./Office.nix
     ./Signal.nix
+    ./SIP.nix
     ./ThunderBird.nix
     ./UngoogledChromium.nix
     ./Vesktop.nix
   ];
   appFuncList = lib.lists.forEach appCfgList (app:
     (import app {
+      inherit config;
       inherit lib;
       inherit pkgs;
       inherit sloth;
