@@ -1,4 +1,4 @@
-{ pkgs, lib, sloth, bindHomeDir, ... }:
+{ pkgs, lib, sloth, bindHomeDir, myKDEpkg, myKDEmount, ... }:
 
 let
   name = "DocPDF";
@@ -34,29 +34,15 @@ let
     })
   ];
 
-  okularPkg = pkgs.kdePackages.okular;
-  okularBin = "${okularPkg}/bin/okular";
-  okularCfg = pkgs.writeShellScriptBin "okular" (''
-    [ -e "$XDG_CONFIG_HOME/okularpartrc" ] || \
-      cp "$XDG_CONFIG_HOME/okular/okularpartrc" "$XDG_CONFIG_HOME/okularpartrc"
-    [ -e "$XDG_CONFIG_HOME/okularrc" ] || \
-      cp "$XDG_CONFIG_HOME/okular/okularrc" "$XDG_CONFIG_HOME/okularrc"
-    exec -a ${okularBin} ${okularBin} $@
-  '');
-  okularOut = pkgs.symlinkJoin {
-    pname = "okular-cfg-wrapper";
-    name  = "okular-cfg-wrapper";
-    paths = [
-      okularCfg
-      okularPkg
-    ];
-  };
+  okularPkg = (myKDEpkg pkgs.kdePackages.okular "okular" "cp -n" [
+    "" "part"
+  ]);
 in
 {
   nixpak."${name}" = {
     wrapper = {
       packages = [
-        { package = okularOut; binName = "okular"; appFile = [
+        { package = okularPkg; binName = "okular"; appFile = [
           { src = "org.kde.okular"; }
         ]; }
         { package = pkgs.pdfarranger; binName = "pdfarranger"; appFile = [
@@ -92,14 +78,8 @@ in
 
     bubblewrap = {
       bind.ro = [
-        [
-          (sloth.concat' sloth.xdgConfigHome "/okularpartrc")
-          (sloth.concat' sloth.xdgConfigHome "/okular/okularpartrc")
-        ]
-        [
-          (sloth.concat' sloth.xdgConfigHome "/okularrc")
-          (sloth.concat' sloth.xdgConfigHome "/okular/okularrc")
-        ]
+        (myKDEmount "okular" "")
+        (myKDEmount "okular" "part")
         "/run/current-system/sw/share/icons"
       ];
       bind.rw = [

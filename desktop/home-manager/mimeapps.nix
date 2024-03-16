@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 
 let
   officeMS   = "application/vnd.openxmlformats-officedocument";
@@ -8,8 +8,8 @@ let
 
   textEditor  = "org.kde.kate.desktop";
   imageViewer = "org.kde.gwenview.desktop";
-  audioViewer = "org.videolan.VLC.desktop";
-  videoViewer = "org.videolan.VLC.desktop";
+  audioViewer = "vlc.desktop";
+  videoViewer = "vlc.desktop";
   webBrowser  = "librewolf.desktop";
 
   metaApps = [
@@ -26,13 +26,13 @@ let
   ];
   audioTools = [
     "org.audacityteam.Audacity.desktop"
-    "org.videolan.VLC.desktop"
+    "vlc.desktop"
   ];
   videoTools = [
     "fr.handbrake.ghb.desktop"
     "org.avidemux.Avidemux.desktop"
     "org.kde.kdenlive.desktop"
-    "org.videolan.VLC.desktop"
+    "vlc.desktop"
   ];
   webBrowserList = [
     "com.brave.Browser.desktop"

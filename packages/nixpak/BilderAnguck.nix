@@ -1,35 +1,12 @@
-{ pkgs, lib, sloth, bindHomeDir, ... }:
+{ pkgs, bindHomeDir, myKDEpkg, myKDEmount, ... }:
 
 let
   name = "BilderAnguck";
 
-  myKDEpkg = (pkg: name:
-    let
-      kdeBin = "${pkg}/bin/${name}";
-      kdeCfg = pkgs.writeShellScriptBin "${name}" (''
-        [ -e "$XDG_CONFIG_HOME/${name}rc" ] || \
-          cp "$XDG_CONFIG_HOME/${name}/${name}rc" "$XDG_CONFIG_HOME/${name}rc"
-        exec -a ${kdeBin} ${kdeBin} $@
-      '');
-    in
-    pkgs.symlinkJoin {
-      pname = "${name}-cfg-wrapper";
-      name  = "${name}-cfg-wrapper";
-      paths = [
-        kdeCfg
-        pkg
-      ];
-    }
-  );
-  myKDEmount = (name: [
-    (sloth.concat' sloth.xdgConfigHome "/${name}rc")
-    (sloth.concat' sloth.xdgConfigHome "/${name}/${name}rc")
-  ]);
-
-  gwenviewPkg = (myKDEpkg pkgs.kdePackages.gwenview "gwenview");
+  gwenviewPkg = (myKDEpkg pkgs.kdePackages.gwenview "gwenview" "cp -n" [ "" ]);
 in
 {
-  nixpak."${name}" = rec {
+  nixpak."${name}" = {
     wrapper = {
       packages = [
         # base system
@@ -60,7 +37,7 @@ in
     bubblewrap = {
       bind.ro =
       [
-        (myKDEmount "gwenview")
+        (myKDEmount "gwenview" "")
         ("/run/current-system/sw/share/icons")
       ];
       bind.rw = [

@@ -10,6 +10,34 @@ let
     (sloth.concat' sloth.homeDir file)
   ]);
 
+  myKDEpkg = (pkg: name: act: ext:
+    let
+      kdeBin = "${pkg}/bin/${name}";
+      kdeCfg = pkgs.writeShellScriptBin "${name}" (
+        (lib.strings.concatMapStrings (e: ''
+          touch  $XDG_CONFIG_HOME/${name}/${name}${e}rc
+          ${act} $XDG_CONFIG_HOME/${name}/${name}${e}rc \
+                 $XDG_CONFIG_HOME/${name}${e}rc
+        '') ext)
+        + ''
+          exec -a ${kdeBin} ${kdeBin} $@
+        ''
+      );
+    in
+    pkgs.symlinkJoin {
+      pname = "${name}-cfg-wrapper";
+      name  = "${name}-cfg-wrapper";
+      paths = [
+        kdeCfg
+        pkg
+      ];
+    }
+  );
+  myKDEmount = (name: ext: [
+    (sloth.concat' sloth.xdgConfigHome "/${name}${ext}rc")
+    (sloth.concat' sloth.xdgConfigHome "/${name}/${name}${ext}rc")
+  ]);
+
   appCfgList = [
     ./BilderAnguck.nix
     ./Brave.nix
@@ -26,6 +54,7 @@ let
     ./ThunderBird.nix
     ./UngoogledChromium.nix
     ./Vesktop.nix
+    ./VideoEdit.nix
   ];
   appFuncList = lib.lists.forEach appCfgList (app:
     (import app {
@@ -35,6 +64,8 @@ let
       inherit sloth;
       inherit appDir;
       inherit bindHomeDir;
+      inherit myKDEpkg;
+      inherit myKDEmount;
     })
   );
 in

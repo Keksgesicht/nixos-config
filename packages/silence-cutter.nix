@@ -3,7 +3,6 @@
 stdenv.mkDerivation {
   pname = "silence-cutter";
   name = "video-silence-cutter";
-  version = "0.0.0";
 
   # https://github.com/DarkTrick/python-video-silence-cutter
   src = fetchFromGitHub {
@@ -21,13 +20,9 @@ stdenv.mkDerivation {
   installPhase = ''
     cd $src
     install -Dm755 "silence_cutter.py" "$out/bin/silence_cutter.py"
-    sed -i '1s/^/#!\/usr\/bin\/env python\n/' "$out/bin/silence_cutter.py"
-  '';
-  # this does not work
-  # see let commands in desktop/packages.nix
-  postInstall = ''
-    wrapProgram "$out/bin/silence_cutter.py" --prefix PATH :
-      "${lib.makeBinPath [ pkgs.ffmpeg ]}"
+    sed -i '1s|^|#!${pkgs.python3}/bin/python3\n|' "$out/bin/silence_cutter.py"
+    wrapProgram "$out/bin/silence_cutter.py" \
+      --prefix PATH ':' "${lib.makeBinPath [ pkgs.ffmpeg ]}" \
   '';
 
   meta = with lib; {
