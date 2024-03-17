@@ -130,6 +130,7 @@ let
           zsh bash
           coreutils gawk ncurses
           bat eza gnugrep
+          xdg-utils
         ];
         variables = {
           PATH = lib.lists.forEach config.wrapper.packages (p:
@@ -178,6 +179,16 @@ let
                 # additionally to nixpak's default (/sys/devices/pci0000:00).
                 # my system only needs the following (two first gen ryzen dies):
                 "/sys/devices/pci0000:40"
+
+                # POSIX compliance
+                [
+                  "${pkgs.bashInteractive}/bin/sh"
+                  "/bin/sh"
+                ]
+                [
+                  "${pkgs.coreutils}/bin/env"
+                  "/usr/bin/env"
+                ]
 
                 "/etc/fonts"
                 "/etc/zinputrc"

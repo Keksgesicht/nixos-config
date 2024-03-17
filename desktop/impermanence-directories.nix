@@ -126,7 +126,6 @@ with my-functions;
           ".local/share/kwin"
           ".local/share/kwrite"
           ".local/share/kxmlgui5"
-          ".local/share/nix-cage"
           ".local/share/org.kde.syntax-highlighting"
           ".local/share/plasma"
           ".local/share/plasma-systemmonitor"

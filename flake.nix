@@ -26,15 +26,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    # https://github.com/thiagokokada/nix-cage
-    nix-cage = {
-      type = "github";
-      owner = "thiagokokada";
-      repo = "nix-cage";
-      rev = "b831a0197efe69ae552182318f553e651474ff96";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     # https://github.com/nixpak/nixpak
     nixpak = {
       url = "github:nixpak/nixpak";
@@ -56,7 +47,6 @@
     home-manager,
     impermanence,
     lanzaboote,
-    nix-cage,
     nixpak,
     plasma-manager,
   }@inputs: {

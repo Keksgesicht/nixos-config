@@ -49,6 +49,7 @@ let
     ./MediaPlayer.nix
     ./Mousai.nix
     ./Office.nix
+    ./Shell.nix
     ./Signal.nix
     ./SIP.nix
     ./ThunderBird.nix
