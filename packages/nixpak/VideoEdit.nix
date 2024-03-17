@@ -10,7 +10,8 @@ let
   silence-cutter = (pkgs.callPackage ../silence-cutter.nix {});
 in
 {
-  nixpak."${name}" = if (config.networking.hostName == "cookieclicker") then {
+  nixpak = if (config.networking.hostName == "cookieclicker") then {
+  "${name}" = {
     wrapper = {
       packages = [
         { package = kdenlivePkg; binName = "kdenlive"; appFile = [
@@ -67,5 +68,5 @@ in
         (sloth.xdgVideosDir)
       ];
     };
-  } else null;
+  }; } else {};
 }

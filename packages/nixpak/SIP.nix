@@ -4,7 +4,8 @@ let
   name = "SIP";
 in
 {
-  nixpak."${name}" = if (config.networking.hostName == "cookieclicker") then {
+  nixpak = if (config.networking.hostName == "cookieclicker") then {
+  "${name}" = {
     wrapper = {
       packages = [
         { package = pkgs.jami; binName = "jami"; }
@@ -26,5 +27,5 @@ in
       ];
       network = true;
     };
-  } else null;
+  }; } else {};
 }
