@@ -1,4 +1,0 @@
-[Context]
-sockets=pcsc;fallback-x11
-devices=all
-filesystems=!xdg-run/gvfs;~/.secrets/KeePass

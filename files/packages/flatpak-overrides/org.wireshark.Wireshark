@@ -1,4 +1,0 @@
-[Context]
-shared=network
-devices=all
-features=devel

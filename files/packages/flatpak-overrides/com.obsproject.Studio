@@ -1,5 +1,0 @@
-[Context]
-shared=network
-sockets=pulseaudio
-devices=all
-filesystems=xdg-videos/Gaming/Desktop;xdg-videos/Work

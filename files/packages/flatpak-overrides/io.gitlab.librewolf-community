@@ -1,4 +1,0 @@
-[Context]
-shared=network
-sockets=pulseaudio;!fallback-x11
-filesystems=!xdg-run/pipewire-0;!xdg-download

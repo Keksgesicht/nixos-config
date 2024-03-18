@@ -1,3 +1,0 @@
-[Context]
-devices=dri
-filesystems=!xdg-run/gvfs;!xdg-run/gvfsd;xdg-download;xdg-pictures

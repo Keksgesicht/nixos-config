@@ -1,4 +1,0 @@
-[Context]
-sockets=!fallback-x11
-filesystems=~/texmf:ro;~/git;xdg-documents/Office/Finanzen;xdg-documents/Studium/Module
-persistent=.texlive2022

@@ -1,2 +1,0 @@
-[Context]
-filesystems=!xdg-run/gvfs;!xdg-run/gvfsd;xdg-documents;xdg-download

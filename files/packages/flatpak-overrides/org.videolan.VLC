@@ -1,8 +1,0 @@
-[Context]
-sockets=pulseaudio
-devices=dri
-filesystems=!xdg-run/gvfs;xdg-documents:ro;xdg-download:ro;xdg-music:ro;xdg-videos:ro
-
-[Session Bus Policy]
-org.kde.kwalletd=none
-org.kde.kwalletd5=none

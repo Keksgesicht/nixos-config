@@ -1,3 +1,0 @@
-[Context]
-shared=network
-filesystems=~/.secrets/KeePass;xdg-documents;xdg-music;xdg-pictures
