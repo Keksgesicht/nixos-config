@@ -189,14 +189,20 @@ let
                   "/usr/bin/env"
                 ]
 
+                # fonts
                 "/etc/fonts"
+                [
+                  "/run/current-system/sw/share/X11/fonts"
+                  (sloth.concat' sloth.xdgDataHome "/fonts")
+                ]
+
+                # ZSH config
                 "/etc/zinputrc"
                 "/etc/zshenv"
                 "/etc/zshrc"
                 "/etc/zshrc.local"
 
-                (sloth.mkdir "/tmp/flatpak-shared")
-
+                # KDE and GTK global settings
                 (sloth.concat' sloth.xdgConfigHome "/gtkrc")
                 (sloth.concat' sloth.xdgConfigHome "/gtkrc-2.0")
                 (sloth.concat' sloth.xdgConfigHome "/kdeglobals")
@@ -204,8 +210,8 @@ let
                 (sloth.concat' sloth.xdgConfigHome "/gtk-3.0")
                 (sloth.concat' sloth.xdgConfigHome "/gtk-4.0")
 
+                # colors and themes
                 (sloth.concat' sloth.xdgDataHome "/color-schemes")
-                (sloth.concat' sloth.xdgDataHome "/fonts")
                 (sloth.concat' sloth.xdgDataHome "/icons")
                 (sloth.concat' sloth.xdgDataHome "/themes")
               ]
