@@ -41,6 +41,7 @@ let
   appCfgList = [
     ./BilderAnguck.nix
     ./Brave.nix
+    ./DevShell.nix
     ./DocPDF.nix
     ./Ferdium.nix
     ./FireFox.nix
@@ -50,7 +51,6 @@ let
     ./Mousai.nix
     ./OBS-Studio.nix
     ./Office.nix
-    ./Shell.nix
     ./Signal.nix
     ./SIP.nix
     ./ThunderBird.nix
