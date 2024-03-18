@@ -24,7 +24,7 @@ check_obs() {
 check_games_running() {
 	check_obs
 
-	games_text=$(ps -u ${user_id} -o cmd -w | grep -E "${include_filter}" | grep -Ev "${exclude_filter}")
+	games_text=$(pgrep -U "${user_id}" -a | grep -E "${include_filter}" | grep -Ev "${exclude_filter}")
 	[ -z "${games_text}" ] && return 1
 
 	return 0
@@ -37,7 +37,7 @@ start_obs() {
 		--startreplaybuffer \
 		--minimize-to-tray \
 		--disable-shutdown-check \
-		$@
+		"$@"
 }
 
 run_obs() {
@@ -46,13 +46,13 @@ run_obs() {
 
 	run_stop
 
-	if echo ${screen_res} | grep -q '3840x2160'; then
+	if echo "${screen_res}" | grep -q '3840x2160'; then
 		echo "Recording 16:9 at 3840x2160"
 		start_obs --collection "Recording_16:9" --profile "ShadowPlay_16:9"
-	elif echo ${screen_res} | grep -q '3360x1440'; then
+	elif echo "${screen_res}" | grep -q '3360x1440'; then
 		echo "Recording 21:9 at 3360x1440"
 		start_obs --collection "Recording_21:9" --profile "ShadowPlay_21:9"
-	elif echo ${screen_res} | grep -q '5120x1440'; then
+	elif echo "${screen_res}" | grep -q '5120x1440'; then
 		echo "Recording 32:9 at 5120x1440"
 		start_obs --collection "Recording_32:9" --profile "ShadowPlay_32:9"
 	else
@@ -82,6 +82,6 @@ case ${EXEC_MODE} in
 				break
 			fi
 		done
-		killall "obs"
+		kill $(pgrep '.obs-wrapped')
 	;;
 esac
