@@ -13,14 +13,23 @@ let
   myKDEpkg = (pkg: name: act: ext:
     let
       kdeBin = "${pkg}/bin/${name}";
-      kdeCfg = pkgs.writeShellScriptBin "${name}" (
-        (lib.strings.concatMapStrings (e: ''
-          touch  $XDG_CONFIG_HOME/${name}/${name}${e}rc
-          ${act} $XDG_CONFIG_HOME/${name}/${name}${e}rc \
-                 $XDG_CONFIG_HOME/${name}${e}rc
+      kdeBin1 = lib.strings.head (lib.strings.splitString "-" kdeBin);
+      kdeBin2 = lib.strings.removePrefix kdeBin1 kdeBin;
+      kdeCfg = pkgs.writers.writePython3Bin "${name}" {
+        libraries = [];
+      } (''
+          import os
+          import sys
+        ''
+        + (lib.strings.concatMapStrings (e: ''
+          kdeRCfile = "$XDG_CONFIG_HOME/${name}/${name}${e}rc"
+          os.system("touch " + kdeRCfile)
+          os.system("${act} " + kdeRCfile + " $XDG_CONFIG_HOME/${name}${e}rc")
         '') ext)
         + ''
-          exec -a ${kdeBin} ${kdeBin} $@
+          kdeBin = "${kdeBin1}"
+          kdeBin += "${kdeBin2}"
+          os.execv(kdeBin, [kdeBin] + sys.argv[1:])
         ''
       );
     in

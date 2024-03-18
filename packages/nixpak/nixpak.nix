@@ -148,18 +148,15 @@ let
 
   mkNixPakPkg = (name: value: out:
     let
-      wrapVariables = lib.strings.concatStringsSep "\n" (
-        lib.attrsets.mapAttrsToList (name: value:
-          "export ${name}=${value}"
-        ) value.wrapper.variables
-      ) + "\n";
-      wrapExec = ''
-        truncate -s 0 ~/.zshrc
-        exec -a $1 $@
-      '';
-      wrapNPscript = pkgs.writeShellScriptBin "${name}-ns-exec" (
-        wrapVariables + wrapExec
-      );
+      wrapNPscript = (writePyBin "${name}-ns-exec" {
+        libraries = [];
+      } (''
+        import os
+        import sys
+        os.system("truncate -s 0 ~/.zshrc")
+        os.execvp(sys.argv[1], sys.argv[1:])
+      ''
+      ));
 
       np = mkNixPak {
         config = { sloth, ... }: {
@@ -173,6 +170,7 @@ let
 
           bubblewrap = lib.mkMerge [
             ({
+              env = value.wrapper.variables;
               bind.ro = [
                 # Flatpak does this (/sys/devices), why not NixPak :/
                 # https://wiki.alpinelinux.org/wiki/Bubblewrap#Basic_bwrap_setup
@@ -302,7 +300,7 @@ let
                     mark = False
                 else:
                     arg = arg.removeprefix("file://")
-                    fpCmd = flatpakCmd + " " + arg
+                    fpCmd = flatpakCmd + " '" + arg + "'"
                     docPath = os.popen(fpCmd).read().replace('\n', "")
                     if docPath != "":
                         wrappedArgs.append(docPath)
