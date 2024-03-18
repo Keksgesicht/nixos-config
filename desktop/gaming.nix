@@ -35,8 +35,8 @@ in
       "obs-studio-gaming" = {
         description = "OBS Studio Autostarter (gaming)";
         path = [
+          config.nixpak."OBS-Studio".output.env
           pkgs.bash
-          pkgs.flatpak
           pkgs.gawk
           pkgs.procps
           pkgs.psmisc

@@ -31,7 +31,7 @@ check_games_running() {
 }
 
 start_obs() {
-	flatpak run com.obsproject.Studio \
+	OBS-Studio obs \
 		--scene "Fullscreen" \
 		--websocket_ipv4_only \
 		--startreplaybuffer \

@@ -145,33 +145,10 @@ in
         X-Flatpak = "com.heroicgameslauncher.hgl";
       };
     };
-
-    "com.obsproject.Studio" = {
-      exec = (lib.concatStringsSep " " [
-        "${pkgs.flatpak}/bin/flatpak" "run"
-        "com.obsproject.Studio"
-        "--profile" "\"Default\"" "--collection" "\"Default\""
-      ]);
-      name = "OBS Studio";
-      type = "Application";
-      icon = "com.obsproject.Studio";
-      comment = "Free and Open Source Streaming/Recording Software";
-      genericName = "Streaming/Recording Software";
-      terminal = false;
-      startupNotify = true;
-      categories = [
-        "AudioVideo" "Recorder"
-      ];
-      settings = {
-        StartupWMClass = "obs";
-        X-Flatpak = "com.obsproject.Studio";
-      };
-    };
   };
 
   # aarggg.. flatpak is ealier in XDG_DATA_DIRS
   xdg.dataFile = {
     "applications/com.heroicgameslauncher.hgl.desktop".source   = mkOOSS "${profile-dir}/com.heroicgameslauncher.hgl.desktop";
-    "applications/com.obsproject.Studio.desktop".source         = mkOOSS "${profile-dir}/com.obsproject.Studio.desktop";
   };
 }

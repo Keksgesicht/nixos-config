@@ -48,6 +48,7 @@ let
     ./LibreWolf.nix
     ./MediaPlayer.nix
     ./Mousai.nix
+    ./OBS-Studio.nix
     ./Office.nix
     ./Shell.nix
     ./Signal.nix
