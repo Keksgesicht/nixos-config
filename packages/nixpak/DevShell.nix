@@ -8,7 +8,6 @@ in
     wrapper = {
       packages = [
         pkgs.git
-        pkgs.nano
         pkgs.nix
         pkgs.rsync
       ];

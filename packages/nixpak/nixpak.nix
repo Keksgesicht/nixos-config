@@ -130,6 +130,7 @@ let
           zsh bash
           coreutils gawk ncurses
           bat eza gnugrep
+          nano procps util-linux
           xdg-utils
         ];
         variables = {
