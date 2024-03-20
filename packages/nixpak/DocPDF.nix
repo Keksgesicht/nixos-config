@@ -72,14 +72,7 @@ in
       ++ lib.optionals (latexSet == "base") latexBase
       ++ lib.optionals (latexSet == "work") latexWork
       ;
-      variables = {
-        QT_PLUGIN_PATH = [
-          "${pkgs.kdePackages.qtwayland}/lib/qt-6/plugins"
-          "${pkgs.kdePackages.breeze}/lib/qt-6/plugins"
-          "${pkgs.kdePackages.breeze-icons}/lib/qt-6/plugins"
-          "${pkgs.kdePackages.frameworkintegration}/lib/qt-6/plugins"
-        ];
-      };
+      qtKDEintegration = true;
       printing = true;
     };
 
@@ -87,7 +80,6 @@ in
       bind.ro = [
         (myKDEmount "okular" "")
         (myKDEmount "okular" "part")
-        "/run/current-system/sw/share/icons"
 
         (sloth.xdgDocumentsDir)
       ];

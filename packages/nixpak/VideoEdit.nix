@@ -31,14 +31,7 @@ in
         # additional cli tools for video editing
         silence-cutter
       ];
-      variables = {
-        QT_PLUGIN_PATH = [
-          "${pkgs.kdePackages.qtwayland}/lib/qt-6/plugins"
-          "${pkgs.kdePackages.breeze}/lib/qt-6/plugins"
-          "${pkgs.kdePackages.breeze-icons}/lib/qt-6/plugins"
-          "${pkgs.kdePackages.frameworkintegration}/lib/qt-6/plugins"
-        ];
-      };
+      qtKDEintegration = true;
       audio = true;
     };
 
@@ -52,9 +45,7 @@ in
           ("${pkgs.mlt}/share/mlt-7/profiles")
           ("/app/share/mlt-7/profiles")
         ]
-
         (myKDEmount "gwenview" "")
-        ("/run/current-system/sw/share/icons")
 
         sloth.xdgDocumentsDir
         sloth.xdgMusicDir

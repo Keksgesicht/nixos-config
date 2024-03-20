@@ -12,13 +12,8 @@ in
       ];
       variables = {
         QT_QPA_PLATFORM = "wayland";
-        QT_PLUGIN_PATH = [
-          "${pkgs.kdePackages.qtwayland}/lib/qt-6/plugins"
-          "${pkgs.kdePackages.breeze}/lib/qt-6/plugins"
-          "${pkgs.kdePackages.breeze-icons}/lib/qt-6/plugins"
-          "${pkgs.kdePackages.frameworkintegration}/lib/qt-6/plugins"
-        ];
       };
+      qtKDEintegration = true;
       audio = true;
     };
 

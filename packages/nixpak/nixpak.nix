@@ -73,6 +73,10 @@ let
           else "${v}"
         );
       };
+      wrapper.qtKDEintegration = lib.mkOption {
+        default = false;
+        type = types.bool;
+      };
       wrapper.xdg-portal = lib.mkOption {
         type = types.bool;
         default = true;
@@ -137,6 +141,19 @@ let
           PATH = lib.lists.forEach config.wrapper.packages (p:
             "${p.package}/bin"
           );
+          # reset some long variables
+          XDG_DATA_DIRS = [
+            "/etc/profiles/per-user/${username}/share"
+            "/run/current-system/sw/share"
+          ];
+          # QT variables
+          NIXPKGS_QT5_QML_IMPORT_PATH = [];
+          QT_PLUGIN_PATH = if config.wrapper.qtKDEintegration then [
+            "${pkgs.kdePackages.qtwayland}/lib/qt-6/plugins"
+            "${pkgs.kdePackages.breeze}/lib/qt-6/plugins"
+            "${pkgs.kdePackages.breeze-icons}/lib/qt-6/plugins"
+            "${pkgs.kdePackages.frameworkintegration}/lib/qt-6/plugins"
+          ] else "";
         };
       };
       output.env    = (mkNixPakPkg name config "env");
@@ -214,6 +231,8 @@ let
                 (sloth.concat' sloth.xdgDataHome "/color-schemes")
                 (sloth.concat' sloth.xdgDataHome "/icons")
                 (sloth.concat' sloth.xdgDataHome "/themes")
+                "/etc/profiles/per-user/${username}/share"
+                "/run/current-system/sw/share"
               ]
               ++ lib.optionals (value.wrapper.printing) [
                 "/run/cups/cups.sock"

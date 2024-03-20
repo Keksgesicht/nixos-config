@@ -25,20 +25,13 @@ in
         pkgs.imagemagick
         pkgs.xdot
       ];
-      variables = {
-        QT_PLUGIN_PATH = [
-          "${pkgs.kdePackages.breeze}/lib/qt-6/plugins"
-          "${pkgs.kdePackages.breeze-icons}/lib/qt-6/plugins"
-          "${pkgs.kdePackages.frameworkintegration}/lib/qt-6/plugins"
-        ];
-      };
+      qtKDEintegration = true;
     };
 
     bubblewrap = {
       bind.ro =
       [
         (myKDEmount "gwenview" "")
-        ("/run/current-system/sw/share/icons")
       ];
       bind.rw = [
         (bindHomeDir name "/.config/copyq")
