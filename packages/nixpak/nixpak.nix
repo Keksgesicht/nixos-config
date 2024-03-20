@@ -227,10 +227,14 @@ let
               ];
               bind.rw = [
                 [
-                  (sloth.mkdir (
-                    sloth.concat' sloth.homeDir "/.var/home/${name}"
-                  ))
+                  (sloth.mkdir (sloth.concat [
+                    sloth.homeDir "/.var/home/${name}"
+                  ]))
                   (sloth.homeDir)
+                ]
+                [
+                  (sloth.mkdir ("/tmp/${npPrefix}.${name}"))
+                  ("/tmp")
                 ]
               ]
               ++ lib.optionals (value.wrapper.xdg-portal) [
