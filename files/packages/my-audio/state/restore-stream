@@ -106,7 +106,7 @@ Output/Audio:application.name:Chromium:mute=false
 Output/Audio:application.name:Chromium:volume=1.0
 
 Output/Audio:application.name:Brave:channelMap=FL;FR;
-Output/Audio:application.name:Brave:channelVolumes=0.21600659191608;0.21600659191608;
+Output/Audio:application.name:Brave:channelVolumes=0.10382381081581;0.10382381081581;
 Output/Audio:application.name:Brave:mute=false
 Output/Audio:application.name:Brave:volume=1.0
 
@@ -114,3 +114,8 @@ Output/Audio:application.name:BattleBlockTheater.exe:channelMap=FL;FR;
 Output/Audio:application.name:BattleBlockTheater.exe:channelVolumes=0.21600659191608;0.21600659191608;
 Output/Audio:application.name:BattleBlockTheater.exe:mute=false
 Output/Audio:application.name:BattleBlockTheater.exe:volume=1.0
+
+Output/Audio:application.name:Mousai:channelMap=FL;FR;
+Output/Audio:application.name:Mousai:channelVolumes=0.0079996343702078;0.0079996343702078;
+Output/Audio:application.name:Mousai:mute=false
+Output/Audio:application.name:Mousai:volume=1.0
