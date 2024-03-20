@@ -10,7 +10,6 @@ in
         { package = pkgs.gitkraken; binName = "gitkraken"; appFile = [
           { src = "GitKraken"; args.extra = [
             "--enable-features=UseOzonePlatform" "--ozone-platform=wayland"
-            "--disable-gpu" # either this or x11
           ]; }
         ]; }
       ];

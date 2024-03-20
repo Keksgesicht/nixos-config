@@ -10,7 +10,6 @@ in
         { package = pkgs.vesktop; binName = "vesktop"; appFile = [
           { args.extra = [
             "--ozone-platform-hint=auto" "--enable-features=UseOzonePlatform"
-            "--disable-gpu" # either this or x11
             "--enable-features=WebRTCPipeWireCapturer"
           ]; }
         ]; }

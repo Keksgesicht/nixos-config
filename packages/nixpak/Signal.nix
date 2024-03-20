@@ -8,7 +8,9 @@ in
     wrapper = {
       packages = [
         { package = pkgs.signal-desktop; binName = "signal-desktop"; appFile = [
-          { args.remove = "--use-tray-icon"; }
+          { args.remove = "--use-tray-icon"; args.extra = [
+            #"--enable-features=UseOzonePlatform" "--ozone-platform-hint=auto"
+          ]; }
         ]; }
       ];
       variables = {
