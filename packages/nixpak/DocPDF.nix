@@ -39,14 +39,21 @@ let
   ]);
 in
 {
+  /*
+  nixpkgs.config.permittedInsecurePackages = [
+    "xpdf-4.05" # pdfdiff
+  ];
+  */
+
   nixpak."${name}" = {
     wrapper = {
       packages = [
         { package = okularPkg; binName = "okular"; appFile = [
-          { src = "org.kde.okular"; }
+          { src = "org.kde.okular"; args.remove = "%U"; args.extra = "%U"; }
         ]; }
         { package = pkgs.pdfarranger; binName = "pdfarranger"; appFile = [
-          { src = "com.github.jeromerobert.pdfarranger"; }
+          { src = "com.github.jeromerobert.pdfarranger";
+            args.remove = "%U"; args.extra = "%U"; }
         ]; }
         { package = pkgs.pympress; binName = "pympress"; appFile = [
           { src = "io.github.pympress"; }
@@ -81,14 +88,20 @@ in
         (myKDEmount "okular" "")
         (myKDEmount "okular" "part")
         "/run/current-system/sw/share/icons"
+
+        (sloth.xdgDocumentsDir)
       ];
       bind.rw = [
         (bindHomeDir name "/.config/pdfarranger")
         (bindHomeDir name "/.config/texstudio")
         (bindHomeDir name "/.config/xournalpp")
+
+        # find ~/.var/app/DocPDF/.local/share/okular -type f -mtime +360 -delete
         (bindHomeDir name "/.local/share/okular")
 
+        (sloth.concat' sloth.xdgDocumentsDir "/Office")
         (sloth.concat' sloth.xdgDocumentsDir "/Studium")
+        (sloth.xdgDownloadDir)
         (sloth.concat' sloth.homeDir "/git")
         (sloth.concat' sloth.homeDir "/Module")
       ];
