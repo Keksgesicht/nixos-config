@@ -1,8 +1,9 @@
-{ pkgs, sloth, bindHomeDir, ... }:
+{ specialArgs, pkgs, sloth, appDir, ... }:
 
 let
   name = "DevShell";
 in
+with specialArgs;
 {
   nixpak."${name}" = {
     wrapper = {
@@ -22,10 +23,18 @@ in
         (sloth.concat' sloth.homeDir "/texmf")
       ];
       bind.rw = [
-        (bindHomeDir name "/.zhistory")
+        [
+          (sloth.concat' (appDir name) "/.zhistory")
+          (sloth.concat' sloth.homeDir "/.zhistory")
+        ]
         #(sloth.concat' sloth.homeDir "/git")
       ];
       #network = true;
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "d  ${home-dir}/.var/app/${name}           - ${username} ${username} - -"
+    "f  ${home-dir}/.var/app/${name}/.zhistory - ${username} ${username} - -"
+  ];
 }
