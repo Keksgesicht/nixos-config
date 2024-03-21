@@ -32,6 +32,8 @@ in
     aspellDicts.de
   ];
 
+  nixpkgs.allowUnfreePackages = [ pkgs.corefonts ];
+
   fonts.packages = [
     pkgs.noto-fonts
     pkgs.noto-fonts-cjk

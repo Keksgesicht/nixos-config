@@ -17,6 +17,8 @@ in
   # Enable udev rules for Steam hardware such as the Steam Controller
   hardware.steam-hardware.enable = true;
 
+  nixpkgs.allowUnfreePackages = [ pkgs.steamPackages.steam ];
+
   programs = {
     steam = {
       # Open ports in the firewall for Steam Remote Play

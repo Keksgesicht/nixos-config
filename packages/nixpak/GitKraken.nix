@@ -13,6 +13,7 @@ in
           ]; }
         ]; }
       ];
+      time = true;
     };
 
     bubblewrap = {
@@ -27,4 +28,6 @@ in
       sockets.x11 = true; # WTF during startup needed
     };
   };
+
+  nixpkgs.allowUnfreePackages = [ pkgs.gitkraken ];
 }

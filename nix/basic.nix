@@ -1,26 +1,12 @@
-{ config, pkgs, lib, system, ... }:
+{ config, lib, system, ... }:
 
 let
-  pkgsAllowedUnfree = [
-    pkgs.corefonts
-    pkgs.gitkraken
-    pkgs.steamPackages.steam
-  ];
-
-  my-functions = (import ./my-functions.nix lib);
+  inherit (lib) types;
 in
-with my-functions;
 {
-  nixpkgs = {
-    # allow packages with closed source code or paid products
-    config.allowUnfreePredicate = (pkg: builtins.elem
-      (lib.getName pkg)
-      (forEach pkgsAllowedUnfree (x: lib.getName x))
-    );
-    # set hardware architecture and os platform
-    hostPlatform = {
-      inherit system;
-    };
+  # set hardware architecture and os platform
+  nixpkgs.hostPlatform = {
+    inherit system;
   };
 
   nix = {
