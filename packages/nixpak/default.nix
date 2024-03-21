@@ -57,6 +57,7 @@ let
     ./GitKraken.nix
     ./LibreWolf.nix
     ./MediaPlayer.nix
+    ./Metadata-Cleaner.nix
     ./Mousai.nix
     ./OBS-Studio.nix
     ./Office.nix
