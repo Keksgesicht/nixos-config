@@ -5,9 +5,6 @@ username:
 { config, pkgs, lib, ... }:
 
 let
-  profile-dir = "/etc/profiles/per-user/${username}/share/applications";
-  mkOOSS = config.lib.file.mkOutOfStoreSymlink;
-
   my-audio = pkgs.callPackage ../../packages/my-audio.nix {};
   obsrebuf = pkgs.callPackage ../../packages/obs-hotkeys.nix {};
   xs-saver = pkgs.writeShellScriptBin "toggle-xscreensaver.sh" (''
@@ -120,35 +117,5 @@ in
         ]);
       };
     };
-
-    # override flatpak desktop entries
-
-    "com.heroicgameslauncher.hgl" = {
-      exec = (lib.concatStringsSep " " [
-        "${pkgs.flatpak}/bin/flatpak" "run"
-        "com.heroicgameslauncher.hgl"
-        "--enable-features=UseOzonePlatform" "--ozone-platform=wayland"
-      ]);
-      name = "Heroic Games Launcher";
-      type = "Application";
-      icon = "com.heroicgameslauncher.hgl";
-      comment = "An Open Source GOG and Epic Games launcher";
-      terminal = false;
-      mimeType = [
-        "x-scheme-handler/heroic"
-      ];
-      categories = [
-        "Game"
-      ];
-      settings = {
-        StartupWMClass = "Heroic";
-        X-Flatpak = "com.heroicgameslauncher.hgl";
-      };
-    };
-  };
-
-  # aarggg.. flatpak is ealier in XDG_DATA_DIRS
-  xdg.dataFile = {
-    "applications/com.heroicgameslauncher.hgl.desktop".source   = mkOOSS "${profile-dir}/com.heroicgameslauncher.hgl.desktop";
   };
 }

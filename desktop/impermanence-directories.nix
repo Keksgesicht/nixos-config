@@ -1,5 +1,4 @@
-{ config, lib
-, username, home-dir
+{ lib, username, home-dir
 , ssd-mnt, hdd-mnt, nvm-mnt, data-dir
 , ... }:
 
@@ -151,7 +150,6 @@ with my-functions;
           ".icons"
           "background"
           "texmf"
-          "WinePrefixes"
         ];
       };
     };

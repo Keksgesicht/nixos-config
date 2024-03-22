@@ -15,7 +15,7 @@
 - /*/.var/app/*/config/*/*Cache*/**
 - /*/.var/app/*/config/*/*/*Cache*/**
 - /*/.var/app/*/config/*/*/Greaselion/Temp/**
-+ /*/WinePrefixes/*/*/pfx/drive_c/users
-- /*/WinePrefixes/*/*/pfx/drive_c/windows
-- /*/WinePrefixes/*/*/pfx/drive_c/Program*
++ /*/.var/app/Gaming/WinePrefixes/*/*/pfx/drive_c/users
+- /*/.var/app/Gaming/WinePrefixes/*/*/pfx/drive_c/windows
+- /*/.var/app/Gaming/WinePrefixes/*/*/pfx/drive_c/Program*
 + /***

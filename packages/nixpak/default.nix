@@ -54,6 +54,7 @@ let
     ./DocPDF.nix
     ./Ferdium.nix
     ./FireFox.nix
+    ./Gaming.nix
     ./GitKraken.nix
     ./LibreWolf.nix
     ./MediaPlayer.nix
