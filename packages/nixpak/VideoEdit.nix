@@ -17,9 +17,9 @@ in
         { package = kdenlivePkg; binName = "kdenlive"; appFile = [
           { src = "org.kde.kdenlive"; }
         ]; }
-        { package = pkgs.handbrake; binName = "ghb"; appFile = [
-          { src = "fr.handbrake.ghb"; }
-        ]; }
+        #{ package = pkgs.handbrake; binName = "ghb"; appFile = [
+        #  { src = "fr.handbrake.ghb"; }
+        #]; }
         { package = pkgs.audacity; binName = "audacity"; }
         # tools for kdenlive
         # https://github.com/NixOS/nixpkgs/issues/209923

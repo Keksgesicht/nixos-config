@@ -18,7 +18,7 @@ buildGoModule rec {
     rev = "${commit}";
     sha256 = "sha256-8hDJAaFH1LV03O3/uegbbWeuUPgP2ZoTxFvnEcTZEGs=";
   };
-  vendorHash = "sha256-m4bqQuegqG+vK2QkXjUOO8g03n2HwRdFSG28zOXE4rQ=";
+  vendorHash = "sha256-ur+82ePafm9qHyNPep2xZFGJdc32UJtzJlxuHxhIYt8=";
   proxyVendor = true;
 
   buildPhase = ''
