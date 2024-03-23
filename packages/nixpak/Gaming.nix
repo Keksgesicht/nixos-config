@@ -2,6 +2,7 @@
 
 let
   name = "Gaming";
+  name-dir = "${specialArgs.home-dir}/.var/app/${name}";
 
   gamingPC = (config.networking.hostName == "cookieclicker");
   bindGamingHome = (dir: [
@@ -133,19 +134,10 @@ with specialArgs;
         # sensor reading (e.g. MangoHud)
         # controller support (e.g. XBox)
         "/run/dbus/system_bus_socket"
-        #"/sys/bus"
-        #"/sys/bus/clocksource"
-        "/sys/bus/usb"
+        "/sys/bus"
         "/sys/class"
-        #"/sys/class/dmi"
-        #"/sys/class/drm"
-        #"/sys/class/hwmon"
-        #"/sys/class/input"
-        #"/sys/dev"
-        "/sys/dev/char"
-        #"/sys/devices"
-        #"/sys/devices/system"
-        "/sys/devices/virtual"
+        "/sys/dev"
+        "/sys/devices"
 
         # 32-bit GPU Driver
         "/run/opengl-driver-32"
@@ -219,4 +211,10 @@ with specialArgs;
     pkgs.steam-run
     pkgs.steamPackages.steamcmd
   ] else [];
+
+  # helps finding/showing the tray icon
+  systemd.tmpfiles.rules = [
+    "L+ ${home-dir}/.steam             - - - - ${name-dir}/.steam"
+    "L+ ${home-dir}/.local/share/Steam - - - - ${name-dir}/.local/share/Steam"
+  ];
 }
