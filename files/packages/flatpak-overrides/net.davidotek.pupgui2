@@ -1,5 +1,0 @@
-[Context]
-shared=!ipc;network
-sockets=!fallback-x11
-filesystems=!~/stl;!~/.bashrc;!~/.kshrc;!~/.zshrc;~/Games:ro
-persistent=stl

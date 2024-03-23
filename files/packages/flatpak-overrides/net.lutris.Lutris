@@ -2,7 +2,8 @@
 shared=network
 sockets=pulseaudio
 devices=all
-filesystems=!/run/media;!/media;!xdg-data/flatpak;!xdg-desktop;!xdg-music;!xdg-videos;!xdg-pictures;~/.var/app/com.valvesoftware.Steam:ro;~/Games/Lutris:create;~/WinePrefixes/Lutris:create;xdg-documents/Gaming;xdg-pictures/Gaming;xdg-videos/Gaming/sandbox:create
+filesystems=!/run/media;!/media;!xdg-data/flatpak;!xdg-desktop;!xdg-music;!xdg-videos;!xdg-pictures;~/Games/Lutris:create;xdg-documents/Gaming;xdg-pictures/Gaming;xdg-videos/Gaming/sandbox:create
+persistent=WinePrefixes
 
 [Environment]
 PULSE_SINK=recording_out_sink

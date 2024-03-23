@@ -1,5 +1,0 @@
-[Context]
-shared=!ipc;network
-devices=dri
-filesystems=!~/.zoom
-persistent=.zoom

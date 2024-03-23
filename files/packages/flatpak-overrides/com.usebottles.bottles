@@ -2,7 +2,8 @@
 shared=network
 sockets=pulseaudio
 devices=all
-filesystems=!xdg-download;~/Games/Bottles:create;~/WinePrefixes/Bottles:create;xdg-documents/Gaming;xdg-pictures/Gaming;xdg-videos/Gaming/sandbox:create
+filesystems=!xdg-download;~/WinePrefixes/Bottles:create;xdg-documents/Gaming;xdg-pictures/Gaming;xdg-videos/Gaming/sandbox:create
+persistent=WinePrefixes
 
 [Environment]
 PULSE_SINK=recording_out_sink
