@@ -2,9 +2,11 @@ EXEC_FILE="$0"
 EXEC_MODE="$1"
 user_id=$(id -u)
 
-include_filter="mnt[\/]ram[\/]Games|org.prismlauncher.PrismLauncher|[\/]WinePrefixes[\/]"
-exclude_filter="grep|konsole|dolphin|Battle\.net|d3ddriverquery64.exe|fossilize_replay|legendary install"
+game_dir=$(echo "${HOME}/Games" | sed -e 's|/|[\/]|g')
+wine_dir=$(echo "${HOME}/WinePrefixes" | sed -e 's|/|[\/]|g')
 
+include_filter="${game_dir}|${wine_dir}|PrismLauncher"
+exclude_filter="bwrap|grep|konsole|dolphin|d3ddriverquery64.exe|fossilize_replay|legendary install"
 
 run_stop() {
 	nohup bash -c "${EXEC_FILE} stop 2>&1 | logger -t obs-studio-gaming.stopper" >/dev/null &
