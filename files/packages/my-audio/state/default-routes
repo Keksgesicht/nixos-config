@@ -1,16 +1,7 @@
 [default-routes]
-alsa_card.usb-Auna_Mic_CM900_Auna_Mic_CM900-00:input:analog-input-mic:channelMap=MONO;
-alsa_card.usb-Auna_Mic_CM900_Auna_Mic_CM900-00:input:analog-input-mic:channelVolumes=0.88475453853607;
-alsa_card.usb-Auna_Mic_CM900_Auna_Mic_CM900-00:input:analog-input-mic:latencyOffsetNsec=0
-alsa_card.usb-Auna_Mic_CM900_Auna_Mic_CM900-00:profile:input:mono-fallback=analog-input-mic;
-alsa_card.pci-0000_0a_00.3:output:analog-output-lineout:channelMap=FL;FR;RL;RR;
-alsa_card.pci-0000_0a_00.3:output:analog-output-lineout:channelVolumes=1.0;1.0;1.0;1.0;
-alsa_card.pci-0000_0a_00.3:output:analog-output-lineout:latencyOffsetNsec=0
-alsa_card.pci-0000_0a_00.3:profile:output:analog-surround-40=analog-output-lineout;
-alsa_card.pci-0000_44_00.1:output:hdmi-output-3:channelMap=FL;FR;
-alsa_card.pci-0000_44_00.1:output:hdmi-output-3:channelVolumes=1.0;1.0;
-alsa_card.pci-0000_44_00.1:output:hdmi-output-3:iec958Codecs=
-alsa_card.pci-0000_44_00.1:output:hdmi-output-3:latencyOffsetNsec=0
-alsa_card.pci-0000_44_00.1:output:hdmi-output-3:mute=true
-alsa_card.pci-0000_44_00.1:profile:output:hdmi-stereo-extra3=hdmi-output-3;
-
+alsa_card.pci-0000_0a_00.3:output:analog-output-lineout={"latencyOffsetNsec":0, "channelVolumes":[1.000000, 1.000000, 1.000000, 1.000000], "channelMap":["FL", "FR", "RL", "RR"], "mute":false}
+alsa_card.pci-0000_0a_00.3:profile:output:analog-surround-40=["analog-output-lineout"]
+alsa_card.pci-0000_44_00.1:output:hdmi-output-3={"latencyOffsetNsec":0, "mute":true, "iec958Codecs":[], "channelMap":["FL", "FR"], "channelVolumes":[1.000000, 1.000000]}
+alsa_card.pci-0000_44_00.1:profile:output:hdmi-stereo-extra3=["hdmi-output-3"]
+alsa_card.usb-Auna_Mic_CM900_Auna_Mic_CM900-00:input:analog-input-mic={"latencyOffsetNsec":0, "mute":false, "channelMap":["MONO"], "channelVolumes":[0.884755]}
+alsa_card.usb-Auna_Mic_CM900_Auna_Mic_CM900-00:profile:input:mono-fallback=["analog-input-mic"]

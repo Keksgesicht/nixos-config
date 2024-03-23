@@ -1,0 +1,27 @@
+[stream-properties]
+Audio/Sink:media.name:Chat\s(Noise\sCanceling)={"channelMap":["FL", "FR"], "channelVolumes":[1.000000, 1.000000]}
+Audio/Sink:media.name:Echo-Cancel\sSink={"mute":false, "channelVolumes":[1.000000, 1.000000], "volume":1.000000, "channelMap":["FL", "FR"]}
+Audio/Sink:media.name:Media\s(Noise\sCanceling)={"channelMap":["FL", "FR"], "channelVolumes":[1.000000, 1.000000]}
+Audio/Sink:media.name:Microphone\s(virtual)\sinput={"mute":false, "channelVolumes":[1.000000, 1.000000], "volume":1.000000, "channelMap":["FL", "FR"]}
+Audio/Sink:media.name:Recording\s/\sGaming\sinput={"mute":false, "channelVolumes":[0.175614, 0.175614], "volume":1.000000, "channelMap":["FL", "FR"]}
+Audio/Sink:media.name:Speaker\sto\sMicrophone\s(mic+all)\sinput={"mute":false, "channelVolumes":[1.000000, 1.000000], "volume":1.000000, "channelMap":["FL", "FR"]}
+Audio/Sink:node.name:void_sink={"mute":true, "channelMap":["FL", "FR"], "volume":0.000000, "channelVolumes":[0.000000, 0.000000]}
+Audio/Source:media.name:Chat\s(Noise\sCanceling)={"mute":false, "channelVolumes":[1.000000, 1.000000], "volume":1.000000, "channelMap":["FL", "FR"]}
+Audio/Source:media.name:Echo-Cancel\sSource={"mute":false, "channelVolumes":[1.000000, 1.000000], "volume":1.000000, "channelMap":["FL", "FR"]}
+Audio/Source:media.name:Mic\sFeedback\soutput={"mute":true, "channelVolumes":[0.328512, 0.328512], "volume":1.000000, "channelMap":["FL", "FR"]}
+Audio/Source:media.name:Microphone\s(virtual)\soutput={"mute":false, "channelVolumes":[1.000000, 1.000000], "volume":1.000000, "channelMap":["FL", "FR"]}
+Input/Audio:application.id:org.PulseAudio.pavucontrol={"channelMap":["MONO"], "channelVolumes":[1.000000], "volume":1.000000, "mute":false}
+Input/Audio:application.id:org.kde.plasma-pa={"channelVolumes":[1.000000], "channelMap":["MONO"], "volume":1.000000, "mute":false}
+Input/Audio:media.name:Echo-Cancel\sCapture={"channelMap":["FL", "FR"], "channelVolumes":[1.000000, 1.000000]}
+Input/Audio:media.name:Mic\sFeedback\sinput={"mute":false, "channelVolumes":[1.000000, 1.000000], "volume":1.000000, "channelMap":["FL", "FR"]}
+Input/Audio:media.name:Microphone\s(Noise\sCanceling)={"channelMap":["FL", "FR"], "channelVolumes":[1.000000, 1.000000]}
+Output/Audio:application.name:BattleBlockTheater.exe={"mute":false, "volume":1.000000, "channelMap":["FL", "FR"], "channelVolumes":[0.21600659191608, 0.21600659191608]}
+Output/Audio:application.name:Brave={"mute":false, "channelVolumes":[0.103824, 0.103824], "volume":1.000000, "channelMap":["FL", "FR"]}
+Output/Audio:application.name:Chromium={"mute":false, "volume":1.000000, "channelMap":["FL", "FR"], "channelVolumes":[0.21600659191608, 0.21600659191608]}
+Output/Audio:application.name:Mousai={"mute":false, "volume":1.000000, "channelMap":["FL", "FR"], "channelVolumes":[0.0079996343702078, 0.0079996343702078]}
+Output/Audio:media.name:Echo-Cancel\sPlayback={"channelMap":["FL", "FR"], "channelVolumes":[1.000000, 1.000000]}
+Output/Audio:media.name:Media\s(Noise\sCanceling)={"mute":false, "channelVolumes":[1.000000, 1.000000], "volume":1.000000, "channelMap":["FL", "FR"]}
+Output/Audio:media.name:Microphone\s(Noise\sCanceling)={"mute":false, "channelVolumes":[1.000000, 1.000000], "volume":1.000000, "channelMap":["FL", "FR"]}
+Output/Audio:media.name:Recording\s/\sGaming\soutput={"mute":false, "channelVolumes":[1.000000, 1.000000], "volume":1.000000, "channelMap":["FL", "FR"]}
+Output/Audio:media.name:Speaker\sto\sMicrophone\s(mic+all)\soutput={"mute":false, "channelVolumes":[1.000000, 1.000000], "volume":1.000000, "channelMap":["FL", "FR"]}
+Output/Audio:media.role:Notification={"mute":false, "volume":1.000000, "channelMap":["FL", "FR"], "channelVolumes":[0.2144780009985, 0.2144780009985]}
