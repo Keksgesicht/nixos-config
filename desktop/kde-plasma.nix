@@ -77,11 +77,9 @@ with my-functions;
       serviceConfig = {
         TimeoutStopSec = 23;
         LogFilterPatterns = [
-          #"~QML"
-          #"~QObject:"
-          #"~QFont::"
           "~kwin_screencast: Dropping"
           "~ERROR: SSL connect error ::::: FUNCTION: curl::curl_easy::perform"
+          "~handshake failed; returned -1, SSL error code 1, net_error -100"
         ];
       };
     };
