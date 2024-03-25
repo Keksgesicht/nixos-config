@@ -376,10 +376,9 @@ let
         src = p.package;
         installPhase = ''
           mkdir -p $out/share/applications
-          mkdir -p $out/share/icons
-
           if [ -d $src/share/icons ]; then
-            cp -r $src/share/icons/. $out/share/icons/
+            mkdir -p $out/share/icons
+            cp -rs $src/share/icons/. $out/share/icons/
           fi
         ''
         + lib.strings.concatStrings deskFileEdit;
