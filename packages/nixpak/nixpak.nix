@@ -380,6 +380,10 @@ let
             mkdir -p $out/share/icons
             cp -rs $src/share/icons/. $out/share/icons/
           fi
+          if [ -d $src/share/pixmaps ]; then
+            mkdir -p $out/share/pixmaps
+            cp -rs $src/share/pixmaps/. $out/share/pixmaps/
+          fi
         ''
         + lib.strings.concatStrings deskFileEdit;
       });
