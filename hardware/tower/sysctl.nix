@@ -15,8 +15,8 @@
 
     # improve compatibility with Windows games through wine
     # Fedora 39: https://fedoraproject.org/wiki/Changes/IncreaseVmMaxMapCount
-    # Brodie Robertson: https://www.youtube.com/watch?v=PsHRbfZhgXM
-    "vm.max_map_count" = 2147483642;
+    # Ubuntu 24.04: https://www.omgubuntu.co.uk/2024/03/ubuntu-24-04-makes-a-small-tweak-that-dramatically-improves-gaming
+    "vm.max_map_count" = 1048576;
 
     # enable ptrace attach mode for normal processes
     # echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
