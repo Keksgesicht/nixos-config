@@ -330,7 +330,7 @@ let
                     mark = False
                 else:
                     arg = arg.removeprefix("file://")
-                    fpCmd = flatpakCmd + " '" + arg + "'"
+                    fpCmd = flatpakCmd + " '" + arg + "' 2>/dev/null"
                     docPath = os.popen(fpCmd).read().replace('\n', "")
                     if docPath != "":
                         wrappedArgs.append(docPath)
