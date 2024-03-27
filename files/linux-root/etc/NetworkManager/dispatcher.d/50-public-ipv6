@@ -60,8 +60,6 @@ NMMODE="$2"
 
 case "${IFLINK}" in
 enp4s0)
-	echo "${NMMODE}"
-	set -x
 	case "${NMMODE}" in
 	up)
 		# enable router advertisement on LAN network adapter
