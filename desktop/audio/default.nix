@@ -73,6 +73,15 @@ in
         "pipewire.service"
       ];
     };
+    # trying to even start a additional screencast concurrently to OBS-Studio (dmabuf?) will crash xdg-desktop-portal.service
+    # restarting pipewire and co or xdg-desktop-portal and co does not help
+    # complete logout is required or raise the fd limit of pipewire:
+    "pipewire" = {
+      overrideStrategy = "asDropin";
+      serviceConfig = {
+        LimitNOFILE = 65536; # raises soft and hard limit
+      };
+    };
     # start Ferdium after my-audio
     # Otherwise services like Discord might not be able to use audio
     "app-ferdium@autostart" = {
