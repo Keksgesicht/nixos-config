@@ -229,10 +229,22 @@ let
 
                 # colors and themes
                 (sloth.concat' sloth.xdgDataHome "/color-schemes")
-                (sloth.concat' sloth.xdgDataHome "/icons")
                 (sloth.concat' sloth.xdgDataHome "/themes")
-                "/etc/profiles/per-user/${username}/share"
-                "/run/current-system/sw/share"
+                "/etc/profiles/per-user/${username}/share/sounds"
+                "/etc/profiles/per-user/${username}/share/themes"
+                "/run/current-system/sw/share/sounds"
+                "/run/current-system/sw/share/themes"
+
+                # icons
+                (sloth.concat' sloth.xdgDataHome "/icons")
+                "/etc/profiles/per-user/${username}/share/icons"
+                "/etc/profiles/per-user/${username}/share/pixmaps"
+                "/run/current-system/sw/share/icons"
+                "/run/current-system/sw/share/pixmaps"
+
+                # XDG_DATA_DIRS
+                "/etc/profiles/per-user/${username}/share/xdg-desktop-portal"
+                "/run/current-system/sw/share/xdg-desktop-portal"
               ]
               ++ lib.optionals (value.wrapper.printing) [
                 "/run/cups/cups.sock"

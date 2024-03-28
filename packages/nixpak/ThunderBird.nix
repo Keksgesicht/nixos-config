@@ -9,9 +9,6 @@ in
       packages = [
         { package = pkgs.thunderbird; binName = "thunderbird"; }
       ];
-      variables = {
-        XDG_DATA_DIRS = lib.mkForce "";
-      };
     };
 
     dbus.policies = {
