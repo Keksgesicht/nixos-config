@@ -29,7 +29,7 @@ in
                 control = {
                   "VAD Threshold (%)" = 95;
                   "VAD Grace Period (ms)" = 100;
-                  "Retroactive VAD Grace (ms)" = 10;
+                  "Retroactive VAD Grace (ms)" = 25;
                 };
               } ];
             };
@@ -57,7 +57,7 @@ in
                 control = {
                   "VAD Threshold (%)" = 85;
                   "VAD Grace Period (ms)" = 200;
-                  "Retroactive VAD Grace (ms)" = 10;
+                  "Retroactive VAD Grace (ms)" = 25;
                 };
               } ];
             };
@@ -87,7 +87,7 @@ in
                 control = {
                   "VAD Threshold (%)" = 75;
                   "VAD Grace Period (ms)" = 250;
-                  "Retroactive VAD Grace (ms)" = 25;
+                  "Retroactive VAD Grace (ms)" = 33;
                 };
               } ];
             };
