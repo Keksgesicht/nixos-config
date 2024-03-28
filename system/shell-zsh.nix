@@ -21,10 +21,7 @@ in
 
   # Fuck you. Fucking fuck you NixOS default /etc/zshrc
   # Here is my workaround to restore my `ll` alias.
-  environment.etc."zshrc.local" = {
-    source = "${my_zsh_config}/zshrc";
-    mode = "0555";
-  };
+  environment.etc."zshrc.local".source = "${my_zsh_config}/zshrc";
 
   users.defaultUserShell = pkgs.zsh;
 }
