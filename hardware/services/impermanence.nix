@@ -1,8 +1,7 @@
-{ config, pkgs, lib, inputs
-, username, home-dir
+{ config, pkgs, lib, inputs, username
 , ssd-mnt, ssd-name
 , hdd-mnt, hdd-name
-, nvm-mnt, cookie-dir
+, nvm-mnt
 , ... }:
 
 let

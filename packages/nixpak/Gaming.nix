@@ -154,7 +154,10 @@ with specialArgs;
       ];
       bind.rw = [
         # Game data
-        (sloth.mkdir (sloth.concat' sloth.homeDir "/Games"))
+        [
+          "${nvm-mnt}/Games"
+          (sloth.concat' sloth.homeDir "/Games")
+        ]
         (bindHomeDir name "/WinePrefixes")
 
         # xdg user dirs

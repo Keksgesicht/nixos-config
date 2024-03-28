@@ -199,7 +199,7 @@
    </metadata>
   </info>
  </bookmark>
- <bookmark href="file:///home/keks/Games">
+ <bookmark href="file:///mnt/ram/Games">
   <title>Games</title>
   <info>
    <metadata owner="http://freedesktop.org">
@@ -222,7 +222,7 @@
    </metadata>
   </info>
  </bookmark>
- <bookmark href="file:///home/keks/Games/SteamLibrary/steamapps/shadercache">
+ <bookmark href="file:///mnt/ram/Games/SteamLibrary/steamapps/shadercache">
   <title>shadercache</title>
   <info>
    <metadata owner="http://freedesktop.org">

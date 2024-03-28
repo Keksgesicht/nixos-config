@@ -69,13 +69,6 @@ with my-functions;
     "${home-dir}/.local/share/Trash" = bind-opts // data-opts // {
       device = "${trash-dir}";
     };
-    "${home-dir}/Games" = bind-opts // {
-      device = "${nvm-mnt}/Games";
-      depends = [
-        "${nvm-mnt}"
-        "${home-dir}"
-      ];
-    };
     "${data-dir}/Pictures/Screenshots" = bind-opts // {
       device = "${ssd-mnt}/root${home-dir}/Pictures/Screenshots";
       depends = [
@@ -192,7 +185,6 @@ with my-functions;
     "${hdd-mnt}/homeGaming/Documents"
     "${hdd-mnt}/homeGaming/Pictures"
     "${hdd-mnt}/homeGaming/Videos"
-    "${nvm-mnt}/Games"
   ]
   ++ secureUserDir [
     "${trash-dir}"
