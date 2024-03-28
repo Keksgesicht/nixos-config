@@ -18,7 +18,11 @@ let
     pkgs.mangohud
   ]);
   steamPkg = (pkgs.steam.override {
-    extraPkgs = gameTools;
+    extraPkgs = (pkgs: with pkgs; ((gameTools pkgs) ++ [
+      # XWayland of gamescope complains about this missing
+      libkrb5
+      keyutils
+    ]));
   });
   lutrisPkg = (pkgs.lutris.override {
     extraPkgs = (pkgs: ((gameTools pkgs) ++ [
@@ -40,6 +44,7 @@ with specialArgs;
           { dst = "com.valvesoftware.Steam"; }
         ]; }
         pkgs.steamPackages.steamcmd
+        pkgs.steam-run
 
         # Heroic Games Launcher
         { package = pkgs.heroic; binName = "heroic"; appFile = [
@@ -66,7 +71,10 @@ with specialArgs;
         # Proton update and configuration
         { package = pkgs.protonup-qt; binName = "protonup-qt"; }
         { package = pkgs.protontricks; binName = "protontricks"; }
-      ];
+      ]
+      # additional tools
+      ++ gameTools pkgs
+      ;
       variables = {
         PULSE_SINK = "recording_out_sink";
         MANGOHUD_CONFIGFILE = "${home-dir}/.config/MangoHud/live.conf";
