@@ -15,10 +15,15 @@ showMagnifier=true
 [GuiConfig]
 captureDelay=2
 
+[ImageSave]
+translatedScreenshotsFolder=Screenshots
+
 [KFileDialog Settings]
 detailViewIconSize=16
 
 [Save]
 compressionQuality=75
-defaultSaveLocation=file:///home/keks/Pictures/Screenshots
 lastUsedSaveMode=Save
+
+[VideoSave]
+translatedScreencastsFolder=Screencasts

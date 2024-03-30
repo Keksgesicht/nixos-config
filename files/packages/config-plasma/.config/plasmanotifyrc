@@ -1,9 +1,6 @@
 [Applications][com.nextcloud.desktopclient.nextcloud]
 Seen=true
 
-[DoNotDisturb]
-NotificationSoundsMuted=true
-
 [Notifications]
 LowPriorityHistory=true
 PopupPosition=BottomRight
