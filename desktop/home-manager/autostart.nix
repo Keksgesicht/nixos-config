@@ -18,10 +18,6 @@ in
       source = mkOOSS "${profile-dir}/ferdium.desktop";
       enable = (systemConfig.networking.hostName == "cookieclicker");
     };
-    "autostart/firefox.desktop" = {
-      source = mkOOSS "${profile-dir}/firefox.desktop";
-      enable = (systemConfig.networking.hostName  == "cookieclicker");
-    };
     "autostart/thunderbird.desktop" = {
       source = mkOOSS "${profile-dir}/thunderbird.desktop";
       enable = (systemConfig.networking.hostName == "cookieclicker");
