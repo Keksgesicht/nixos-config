@@ -1,6 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ ... }:
 
 {
+  imports = [
+    ../services/plymouth.nix
+  ];
+
   boot = {
     initrd = {
       availableKernelModules = [
