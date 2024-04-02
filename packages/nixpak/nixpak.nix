@@ -142,12 +142,20 @@ let
             "${p.package}/bin"
           );
           # reset some long variables
+          INFOPATH = [];
+          LIBEXEC_PATH = [];
+          TERMINFO_DIRS = [];
+          XDG_CONFIG_DIRS = [];
           XDG_DATA_DIRS = [
             "/etc/profiles/per-user/${username}/share"
             "/run/current-system/sw/share"
           ];
-          # QT variables
+          GTK_PATH = [];
           NIXPKGS_QT5_QML_IMPORT_PATH = [];
+          NIXPKGS_QT6_QML_IMPORT_PATH = [];
+          QML2_IMPORT_PATH = [];
+          QTWEBKIT_PLUGIN_PATH = [];
+          # KDE (wayland) (theme) integration
           QT_PLUGIN_PATH = if config.wrapper.qtKDEintegration then [
             "${pkgs.kdePackages.qtwayland}/lib/qt-6/plugins"
             "${pkgs.kdePackages.breeze}/lib/qt-6/plugins"
