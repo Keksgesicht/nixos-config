@@ -33,6 +33,7 @@ in
         (bindHomeDir name "/.config/vlc")
         (bindHomeDir name "/.local/share/vlc")
       ];
+      sockets.x11 = true;
     };
   };
 }
