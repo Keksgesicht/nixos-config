@@ -4,7 +4,7 @@
 let
   libKDE = pkgs.kdePackages;
   plasma = "plasma6";
-  qt-lib = "/usr/lib/qt";
+  qt-ver = "6";
 
   lsp-wrapper = (import ../development/language-server-wrapper.nix);
   my-functions = (import ../nix/my-functions.nix lib);
@@ -36,6 +36,9 @@ with my-functions;
 
   # I do not need this from nix packages
   environment."${plasma}".excludePackages = with libKDE; [
+    elisa
+    kate
+    khelpcenter
     kmailtransport
     okular
     oxygen
@@ -86,53 +89,37 @@ with my-functions;
     };
   };
 
+  systemd.tmpfiles.rules = [
+    # calendar does not show events without it
+    # https://github.com/NixOS/nixpkgs/issues/143272
+    # https://bugs.kde.org/show_bug.cgi?id=400451
+    # https://invent.kde.org/plasma/plasma-workspace/-/blob/4df78f841cc16a61d862b5b183e773e9f66436b8/ktimezoned/ktimezoned.cpp#L124
+    "L+ /usr/share/zoneinfo - - - - ${pkgs.tzdata}/share/zoneinfo"
+  ];
+
   systemd.user.services = {
     # calendar of digital clock widget is not configureable without it
     # fix showing duplicate events in calendar widget of plasma panel
-    "plasma-plasmashell" = {
+    "plasma-plasmashell" =
+    let
+      kdepim-addons = libKDE.kdepim-addons;
+      kdepim-qml-path = "${kdepim-addons}/lib/qt-${qt-ver}/qml";
+      kdepim-plugins-path = "${kdepim-addons}/lib/qt-${qt-ver}/plugins";
+    in
+    {
       overrideStrategy = "asDropin";
       environment = {
         # prevent defaults
         PATH = lib.mkForce null;
         TZDIR = lib.mkForce null;
         LOCALE_ARCHIVE = lib.mkForce null;
-        # will get extended by NixOS Qt Wrapper in binary itself
-        QT_PLUGIN_PATH = "${qt-lib}/plugins";
-        QML2_IMPORT_PATH = "${qt-lib}/qml";
+        # calendar of digital clock widget is not configureable without it
+        # fix showing duplicate events in calendar widget of plasma panel
+        QT_PLUGIN_PATH = "${kdepim-plugins-path}";
+        NIXPKGS_QT6_QML_IMPORT_PATH = "${kdepim-qml-path}";
       };
     };
   };
-
-  systemd.tmpfiles.rules =
-  let
-    qtver = libKDE.qtbase.version;
-
-    cal-plug-path = "plugins/plasmacalendarplugins";
-    qt-cal-plug   = "${qt-lib}/${cal-plug-path}";
-
-    kdepim-addons = libKDE.kdepim-addons;
-    plasma-addons = libKDE.kdeplasma-addons;
-    workspace-addons = libKDE.plasma-workspace;
-
-    mkCalPlugSym = p: l: (forEach l (e:
-      "L+ ${qt-cal-plug}/${e} - - - - ${p}/lib/qt-${qtver}/${cal-plug-path}/${e}"
-    ));
-  in
-  [
-    # calendar does not show events without it
-    # https://github.com/NixOS/nixpkgs/issues/143272
-    # https://bugs.kde.org/show_bug.cgi?id=400451
-    # https://invent.kde.org/plasma/plasma-workspace/-/blob/4df78f841cc16a61d862b5b183e773e9f66436b8/ktimezoned/ktimezoned.cpp#L124
-    "L+ /usr/share/zoneinfo - - - - ${pkgs.tzdata}/share/zoneinfo"
-
-    # calendar of digital clock widget is not configureable without it
-    # fix showing duplicate events in calendar widget of plasma panel
-    "L+ ${qt-lib}/qml - - - - /run/current-system/sw/lib/qt-${qtver}/qml"
-  ]
-  ++ mkCalPlugSym plasma-addons    [ "astronomicalevents" "astronomicalevents.so" ]
-  ++ mkCalPlugSym workspace-addons [ "holidays" "holidaysevents.so" ]
-  ++ mkCalPlugSym kdepim-addons    [ "pimevents" "pimevents.so" ]
-  ;
 
   home-manager.users."${username}" =
   let

@@ -169,14 +169,8 @@ tiles={"layoutDirection":"horizontal","tiles":[{"width":0.6613095238095238},{"wi
 [Tiling][83884f5f-f09d-5a97-b631-169fb11593e3]
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.42083333333333395},{"layoutDirection":"vertical","tiles":[{"height":0.604629629629629},{"height":0.39537037037037104,"layoutDirection":"horizontal","tiles":[{"width":0.3273437499999964},{"width":0.25182291666666645}]}],"width":0.5791666666666628}]}
 
-[Tiling][919c515a-c7a0-515f-b58c-dedb21d51ceb]
+[Tiling][bfdf2a77-aa30-58ea-b078-6144f8e5a8b1]
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.3437499999999985},{"width":0.4371093750000015},{"width":0.21914062499999998}]}
-
-[Tiling][9eb6b542-362d-55ad-a556-a21fe8eae7de]
-tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
-
-[Tiling][fe59a1cc-2eee-51e3-b0f4-9d0ba771667f]
-tiles={"layoutDirection":"horizontal","tiles":[{"width":0.3446242559523798},{"width":0.43330543154762047},{"width":0.22207031249999976}]}
 
 [TouchEdges]
 Bottom=KRunner

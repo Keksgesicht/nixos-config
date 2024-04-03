@@ -171,7 +171,7 @@ immutability=1
 plugin=org.kde.plasma.systemtray
 
 [Containments][29][Applets][34][Configuration]
-PreloadWeight=85
+PreloadWeight=90
 SystrayContainmentId=35
 
 [Containments][29][Applets][47]
@@ -187,9 +187,9 @@ popupWidth=810
 customDateFormat=dddd dd.MM.yy
 dateFormat=custom
 displayTimezoneFormat=UTCOffset
-enabledCalendarPlugins=/usr/lib/qt/plugins/plasmacalendarplugins/astronomicalevents.so,/usr/lib/qt/plugins/plasmacalendarplugins/holidaysevents.so,/usr/lib/qt/plugins/plasmacalendarplugins/pimevents.so
+enabledCalendarPlugins=astronomicalevents,holidaysevents,pimevents
 firstDayOfWeek=1
-showSeconds=true
+showSeconds=Always
 showWeekNumbers=true
 use24hFormat=2
 
@@ -203,6 +203,7 @@ plugin=org.kde.plasma.icontasks
 
 [Containments][29][Applets][53][Configuration][General]
 groupedTaskVisualization=1
+iconSpacing=0
 launchers=applications:org.kde.konsole.desktop,applications:org.kde.dolphin.desktop,applications:ferdium.desktop,applications:thunderbird.desktop,applications:firefox.desktop
 middleClickAction=Close
 minimizeActiveTaskOnClick=false
@@ -224,9 +225,13 @@ popupHeight=432
 popupWidth=432
 wallpaperplugin=org.kde.image
 
+[Containments][35][Applets][105]
+immutability=1
+plugin=org.kde.plasma.cameraindicator
+
 [Containments][35][Applets][106]
 immutability=1
-plugin=org.kde.plasma.mediacontroller
+plugin=org.kde.plasma.brightness
 
 [Containments][35][Applets][36][Configuration]
 PreloadWeight=42
@@ -294,10 +299,11 @@ immutability=1
 plugin=org.kde.plasma.bluetooth
 
 [Containments][35][General]
-extraItems=org.kde.plasma.battery,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.merkuro.contact,org.kde.kdeconnect,org.kde.kscreen,org.kde.plasma.bluetooth,org.kde.plasma.keyboardindicator,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.nightcolorcontrol,org.kde.plasma.printmanager,org.kde.plasma.volume
+extraItems=org.kde.plasma.battery,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.kdeconnect,org.kde.kscreen,org.kde.plasma.bluetooth,org.kde.plasma.keyboardindicator,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.printmanager,org.kde.plasma.volume,org.kde.plasma.brightness,org.kde.plasma.cameraindicator
 hiddenItems=Discover Notifier_org.kde.DiscoverNotifier,org.kde.plasma.keyboardlayout,org.kde.merkuro.contact
-knownItems=org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.merkuro.contact,org.kde.kdeconnect,org.kde.kscreen,org.kde.plasma.bluetooth,org.kde.plasma.keyboardindicator,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.nightcolorcontrol,org.kde.plasma.printmanager,org.kde.plasma.volume
+knownItems=org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.kdeconnect,org.kde.kscreen,org.kde.plasma.bluetooth,org.kde.plasma.keyboardindicator,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.printmanager,org.kde.plasma.volume,org.kde.plasma.brightness,org.kde.plasma.cameraindicator
 shownItems=org.kde.plasma.bluetooth,org.kde.plasma.nightcolorcontrol,org.kde.plasma.mediacontroller
 
 [ScreenMapping]
 itemsOnDisabledScreens=
+screenMapping=
