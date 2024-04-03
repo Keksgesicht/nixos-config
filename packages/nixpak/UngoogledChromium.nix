@@ -14,6 +14,7 @@ in
           ]; }
         ]; }
       ];
+      chromiumCleanupScript = true;
       audio = true;
     };
 

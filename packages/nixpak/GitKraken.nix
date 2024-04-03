@@ -13,6 +13,7 @@ in
           ]; }
         ]; }
       ];
+      chromiumCleanupScript = true;
       time = true;
     };
 

@@ -73,6 +73,10 @@ let
           else "${v}"
         );
       };
+      wrapper.chromiumCleanupScript = lib.mkOption {
+        default = false;
+        type = types.bool;
+      };
       wrapper.qtKDEintegration = lib.mkOption {
         default = false;
         type = types.bool;
@@ -136,6 +140,13 @@ let
           bat eza gnugrep
           nano procps util-linux
           xdg-utils
+        ] ++ lib.optionals (config.wrapper.chromiumCleanupScript) [
+          # cleanup cache files
+          pkgs.findutils
+          (pkgs.writeShellScriptBin "${name}-cleanup" ''
+            find ~/.config -type d -iname '*cache*' | xargs -d '\n' -- rm -r
+            find ~/.config -type f -iname '.org.chromium.Chromium.*' -delete
+          '')
         ];
         variables = {
           PATH = lib.lists.forEach config.wrapper.packages (p:

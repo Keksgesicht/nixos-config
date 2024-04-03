@@ -17,6 +17,7 @@ in
         SIGNAL_USE_TRAY_ICON = "0";
         SIGNAL_START_IN_TRAY = "0";
       };
+      chromiumCleanupScript = true;
       audio = true;
       time  = true;
     };

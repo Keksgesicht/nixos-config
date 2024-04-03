@@ -19,6 +19,7 @@ in
           "${pkgs.pulseaudio}/lib"
         ];
       };
+      chromiumCleanupScript = true;
       audio = true;
       time  = true;
     };
