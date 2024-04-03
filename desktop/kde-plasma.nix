@@ -48,21 +48,20 @@ with my-functions;
   ];
 
   users.users."${username}" = {
-    packages = with libKDE; with pkgs; [
-      discover
-      kruler
-      (lsp-wrapper pkgs lib kate "kate")
+    packages = [
+      libKDE.discover
+      libKDE.kruler
+      (lsp-wrapper pkgs lib libKDE.kate "kate")
       # use digital clock with PIM plugin
-      akonadi-calendar
-      kdepim-addons
-      merkuro
+      libKDE.akonadi-calendar
+      libKDE.merkuro
       # security stuff
-      ksshaskpass
+      libKDE.ksshaskpass
       # graphics info
-      clinfo
-      glxinfo
-      vulkan-tools
-      wayland-utils
+      pkgs.clinfo
+      pkgs.glxinfo
+      pkgs.vulkan-tools
+      pkgs.wayland-utils
     ];
   };
 
