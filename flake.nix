@@ -1,5 +1,5 @@
 {
-  inputs = rec {
+  inputs = {
     # https://github.com/NixOS/nixpkgs
     # update nixpkgs every couple of days
     nixpkgs-stable.url = "nixpkgs/nixos-23.11";
@@ -58,7 +58,7 @@
       owner = "pjones";
       repo = "plasma-manager";
       ref = "trunk";
-      rev = "9bac5925cf7716979535eed9c88e307fa9744169";
+      rev = "96a90a7f5ce6b29e01d7da83d082e870e4462174";
 
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

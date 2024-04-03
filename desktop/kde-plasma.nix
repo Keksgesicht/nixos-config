@@ -154,17 +154,17 @@ with my-functions;
     programs.plasma.configFile =
     if (config.networking.hostName == "cookiethinker") then
     {
-      "akonadi_davgroupware_resource_0rc"."General"."refreshInterval" = "15";
-      "kcminputrc"."Keyboard"."NumLock"    = lib.mkForce 1;
-      "kscreenlockerrc"."Daemon"."Timeout" = lib.mkForce 3;
-      "kwinrulesrc"."General"."count"      = lib.mkForce 3;
-      "kwinrulesrc"."General"."rules"      = lib.mkForce "6,8,9";
+      "akonadi_davgroupware_resource_0rc"."General"."refreshInterval".value = "15";
+      "kcminputrc"."Keyboard"."NumLock".value    = 1;
+      "kscreenlockerrc"."Daemon"."Timeout".value = 3;
+      "kwinrulesrc"."General"."count".value      = 3;
+      "kwinrulesrc"."General"."rules".value      = "6,8,9";
     }
     else if (config.networking.hostName == "cookieclicker") then
     {
       # UPS will drain much faster
-      "powerdevilrc"."BatteryManagement"."BatteryLowLevel" = 42;
-      "powerdevilrc"."BatteryManagement"."BatteryCriticalLevel" = 32;
+      "powerdevilrc"."BatteryManagement"."BatteryLowLevel".value = 42;
+      "powerdevilrc"."BatteryManagement"."BatteryCriticalLevel".value = 32;
     }
     else {};
   };
