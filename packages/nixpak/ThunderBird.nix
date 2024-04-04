@@ -9,6 +9,7 @@ in
       packages = [
         { package = pkgs.thunderbird; binName = "thunderbird"; }
       ];
+      time = true;
     };
 
     dbus.policies = {
