@@ -12,10 +12,27 @@ let
     (sloth.concat' sloth.homeDir dir)
   ]);
 
+  gamescope-wrapper = (n: w:
+    pkgs.writers.writePython3Bin "gamescope-${n}" {
+      libraries = [];
+    } (''
+      import os
+      import sys
+      gsBin = "${pkgs.gamescope}"
+      gsBin += "/bin/gamescope"
+      gsArgs = [gsBin, "--steam", "-b"]
+      gsArgs += ["-W", "${w}", "-H", "1440", "-r", "120", "-o", "30"]
+      gsArgs += ["--adaptive-sync"] + sys.argv[1:]
+      os.execvp(gsBin, gsArgs)
+    '')
+  );
   gameTools = (pkgs: [
     pkgs.gamemode
     pkgs.gamescope
     pkgs.mangohud
+    # gamescope aliase
+    (gamescope-wrapper "16" "2560")
+    (gamescope-wrapper "21" "3360")
   ]);
   steamPkg = (pkgs.steam.override {
     extraPkgs = (pkgs: with pkgs; ((gameTools pkgs) ++ [
