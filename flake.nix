@@ -1,6 +1,7 @@
 {
   inputs = rec {
     # https://github.com/NixOS/nixpkgs
+    # update nixpkgs every couple of days
     nixpkgs-stable.url = "nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
@@ -8,33 +9,57 @@
     # https://github.com/nix-community/home-manager
     # https://nix-community.github.io/home-manager/
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      type = "github";
+      owner = "nix-community";
+      repo = "home-manager";
+      ref = "master";
+      rev = "80546b220e95a575c66c213af1b09fe255299438";
+
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # https://nixos.wiki/wiki/Impermanence
     # https://github.com/nix-community/impermanence
     impermanence = {
-      url = "github:nix-community/impermanence/master";
-      #inputs.nixpkgs.follows = "nixpkgs-unstable";
+      type = "github";
+      owner = "nix-community";
+      repo = "impermanence";
+      ref = "master";
+      rev = "a33ef102a02ce77d3e39c25197664b7a636f9c30";
     };
 
     # https://nixos.wiki/wiki/Secure_Boot
     # https://github.com/nix-community/lanzaboote
     lanzaboote = {
-      url = "github:nix-community/lanzaboote";
+      type = "github";
+      owner = "nix-community";
+      repo = "lanzaboote";
+      ref = "master";
+      rev = "3881267e84cc966ded48601390e88fc13d960319";
+
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+      #inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
 
     # https://github.com/nixpak/nixpak
     nixpak = {
-      url = "github:nixpak/nixpak";
+      type = "github";
+      owner = "nixpak";
+      repo = "nixpak";
+      ref = "master";
+      rev = "b0862a125da8fe5d179633d6cc7aed57d5316871";
+
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # https://github.com/pjones/plasma-manager
     plasma-manager = {
-      url = "github:pjones/plasma-manager";
+      type = "github";
+      owner = "pjones";
+      repo = "plasma-manager";
+      ref = "trunk";
+      rev = "9bac5925cf7716979535eed9c88e307fa9744169";
+
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
