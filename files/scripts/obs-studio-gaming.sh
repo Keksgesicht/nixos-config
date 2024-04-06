@@ -6,7 +6,7 @@ game_dir=$(echo "${HOME}/Games" | sed -e 's|/|[\/]|g')
 wine_dir=$(echo "${HOME}/WinePrefixes" | sed -e 's|/|[\/]|g')
 
 include_filter="${game_dir}|${wine_dir}|PrismLauncher"
-exclude_filter="bwrap|grep|konsole|dolphin|d3ddriverquery64.exe|fossilize_replay|legendary install"
+exclude_filter="bwrap|grep|konsole|dolphin|d3ddriverquery64.exe|fossilize_replay|legendary(-wrapped)* install"
 
 run_stop() {
 	nohup bash -c "${EXEC_FILE} stop 2>&1 | logger -t obs-studio-gaming.stopper" >/dev/null &
