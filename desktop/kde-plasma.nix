@@ -15,21 +15,21 @@ with my-functions;
     # Enable the X11 windowing system.
     enable = true;
 
-    # Enable the KDE Plasma Desktop Environment (wayland by default).
-    displayManager = {
-      sddm = {
-        enable = true;
-        wayland.enable = true;
-        autoNumlock = true;
-        theme = "breeze";
-      };
-      defaultSession = "plasma";
-    };
-
     # Enable touchpad support (enabled default in most desktopManager).
     libinput.enable = true;
   };
+
+  # Enable the KDE Plasma Desktop Environment (wayland by default).
   services.desktopManager."${plasma}".enable = true;
+  services.displayManager = {
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+      autoNumlock = true;
+      theme = "breeze";
+    };
+    defaultSession = "plasma";
+  };
 
   # enable KDEconnect
   programs.kdeconnect.enable = true;
