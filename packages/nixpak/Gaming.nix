@@ -3,6 +3,7 @@
 let
   name = "Gaming";
   name-dir = "${specialArgs.home-dir}/.var/app/${name}";
+  name-home = "${specialArgs.home-dir}/.var/home/${name}";
 
   gamingPC = (config.networking.hostName == "cookieclicker");
   bindGamingHome = (dir: [
@@ -248,5 +249,12 @@ with specialArgs;
   systemd.tmpfiles.rules = [
     "L+ ${home-dir}/.steam             - - - - ${name-dir}/.steam"
     "L+ ${home-dir}/.local/share/Steam - - - - ${name-dir}/.local/share/Steam"
+
+    "d  ${home-dir}/.var/home 0700 ${username} ${username} - -"
+    "d  ${name-home}          0700 ${username} ${username} - -"
+    "L  ${name-home}/.steampath  - - - - ${home-dir}/.steam/sdk32/steam"
+    "L  ${name-home}/.steampid   - - - - ${home-dir}/.steam/steam.pid"
+    "Z  ${name-home}/.steampath  - ${username} ${username} - -"
+    "Z  ${name-home}/.steampid   - ${username} ${username} - -"
   ];
 }
