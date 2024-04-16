@@ -8,5 +8,5 @@
   };
 
   # replace all log output with black screen
-  #boot.kernelParams = [ "quiet" ];
+  boot.kernelParams = [ "quiet" ];
 }
