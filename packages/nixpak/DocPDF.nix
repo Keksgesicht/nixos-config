@@ -28,7 +28,10 @@ let
         xstring
         # additional packages
         csquotes
+        datetime
+        fmtcount
         fontawesome
+        numprint
         siunitx
       ;
     })
@@ -80,8 +83,6 @@ in
       bind.ro = [
         (myKDEmount "okular" "")
         (myKDEmount "okular" "part")
-
-        (sloth.xdgDocumentsDir)
       ];
       bind.rw = [
         (bindHomeDir name "/.config/pdfarranger")
