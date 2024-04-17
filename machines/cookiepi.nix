@@ -20,8 +20,12 @@ in
     ../nix
     ../nix/build-cache-client.nix
     ../nix/version-23-05.nix
-    ../services/containers/unbound.nix
+    ../services/system/files-cleanup.nix
+    ../services/containers/dyndns.nix
+    ../services/containers/nextcloud.nix
     ../services/containers/pihole.nix
+    ../services/containers/proxy.nix
+    ../services/containers/unbound.nix
     ../services/system/backup-snapshot.nix
     ../system
   ];

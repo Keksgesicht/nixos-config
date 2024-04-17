@@ -91,7 +91,12 @@ in
         TZ = config.time.timeZone;
         URL = "keksgesicht.net";
         EMAIL = "certbot@keksgesicht.net";
-        SUBDOMAINS = "wildcard,*.cookieclicker,cloud";
+        SUBDOMAINS =
+          if (config.networking.hostName == "cookieclicker") then
+            "wildcard,*.cookieclicker"
+          else if (config.networking.hostName == "cookiepi") then
+            "wildcard,*.cookiepi,cloud"
+          else "";
         ONLY_SUBDOMAINS = "true";
         VALIDATION = "dns";
         DNSPLUGIN = "cloudflare";
