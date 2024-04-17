@@ -2,7 +2,11 @@
 
 let
   secrets-pkg = (pkgs.callPackage ../packages/my-secrets.nix {});
-  keyPathServer = secrets-pkg + "/ssh/server";
+  sshServerKeys = (name:
+    lib.optionals (config.networking.hostName != "${name}") [
+      ( secrets-pkg + "/ssh/server" + "/${name}" )
+    ]
+  );
 in
 {
   environment.sessionVariables = {
@@ -26,10 +30,10 @@ in
         gitlab.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFSMqzJeV9rUzU4kWitGjeR4PWSa29SPqJ1fVkhtj3Hw9xjLVXVYrU9QlYWrOLXBpQ6KWjbjTDTdDkoohFzgbEY=
       '')
     ]
-    ++ lib.optionals (config.networking.hostName != "cookieclicker")
-       [( keyPathServer + "/cookieclicker" )]
-    ++ [( keyPathServer + "/mail.keksgesicht.net" )]
-    ++ [( keyPathServer + "/rpi.pihole.local" )]
+    ++ sshServerKeys "cookieclicker"
+    ++ sshServerKeys "cookiepi"
+    ++ sshServerKeys "mail.keksgesicht.net"
+    ++ sshServerKeys "rpi.pihole.local"
     ;
   };
 }

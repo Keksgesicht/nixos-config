@@ -147,28 +147,17 @@
         ];
       };
 
-      # nix build ."#nixosConfigurations".pihole."config.system.build.toplevel" --impure
-      "pihole" = nixpkgs-stable.lib.nixosSystem {
-        system = "aarch64-linux";
-        specialArgs = {
+      "cookiepi" = nixpkgs-unstable.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = myArgs // {
           inherit inputs;
+          inherit system;
         };
         modules = [
-          ./machines/pihole.nix
-        ];
-      };
-      # nix build ."#nixosConfigurations".pihole-sd-card."config.system.build.sdImage" --impure
-      "pihole-sd-card" = nixpkgs-stable.lib.nixosSystem {
-        system = "aarch64-linux";
-        specialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          ./machines/pihole.nix
-          (nixpkgs-stable + "/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
-          ({ config, ... }: {
-            sdImage.compressImage = false;
-          })
+          ./machines/cookiepi.nix
+          home-manager.nixosModules.home-manager
+          impermanence.nixosModules.impermanence
+          lanzaboote.nixosModules.lanzaboote
         ];
       };
 
