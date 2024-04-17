@@ -15,6 +15,7 @@
     ../hardware/office
     ../hardware/tower
     ../nix
+    ../nix/build-cache-client.nix
     ../nix/build-cache-server.nix
     ../nix/version-23-05.nix
     ../services/system

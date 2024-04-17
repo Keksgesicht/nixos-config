@@ -19,6 +19,7 @@ in
     ../development/neovim.nix
     ../nix
     ../nix/build-cache-client.nix
+    ../nix/build-cache-server.nix
     ../nix/version-23-05.nix
     ../services/system/files-cleanup.nix
     ../services/containers/dyndns.nix
