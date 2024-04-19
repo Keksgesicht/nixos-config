@@ -175,9 +175,6 @@ tiles={"layoutDirection":"horizontal","tiles":[{"width":0.3437499999999985},{"wi
 [TouchEdges]
 Bottom=KRunner
 
-[Wayland]
-InputMethod[$e]=/run/current-system/sw/share/applications/org.freedesktop.IBus.Panel.Wayland.Gtk3.desktop
-
 [Windows]
 AutoRaise=true
 AutoRaiseInterval=842
