@@ -57,6 +57,7 @@ in
 
         (sloth.mkdir (sloth.concat' sloth.xdgDownloadDir "/sandbox"))
         (sloth.xdgVideosDir)
+        (sloth.concat' sloth.homeDir "/Module/Vorlesungen")
       ];
     };
   }; } else {};

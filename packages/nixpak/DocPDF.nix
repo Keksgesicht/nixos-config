@@ -2,7 +2,7 @@
 
 let
   name = "DocPDF";
-  latexSet = "base";
+  latexSet = "work";
 
   latexBase = [
     (pkgs.texlive.combine {
@@ -83,6 +83,7 @@ in
       bind.ro = [
         (myKDEmount "okular" "")
         (myKDEmount "okular" "part")
+        (sloth.concat' sloth.homeDir "/texmf") # TUDa Logo and other templates
       ];
       bind.rw = [
         (bindHomeDir name "/.config/pdfarranger")
