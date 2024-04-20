@@ -51,9 +51,6 @@ in
   nixpak."${name}" = {
     wrapper = {
       packages = [
-        { package = okularPkg; binName = "okular"; appFile = [
-          { src = "org.kde.okular"; args.remove = "%U"; args.extra = "%U"; }
-        ]; }
         { package = pkgs.pdfarranger; binName = "pdfarranger"; appFile = [
           { src = "com.github.jeromerobert.pdfarranger";
             args.remove = "%U"; args.extra = "%U"; }
@@ -67,6 +64,7 @@ in
         { package = pkgs.xournalpp; binName = "xournalpp"; appFile = [
           { src = "com.github.xournalpp.xournalpp"; }
         ]; }
+        okularPkg
         # PDF tools
         #pkgs.pdfdiff
         pkgs.pdfgrep
@@ -89,9 +87,6 @@ in
         (bindHomeDir name "/.config/pdfarranger")
         (bindHomeDir name "/.config/texstudio")
         (bindHomeDir name "/.config/xournalpp")
-
-        # find ~/.var/app/DocPDF/.local/share/okular -type f -mtime +360 -delete
-        (bindHomeDir name "/.local/share/okular")
 
         (sloth.concat' sloth.xdgDocumentsDir "/Office")
         (sloth.concat' sloth.xdgDocumentsDir "/Studium")
