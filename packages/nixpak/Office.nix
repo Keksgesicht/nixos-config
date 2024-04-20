@@ -8,14 +8,14 @@ in
     wrapper = {
       packages = [
         { package = pkgs.libreoffice; binName = "soffice"; appFile = [
-          { src = "base"; }
-          { src = "calc"; }
-          { src = "draw"; }
-          { src = "impress"; }
-          { src = "math"; }
-          { src = "startcenter"; }
-          { src = "writer"; }
-          { src = "xsltfilter"; }
+          { src = "base"; args.remove = "%U"; args.extra = "%U"; }
+          { src = "calc"; args.remove = "%U"; args.extra = "%U"; }
+          { src = "draw"; args.remove = "%U"; args.extra = "%U"; }
+          { src = "impress"; args.remove = "%U"; args.extra = "%U"; }
+          { src = "math"; args.remove = "%U"; args.extra = "%U"; }
+          { src = "startcenter"; args.remove = "%U"; args.extra = "%U"; }
+          { src = "writer"; args.remove = "%U"; args.extra = "%U"; }
+          { src = "xsltfilter"; args.remove = "%U"; args.extra = "%U"; }
         ]; }
       ];
       printing = true;
