@@ -76,6 +76,13 @@ with my-functions;
         "${data-dir}"
       ];
     };
+    "${data-dir}/Videos/Screencasts" = bind-opts // {
+      device = "${ssd-mnt}/root${home-dir}/Videos/Screencasts";
+      depends = [
+        "${nvm-mnt}"
+        "${data-dir}"
+      ];
+    };
   };
 
   # https://nixos.wiki/wiki/Impermanence#Home_Managing
@@ -170,7 +177,8 @@ with my-functions;
     "${ssd-mnt}/root${home-dir}/git"
     "${ssd-mnt}/root${home-dir}/Pictures"
     "${ssd-mnt}/root${home-dir}/Pictures/Screenshots"
-
+    "${ssd-mnt}/root${home-dir}/Videos"
+    "${ssd-mnt}/root${home-dir}/Videos/Screencasts"
 
     "${data-dir}/Documents"
     "${data-dir}/Documents/development"
