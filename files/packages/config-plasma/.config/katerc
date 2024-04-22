@@ -44,9 +44,6 @@ Tab Double Click New Document=true
 Tab Middle Click Close Document=true
 Tabbar Tab Limit=0
 
-[KFileDialog Settings]
-detailViewIconSize=16
-
 [KTextEditor Document]
 Allow End of Line Detection=true
 Auto Detect Indent=true
@@ -94,13 +91,13 @@ Fallback Encoding=cp 1252
 [KTextEditor Renderer]
 Animate Bracket Matching=false
 Auto Color Theme Selection=false
-Color Theme=Breeze Dark Cookie
+Color Theme=Breeze Dark
 Font=Noto Sans Mono,10,-1,5,50,0,0,0,0,0
 Line Height Multiplier=1
 Schema=Normal
 Show Indentation Lines=true
 Show Whole Bracket Expression=false
-Text Font=NotoMono Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+Text Font=NotoMono Nerd Font Mono,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 Word Wrap Marker=true
 
 [KTextEditor View]
@@ -112,7 +109,7 @@ Auto Completion Preselect First Entry=true
 Backspace Remove Composed Characters=false
 Bookmark Menu Sorting=0
 Bracket Match Preview=true
-Chars To Enclose Selection=
+Chars To Enclose Selection=<>(){}[]'"
 Default Mark Type=1
 Dynamic Word Wrap=true
 Dynamic Word Wrap Align Indent=80

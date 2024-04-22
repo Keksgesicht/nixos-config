@@ -126,7 +126,6 @@ with my-functions;
           ".local/share/kwrite"
           ".local/share/kxmlgui5"
           ".local/share/okular"
-          ".local/share/org.kde.syntax-highlighting"
           ".local/share/plasma"
           ".local/share/plasma-systemmonitor"
           ".local/share/themes"
