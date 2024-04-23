@@ -12,6 +12,7 @@
     ../development
     ../hardware
     ../hardware/laptop
+    ../hardware/office
     ../nix
     ../nix/build-cache-client.nix
     ../nix/version-23-05.nix
