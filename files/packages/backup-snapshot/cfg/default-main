@@ -1,0 +1,8 @@
+hourly=0
+daily=5
+weekly=3
+monthly=2
+
+source="/mnt/main"
+backup="$source/backup_main"
+shares="appdata etc home"

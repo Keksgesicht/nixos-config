@@ -1,0 +1,8 @@
+hourly=0
+daily=7
+weekly=5
+monthly=3
+
+source="/mnt/array"
+backup="$source/backup_array"
+shares="appdata2 homeBraunJan homeGaming resources"

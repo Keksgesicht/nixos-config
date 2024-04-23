@@ -105,6 +105,15 @@ with my-functions;
       backupLink "${ssd-name}" [ "etc" "home" ]
       ++
       backupLink "${hdd-name}" [ "homeBraunJan" ]
-    else [];
+    else
+      backupLink "${ssd-name}" [
+        "appdata"
+        "etc"
+        "home"
+      ] ++
+      backupLink "${hdd-name}" [
+        "appdata2"
+      ]
+    ;
   };
 }

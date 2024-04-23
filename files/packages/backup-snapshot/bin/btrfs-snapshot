@@ -1,23 +1,26 @@
 mnt="$1"
-hostname="$(cat /etc/hostname)"
-work_dir="$(realpath $(dirname $0))"
+hostname=$(cat /etc/hostname)
+work_dir=$(realpath "$(dirname "${0}")")
 disk_cfg="${work_dir}/../cfg/${hostname}-${mnt}"
-disk_cfg="$(realpath ${disk_cfg})"
-[ -f "${disk_cfg}" ] || exit 1
+disk_cfg=$(realpath "${disk_cfg}")
+if ! [ -f "${disk_cfg}" ]; then
+	disk_cfg="${work_dir}/../cfg/default-${mnt}"
+	disk_cfg=$(realpath "${disk_cfg}")
+fi
 
 # compare current time with timestamp
-source ${work_dir}/time-diff
+source "${work_dir}/time-diff"
 
 # helper function for snapshot removal
 delete() {
-	for del in $(btrfs subvolume list $source | awk '$NF ~ /^backup_.*\/date\/'$1'/ {print $NF}'); do
+	for del in $(btrfs subvolume list "${source}" | awk '$NF ~ /^backup_.*\/date\/'"${1}"'/ {print $NF}'); do
 		btrfs subvolume delete "$source/$del"
 	done
 	rm -dv "$dest/$1"
-	rm -v $backup/name/*/$1
+	rm -v "${backup}/name/*/$1"
 }
 
 echo
-echo $disk_cfg
-source $disk_cfg
+echo "${disk_cfg}"
+source "${disk_cfg}"
 dest="$backup/date"
