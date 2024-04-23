@@ -1,12 +1,12 @@
-{ config, ... }:
+{ ... }:
 
 {
   nix.settings = {
     substituters = [
-      "https://nix.mirror.keksgesicht.net/"
+      "https://nix-serve.cookieclicker.keksgesicht.net/"
     ];
     trusted-public-keys = [
-      "nix.mirror.keksgesicht.net:aGeL8Bf8q8dqOw5IS++OBirG9KdzWG2yBw02XWWePLw="
+      "nix-serve.cookieclicker.keksgesicht.net:nFpvWc0EnsNT9f6DPYidYd1f3eN8CGA4RQ7u9ygDzLk="
     ];
   };
 }
