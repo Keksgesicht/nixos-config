@@ -147,6 +147,10 @@ videowallEnabled=false
 [Script-desktopchangeosd]
 PopupHideDelay=250
 
+[Script-sticky-window-snapping]
+opacityOfSnapped=88
+opacityOfUnaffected=64
+
 [TabBox]
 BorderActivate=9
 LayoutName=coverswitch
