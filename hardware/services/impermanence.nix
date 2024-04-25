@@ -152,10 +152,6 @@ in
       directories = [
         "/root/.secrets/ssh"
       ];
-      files = [
-        "/root/.config/ssh/known_hosts"
-        "/root/.zhistory"
-      ];
     };
   };
 
@@ -182,6 +178,7 @@ in
     "q  ${hdd-mnt}/homeGaming   0755 ${username} ${username} - -"
     # additional data
     "L+ ${link-dir}/binWin    - - - - ${ssd-mnt}/binWin"
+    "L+ ${link-dir}/machines  - - - - ${hdd-mnt}/machines"
     "L+ ${link-dir}/system    - - - - ${ssd-mnt}/system"
     "L+ ${link-dir}/resources - - - - ${hdd-mnt}/resources"
     "L+ ${link-dir}/vm        - - - - ${ssd-mnt}/vm"

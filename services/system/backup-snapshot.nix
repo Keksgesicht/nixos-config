@@ -99,6 +99,7 @@ with my-functions;
         "appdata2"
         "homeBraunJan"
         "homeGaming"
+        "machines"
         "resources"
       ]
     else if (config.networking.hostName == "cookiethinker") then

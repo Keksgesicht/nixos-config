@@ -7,4 +7,4 @@ scrub=100
 
 source="/mnt/array"
 backup="$source/backup_array"
-shares="appdata2 homeBraunJan homeGaming resources"
+shares="appdata2 homeBraunJan homeGaming machines resources"
