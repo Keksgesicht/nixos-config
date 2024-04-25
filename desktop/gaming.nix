@@ -1,4 +1,4 @@
-{ config, pkgs, username, home-dir, ... }:
+{ config, pkgs, lib, username, home-dir, ... }:
 
 let
   xdg-config = "${home-dir}/.config";
@@ -7,6 +7,10 @@ let
   usb-bind-pkg = pkgs.callPackage ../packages/usb-bind.nix {};
 in
 {
+  imports = [
+    ../hardware/services/gaming.nix
+  ];
+
   users.users."${username}".packages = with pkgs; [
     # enable saving replaybuffer through a hotkey
     (callPackage ../packages/obs-cli.nix {})

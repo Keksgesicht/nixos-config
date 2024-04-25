@@ -7,10 +7,7 @@
     enable = true;
     # https://search.nixos.org/options?channel=unstable&show=powerManagement.cpuFreqGovernor
     # /sys/bus/cpu/devices/cpu0/cpufreq/scaling_governor
-    cpuFreqGovernor =
-      if (config.networking.hostName == "cookieclicker") then
-        "performance"
-      else "ondemand";
+    cpuFreqGovernor = "ondemand";
   };
 
   boot.kernelParams = []
