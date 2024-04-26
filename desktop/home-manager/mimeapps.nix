@@ -107,7 +107,7 @@ in
       "x-scheme-handler/https"  = webBrowser;
       "x-scheme-handler/mailto" = "thunderbird.desktop";
       "x-scheme-handler/smb"    = "org.kde.dolphin.desktop";
-      "x-scheme-handler/steam"  = "com.valvesoftware.Steam";
+      "x-scheme-handler/steam"  = "com.valvesoftware.Steam.desktop";
       "x-scheme-handler/tel"    = "org.kde.kdeconnect.handler.desktop";
     };
 
@@ -130,6 +130,9 @@ in
       "application/xhtml+xml" = metaApps ++ webBrowserList;
       "application/xml" = metaApps;
       "application/zip" = metaApps;
+      "application/gzip" = metaApps ++ [
+        "com.github.xournalpp.xournalpp.desktop"
+      ];
 
       "application/x-compressed-tar" = metaApps;
       "application/x-executable"     = metaApps;
