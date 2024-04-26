@@ -2,15 +2,20 @@
 
 set -e
 
+[ -n "${MY_IFLINK}" ] || exit 0
+[ -n "${MY_IPV6_ULU}" ] || exit 0
+
 IFLINK="$1"
 NMMODE="$2"
 
 case "${IFLINK}" in
-enp4s0)
-	if [ "${NMMODE}" = "up" ]; then
+"${MY_IFLINK}")
+	case "${NMMODE}" in
+	up)
 		# https://de.wikipedia.org/wiki/IPv6#Unique_Local_Unicast
-		ip addr add 'fd00:3581::192:168:178:150/64' dev "${IFLINK}"
-	fi
+		ip addr add "${MY_IPV6_ULU}" dev "${IFLINK}"
+	;;
+	esac
 ;;
 esac
 

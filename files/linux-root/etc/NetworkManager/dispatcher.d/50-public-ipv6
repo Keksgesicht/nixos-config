@@ -1,7 +1,5 @@
 #!/bin/bash
 
-MY_IP_SUFFIX="3581:150:0:1"
-
 gen-ipv6-suffix() {
 	hd1=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')
 	hd2=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')
@@ -12,7 +10,7 @@ gen-ipv6-suffix() {
 
 has-ipv6-token() {
 	sleep 5s
-	ipv6_addr=$(ip addr show ${IFLINK} | \
+	ipv6_addr=$(ip addr show "${IFLINK}" | \
 		awk '$1 == "inet6" && !/fe80:/ && !/fd00:/ && /64 scope global dynamic mngtmpaddr/ {gsub(/\/.*$/, "", $2); print $2}')
 
 	if [ -z "${ipv6_addr}" ]; then
@@ -24,47 +22,50 @@ has-ipv6-token() {
 
 set-ipv6-token() {
 	# Set static suffix first for FritzBox
-	ip token set "::${MY_IP_SUFFIX}/64" dev ${IFLINK}
+	ip token set "::${MY_IPV6_SUFFIX}/64" dev "${IFLINK}"
 	sleep 5s
-	ipv6_addr=$(ip addr show ${IFLINK} | \
-		awk '$1 == "inet6" && !/fe80:/ && !/fd00:/ && /'${MY_IP_SUFFIX}'/ {gsub(/\/.*$/, "", $2); print $2}')
+	ipv6_addr=$(ip addr show "${IFLINK}" | \
+		awk '$1 == "inet6" && !/fe80:/ && !/fd00:/ && /'"${MY_IPV6_SUFFIX}"'/ {gsub(/\/.*$/, "", $2); print $2}')
 	if [ -n "${ipv6_addr}" ]; then
-		ip token del dev ${IFLINK}
-		ip addr add ${ipv6_addr}/64 dev ${IFLINK}
+		ip token del dev "${IFLINK}"
+		ip addr add "${ipv6_addr}/64" dev "${IFLINK}"
 	fi
 
 	# set custom suffix for LAN network adapter
 	# https://bbs.archlinux.org/viewtopic.php?id=244359
 	IPTOKEN=$(gen-ipv6-suffix)
-	ip token set ${IPTOKEN} dev ${IFLINK}
+	ip token set "${IPTOKEN}" dev "${IFLINK}"
 
 	# try addresses until nobody else in the network uses the same
 	while ! has-ipv6-token; do
 		IPTOKEN=$(get-ipv6-token)
-		ip token set ${IPTOKEN} dev ${IFLINK}
+		ip token set "${IPTOKEN}" dev "${IFLINK}"
 	done
 }
 
 update-ipv6() {
-	if ! ip addr show ${IFLINK} | grep -qE ${MY_IP_SUFFIX}; then
+	if ! ip addr show "${IFLINK}" | grep -qE "${MY_IPV6_SUFFIX}"; then
 		set-ipv6-token
-	elif ! ip token get dev ${IFLINK} | grep -qE '::[0-9a-f]'; then
+	elif ! ip token get dev "${IFLINK}" | grep -qE '::[0-9a-f]'; then
 		set-ipv6-token
-	elif ip addr show ${IFLINK} | grep -q 'deprecated'; then
+	elif ip addr show "${IFLINK}" | grep -q 'deprecated'; then
 		set-ipv6-token
 	fi
 }
+
+[ -n "${MY_IFLINK}" ] || exit 0
+[ -n "${MY_IPV6_SUFFIX}" ] || exit 0
 
 IFLINK="$1"
 NMMODE="$2"
 
 case "${IFLINK}" in
-enp4s0)
+"${MY_IFLINK}")
 	case "${NMMODE}" in
 	up)
 		# enable router advertisement on LAN network adapter
 		# https://unix.stackexchange.com/questions/61641/how-can-i-disable-automatic-ipv6-neighbor-route-advertisement-on-a-router
-		sysctl -w net.ipv6.conf.${IFLINK}.accept_ra=2 >/dev/null
+		sysctl -w net.ipv6.conf."${IFLINK}".accept_ra=2 >/dev/null
 
 		# update ipv6 address
 		update-ipv6
@@ -74,7 +75,7 @@ enp4s0)
 	;;
 	prefix)
 		# as this gets called by a timer, only update when IPs are marked as "deprecated"
-		if ip addr show ${IFLINK} | grep -q 'deprecated'; then
+		if ip addr show "${IFLINK}" | grep -q 'deprecated'; then
 			set-ipv6-token
 		fi
 	;;

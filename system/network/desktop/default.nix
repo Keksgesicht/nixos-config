@@ -7,6 +7,7 @@ with my-functions;
 {
   imports = [
     ../.
+    ../network-manager-ipv6.nix
   ];
 
   # symlinks for all certificates
@@ -51,26 +52,13 @@ with my-functions;
       "connection.stable-id" = "\${CONNECTION}/\${BOOT}";
     };
 
-    dispatcherScripts =
-      if (config.networking.hostName == "cookieclicker") then
-        [ {
-          type = "basic";
-          source = pkgs.writers.writeBash "50-home-ipv6-ULU" (''
-            export PATH=$PATH
-          '' + (builtins.readFile ../../../files/linux-root/etc/NetworkManager/dispatcher.d/50-home-ipv6-ULU));
-        } {
-          type = "basic";
-          source = pkgs.writers.writeBash "50-no-ddns-vpn" (''
-            export PATH=$PATH
-          '' + (builtins.readFile ../../../files/linux-root/etc/NetworkManager/dispatcher.d/50-no-ddns-vpn));
-        } {
-          type = "basic";
-          source = pkgs.writers.writeBash "50-public-ipv6" (''
-            export PATH=$PATH:"${pkgs.coreutils}/bin":"${pkgs.gawk}/bin":"${pkgs.procps}/bin"
-          '' + (builtins.readFile ../../../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6));
-        } ]
-      else []
-    ;
+    dispatcherScripts = []
+      ++ lib.optionals (config.networking.hostName == "cookieclicker") [ {
+        type = "basic";
+        source = pkgs.writers.writeBash "50-no-ddns-vpn" (''
+          export PATH=$PATH
+        '' + (builtins.readFile ../../../files/linux-root/etc/NetworkManager/dispatcher.d/50-no-ddns-vpn));
+      } ];
   };
 
   systemd = {
@@ -80,24 +68,6 @@ with my-functions;
         if (config.services.xserver.enable) then
           { enable = lib.mkForce false; }
         else {};
-      "ipv6-prefix-update" = {
-        enable = (config.networking.hostName == "cookieclicker");
-        description = "Check whether IPv6 prefix has been updated and adjust static suffix to new IP";
-        path = with pkgs; [ coreutils iproute2 gawk procps ];
-        script = (builtins.readFile ../../../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6);
-        scriptArgs = "enp4s0 prefix";
-      };
-    };
-    timers = {
-      "ipv6-prefix-update" = {
-        enable = (config.networking.hostName == "cookieclicker");
-        description = "regular IPv6 prefix update check";
-        timerConfig = {
-          OnStartupSec = "42min";
-          OnUnitInactiveSec = "1000sec";
-        };
-        wantedBy = [ "timers.target" ];
-      };
     };
   };
 
