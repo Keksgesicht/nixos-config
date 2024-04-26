@@ -1,14 +1,12 @@
-{ config, pkgs, lib, username, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  my-functions = (import ../nix/my-functions.nix lib);
+  my-functions = (import ../../../nix/my-functions.nix lib);
 in
 with my-functions;
 {
-  users.users."${username}".packages = with pkgs; [
-    dig
-    ethtool
-    wakeonlan
+  imports = [
+    ../.
   ];
 
   # symlinks for all certificates
@@ -59,17 +57,17 @@ with my-functions;
           type = "basic";
           source = pkgs.writers.writeBash "50-home-ipv6-ULU" (''
             export PATH=$PATH
-          '' + (builtins.readFile ../files/linux-root/etc/NetworkManager/dispatcher.d/50-home-ipv6-ULU));
+          '' + (builtins.readFile ../../../files/linux-root/etc/NetworkManager/dispatcher.d/50-home-ipv6-ULU));
         } {
           type = "basic";
           source = pkgs.writers.writeBash "50-no-ddns-vpn" (''
             export PATH=$PATH
-          '' + (builtins.readFile ../files/linux-root/etc/NetworkManager/dispatcher.d/50-no-ddns-vpn));
+          '' + (builtins.readFile ../../../files/linux-root/etc/NetworkManager/dispatcher.d/50-no-ddns-vpn));
         } {
           type = "basic";
           source = pkgs.writers.writeBash "50-public-ipv6" (''
             export PATH=$PATH:"${pkgs.coreutils}/bin":"${pkgs.gawk}/bin":"${pkgs.procps}/bin"
-          '' + (builtins.readFile ../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6));
+          '' + (builtins.readFile ../../../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6));
         } ]
       else []
     ;
@@ -86,7 +84,7 @@ with my-functions;
         enable = (config.networking.hostName == "cookieclicker");
         description = "Check whether IPv6 prefix has been updated and adjust static suffix to new IP";
         path = with pkgs; [ coreutils iproute2 gawk procps ];
-        script = (builtins.readFile ../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6);
+        script = (builtins.readFile ../../../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6);
         scriptArgs = "enp4s0 prefix";
       };
     };
