@@ -29,6 +29,7 @@ in
     ../services/containers/unbound.nix
     ../services/system/backup-snapshot.nix
     ../system
+    ../system/network/server/lan.nix
   ];
 
   # filesystem extras

@@ -192,7 +192,7 @@ in
   ]
   # disable WLAN by default on desktop/tower
   ++ lib.optionals (config.networking.networkmanager.enable
-                && (config.networking.hostName == "cookieclicker"))
+                && (config.networking.hostName != "cookiethinker"))
   [
     "C  ${nm-state-file} - - - - ${inputs.self}/files/linux-root${nm-state-file}"
   ]

@@ -5,8 +5,8 @@ let
     if (config.networking.hostName == "cookieclicker") then
       "enp4s0"
     else if (config.networking.hostName == "cookiepi") then
-      "eth0"
-    else "";
+      "enp0s31f6"
+    else "eth0";
   MY_IPV6_ULU =
     if (config.networking.hostName == "cookieclicker") then
       "fd00:3581::192:168:178:150/64"
@@ -50,12 +50,7 @@ in
         description = "Check whether IPv6 prefix has been updated and adjust static suffix to new IP";
         path = with pkgs; [ coreutils iproute2 gawk procps ];
         script = (builtins.readFile ../../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6);
-        scriptArgs =
-          if (config.networking.hostName == "cookieclicker") then
-            "enp4s0 prefix"
-          else if (config.networking.hostName == "cookiepi") then
-            "eth0 prefix"
-          else "";
+        scriptArgs = "${MY_IFLINK} prefix";
       };
     };
     timers = {
