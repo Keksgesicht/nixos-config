@@ -9,9 +9,8 @@ in
       packages = [
         { package = pkgs.brave; binName = "brave"; appFile = [
           { src = "brave-browser"; args.extra = [
-            #"--enable-features=UseOzonePlatform"
-            #"--ozone-platform-hint=auto" "--force-dark-mode"
-            #"--enable-features=WebUIDarkMode""
+            "--enable-features=UseOzonePlatform" "--ozone-platform-hint=auto"
+            "--force-dark-mode" "--enable-features=WebUIDarkMode"
           ]; }
         ]; }
       ];
