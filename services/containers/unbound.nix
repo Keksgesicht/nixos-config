@@ -31,7 +31,7 @@ in
           URL="https://www.internic.net/domain/named.cache"
           NIX_STORE_FILE=$(nix-prefetch-url --print-path $URL | tail -n 1)
           HASH=$(sha256sum $NIX_STORE_FILE | cut -f1 -d' ' | xxd -r -p | base64)
-          echo "sha256-$HASH" >$HASHFILE
+          echo "sha256-$HASH" | tee $HASHFILE
         '';
       };
       "container-image-updater@unbound" = {

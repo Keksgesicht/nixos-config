@@ -4,7 +4,11 @@ if ! diff /scripts/unbound.conf /etc/unbound/unbound.conf.sample >/dev/null; the
 	cp /scripts/unbound.conf /etc/unbound/unbound.conf.sample
 fi
 
-if ! [ -f /etc/unbound/root.hints ] || [ /etc/unbound/root.hints -ot /scripts/root.hints ]; then
+if ! [ -f /etc/unbound/root.hints ]; then
+	cp /scripts/root.hints /etc/unbound/root.hints
+fi
+
+if ! diff /etc/unbound/root.hints /scripts/root.hints >/dev/null; then
 	cp /scripts/root.hints /etc/unbound/root.hints
 fi
 
@@ -16,7 +20,8 @@ unbound-anchor -4 -r /etc/unbound/root.hints -a /etc/unbound/keys/trusted.key
 unbound-control-setup -d /etc/unbound/keys/
 
 unbound-checkconf /etc/unbound/unbound.conf
-if [ "$?" != "0" ] ; then
+RET=$?
+if [ "$RET" != "0" ] ; then
 	echo "#=======================#"
 	echo "| ERROR: CONFIG DAMAGED |"
 	echo "#=======================#"
