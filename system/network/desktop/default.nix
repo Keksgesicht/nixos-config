@@ -124,6 +124,10 @@ with my-functions;
     # Router
     "192.168.178.1" = [ "fritz.box" ];
 
+    # LAN devices
+    "192.168.178.150" = [ "cookieclicker.local" ];
+    "192.168.178.25" = [ "cookiepi.local" ];
+
     # TUDa ESA-Infrastruktur (sshuttle)
     "10.5.0.38" = [ "gitlab.esa.informatik.tu-darmstadt.de" ];
   };

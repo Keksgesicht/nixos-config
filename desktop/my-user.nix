@@ -5,6 +5,9 @@
 
 let
   user-pw-path = "${secrets-dir}/keys/passwd/${username}";
+
+  secrets-pkg = (pkgs.callPackage ../packages/my-secrets.nix {});
+  keyPathClient = secrets-pkg + "/ssh/client";
 in
 {
   users.users."${username}" = {
@@ -22,6 +25,13 @@ in
     ];
     # Don't forget to create a password with `mkpasswd`.
     hashedPasswordFile = "${ssd-mnt}${user-pw-path}";
+    # remote access
+    openssh.authorizedKeys.keyFiles = []
+      ++ lib.optionals (config.networking.hostName != "cookieclicker")
+         [( keyPathClient + "/id_cookieclicker.pub" )]
+      ++ lib.optionals (config.networking.hostName != "cookiethinker")
+         [( keyPathClient + "/id_cookiethinker.pub" )]
+    ;
   };
 
   users.groups."${username}" = {

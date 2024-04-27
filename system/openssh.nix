@@ -4,9 +4,7 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable =
-      if (config.networking.hostName == "nixos-installer")
-      || (config.networking.hostName == "cookieclicker")
-      || (config.networking.hostName == "pihole")
+      if (config.networking.hostName != "cookiethinker")
       then lib.mkForce true
       else lib.mkForce false;
     listenAddresses = [
@@ -17,11 +15,14 @@
     ];
     settings = {
       LogLevel = "INFO";
-      X11Forwarding = true;
+      X11Forwarding = false;
 
       PasswordAuthentication = false;
       PermitEmptyPasswords = false;
-      PermitRootLogin = "no";
+      PermitRootLogin =
+        if (config.networking.hostName == "cookieclicker")
+        then lib.mkForce "no"
+        else lib.mkForce "yes";
       PubkeyAuthentication = true;
       AuthorizedKeysFile = "%h/.config/ssh/authorized_keys /etc/ssh/authorized_keys.d/%u";
 

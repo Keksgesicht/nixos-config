@@ -59,18 +59,18 @@ Host nixos-installer
 	UserKnownHostsFile /dev/null
 
 Host cookieclicker
-	HostName 192.168.178.150
+	HostName cookieclicker.local
 	User keks
-	IdentityFile ~/.secrets/ssh/id_cookieclicker
+	IdentityFile ~/.secrets/ssh/id_nixos
+
+Host cookiepi
+	HostName cookiepi.local
+	User keks
+	IdentityFile ~/.secrets/ssh/id_nixos
 
 Host pihole
-	HostName 192.168.178.23
-	User cookie
-	IdentityFile ~/.secrets/ssh/id_pihole
-
-Host pihole-root
 	HostName rpi.pihole.local
-	User root
+	User cookie
 	IdentityFile ~/.secrets/ssh/id_pihole
 
 Host hetzner-mailcow
@@ -101,8 +101,3 @@ Host gitlab.esa.informatik.tu-darmstadt.de
 	User git
 	ProxyJump erebor.esa.informatik.tu-darmstadt.de
 	IdentityFile ~/.secrets/ssh/id_git
-
-Host rpi-test
-	User keks
-	HostName 192.168.1.224
-	IdentityFile ~/.secrets/ssh/id_pihole

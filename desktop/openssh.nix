@@ -1,8 +1,7 @@
-{ config, pkgs, lib, username, ...}:
+{ config, pkgs, lib, ... }:
 
 let
   secrets-pkg = (pkgs.callPackage ../packages/my-secrets.nix {});
-  keyPathClient = secrets-pkg + "/ssh/client";
   keyPathServer = secrets-pkg + "/ssh/server";
 in
 {
@@ -31,13 +30,6 @@ in
        [( keyPathServer + "/cookieclicker" )]
     ++ [( keyPathServer + "/mail.keksgesicht.net" )]
     ++ [( keyPathServer + "/rpi.pihole.local" )]
-    ;
-  };
-
-  users.users."${username}" = {
-    openssh.authorizedKeys.keyFiles = []
-    ++ lib.optionals (config.networking.hostName != "cookiethinker")
-       [( keyPathClient + "/id_tpm_cookiethinker.pub" )]
     ;
   };
 }
