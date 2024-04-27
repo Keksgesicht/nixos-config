@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
 
 UMASK_DEF="022"
-UUID_EFI="90CE-7A63"
-UUID_ROOT="c720b152-baf0-4336-bb04-83f01857cfab"
-TARGET_HOSTNAME="cookiethinker"
-
+MNT="/mnt/nixos-install"
 
 # create new GPT table
 disk_gpt() {
 	(
 	echo g
 	echo w
-	) | fdisk ${disk_target}
+	) | fdisk "${DISK_TARGET}"
 }
 
 # create EFI partition
@@ -25,12 +22,12 @@ disk_efi() {
 	echo 3
 	echo uefi
 	echo w
-	) | fdisk ${disk_target}
+	) | fdisk "${DISK_TARGET}"
 
-	part_target=$(fdisk -l ${disk_target} | grep "^${disk_target}" | awk '{print $1}')
-	part_target_1=$(echo "${part_target}" | sed -n '1p')
+	part_target=$(fdisk -l "${DISK_TARGET}" | grep "^${DISK_TARGET}" | awk '{print $1}')
+	part_target_3=$(echo "${part_target}" | sed -n '3p')
 
-	mkfs.vfat -F32 -n EFI -i ${UUID_EFI//-/} ${part_target_1}
+	mkfs.vfat -F32 -n EFI -i "${UUID_EFI//-/}" "${part_target_3}"
 }
 
 # create root partition and 8G swap partition
@@ -48,41 +45,41 @@ disk_root_plus_swap() {
 	echo 2
 	echo swap
 	echo w
-	) | fdisk ${disk_target}
+	) | fdisk "${DISK_TARGET}"
 
-	part_target=$(fdisk -l ${disk_target} | grep "^${disk_target}" | awk '{print $1}')
-	part_target_2=$(echo "${part_target}" | sed -n '2p')
-	part_target_3=$(echo "${part_target}" | sed -n '3p')
+	part_target=$(fdisk -l "${DISK_TARGET}" | grep "^${DISK_TARGET}" | awk '{print $1}')
+	part_target_1=$(echo "${part_target}" | sed -n '1p')
 }
 
 # format with LUKS and BTRFS on second partition
 crypt_root() {
 	umask 0177
 	keyfile=$(mktemp)
-	dd bs=512 count=4 iflag=fullblock if=/dev/urandom of=${keyfile}
+	dd bs=512 count=4 iflag=fullblock if=/dev/urandom of="${keyfile}"
 	umask ${UMASK_DEF}
 
-	echo 'YES' | cryptsetup luksFormat ${part_target_2} ${keyfile}
-	echo 'YES' | cryptsetup luksUUID ${part_target_2} --uuid ${UUID_ROOT}
-	cryptsetup config ${part_target_2} --label "${TARGET_HOSTNAME}-luks"
+	echo 'YES' | cryptsetup luksFormat "${part_target_1}" "${keyfile}"
+	echo 'YES' | cryptsetup luksUUID "${part_target_1}" --uuid "${UUID_ROOT}"
+	cryptsetup config "${part_target_1}" --label "${TARGET_HOSTNAME}-luks"
 
-	cryptsetup open ${part_target_2} 'target_root' --key-file ${keyfile}
+	cryptsetup open "${part_target_1}" 'target_root' --key-file "${keyfile}"
 	mkfs.btrfs -K -L "${TARGET_HOSTNAME}-data" '/dev/mapper/target_root'
 
 	# throw away keyfile
 	# was only useful for automated setup process
-	cryptsetup luksChangeKey ${part_target_2} --key-file ${keyfile}
-	rm ${keyfile}
+	cryptsetup luksChangeKey "${part_target_1}" --key-file "${keyfile}"
+	rm "${keyfile}"
 }
 
 setup_root() {
+	mkdir -p "${MNT}"
 	mount -o 'compress=zstd:3,subvol=/' \
-		'/dev/mapper/target_root' '/mnt'
-	pushd '/mnt'
+		'/dev/mapper/target_root' "${MNT}"
+	pushd "${MNT}"
 
 	btrfs subvolume create 'root'
 	mkdir -p 'root/boot'
-	mount '/dev/disk/by-uuid/90CE-7A63' 'root/boot'
+	mount "/dev/disk/by-uuid/${UUID_EFI}" 'root/boot'
 
 	btrfs subvolume create 'nix'
 	mkdir -p 'root/nix'
@@ -102,9 +99,9 @@ setup_root() {
 }
 
 
-if mountpoint /mnt/root/boot \
-|| mountpoint /mnt/root/nix \
-|| mountpoint /mnt \
+if mountpoint ${MNT}/root/boot \
+|| mountpoint ${MNT}/root/nix \
+|| mountpoint ${MNT} \
 || ls '/dev/mapper/target_root'; then
 	echo ""
 	echo "###====================================###"
@@ -113,18 +110,21 @@ if mountpoint /mnt/root/boot \
 	exit 1
 fi
 
+DISK_TARGET="$1"
+UUID_EFI="$2"
+UUID_ROOT="$3"
+TARGET_HOSTNAME="$4"
+usage() {
+	echo "$0 [DISK] [UUID EFI] [UUID ROOT] [HOSTNAME]"
+}
 
-if [ -z "${disk_target}"]; then
-	lsblk -f
-	echo ""
-	echo "Please set disk_target to your disk of choice!"
-	echo "export disk_target=/dev/nvme0n1"
-	echo "export disk_target=/dev/sda"
+if ! [ -b "${DISK_TARGET}" ] \
+|| [ -z "${UUID_EFI}" ] \
+|| [ -z "${UUID_ROOT}" ] \
+|| [ -z "${TARGET_HOSTNAME}" ]; then
+	usage
 	exit 2
-else
-	echo "Using ${disk_target} for partitioning."
 fi
-
 
 # stop on any non-zero return
 set -ex
@@ -138,3 +138,5 @@ setup_root
 set +ex
 lsblk -f
 exit 0
+
+# "4EFC-A800" "92756ea5-50ee-456c-b760-5c997fcb54ad" cookiepi
