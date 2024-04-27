@@ -8,6 +8,7 @@
     ../../desktop/audio
     ../../desktop/environment-desktop.nix
     ../../desktop/home-manager
+    ../../desktop/home-manager/desktop.nix
     ../../desktop/kde-plasma.nix
     ../../desktop/packages.nix
     ../../development

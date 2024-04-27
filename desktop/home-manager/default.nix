@@ -1,6 +1,4 @@
-{ config, pkgs, lib
-, username, home-dir
-, ...}:
+{ username, home-dir, ...}:
 
 {
   home-manager = {
@@ -19,23 +17,6 @@
 
       # Some modules do not do anything without it.
       home.homeDirectory = home-dir;
-
-      imports = [
-        ((import ./applications.desktop.nix) username)
-        ((import ./autostart.nix) config username)
-        ./mimeapps.nix
-      ];
-    };
-  };
-
-  # starting too early will sync excluded directories
-  systemd.user.services = {
-    "app-com.nextcloud.desktopclient.nextcloud@autostart" = {
-      overrideStrategy = "asDropin";
-      after = [
-        "home-${username}-Documents.mount"
-        "home-${username}-Music.mount"
-      ];
     };
   };
 }
