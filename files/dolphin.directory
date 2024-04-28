@@ -1,0 +1,8 @@
+[Dolphin]
+GroupedSorting=true
+SortFoldersFirst=false
+ViewMode=1
+VisibleRoles=Details_text,Details_type,Details_size,Details_modificationtime,Details_permissions,Details_owner,Details_group,CustomizedDetails
+
+[Settings]
+HiddenFilesShown=false

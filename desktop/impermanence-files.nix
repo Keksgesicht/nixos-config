@@ -30,40 +30,38 @@ with my-functions;
       ".config/session/dolphin_dolphin_dolphin"
     ];
 
+    cpHomeFile = (t: f: [
+      "C  ${t} - - - - ${f}"
+      "Z  ${t} 0644 ${username} ${username} - -"
+    ]);
+
     initPlasmaFiles = flatList (forEach (listFilesRec plasma-config) (e:
       let
         eFile = lib.removePrefix "${plasma-config}/" e;
+        tFile = "${home-dir}/${eFile}";
       in
-      [
-        "C  ${home-dir}/${eFile} - - - - ${e}"
-        "Z  ${home-dir}/${eFile} 0644 ${username} ${username} - -"
-      ]
+      cpHomeFile tFile e
     ));
     initSecretFiles = flatList (forEach (listFilesRec "${secrets-pkg}/linux-root/home") (e:
       let
         eFile = lib.removePrefix "${secrets-pkg}/linux-root/home/" e;
+        tFile = "${home-dir}/${eFile}";
       in
-      [
-        "C  ${home-dir}/${eFile} - - - - ${e}"
-        "Z  ${home-dir}/${eFile} 0644 ${username} ${username} - -"
-      ]
+      cpHomeFile tFile e
     ));
     initWireplumberState = flatList (forEach (listFilesRec "${my-audio}/state") (e:
       let
         eFile = lib.removePrefix "${my-audio}/state/" e;
+        tFile = "${xdgState}/wireplumber/${eFile}";
       in
-      [
-        "C  ${xdgState}/wireplumber/${eFile} - - - - ${e}"
-        "Z  ${xdgState}/wireplumber/${eFile} 0644 ${username} ${username} - -"
-      ]
+      cpHomeFile tFile e
     ));
 
     appletFile = "${xdgConfig}/plasma-org.kde.plasma.desktop-appletsrc";
     appletSrcPrefix = "${plasma-config}/.config/plasma-desktop-appletsrc";
-    placePlasmaAppletFile = name: [
-      "C  ${appletFile} - - - - ${appletSrcPrefix}.${name}"
-      "Z  ${appletFile} 0644 ${username} ${username} - -"
-    ];
+    placePlasmaAppletFile = (name:
+      cpHomeFile "${appletFile}" "${appletSrcPrefix}.${name}"
+    );
   in
   [
     "L+ ${home-dir}/.face                     - - - - ${inputs.self}/files/face.png"
@@ -85,5 +83,6 @@ with my-functions;
       (placePlasmaAppletFile "tower")
   ++ lib.optionals (config.networking.hostName == "cookiethinker")
       (placePlasmaAppletFile "laptop")
+  ++ (cpHomeFile "${home-dir}/Downloads/.directory" ../files/dolphin.directory)
   ;
 }
