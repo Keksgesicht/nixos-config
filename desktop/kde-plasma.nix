@@ -154,8 +154,6 @@ with my-functions;
       "kscreenlockerrc"."Daemon"."Timeout".value = 3;
       "kwinrulesrc"."General"."count".value      = 3;
       "kwinrulesrc"."General"."rules".value      = "6,8,9";
-      "merkuro.calendarrc"."GlobalCollectionSelection"."Selection".value = "c433,c432";
-      "plasmashellrc"."PIMEventsPlugin"."calendars".value                = "433,432";
     }
     else if (config.networking.hostName == "cookieclicker") then
     {
