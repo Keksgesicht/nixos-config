@@ -9,8 +9,9 @@ in
       packages = [
         { package = pkgs.ungoogled-chromium; binName = "chromium"; appFile = [
           { src = "chromium-browser"; args.extra = [
-            #"--enable-features=UseOzonePlatform" "--ozone-platform-hint=auto"
-            #"--force-dark-mode" --enable-features=WebUIDarkMode"
+            "--enable-features=UseOzonePlatform" "--ozone-platform-hint=auto"
+            "--force-dark-mode" "--enable-features=WebUIDarkMode"
+            "--incognito"
           ]; }
         ]; }
       ];
