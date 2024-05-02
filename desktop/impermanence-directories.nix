@@ -102,14 +102,11 @@ with my-functions;
       # do not even try using the home-manager impermanence module
       users."${username}" = {
         directories = [
-          ".config/dconf"
           ".config/git"
           ".config/gtk-2.0"
           ".config/gtk-3.0"
           ".config/gtk-4.0"
           ".config/kate"
-          ".config/KDE"
-          ".config/kde.org"
           ".config/xscreensaver"
 
           ".local/bin"
@@ -123,7 +120,6 @@ with my-functions;
           ".local/share/konsole"
           ".local/share/kscreen"
           ".local/share/kwin"
-          ".local/share/kwrite"
           ".local/share/kxmlgui5"
           ".local/share/okular"
           ".local/share/plasma"
