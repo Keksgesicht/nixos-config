@@ -11,13 +11,8 @@ let
 in
 with my-functions;
 {
-  services.xserver = {
-    # Enable the X11 windowing system.
-    enable = true;
-
-    # Enable touchpad support (enabled default in most desktopManager).
-    libinput.enable = true;
-  };
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment (wayland by default).
   services.desktopManager."${plasma}".enable = true;
