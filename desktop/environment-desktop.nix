@@ -18,7 +18,7 @@ in
   };
 
   # https://nixos.wiki/wiki/KDE#GTK_themes_are_not_applied_in_Wayland_applications
-  programs.dconf.enable = true;
+  # desktop/home-manager/dconf.nix
   environment.sessionVariables = {
     GTK_USE_PORTAL    = "1";
     GTK_THEME_VARIANT = "dark";

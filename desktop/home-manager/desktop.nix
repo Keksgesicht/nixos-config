@@ -1,4 +1,4 @@
-{ config, username, ...}:
+{ config, username, home-dir, ... }:
 
 {
   home-manager = {
@@ -6,6 +6,7 @@
       imports = [
         ((import ./applications.desktop.nix) username)
         ((import ./autostart.nix) config username)
+        ((import ./dconf.nix) home-dir)
         ./mimeapps.nix
       ];
     };
