@@ -1,4 +1,4 @@
-{ config, pkgs, username, ... }:
+{ pkgs, username, ... }:
 
 {
   users.users."${username}".packages = with pkgs; [
@@ -12,6 +12,7 @@
     ldns
     lsof
     moar
+    nix-output-monitor
     nmap
     psmisc
     pv
