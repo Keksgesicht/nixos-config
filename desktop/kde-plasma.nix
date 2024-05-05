@@ -149,12 +149,36 @@ with my-functions;
       "kscreenlockerrc"."Daemon"."Timeout".value = 3;
       "kwinrulesrc"."General"."count".value      = 3;
       "kwinrulesrc"."General"."rules".value      = "6,8,9";
+
+      "plasma-org.kde.plasma.desktop-appletsrc" = {
+        "Containments][29][Applets][47][Configuration][Appearance" = {
+          "autoFontAndSize".value = false;
+          "fontFamily".value = "Noto Sans";
+          "fontSize".value = 7;
+          "fontStyleName".value = "Regular";
+        };
+      };
     }
     else if (config.networking.hostName == "cookieclicker") then
     {
       # UPS will drain much faster
       "powerdevilrc"."BatteryManagement"."BatteryLowLevel".value = 42;
       "powerdevilrc"."BatteryManagement"."BatteryCriticalLevel".value = 32;
+
+      "plasma-org.kde.plasma.desktop-appletsrc" = {
+        "Containments][29][Applets][47][Configuration][Appearance" = {
+          "autoFontAndSize".value = false;
+          "fontFamily".value = "Noto Sans";
+          "fontSize".value = 10;
+          "fontStyleName".value = "Regular";
+        };
+        "Containments][54][Applets][72][Configuration][Appearance" = {
+          "autoFontAndSize".value = false;
+          "fontFamily".value = "Noto Sans";
+          "fontSize".value = 10;
+          "fontStyleName".value = "Regular";
+        };
+      };
     }
     else {};
   };
