@@ -77,6 +77,12 @@ with my-functions;
   # firewall
   networking.firewall = {
     enable = true;
+
+    trustedInterfaces = []
+      ++ lib.optionals (config.networking.hostName == "cookiethinker") [
+        "enp2s0"
+      ];
+
     allowedTCPPorts =
       if (config.networking.hostName == "cookieclicker") then
         [
