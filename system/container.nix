@@ -1,4 +1,4 @@
-{ config, pkgs, username, ...}:
+{ pkgs, lib, username, ...}:
 
 {
   virtualisation = {
@@ -20,7 +20,7 @@
       enable = true;
       storage.settings = {
         storage = {
-          driver = "btrfs";
+          driver = lib.mkForce "btrfs";
           graphroot = "/var/lib/containers/storage";
           runroot = "/run/containers/storage";
         };
