@@ -81,12 +81,16 @@ setup_root() {
 	mkdir -p 'root/boot'
 	mount "/dev/disk/by-uuid/${UUID_EFI}" 'root/boot'
 
+	btrfs subvolume create 'etc'
+	mkdir -p 'root/etc'
+	mount -o 'compress=zstd:3,subvol=etc' \
+		'/dev/mapper/target_root' 'root/etc'
+
 	btrfs subvolume create 'nix'
 	mkdir -p 'root/nix'
 	mount -o 'compress=zstd:3,subvol=nix' \
 		'/dev/mapper/target_root' 'root/nix'
 
-	btrfs subvolume create 'etc'
 	btrfs subvolume create 'home'
 	btrfs subvolume create 'var'
 
@@ -100,6 +104,7 @@ setup_root() {
 
 
 if mountpoint ${MNT}/root/boot \
+|| mountpoint ${MNT}/root/etc \
 || mountpoint ${MNT}/root/nix \
 || mountpoint ${MNT} \
 || ls '/dev/mapper/target_root'; then
