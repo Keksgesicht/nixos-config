@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 
 {
   imports = [
@@ -10,6 +10,11 @@
     ./fancontrol.nix
     ./files-cleanup.nix
     ./wireguard.nix
-    ../containers
+
+    ../containers/dyndns.nix
+    ../containers/lancache.nix
+    ../containers/pihole.nix
+    ../containers/proxy.nix
+    ../containers/unbound.nix
   ];
 }

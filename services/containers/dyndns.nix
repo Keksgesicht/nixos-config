@@ -3,8 +3,17 @@
 , ... }:
 
 let
+  ddns-v6-file = ../../files/scripts/cloudflare-ddns-v6.sh;
   cookie-pkg = (pkgs.callPackage ../../packages/unCookie.nix {});
   cc-dir = "${cookie-pkg}/containers";
+
+  CF_HOSTS =
+    if (config.networking.hostName == "cookieclicker") then
+      "150.host.keksgesicht.net"
+    else if (config.networking.hostName == "cookiepi") then
+      "25.host.keksgesicht.net"
+    else "";
+  CF_ZONES = "keksgesicht.net";
 in
 {
   imports = [
@@ -54,8 +63,8 @@ in
         LOG_LEVEL = "2";
         INTERVAL = "1000";
         CF_RECORDTYPES = "A";
-        CF_HOSTS = "keksgesicht.net";
-        CF_ZONES = "keksgesicht.net;keksgesicht.net";
+        inherit CF_HOSTS;
+        inherit CF_ZONES;
         DETECTION_MODE = "dig-whoami.cloudflare";
         PUID = "99";
         PGID = "400";
@@ -88,9 +97,20 @@ in
         LOG_LEVEL = "2";
         INTERVAL = "1000";
         CF_RECORDTYPES = "AAAA";
-        CF_HOSTS = "keksgesicht.net";
-        CF_ZONES = "keksgesicht.net;keksgesicht.net";
-        DETECTION_MODE = "local:enp4s0";
+        inherit CF_HOSTS;
+        inherit CF_ZONES;
+        DETECTION_MODE =
+          if (config.networking.hostName == "cookieclicker") then
+            "local:enp4s0"
+          else if (config.networking.hostName == "cookiepi") then
+            "local:enp0s31f6"
+          else "local:eth0";
+        MY_IPV6_SUFFIX =
+          if (config.networking.hostName == "cookieclicker") then
+            "3581:150:0:1"
+          else if (config.networking.hostName == "cookiepi") then
+            "3581:25:0:1"
+          else "";
         PUID = "99";
         PGID = "400";
         UMASK = "002";
@@ -100,7 +120,7 @@ in
       ];
       volumes = [
         "${ssd-mnt}/appdata/ddns/v6:/config:Z"
-        "${ssd-mnt}/appdata/ddns/v6-cloudflare-ddns.sh:/app/cloudflare-ddns.sh:Z,ro"
+        "${ddns-v6-file}:/app/cloudflare-ddns.sh:Z,ro"
       ];
       extraOptions = [
         "--network" "host"
