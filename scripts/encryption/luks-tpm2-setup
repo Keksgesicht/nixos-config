@@ -3,6 +3,11 @@ if [ $(id -u) != 0 ]; then
 	exit 1
 fi
 
+TPM_PIN=true
+if [ "$1" = "false" ]; then
+	TPM_PIN=false
+fi
+
 secboot_status=$(bootctl status 2>/dev/null | \
                  awk -F':' '$1 ~ /Secure Boot/ {print $2}' | \
                  awk '{print $1}')
