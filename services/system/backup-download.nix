@@ -44,11 +44,13 @@ let
 in
 {
   systemd = lib.mkMerge [
+    (bd-units "cookiepi" "cookiepi")
     (bd-units "mailcow" "mail.keksgesicht.net")
     (bd-units "pihole" "rpi.pihole.local")
     ({
       tmpfiles.rules = [
         "q  ${hdd-mnt}/machines"
+        "d  ${hdd-mnt}/machines/cookiepi"
         "d  ${hdd-mnt}/machines/mailcow"
         "d  ${hdd-mnt}/machines/pihole"
       ];
