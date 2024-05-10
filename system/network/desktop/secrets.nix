@@ -6,10 +6,11 @@ let
   nmsc-data = "${secrets-pkg}/${nmsc-path}";
 in
 {
+  imports = [
+    ../../../nix/secrets-pkg.nix
+  ];
+
   environment.etc = {
-    "flake-output/my-secrets" = {
-      source = secrets-pkg;
-    };
 
     # network connections on all systems
     "NetworkManager/system-connections/TU_Darmstadt.nmconnection" = {

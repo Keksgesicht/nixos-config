@@ -1,15 +1,11 @@
-{ config, pkgs, lib, inputs, username, ... }:
+{ config, lib, inputs, ... }:
 
 let
-  secrets-pkg = (pkgs.callPackage ../packages/my-secrets.nix {});
   nixos-cfg-path = "/etc/nixos";
   latest-lock-file = "/nix/var/nix/profiles/system/etc/flake-output/flake.lock";
 in
 {
   environment.etc = {
-    "flake-output/my-secrets" = {
-      source = secrets-pkg;
-    };
     "flake-output/nixos-config" = {
       source = inputs.self.outPath;
     };

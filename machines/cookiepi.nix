@@ -20,6 +20,7 @@ in
     ../nix
     ../nix/build-cache-client.nix
     ../nix/build-cache-server.nix
+    ../nix/secrets-pkg.nix
     ../nix/version-23-05.nix
     ../services/system/files-cleanup.nix
     ../services/containers/dyndns.nix

@@ -14,11 +14,9 @@ let
 in
 with my-functions;
 {
-  environment.etc = {
-    "flake-output/my-secrets" = {
-      source = secrets-pkg;
-    };
-  };
+  imports = [
+    ../nix/secrets-pkg.nix
+  ];
 
   # https://www.freedesktop.org/software/systemd/man/latest/tmpfiles.d.html
   systemd.tmpfiles.rules =

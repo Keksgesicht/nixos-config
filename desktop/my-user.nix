@@ -10,6 +10,10 @@ let
   keyPathClient = secrets-pkg + "/ssh/client";
 in
 {
+  imports = [
+    ../nix/secrets-pkg.nix
+  ];
+
   users.users."${username}" = {
     isNormalUser = true;
     description = "Jan B.";

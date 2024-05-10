@@ -6,11 +6,9 @@ let
   wg-path-keys = "${secrets-dir}/keys/wireguard";
 in
 {
-  environment.etc = {
-    "flake-output/my-secrets" = {
-      source = secrets-pkg;
-    };
-  };
+  imports = [
+    ../../nix/secrets-pkg.nix
+  ];
 
   networking.wireguard.interfaces =
     if (config.networking.hostName == "cookieclicker") then {

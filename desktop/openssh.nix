@@ -9,6 +9,10 @@ let
   );
 in
 {
+  imports = [
+    ../nix/secrets-pkg.nix
+  ];
+
   environment.sessionVariables = {
     GIT_ASKPASS = "${pkgs.ksshaskpass.out}/bin/ksshaskpass";
   };
