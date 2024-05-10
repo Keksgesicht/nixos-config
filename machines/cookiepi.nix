@@ -29,6 +29,7 @@ in
     ../services/containers/proxy.nix
     ../services/containers/unbound.nix
     ../services/system/backup-snapshot.nix
+    ../services/system/wireguard/server.nix
     ../system
     ../system/network/server/lan.nix
   ];

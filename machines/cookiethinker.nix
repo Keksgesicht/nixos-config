@@ -19,7 +19,7 @@
     ../services/system/bluetooth-autoconnect.nix
     ../services/system/backup-snapshot.nix
     ../services/system/files-cleanup.nix
-    ../services/system/wireguard.nix
+    ../services/system/wireguard/client.nix
     ../system
     ../system/container.nix
     ../system/network/desktop

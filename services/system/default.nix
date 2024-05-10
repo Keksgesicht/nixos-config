@@ -9,7 +9,7 @@
     ./bluetooth-autoconnect.nix
     ./fancontrol.nix
     ./files-cleanup.nix
-    ./wireguard.nix
+    ./wireguard/server.nix
 
     ../containers/dyndns.nix
     ../containers/lancache.nix
