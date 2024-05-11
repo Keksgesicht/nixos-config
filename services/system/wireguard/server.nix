@@ -30,15 +30,15 @@ let
     ''
   );
 
-   wg-client-handy = {
+   wg-client-handy = (host: {
     name = "handy";
-    publicKey = (wg-pubkey-path "handy");
-    presharedKeyFile = "${wg-path-keys}/shared/handy";
+    publicKey = (wg-pubkey-path "handy-${host}");
+    presharedKeyFile = "${wg-path-keys}/shared/handy-${host}";
     allowedIPs = [
       "192.168.176.101/32"
       "fd00:2307::10:1/128"
     ];
-  };
+  });
   wg-client-laptop = {
     name = "cookiethinker";
     publicKey = (wg-pubkey-path "cookiethinker");
@@ -80,7 +80,7 @@ in
               "fd00:2307::/64"
             ];
           }
-          #wg-client-handy
+          (wg-client-handy name)
           wg-client-laptop
         ];
       };
@@ -110,7 +110,7 @@ in
               "fd00:2307::/64"
             ];
           }
-          #wg-client-handy
+          (wg-client-handy name)
           wg-client-laptop
         ];
       };
