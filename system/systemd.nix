@@ -8,13 +8,13 @@
     if (config.networking.hostName == "cookieclicker") then
       ''
       SystemMaxUse=4G
-      #SystemdKeepFree=16G
-      SystemMaxFiles=384
+      SystemdKeepFree=16G
+      SystemMaxFiles=512
       ''
     else if (config.networking.hostName == "cookiethinker") then
       ''
       SystemMaxUse=2G
-      #SystemdKeepFree=8G
+      SystemdKeepFree=8G
       SystemMaxFiles=512
       ''
     else
