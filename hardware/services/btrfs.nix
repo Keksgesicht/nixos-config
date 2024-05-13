@@ -1,5 +1,14 @@
-{ config, pkgs, ssd-mnt, hdd-mnt, nvm-mnt, ... }:
+{ config, pkgs, ssd-mnt
+, hdd-mnt, hdd-name
+, nvm-mnt, nvm-name
+, ... }:
 
+let
+  hn = config.networking.hostName;
+  delayTimer = {
+    timerConfig.RandomizedDelaySec = "222s";
+  };
+in
 {
   environment.systemPackages = with pkgs; [
     btrfs-progs
@@ -13,7 +22,7 @@
     # the above says the timer is "Persistent".
     interval = "*-2,5,8,11-13 04:20:42";
     fileSystems =
-      if (config.networking.hostName == "cookieclicker") then
+      if (hn == "cookieclicker") then
         [
           "${ssd-mnt}"
           "${hdd-mnt}"
@@ -21,4 +30,10 @@
         ]
       else [ "/" ];
   };
+
+  # wait for drives to be mounted
+  systemd.timers = if (hn == "cookieclicker") then {
+    "btrfs-scrub-mnt-${hdd-name}" = delayTimer;
+    "btrfs-scrub-mnt-${nvm-name}" = delayTimer;
+  } else {};
 }
