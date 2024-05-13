@@ -49,6 +49,7 @@ in
         path = [ pkgs.podman ];
         description = "Renew SSL/TLS Certificate";
         serviceConfig = {
+          BindReadOnlyPaths = "/etc/containers";
           ReadWritePaths = "/var/lib/containers/storage";
         };
       };
