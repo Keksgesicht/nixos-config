@@ -20,10 +20,13 @@ let
         latexmk
         # TUDa comperate design
         tuda-ci
+        adjustbox
         anyfontsize
         environ
         fontaxes
+        pdfx
         roboto
+        urcls
         xcharter
         xstring
         # additional packages
@@ -32,7 +35,9 @@ let
         fmtcount
         fontawesome
         numprint
+        pgf-umlsd
         siunitx
+        xmpincl
       ;
     })
   ];
