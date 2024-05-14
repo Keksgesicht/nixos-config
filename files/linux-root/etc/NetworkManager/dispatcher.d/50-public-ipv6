@@ -1,5 +1,11 @@
 #!/bin/bash
 
+get-existing-static() {
+	ipv6_addr=$(ip -6 addr show "${IFLINK}" | \
+		awk '$1 == "inet6" && !/fe80:/ && !/fd00:/ && /'"${MY_IPV6_SUFFIX}"'/ {gsub(/\/.*$/, "", $2); print $2}' | \
+		head -n 1)
+}
+
 gen-ipv6-suffix() {
 	hd1=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')
 	hd2=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')
@@ -8,9 +14,15 @@ gen-ipv6-suffix() {
 	echo "::${hd1}:${hd2}:${hd3}:${hd4}/64" | tr '[:upper:]' '[:lower:]'
 }
 
+gen-ipv6-static() {
+	ip token set "::${MY_IPV6_SUFFIX}/64" dev "${IFLINK}"
+	sleep 3s
+	get-existing-static
+}
+
 has-ipv6-token() {
-	sleep 5s
-	ipv6_addr=$(ip addr show "${IFLINK}" | \
+	sleep 3s
+	ipv6_addr=$(ip -6 addr show "${IFLINK}" | \
 		awk '$1 == "inet6" && !/fe80:/ && !/fd00:/ && /64 scope global dynamic mngtmpaddr/ {gsub(/\/.*$/, "", $2); print $2}')
 
 	if [ -z "${ipv6_addr}" ]; then
@@ -21,15 +33,19 @@ has-ipv6-token() {
 }
 
 set-ipv6-token() {
-	# Set static suffix first for FritzBox
-	ip token set "::${MY_IPV6_SUFFIX}/64" dev "${IFLINK}"
-	sleep 5s
-	ipv6_addr=$(ip addr show "${IFLINK}" | \
-		awk '$1 == "inet6" && !/fe80:/ && !/fd00:/ && /'"${MY_IPV6_SUFFIX}"'/ {gsub(/\/.*$/, "", $2); print $2}')
+	get-existing-static
 	if [ -n "${ipv6_addr}" ]; then
-		ip token del dev "${IFLINK}"
-		ip addr add "${ipv6_addr}/64" dev "${IFLINK}"
+		ip addr del "${ipv6_addr}/64" dev "${IFLINK}"
 	fi
+
+	# Set static suffix first for FritzBox
+	gen-ipv6-static
+	while ! echo "${ipv6_addr}" | grep -q "${MY_IPV6_SUFFIX}"; do
+		sleep 2s
+		gen-ipv6-static
+	done
+	ip token del dev "${IFLINK}"
+	ip addr add "${ipv6_addr}/64" dev "${IFLINK}"
 
 	# set custom suffix for LAN network adapter
 	# https://bbs.archlinux.org/viewtopic.php?id=244359
@@ -38,13 +54,14 @@ set-ipv6-token() {
 
 	# try addresses until nobody else in the network uses the same
 	while ! has-ipv6-token; do
+		sleep 2s
 		IPTOKEN=$(get-ipv6-token)
 		ip token set "${IPTOKEN}" dev "${IFLINK}"
 	done
 }
 
 update-ipv6() {
-	if ! ip addr show "${IFLINK}" | grep -qE "${MY_IPV6_SUFFIX}"; then
+	if ! ip -6 addr show "${IFLINK}" | grep 'inet6' | grep -qE "${MY_IPV6_SUFFIX}"; then
 		set-ipv6-token
 	elif ! ip token get dev "${IFLINK}" | grep -qE '::[0-9a-f]'; then
 		set-ipv6-token
@@ -74,9 +91,20 @@ case "${IFLINK}" in
 		update-ipv6
 	;;
 	prefix)
-		# as this gets called by a timer, only update when IPs are marked as "deprecated"
 		if ip addr show "${IFLINK}" | grep -q 'deprecated'; then
 			set-ipv6-token
+		else
+			ipv6_prefix=$(ip -6 addr show "${IFLINK}" | \
+				awk '/'"${MY_IPV6_SUFFIX}"'/ { print $2 }' | \
+				cut -d'/' -f1 | \
+				sed -e 's|'"${MY_IPV6_SUFFIX}"'||')
+
+			if ! ip -6 addr show "${IFLINK}" | \
+			grep -vE "^(fe80|fd00):" | \
+			grep -v "${MY_IPV6_SUFFIX}" | \
+			grep -q "${ipv6_prefix}"; then
+				set-ipv6-token
+			fi
 		fi
 	;;
 	esac

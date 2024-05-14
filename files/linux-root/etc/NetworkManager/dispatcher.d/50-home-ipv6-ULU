@@ -8,12 +8,20 @@ set -e
 IFLINK="$1"
 NMMODE="$2"
 
+set-ipv6-ulu() {
+	if ip addr show "${IFLINK}" | grep -q "${MY_IPV6_ULU}"; then
+		exit 0
+	fi
+
+	# https://de.wikipedia.org/wiki/IPv6#Unique_Local_Unicast
+	ip addr add "${MY_IPV6_ULU}" dev "${IFLINK}"
+}
+
 case "${IFLINK}" in
 "${MY_IFLINK}")
 	case "${NMMODE}" in
 	up)
-		# https://de.wikipedia.org/wiki/IPv6#Unique_Local_Unicast
-		ip addr add "${MY_IPV6_ULU}" dev "${IFLINK}"
+		set-ipv6-ulu
 	;;
 	esac
 ;;

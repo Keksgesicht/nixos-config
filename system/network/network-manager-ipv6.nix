@@ -25,6 +25,14 @@ let
     export MY_IPV6_ULU=${MY_IPV6_ULU}
     export MY_IPV6_SUFFIX=${MY_IPV6_SUFFIX}
   '';
+
+  pub6script =  (''
+      PATH=$PATH:"${pkgs.coreutils}/bin":"${pkgs.gawk}/bin":"${pkgs.iproute2}/bin"
+      PATH=$PATH:"${pkgs.procps}/bin":"${pkgs.util-linux}/bin"
+      export PATH
+    '' + dispatchVars
+    + (builtins.readFile ../../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6)
+  );
 in
 {
   networking.networkmanager = {
@@ -36,10 +44,7 @@ in
       + (builtins.readFile ../../files/linux-root/etc/NetworkManager/dispatcher.d/50-home-ipv6-ULU));
     } {
       type = "basic";
-      source = pkgs.writers.writeBash "50-public-ipv6" (''
-        export PATH=$PATH:"${pkgs.coreutils}/bin":"${pkgs.gawk}/bin":"${pkgs.procps}/bin"
-      '' + dispatchVars
-      + (builtins.readFile ../../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6));
+      source = pkgs.writers.writeBash "50-public-ipv6" pub6script;
     } ];
   };
 
@@ -47,9 +52,8 @@ in
     services = {
       "ipv6-prefix-update" = {
         enable = true;
-        description = "Check whether IPv6 prefix has been updated and adjust static suffix to new IP";
-        path = with pkgs; [ coreutils iproute2 gawk procps ];
-        script = (builtins.readFile ../../files/linux-root/etc/NetworkManager/dispatcher.d/50-public-ipv6);
+        description = "IPv6 prefix check and suffix updater";
+        script = pub6script;
         scriptArgs = "${MY_IFLINK} prefix";
       };
     };
@@ -59,7 +63,7 @@ in
         description = "regular IPv6 prefix update check";
         timerConfig = {
           OnStartupSec = "42min";
-          OnUnitInactiveSec = "1000sec";
+          OnUnitInactiveSec = "1234sec";
         };
         wantedBy = [ "timers.target" ];
       };
