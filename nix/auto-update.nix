@@ -25,8 +25,8 @@ in
       else "switch";
     allowReboot = !(config.services.xserver.enable);
     rebootWindow = {
-      lower = "04:20";
-      upper = "05:45";
+      lower = "02:34";
+      upper = "04:32";
     };
 
     flake = inputs.self.outPath;
