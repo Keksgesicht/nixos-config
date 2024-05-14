@@ -16,7 +16,6 @@
     ../nix
     ../nix/build-cache-client.nix
     ../nix/version-23-05.nix
-    ../services/system/bluetooth-autoconnect.nix
     ../services/system/backup-snapshot.nix
     ../services/system/files-cleanup.nix
     ../services/system/wireguard/client.nix
