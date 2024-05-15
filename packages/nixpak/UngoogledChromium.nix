@@ -17,6 +17,7 @@ in
       ];
       chromiumCleanupScript = true;
       audio = true;
+      time = true;
     };
 
     dbus.policies = {
