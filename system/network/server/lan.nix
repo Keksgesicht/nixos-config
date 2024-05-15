@@ -11,6 +11,12 @@ in
 
   networking.networkmanager.enable = true;
 
+  systemd.services = {
+    "NetworkManager-wait-online" = {
+      environment.NM_ONLINE_TIMEOUT = "15";
+    };
+  };
+
   environment.etc = {
     "NetworkManager/system-connections/lan.nmconnection" = {
       enable = (config.networking.hostName == "cookiepi");
