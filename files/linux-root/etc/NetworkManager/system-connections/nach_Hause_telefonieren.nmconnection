@@ -18,7 +18,7 @@ Xauth username=@username@
 service-type=org.freedesktop.NetworkManager.vpnc
 
 [ipv4]
-dns=192.168.178.150;192.168.178.23;
+dns=192.168.178.25;192.168.178.150;
 ignore-auto-dns=true
 method=auto
 
