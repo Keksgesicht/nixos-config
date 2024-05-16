@@ -105,7 +105,7 @@
           home-manager.nixosModules.home-manager
         ];
       };
-      "live-cd-graphics" = nixpkgs-stable.lib.nixosSystem rec {
+      "live-cd-graphics" = nixpkgs-unstable.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = myArgs // {
           inherit inputs;

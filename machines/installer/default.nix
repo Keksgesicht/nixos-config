@@ -9,7 +9,7 @@
   };
 
   imports = [
-    # nix-build '<nixpkgs/nixos>' -A config.system.build.isoImage -I nixos-config=installer-x86_64-iso-image-graphics.nix
+    # nix build .'#'nixosConfigurations."live-cd".config.system.build.isoImage
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
     "${modulesPath}/installer/cd-dvd/channel.nix"
 

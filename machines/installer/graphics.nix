@@ -32,5 +32,5 @@
   networking.wireless.enable = lib.mkForce false;
 
   # enable login for custom user
-  services.xserver.displayManager.autoLogin.user = username;
+  services.displayManager.autoLogin.user = username;
 }

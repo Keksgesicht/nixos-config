@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   imports = [
@@ -24,7 +24,7 @@
 
     # Bootloader
     loader = {
-      timeout = 2;
+      timeout = lib.mkDefault 2;
       systemd-boot = {
         enable = true;
         # It is recommended to set this to false,
