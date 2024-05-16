@@ -19,6 +19,7 @@ in
     storePaths = biss."setup-impermanence-root-volume".path;
     services = {
       "setup-impermanence-root-volume" = {
+        enable = (ssd-fs-cfg.fsType == "btrfs");
         description = "Setup new subvolume for /";
         unitConfig = {
           DefaultDependencies = false;
@@ -46,15 +47,16 @@ in
           TZ = config.time.timeZone;
           TZDIR = "${pkgs.tzdata}/share/zoneinfo";
 
-          BACKUPS_DAYS = "3";
           TMP_MNT = "${tmp-mnt}";
           TMP_ROOT_DIR = "${tmp-mnt}/root";
+          BACKUP_DAYS = "3";
           BACKUP_DIR = "${tmp-mnt}/backup_${ssd-name}/boot/root";
         };
         script = ''
           list_backups() {
-            bck_dirs=$(realpath $BACKUP_DIR/* | sort -r | tail -n +$BACKUPS_DAYS)
-            find $bck_dirs -maxdepth 0 -mtime +$BACKUPS_DAYS
+            bck_dirs=$(realpath $BACKUP_DIR/* | sort -r | tail -n +$BACKUP_DAYS)
+            [ -z "$bck_dirs" ] && return
+            find $bck_dirs -maxdepth 0 -mtime +$BACKUP_DAYS
           }
           delete_subvolumes() {
               IFS=$'\n'
