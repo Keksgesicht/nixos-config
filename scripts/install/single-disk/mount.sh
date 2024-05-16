@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 
 MNT="/mnt/nixos-install"
-# nixos-install --show-trace \
-#	--flake /home/keks/git/hdd/nix/config/nixos"#"cookiepi \
-#	--root /mnt/nixos-install/root
+LUKS_NAME="nixos-install"
 
 if mountpoint ${MNT}/root/boot \
 || mountpoint ${MNT}/root/etc \
 || mountpoint ${MNT}/root/nix \
 || mountpoint ${MNT} \
-|| test -b '/dev/mapper/target_root'; then
+|| test -b "/dev/mapper/${LUKS_NAME}"; then
 	echo ""
 	echo "###====================================###"
 	echo "### umount or close action required!!! ###"
@@ -32,13 +30,13 @@ fi
 # stop on any non-zero return
 set -ex
 
-cryptsetup open "/dev/disk/by-uuid/${UUID_ROOT}" 'target_root'
+cryptsetup open "/dev/disk/by-uuid/${UUID_ROOT}" ${LUKS_NAME}
 
 mkdir -p "${MNT}"
-mount /dev/mapper/target_root "${MNT}"
+mount "/dev/mapper/${LUKS_NAME}" "${MNT}"
 
-mount -o subvol=etc /dev/mapper/target_root "${MNT}/root/etc"
-mount -o subvol=nix /dev/mapper/target_root "${MNT}/root/nix"
+mount -o subvol=etc "/dev/mapper/${LUKS_NAME}" "${MNT}/root/etc"
+mount -o subvol=nix "/dev/mapper/${LUKS_NAME}" "${MNT}/root/nix"
 mount "/dev/disk/by-uuid/${UUID_EFI}" "${MNT}/root/boot"
 
 set +ex

@@ -2,6 +2,7 @@
 
 UMASK_DEF="022"
 MNT="/mnt/nixos-install"
+LUKS_NAME="nixos-install"
 
 # create new GPT table
 disk_gpt() {
@@ -62,8 +63,8 @@ crypt_root() {
 	echo 'YES' | cryptsetup luksUUID "${part_target_1}" --uuid "${UUID_ROOT}"
 	cryptsetup config "${part_target_1}" --label "${TARGET_HOSTNAME}-luks"
 
-	cryptsetup open "${part_target_1}" 'target_root' --key-file "${keyfile}"
-	mkfs.btrfs -K -L "${TARGET_HOSTNAME}-data" '/dev/mapper/target_root'
+	cryptsetup open "${part_target_1}" ${LUKS_NAME} --key-file "${keyfile}"
+	mkfs.btrfs -K -L "${TARGET_HOSTNAME}-data" "/dev/mapper/${LUKS_NAME}"
 
 	# throw away keyfile
 	# was only useful for automated setup process
@@ -74,7 +75,7 @@ crypt_root() {
 setup_root() {
 	mkdir -p "${MNT}"
 	mount -o 'compress=zstd:3,subvol=/' \
-		'/dev/mapper/target_root' "${MNT}"
+		"/dev/mapper/${LUKS_NAME}" "${MNT}"
 	pushd "${MNT}"
 
 	btrfs subvolume create 'root'
@@ -84,12 +85,12 @@ setup_root() {
 	btrfs subvolume create 'etc'
 	mkdir -p 'root/etc'
 	mount -o 'compress=zstd:3,subvol=etc' \
-		'/dev/mapper/target_root' 'root/etc'
+		"/dev/mapper/${LUKS_NAME}" 'root/etc'
 
 	btrfs subvolume create 'nix'
 	mkdir -p 'root/nix'
 	mount -o 'compress=zstd:3,subvol=nix' \
-		'/dev/mapper/target_root' 'root/nix'
+		"/dev/mapper/${LUKS_NAME}" 'root/nix'
 
 	btrfs subvolume create 'home'
 	btrfs subvolume create 'var'
@@ -107,7 +108,7 @@ if mountpoint ${MNT}/root/boot \
 || mountpoint ${MNT}/root/etc \
 || mountpoint ${MNT}/root/nix \
 || mountpoint ${MNT} \
-|| ls '/dev/mapper/target_root'; then
+|| ls "/dev/mapper/${LUKS_NAME}"; then
 	echo ""
 	echo "###====================================###"
 	echo "### umount or close action required!!! ###"
