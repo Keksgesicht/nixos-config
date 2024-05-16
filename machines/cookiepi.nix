@@ -14,6 +14,7 @@ in
     ../desktop/my-user.nix
     ../hardware
     ../hardware/filesystem-single-disk.nix
+    ../hardware/laptop/server.nix
     ../hardware/services/impermanence.nix
     ../development/base-devel.nix
     ../development/neovim.nix
