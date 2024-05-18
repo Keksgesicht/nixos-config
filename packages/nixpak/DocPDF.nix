@@ -34,6 +34,7 @@ let
         datetime
         fmtcount
         fontawesome
+        forest
         numprint
         pgf-umlsd
         siunitx
