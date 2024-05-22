@@ -10,8 +10,9 @@ fi
 
 real_path=$(realpath "${file}")
 mount_replacer=$(awk '$4 ~ /bind/ {printf "s|%s|%s|\n", $2, $1}' /etc/fstab)
+rpath=${real_path}
 for rr in ${mount_replacer}; do
-	 rpath=$(echo "${real_path}" | sed -e "${rr}")
+	rpath=$(echo "${rpath}" | sed -e "${rr}")
 done
 
 sep_count=$(echo "${rpath}" | awk -F'/' '{print NF}')
