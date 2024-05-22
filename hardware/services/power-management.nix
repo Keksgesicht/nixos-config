@@ -43,4 +43,16 @@ in
       };
     };
   };
+
+  # disable hibernation
+  # https://forum.manjaro.org/t/howto-disable-turn-off-hibernate-completely/8033
+  systemd.sleep.extraConfig = ''
+    AllowHibernation=no
+    AllowHybridSleep=no
+    AllowSuspendThenHibernate=no
+  '';
+  services.logind = {
+    hibernateKeyLongPress = "ignore";
+    hibernateKey = "ignore";
+  };
 }
