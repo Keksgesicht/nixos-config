@@ -1,14 +1,3 @@
-diff --git a/user.js b/user.js
-index 1772671..2907e8a 100644
---- a/user.js
-+++ b/user.js
-@@ -1187,5 +1187,9 @@ user_pref("security.family_safety.mode", 0);
- user_pref("network.dns.skipTRR-when-parental-control-enabled", false);
- // ***/
- 
-+/* reduce audio volume factor when starting new streams */
-+user_pref("media.default_volume", "1.0");
-+user_pref("media.volume_scale", "0.1");
-+
- /* END: internal custom pref to test for syntax errors ***/
- user_pref("_user.js.parrot", "SUCCESS: No no he's not dead, he's, he's restin'!");
+/* reduce audio volume factor when starting new streams */
+user_pref("media.default_volume", "1.0");
+user_pref("media.volume_scale", "0.1");

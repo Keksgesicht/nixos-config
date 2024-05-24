@@ -1,11 +1,12 @@
-{ lib, stdenv, fetchFromGitHub
-, patchSet ? ""
-}:
+{ lib, stdenv, fetchFromGitHub, patchSet ? "" }:
 
 let
   pkgver  = "119.0";
   commit  = "fd72683abe15de5cf57574125b64879e809cf5c4";
   nixhash = "sha256-MAerYaRbaQBqS8WJ3eaq6uxVqQg8diymPbLCU72nDjM=";
+
+  patchDir = ../files/packages/arkenfox-user.js;
+  jsFile = "user.js";
 in
 stdenv.mkDerivation {
   pname = "arkenfox-user.js";
@@ -20,24 +21,28 @@ stdenv.mkDerivation {
     sha256 = "${nixhash}";
   };
 
-  patches = []
-  ++ lib.optionals (patchSet == "FireFox")
-  [
-    ../files/packages/arkenfox-user.js/chrome-userContent.css.patch
-    ../files/packages/arkenfox-user.js/page-width-and-height.patch
-    ../files/packages/arkenfox-user.js/shutdown-clear-history.patch
-  ]
-  ++ lib.optionals (patchSet == "LibreWolf")
-  [
-    ../files/packages/arkenfox-user.js/startup-page.patch
-  ]
-  ++ [
-    ../files/packages/arkenfox-user.js/audio-volume.patch
-  ];
+  buildPhase = ''
+    cp $src/${jsFile} ./
+  ''
+  + lib.strings.optionalString (patchSet == "FireFox") ''
+    # page width and height
+    sed -i '/"privacy.resistFingerprinting.letterboxing"/s|true|false|' ${jsFile}
+    # shutdown clear history
+    sed -i '/"browser.startup.page"/s|, .*);|, 3);|' ${jsFile}
+    sed -i '/"privacy.clearOnShutdown.history"/s|true|false|' ${jsFile}
+    # chrome userContent.css (Moodle)
+    cat ${patchDir}/chrome-userContent.css.patch >> ${jsFile}
+  ''
+  + lib.strings.optionalString (patchSet == "LibreWolf") ''
+    # startup page
+    sed -i '/"browser.startup.page"/s|, .*);|, 1);|' ${jsFile}
+    # audio volume
+    cat ${patchDir}/audio-volume.patch >> ${jsFile}
+  '';
 
   installPhase = ''
     mkdir -p $out
-    cp user.js $out/
+    cp ${jsFile} $out/
   '';
 
   meta = with lib; {

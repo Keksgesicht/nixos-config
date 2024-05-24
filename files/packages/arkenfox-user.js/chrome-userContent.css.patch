@@ -1,12 +1,1 @@
-diff --git a/user.js b/user.js
-index 1772671..0fc1060 100644
---- a/user.js
-+++ b/user.js
-@@ -1186,6 +1186,7 @@ user_pref("security.family_safety.mode", 0);
-    // [-] https://bugzilla.mozilla.org/1586941
- user_pref("network.dns.skipTRR-when-parental-control-enabled", false);
- // ***/
-+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true); // [FF68+] allow userChrome/userContent
- 
- /* END: internal custom pref to test for syntax errors ***/
- user_pref("_user.js.parrot", "SUCCESS: No no he's not dead, he's, he's restin'!");
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true); // [FF68+] allow userChrome/userContent
