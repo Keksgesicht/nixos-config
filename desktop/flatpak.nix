@@ -16,38 +16,6 @@ in
    * flatpak update
    */
 
-  systemd = {
-    services = {
-      "flatpak-auto-update" = {
-        description = "Updates Flatpak Apps und Runtimes";
-        serviceConfig = {
-          ExecStart = "${pkgs.flatpak}/bin/flatpak update --system --assumeyes --noninteractive";
-          PrivateTmp  = "yes";
-          ProtectHome = "yes";
-          ProtectProc = "invisible";
-          ReadOnlyPaths = "/";
-          ReadWritePaths = [
-            "/var/lib/flatpak"
-            "/var/tmp"
-          ];
-        };
-        after = [ "network-online.target" ];
-        wants = [ "network-online.target" ];
-      };
-    };
-    timers = {
-      "flatpak-auto-update" = {
-        description = "Automatically updates Flatpak Apps und Runtimes";
-        timerConfig = {
-          OnCalendar = "*-*-1,3,7,9,11,13,17,19,21,23,27,29 02:22:00";
-          RandomizedDelaySec = "123min";
-          Persistent = "true";
-        };
-        wantedBy = [ "timers.target" ];
-      };
-    };
-  };
-
   # generate flatpak overrides by NixOS config
   systemd.tmpfiles.rules = [
     "L+ /var/lib/flatpak/overrides - - - - ${flatpak-overrides}"
