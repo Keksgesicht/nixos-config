@@ -1,9 +1,13 @@
-{ config, pkgs, lib, inputs
-, username, home-dir, ssd-mnt
-, ... }:
+{ config, pkgs, lib, inputs, username, home-dir, ssd-mnt, ... }:
 
 let
-  xdgConfig = "${home-dir}/.config";
+  machine-name =
+    if (config.networking.hostName == "cookieclicker")
+      then "tower"
+    else if (config.networking.hostName == "cookiethinker")
+      then "laptop"
+    else "none";
+
   xdgState = "${home-dir}/.local/state";
 
   my-audio = (pkgs.callPackage ../packages/my-audio.nix {});
@@ -33,10 +37,10 @@ with my-functions;
       "Z  ${t} 0644 ${username} ${username} - -"
     ]);
 
-    initPlasmaFiles = flatList (forEach (listFilesRec plasma-config) (e:
+    initPlasmaFiles = mname: flatList (forEach (listFilesRec plasma-config) (e:
       let
         eFile = lib.removePrefix "${plasma-config}/" e;
-        tFile = "${home-dir}/${eFile}";
+        tFile = lib.removeSuffix ".machine-${mname}" "${home-dir}/${eFile}";
       in
       cpHomeFile tFile e
     ));
@@ -54,12 +58,6 @@ with my-functions;
       in
       cpHomeFile tFile e
     ));
-
-    appletFile = "${xdgConfig}/plasma-org.kde.plasma.desktop-appletsrc";
-    appletSrcPrefix = "${plasma-config}/.config/plasma-desktop-appletsrc";
-    placePlasmaAppletFile = (name:
-      cpHomeFile "${appletFile}" "${appletSrcPrefix}.${name}"
-    );
   in
   [
     "L+ ${home-dir}/.face                     - - - - ${inputs.self}/files/face.png"
@@ -74,13 +72,9 @@ with my-functions;
     "d  ${xdgState}/wireplumber     - ${username} ${username} - -"
   ]
   ++ mkSymHomeFiles myHomeFiles
-  ++ initPlasmaFiles
+  ++ initPlasmaFiles (machine-name)
   ++ initSecretFiles
   ++ initWireplumberState
-  ++ lib.optionals (config.networking.hostName == "cookieclicker")
-      (placePlasmaAppletFile "tower")
-  ++ lib.optionals (config.networking.hostName == "cookiethinker")
-      (placePlasmaAppletFile "laptop")
   ++ (cpHomeFile "${home-dir}/Downloads/.directory" ../files/dolphin.directory)
   ;
 }

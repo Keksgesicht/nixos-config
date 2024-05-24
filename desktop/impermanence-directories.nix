@@ -118,7 +118,6 @@ with my-functions;
           ".local/share/kate"
           ".local/share/knewstuff3"
           ".local/share/konsole"
-          ".local/share/kscreen"
           ".local/share/kwin"
           ".local/share/kxmlgui5"
           ".local/share/okular"
