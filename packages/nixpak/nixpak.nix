@@ -387,18 +387,18 @@ let
             newExec = "${newBin} ${p.binName} ${af.args.extra}";
           in
           ''
-            cp $src/share/applications/${af.src}.desktop \
-               $out/share/applications/${af.dst}.desktop
+            cp "$src/share/applications/${af.src}.desktop" \
+               "$out/share/applications/${af.dst}.desktop"
             if [ "${af.args.remove}" != "" ]; then
               sed -i '/^Exec=/s/${af.args.remove}//g' \
-               $out/share/applications/${af.dst}.desktop
+               "$out/share/applications/${af.dst}.desktop"
             fi
             sed -i '/^Exec=/s/%[uU]/@@u %U @@/g' \
-               $out/share/applications/${af.dst}.desktop
+               "$out/share/applications/${af.dst}.desktop"
             sed -i '/^Exec=/s/%F/@@u %F @@/g' \
-               $out/share/applications/${af.dst}.desktop
+               "$out/share/applications/${af.dst}.desktop"
             sed -i 's|^Exec=.*${p.binName}|Exec=${newExec}|g' \
-               $out/share/applications/${af.dst}.desktop
+               "$out/share/applications/${af.dst}.desktop"
           ''
         ));
       in
