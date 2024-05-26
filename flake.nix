@@ -13,7 +13,7 @@
       owner = "nix-community";
       repo = "home-manager";
       ref = "master";
-      rev = "1c43dcfac48a2d622797f7ab741670fdbcf8f609";
+      rev = "6a35d1969e4626a0f8d285e60b6cfd331e2687a9";
 
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
