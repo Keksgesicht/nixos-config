@@ -32,16 +32,16 @@ in
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [
-      # 22 ssh OpenSSH (openssh.nix)
-      53    # DNS (Pihole)
-      80    # HTTP (swag / lancache)
-      443   # HTTPS (swag)
-      2053  # DNS (unbound)
+         22 # OpenSSH
+         53 # DNS (Pihole)
+         80 # HTTP (swag / lancache)
+        443 # HTTPS (swag)
+       2053 # DNS (unbound)
     ];
     allowedUDPPorts = [
-      53    # DNS (Pihole)
-      443   # HTTP3 (swag) TODO
-      2053  # DNS (unbound)
+         53 # DNS (Pihole)
+        443 # HTTP3 (swag)
+       2053 # DNS (unbound)
     ];
     allowedTCPPortRanges = [
       { from = 22200; to = 22299; }

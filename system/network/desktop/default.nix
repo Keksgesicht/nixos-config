@@ -2,6 +2,44 @@
 
 let
   my-functions = (import ../../../nix/my-functions.nix lib);
+
+  allowedPortsShared = {
+    allowedTCPPorts = [
+          53 # DNS
+    ];
+    allowedUDPPorts = [
+          53 # DNS
+          67 # DHCP server
+        5353 # mDNS by avahi
+    ];
+  };
+  allowedPortsCCbase = {
+    allowedTCPPorts = [
+         53 # DNS (Pihole)
+         80 # HTTP (swag / lancache)
+        443 # HTTPS (swag)
+    ];
+    allowedUDPPorts = [
+         53 # DNS (Pihole)
+        443 # HTTP3 (swag)
+       5353 # mDNS by avahi
+    ];
+    allowedTCPPortRanges = [
+      { from = 22200; to = 22299; } # free choice
+    ];
+    allowedUDPPortRanges = [
+      { from = 22200; to = 22299; } # free choice
+    ];
+  };
+  allowedPortsCCextra = {
+    allowedTCPPorts = [
+         22 # OpenSSH
+       2053 # DNS (unbound)
+    ];
+    allowedUDPPorts = [
+       2053 # DNS (unbound)
+    ];
+  };
 in
 with my-functions;
 {
@@ -72,51 +110,36 @@ with my-functions;
   };
 
   # enable mDNS responder
-  services.avahi.enable = true;
+  services.avahi = {
+    enable = true;
+    openFirewall = false;
+  };
 
   # firewall
   networking.firewall = {
     enable = true;
 
-    trustedInterfaces = []
-      ++ lib.optionals (config.networking.hostName == "cookiethinker") [
-        "enp2s0"
-      ];
-
-    allowedTCPPorts =
-      if (config.networking.hostName == "cookieclicker") then
-        [
-          # 22 ssh OpenSSH (openssh.nix)
-          53    # DNS (Pihole)
-          80    # HTTP (swag / lancache)
-          443   # HTTPS (swag)
-          # 1714 to 1764 (kdeconnect)
-          2053  # DNS (unbound)
-        ]
-      else [];
-    allowedUDPPorts =
-      if (config.networking.hostName == "cookieclicker") then
-        [
-          53    # DNS (Pihole)
-          443   # HTTP3 (swag) TODO
-          # 1714 to 1764 (kdeconnect)
-          2053  # DNS (unbound)
-          # 5353 mDNS by avahi
-          22223 # Wireguard
-        ]
-      else [];
-    allowedTCPPortRanges =
-      if (config.networking.hostName == "cookieclicker") then
-        [
-          { from = 22200; to = 22299; }
-        ]
-      else [];
-    allowedUDPPortRanges =
-      if (config.networking.hostName == "cookieclicker") then
-        [
-          { from = 22200; to = 22299; }
-        ]
-      else [];
+    interfaces =
+      if (config.networking.hostName == "cookieclicker") then {
+        "enp4s0" = lib.mkMerge [
+          allowedPortsCCbase
+          allowedPortsCCextra
+        ];
+        "wg-server" = lib.mkMerge [
+          allowedPortsCCbase
+          allowedPortsCCextra
+        ];
+        "podman-server" = allowedPortsCCbase;
+        "enp6s0" = allowedPortsShared;
+        "wlp5s0" = allowedPortsShared;
+      }
+      else if (config.networking.hostName == "cookiethinker") then {
+        "enp2s0" = allowedPortsShared;
+        "wlo1" = {
+          allowedUDPPorts = [ 5353 ];
+        };
+      }
+      else {};
   };
 
   networking.hosts = {

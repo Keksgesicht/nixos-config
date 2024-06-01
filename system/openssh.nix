@@ -7,6 +7,7 @@
       if (config.networking.hostName != "cookiethinker")
       then lib.mkForce true
       else lib.mkForce false;
+    openFirewall = false;
     listenAddresses = [
       {
         addr = "0.0.0.0";
