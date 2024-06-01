@@ -23,6 +23,8 @@ stdenv.mkDerivation {
 
   buildPhase = ''
     cp $src/${jsFile} ./
+    # force keywords (adresses in urlbar only)
+    sed -i '/"keyword.enabled"/s|//||' ${jsFile}
   ''
   + lib.strings.optionalString (patchSet == "FireFox") ''
     # page width and height
