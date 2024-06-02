@@ -40,6 +40,16 @@ let
        2053 # DNS (unbound)
     ];
   };
+
+  # kill $(pidof kdeconnectd)
+  allowedPortsVPNuser = {
+    allowedTCPPortRanges = [
+      { from = 10000; to = 65535; } # nearly all user ports
+    ];
+    allowedUDPPortRanges = [
+      { from = 10000; to = 65535; } # nearly all user ports
+    ];
+  };
 in
 with my-functions;
 {
@@ -132,6 +142,7 @@ with my-functions;
         "podman-server" = allowedPortsCCbase;
         "enp6s0" = allowedPortsShared;
         "wlp5s0" = allowedPortsShared;
+        #"tap0" = allowedPortsVPNuser;
       }
       else if (config.networking.hostName == "cookiethinker") then {
         "enp2s0" = allowedPortsShared;
