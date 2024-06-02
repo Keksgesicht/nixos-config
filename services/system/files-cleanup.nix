@@ -1,7 +1,4 @@
-{ config, pkgs, home-dir, data-dir
-, ssd-mnt, ssd-name
-, hdd-mnt, hdd-name
-, ...}:
+{ pkgs, data-dir, ssd-mnt, ssd-name, hdd-mnt, hdd-name, ...}:
 
 let
   locate-path = "/var/cache/locatedb";
@@ -88,6 +85,7 @@ in
     # environment variable LOCATE_PATH does not seem to be used by `locate`
     tmpfiles.rules = [
       "L+ ${locate-path} - - - - ${ssd-mnt}${locate-path}"
+      "d  ${ssd-mnt}/var/cache - - - - -"
     ];
   };
 
