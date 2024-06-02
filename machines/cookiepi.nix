@@ -15,7 +15,6 @@ in
     ../hardware
     ../hardware/filesystem-single-disk.nix
     ../hardware/laptop/server.nix
-    ../hardware/services/impermanence.nix
     ../development/base-devel.nix
     ../development/neovim.nix
     ../nix
@@ -32,6 +31,8 @@ in
     ../services/system/backup-snapshot.nix
     ../services/system/wireguard/server.nix
     ../system
+    ../system/impermanence
+    ../system/impermanence/server.nix
     ../system/network/server/lan.nix
   ];
 

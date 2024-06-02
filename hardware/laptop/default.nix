@@ -2,8 +2,8 @@
 
 {
   imports = [
+    ../../system/impermanence
     ../filesystem-single-disk.nix
-    ../services/impermanence.nix
     ./tuxedo.nix
   ];
 

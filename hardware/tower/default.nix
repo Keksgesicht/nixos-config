@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../services/impermanence.nix
+    ../../system/impermanence
     ./filesystem.nix
     ./services.nix
     ./sysctl.nix
