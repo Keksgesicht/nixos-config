@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 
 {
   imports = [
@@ -7,5 +7,6 @@
     ./gnupg.nix
     ./neovim.nix
     ./tmux.nix
+    #./wireshark.nix
   ];
 }
