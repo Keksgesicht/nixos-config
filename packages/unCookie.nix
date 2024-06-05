@@ -9,6 +9,7 @@ stdenv.mkDerivation {
   src = /etc/unCookie;
 
   buildInputs = [ bash ];
+  phases = [ "installPhase" ];
   installPhase = ''
     mkdir -p $out
     cp -r $src/. $out/

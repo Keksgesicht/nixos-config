@@ -1,4 +1,4 @@
-{ stdenv, lib, bash }:
+{ stdenv, lib }:
 
 stdenv.mkDerivation {
   pname = "offline-backup";
@@ -6,7 +6,7 @@ stdenv.mkDerivation {
   version = "1.0.0";
   src = ../files/packages/backup-offline;
 
-  buildInputs = [ bash ];
+  phases = [ "installPhase" "fixupPhase" ];
   installPhase = ''
     mkdir -p $out/{bin,cfg}
     cp -r $src/bin/. $out/bin/

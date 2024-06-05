@@ -1,4 +1,4 @@
-{ stdenv, lib, bash, cookie-pkg }:
+{ stdenv, lib, cookie-pkg }:
 
 stdenv.mkDerivation {
   pname = "container-unbound";
@@ -11,7 +11,7 @@ stdenv.mkDerivation {
     sha256 = (builtins.readFile "${cookie-pkg}/root-dns-server.hash");
   };
 
-  buildInputs = [ bash ];
+  phases = [ "unpackPhase" "installPhase" ];
   installPhase = ''
     mkdir -p $out/scripts
     cp -r $src/. $out/scripts/

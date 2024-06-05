@@ -5,6 +5,7 @@ stdenv.mkDerivation {
   name = "config-zsh";
   src = ../files/packages/config-zsh;
 
+  phases = [ "installPhase" ];
   installPhase = ''
     cp -r $src/. $out/
   '';

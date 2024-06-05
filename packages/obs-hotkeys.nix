@@ -8,9 +8,11 @@ stdenv.mkDerivation {
   pname = "obs-hotkeys";
   name = "obs-hotkeys";
   version = "1.0.0";
-  src = ../files/packages/obs-hotkeys;
 
+  src = ../files/packages/obs-hotkeys;
   buildInputs = [ bash makeWrapper ];
+
+  phases = [ "installPhase" "fixupPhase" ];
   installPhase = ''
     mkdir -p $out/{bin,cfg}
     cp -r $src/bin/. $out/bin/

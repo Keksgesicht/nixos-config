@@ -1,12 +1,14 @@
-{ pkgs, lib, stdenv, bash, }:
+{ pkgs, lib, stdenv, bash }:
 
 stdenv.mkDerivation {
   pname = "files-cleanup";
   name = "files-cleanup";
   version = "1.0.0";
-  src = ../files/packages/files-cleanup;
 
+  src = ../files/packages/files-cleanup;
   buildInputs = [ bash pkgs.gnused ];
+
+  phases = [ "installPhase" "fixupPhase" ];
   installPhase = ''
     mkdir -p $out/{bin,cfg}
     cp -r $src/bin/. $out/bin/

@@ -8,6 +8,7 @@ stdenv.mkDerivation {
   name = "${pkgname}";
   src = ../files/packages/${pkgname};
 
+  phases = [ "installPhase" ];
   installPhase = ''
     cp -r $src/. $out/
   '';

@@ -8,6 +8,7 @@ stdenv.mkDerivation {
   name = "config-wireplumber";
   src = ../files/packages/config-wireplumber;
 
+  phases = [ "installPhase" ];
   installPhase = ''
     mkdir -p $out/${wp-main-lua}
     cp -r $src/. $out/${wp-main-lua}/

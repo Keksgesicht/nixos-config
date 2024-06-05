@@ -1,4 +1,4 @@
-{ stdenv, lib, bash, }:
+{ stdenv, lib, }:
 
 stdenv.mkDerivation {
   pname = "flatpak-overrides";
@@ -6,7 +6,7 @@ stdenv.mkDerivation {
   version = "1.0.0";
   src = ../files/packages/flatpak-overrides;
 
-  buildInputs = [ bash ];
+  phases = [ "installPhase" ];
   installPhase = ''
     cp -r $src/. $out/
   '';

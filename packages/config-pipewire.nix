@@ -8,6 +8,7 @@ stdenv.mkDerivation {
   name = "config-pipewire";
   src = ../files/packages/config-pipewire;
 
+  phases = [ "installPhase" ];
   installPhase = ''
     mkdir -p $out/${pw-cfg-path}
     cp -r $src/. $out/${pw-cfg-path}/

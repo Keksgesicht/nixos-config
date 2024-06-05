@@ -21,6 +21,7 @@ stdenv.mkDerivation {
     sha256 = "${nixhash}";
   };
 
+  phases = [ "unpackPhase" "buildPhase" "installPhase" ];
   buildPhase = ''
     cp $src/${jsFile} ./
     # force keywords (adresses in urlbar only)
@@ -41,7 +42,6 @@ stdenv.mkDerivation {
     # audio volume
     cat ${patchDir}/audio-volume.patch >> ${jsFile}
   '';
-
   installPhase = ''
     mkdir -p $out
     cp ${jsFile} $out/

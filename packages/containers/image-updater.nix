@@ -1,4 +1,4 @@
-{ stdenv, lib, bash }:
+{ stdenv, lib }:
 
 stdenv.mkDerivation {
   pname = "container-image-updater";
@@ -6,7 +6,7 @@ stdenv.mkDerivation {
   version = "1.0.0";
   src = ../../files/packages/containers/image-updater;
 
-  buildInputs = [ bash ];
+  phases = [ "installPhase" "fixupPhase" ];
   installPhase = ''
     mkdir -p $out/bin
     cp -r $src/bin/. $out/bin/

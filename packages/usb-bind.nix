@@ -7,6 +7,7 @@ stdenv.mkDerivation {
   src = ../files/packages/usb-bind;
 
   buildInputs = [ bash ];
+  phases = [ "installPhase" "fixupPhase" ];
   installPhase = ''
     mkdir -p $out/bin
     cp -r $src/bin/. $out/bin/

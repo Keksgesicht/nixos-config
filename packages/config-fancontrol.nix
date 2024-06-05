@@ -5,6 +5,7 @@ stdenv.mkDerivation {
   name = "config-fancontrol";
   src = ../files/packages/config-fancontrol;
 
+  phases = [ "installPhase" "fixupPhase" ];
   installPhase = ''
     mkdir -p $out/{bin,cfg}
     cp -r $src/bin/. $out/bin/

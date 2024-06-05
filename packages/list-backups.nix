@@ -1,4 +1,4 @@
-{ stdenv, lib, nix-gitignore, bash }:
+{ stdenv, lib, nix-gitignore }:
 
 let
   patterns = ''
@@ -12,9 +12,7 @@ stdenv.mkDerivation {
   version = "1.0.0";
   src = nix-gitignore.gitignoreSourcePure patterns ../files/scripts;
 
-  buildInputs = [ bash ];
-  dontBuild = true;
-
+  phases = [ "unpackPhase" "installPhase" "fixupPhase" ];
   installPhase = ''
     mkdir -p $out/bin
     cp -r ./* $out/bin/

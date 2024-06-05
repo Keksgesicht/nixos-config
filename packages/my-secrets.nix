@@ -1,4 +1,4 @@
-{ stdenv, lib, bash }:
+{ stdenv, lib }:
 
 stdenv.mkDerivation {
   pname = "my-secrets";
@@ -8,7 +8,7 @@ stdenv.mkDerivation {
   # TODO this directory has to exist
   src = /etc/nixos/secrets/local;
 
-  buildInputs = [ bash ];
+  phases = [ "installPhase" ];
   installPhase = ''
     mkdir -p $out
     cp -r $src/. $out/

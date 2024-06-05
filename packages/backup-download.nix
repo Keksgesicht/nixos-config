@@ -1,9 +1,10 @@
-{ stdenv, lib, bash }:
+{ stdenv, lib }:
 
 stdenv.mkDerivation {
   name = "backup-download";
   src = ../files/packages/backup-download;
 
+  phases = [ "installPhase" "fixupPhase" ];
   installPhase = ''
     mkdir -p $out/{bin,cfg}
     cp -r $src/bin/. $out/bin/

@@ -11,12 +11,13 @@ stdenv.mkDerivation {
     rev = "cad9577cc123146b0f83e203ffa7f7a50bfa2616";
     sha256 = "sha256-hOXFPbDOfCtlhg9JBc6Whf0oIgm5CeLoduLFaE1PYdM=";
   };
-
   buildInputs = with pkgs; [
     makeWrapper
     gnused
     python3
   ];
+
+  phases = [ "unpackPhase" "installPhase" "fixupPhase" ];
   installPhase = ''
     cd $src
     install -Dm755 "silence_cutter.py" "$out/bin/silence_cutter.py"

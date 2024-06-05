@@ -405,6 +405,7 @@ let
       pkgs.stdenv.mkDerivation {
         name = "${name}-${pkgName}-desktop-file";
         src = p.package;
+        phases = [ "installPhase" ];
         installPhase = ''
           mkdir -p $out/share/applications
           if [ -d $src/share/icons ]; then

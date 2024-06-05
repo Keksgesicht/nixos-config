@@ -6,7 +6,7 @@ stdenv.mkDerivation {
   version = "1.0.0";
   src = ../files/packages/MangoHud;
 
-  buildInputs = [ ];
+  phases = [ "installPhase" ];
   installPhase = ''
     mkdir -p $out
     cp -r $src/. $out/
