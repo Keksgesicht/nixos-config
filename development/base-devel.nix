@@ -1,13 +1,16 @@
 { pkgs, username, ... }:
 
 {
+  imports = [
+    ./git.nix
+  ];
+
   users.users."${username}".packages = with pkgs; [
     binutils
     binwalk
     fd
     file
     fzf
-    git
     jq
     ldns
     lsof

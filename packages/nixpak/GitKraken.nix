@@ -12,6 +12,8 @@ in
             "--enable-features=UseOzonePlatform" "--ozone-platform=wayland"
           ]; }
         ]; }
+        pkgs.git
+        pkgs.git-lfs
       ];
       chromiumCleanupScript = true;
       time = true;
