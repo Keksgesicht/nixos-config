@@ -115,20 +115,6 @@ with my-functions;
     };
   };
 
-  # apply manual fixes instead of breaking plasmashell on every nixos-rebuild
-  # https://github.com/NixOS/nixpkgs/issues/292632
-  # try to avoid running:
-  # rm -v ~/.cache/ksycoca*
-  # systemctl --user restart plasma-plasmashell.service
-  system.userActivationScripts.rebuildSycoca = lib.mkForce ''
-    # force plasma to rescan for .desktop files
-    ${pkgs.xdg-utils}/bin/xdg-desktop-menu forceupdate
-    # give hints for a clean plasma replacement operation
-    echo 'If the plasma panel or the kickoff menu does not want'
-    echo 'to start applications anymore. Run the following:'
-    echo '${libKDE.plasma-workspace}/bin/plasmashell --replace &; disown'
-  '';
-
   home-manager.users."${username}" =
   let
     plasma-manager = inputs.plasma-manager;
