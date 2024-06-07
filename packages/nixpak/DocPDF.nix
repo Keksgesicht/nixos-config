@@ -35,6 +35,7 @@ let
         fmtcount
         fontawesome
         forest
+        glossaries
         numprint
         pgf-umlsd
         siunitx
