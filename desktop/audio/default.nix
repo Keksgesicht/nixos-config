@@ -1,4 +1,4 @@
-{ config, pkgs, lib, username, ... }:
+{ pkgs, username, ... }:
 
 let
   my-audio = pkgs.callPackage ../../packages/my-audio.nix {};
@@ -24,7 +24,6 @@ in
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
-    jack.enable = true;
     pulse.enable = true;
     configPackages = [
       (pkgs.callPackage ../../packages/config-pipewire.nix {})

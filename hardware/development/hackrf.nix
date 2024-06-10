@@ -1,8 +1,9 @@
-{ config, username, ... }:
+{ username, ... }:
 
 {
   # use HackRF as desktop user
   hardware.hackrf.enable = true;
+  services.pipewire.jack.enable = true;
   users.users."${username}".extraGroups = [ "plugdev" ]; # reboot needed?
 
   /*
