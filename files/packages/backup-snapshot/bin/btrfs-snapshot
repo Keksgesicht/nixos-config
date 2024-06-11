@@ -17,7 +17,7 @@ delete() {
 		btrfs subvolume delete "$source/$del"
 	done
 	rm -dv "$dest/$1"
-	rm -v "${backup}/name/*/$1"
+	find "${backup}/name" -maxdepth 2 -xtype l -delete -print
 }
 
 echo
