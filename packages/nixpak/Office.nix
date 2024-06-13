@@ -7,7 +7,7 @@ in
   nixpak."${name}" = {
     wrapper = {
       packages = [
-        { package = pkgs.libreoffice; binName = "soffice"; appFile = [
+        { package = pkgs.libreoffice; binName = "libreoffice"; appFile = [
           { src = "base"; args.remove = "%U"; args.extra = "%U"; }
           { src = "calc"; args.remove = "%U"; args.extra = "%U"; }
           { src = "draw"; args.remove = "%U"; args.extra = "%U"; }
