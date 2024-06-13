@@ -1,7 +1,4 @@
-{ config
-, username, home-dir
-, ssd-mnt, hdd-mnt, data-dir
-, ... }:
+{ home-dir, ssd-mnt, data-dir, ... }:
 
 {
   # base environment variables
@@ -30,22 +27,5 @@
     # git security
     # https://github.blog/2022-04-12-git-security-vulnerability-announced/
     GIT_CEILING_DIRECTORIES = "/home:$HOME/git:/mnt:${data-dir}/Documents/development/git:${ssd-mnt}${home-dir}/git";
-  };
-
-  home-manager.users."${username}" = {
-    xdg.userDirs = {
-      enable = true;
-      desktop   = "$HOME/Desktop";
-      download  = "$HOME/Downloads";
-      documents = "$HOME/Documents";
-      music     = "$HOME/Music";
-      pictures  = "$HOME/Pictures";
-      videos    = "$HOME/Videos";
-      publicShare = "$HOME/Public";
-      templates   = "$HOME/Templates";
-    };
-    xdg.configFile."user-dirs.locale".text = ''
-      en_US
-    '';
   };
 }

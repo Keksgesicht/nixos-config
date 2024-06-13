@@ -10,7 +10,6 @@ in
 
   imports = [
     ../desktop/environment.nix
-    ../desktop/home-manager
     ../desktop/my-user.nix
     ../hardware
     ../hardware/filesystem-single-disk.nix

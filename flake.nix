@@ -2,7 +2,7 @@
   inputs = {
     # https://github.com/NixOS/nixpkgs
     # update nixpkgs every couple of days
-    nixpkgs-stable.url = "nixpkgs/nixos-23.11";
+    nixpkgs-stable.url = "nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
     # https://nixos.wiki/wiki/Home_Manager
@@ -147,7 +147,7 @@
         ];
       };
 
-      "cookiepi" = nixpkgs-unstable.lib.nixosSystem rec {
+      "cookiepi" = nixpkgs-stable.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = myArgs // {
           inherit inputs;
@@ -155,7 +155,6 @@
         };
         modules = [
           ./machines/cookiepi.nix
-          home-manager.nixosModules.home-manager
           impermanence.nixosModules.impermanence
           lanzaboote.nixosModules.lanzaboote
         ];

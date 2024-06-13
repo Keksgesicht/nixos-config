@@ -17,6 +17,19 @@
 
       # Some modules do not do anything without it.
       home.homeDirectory = home-dir;
+
+      xdg.userDirs = {
+        enable = true;
+        desktop   = "$HOME/Desktop";
+        download  = "$HOME/Downloads";
+        documents = "$HOME/Documents";
+        music     = "$HOME/Music";
+        pictures  = "$HOME/Pictures";
+        videos    = "$HOME/Videos";
+        publicShare = "$HOME/Public";
+        templates   = "$HOME/Templates";
+      };
+      xdg.configFile."user-dirs.locale".text = "en_US";
     };
   };
 }
