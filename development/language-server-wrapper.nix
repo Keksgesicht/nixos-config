@@ -1,9 +1,9 @@
 pkgs: lib: p: n:
 let
   lsp-pkgs = with pkgs; [
+    bash-language-server
     clang-tools
     nil
-    nodePackages.bash-language-server
     python3Packages.python-lsp-server
   ];
   lsp-string = lib.strings.concatStringsSep ":" (lib.lists.forEach lsp-pkgs (p:
