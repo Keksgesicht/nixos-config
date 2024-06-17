@@ -20,6 +20,7 @@ in
             "node.description" = "Microphone (Noise Canceling)";
             "media.name"       = "Microphone (Noise Canceling)";
             "audio.position"   = [ "FL" "FR" ];
+            "audio.rate"       = 48000;
             "filter.graph" = {
               nodes = [ {
                 type    = "ladspa";
@@ -48,6 +49,7 @@ in
             "node.description" = "Chat (Noise Canceling)";
             "media.name"       = "Chat (Noise Canceling)";
             "audio.position"   = [ "FL" "FR" ];
+            "audio.rate"       = 48000;
             "filter.graph" = {
               nodes = [ {
                 type    = "ladspa";
@@ -78,6 +80,7 @@ in
             "node.description" = "Media (Noise Canceling)";
             "media.name"       = "Media (Noise Canceling)";
             "audio.position"   = [ "FL" "FR" ];
+            "audio.rate"       = 48000;
             "filter.graph" = {
               nodes = [ {
                 type    = "ladspa";

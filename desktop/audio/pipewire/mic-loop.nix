@@ -11,6 +11,7 @@
             "node.name"        = "mic_loop";
             "node.description" = "Speaker to Microphone (mic+all)";
             "audio.position"   = [ "FL" "FR" ];
+            "audio.rate"       = 48000;
             "capture.props" = {
               "media.class" = "Audio/Sink";
               "node.name"   = "mic_loop_sink";
