@@ -9,15 +9,15 @@ ${work_dir}/audio-setup-hw-sink.sh
 if [ "$(cat /etc/hostname)" = "cookieclicker" ]; then
 	unlink_outputs 'mic_loop_source'
 	link_nodes 'mic_loop_source' 'virt_mic_sink'
-	link_nodes 'mic_loop_source' 'echo_out_sink'
+	link_nodes 'mic_loop_source' "${central_sink}"
 fi
 
 ### filter to output
 if [ "$(cat /etc/hostname)" = "cookieclicker" ]; then
-	link_nodes 'media_filter_source' 'echo_out_sink'
-	link_nodes 'chat_filter_source' 'echo_out_sink'
+	link_nodes 'media_filter_source' "${central_sink}"
+	link_nodes 'chat_filter_source' "${central_sink}"
 fi
-link_nodes 'recording_out_source' 'echo_out_sink'
+link_nodes 'recording_out_source' "${central_sink}"
 
 
 ### unmute all virtual outputs
@@ -42,16 +42,11 @@ ${work_dir}/audio-setup-hw-source.sh
 unlink_inputs  'feedback_sink'
 unlink_outputs 'feedback_source'
 link_nodes 'virt_mic_source' 'feedback_sink'
-link_nodes 'feedback_source' 'echo_out_sink'
+link_nodes 'feedback_source' "${central_sink}"
 
 ### set default devices
 pactl set-default-source 'virt_mic_source'
-pactl set-default-sink 'echo_out_sink'
+pactl set-default-sink "${central_sink}"
 
 ### idk
 unlink_inputs 'void_sink'
-
-### VBAN for Gaming VM
-#if [ -x ${work_dir}/vban-gaming.sh ]; then
-#	${work_dir}/vban-gaming.sh
-#fi

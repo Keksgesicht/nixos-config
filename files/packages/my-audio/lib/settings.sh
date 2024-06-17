@@ -5,6 +5,10 @@ my_mic_list+=" alsa_input.usb-Auna_Mic_CM900_Auna_Mic_CM900-00.mono-fallback"
 my_mic_list+=" bluez_input.00_25_BB_03_70_3D.0"
 my_mic_list+=" "
 
+echo_in='echo_in_sink'
+central_sink='echo_out_sink'
+scatter_source='echo_out_source'
+
 
 link_ports() {
 	pw-link "$1" "$2"
