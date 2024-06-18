@@ -36,6 +36,7 @@ in
             };
             "capture.props" = {
               "node.name" = "mic_filter_sink";
+              "node.passive" = true;
             };
             "playback.props" = {
               "node.name"   = "mic_filter_source";
@@ -66,6 +67,7 @@ in
             "capture.props" = {
               "media.class" = "Audio/Sink";
               "node.name"   = "chat_filter_sink";
+              "node.passive" = true;
             };
             "playback.props" = {
               "media.class" = "Audio/Source";
@@ -97,6 +99,7 @@ in
             "capture.props" = {
               "media.class" = "Audio/Sink";
               "node.name"   = "media_filter_sink";
+              "node.passive" = true;
             };
             "playback.props" = {
               "node.name"   = "media_filter_source";
