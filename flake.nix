@@ -77,7 +77,17 @@
   }@inputs: {
     nixosConfigurations =
     let
-      myArgs = rec {
+      myArgs = (system: rec {
+        inherit inputs;
+        inherit system;
+
+        pkgs-stable = import inputs.nixpkgs-stable {
+          inherit system;
+        };
+        pkgs-latest = import inputs.nixpkgs-unstable {
+          inherit system;
+        };
+
         username = "keks";
         home-dir = "/home/${username}";
 
@@ -90,16 +100,13 @@
         data-dir = "${hdd-mnt}/homeBraunJan";
 
         secrets-dir = "/etc/nixos/secrets";
-      };
+      });
     in
     {
       # nix build -L .#nixosConfigurations."live-cd".config.system.build.toplevel
       "live-cd" = nixpkgs-stable.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = myArgs // {
-          inherit inputs;
-          inherit system;
-        };
+        specialArgs = myArgs system;
         modules = [
           ./machines/installer
           home-manager.nixosModules.home-manager
@@ -107,10 +114,7 @@
       };
       "live-cd-graphics" = nixpkgs-unstable.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = myArgs // {
-          inherit inputs;
-          inherit system;
-        };
+        specialArgs = myArgs system;
         modules = [
           ./machines/installer
           ./machines/installer/graphics.nix
@@ -121,10 +125,7 @@
       # sudo nixos-rebuild --flake . test -L
       "cookieclicker" = nixpkgs-unstable.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = myArgs // {
-          inherit inputs;
-          inherit system;
-        };
+        specialArgs = myArgs system;
         modules = [
           ./machines/cookieclicker.nix
           home-manager.nixosModules.home-manager
@@ -135,10 +136,7 @@
 
       "cookiethinker" = nixpkgs-unstable.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = myArgs // {
-          inherit inputs;
-          inherit system;
-        };
+        specialArgs = myArgs system;
         modules = [
           ./machines/cookiethinker.nix
           home-manager.nixosModules.home-manager
@@ -149,10 +147,7 @@
 
       "cookiepi" = nixpkgs-stable.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = myArgs // {
-          inherit inputs;
-          inherit system;
-        };
+        specialArgs = myArgs system;
         modules = [
           ./machines/cookiepi.nix
           impermanence.nixosModules.impermanence
