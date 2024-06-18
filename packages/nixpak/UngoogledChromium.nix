@@ -1,7 +1,8 @@
-{ pkgs, bindHomeDir, ... }:
+{ specialArgs, bindHomeDir, ... }:
 
 let
   name = "UngoogledChromium";
+  pkgs = specialArgs.pkgs-stable;
 in
 {
   nixpak."${name}" = {
