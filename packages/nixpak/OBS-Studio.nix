@@ -17,6 +17,7 @@ in
         ]; }
         # tools needed by obs-studio
         pkgs.ffmpeg
+        pkgs.xorg.xset
         # global hotkeys workaround
         obs-cli
       ];

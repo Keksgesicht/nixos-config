@@ -14,6 +14,7 @@ in
         ]; }
         pkgs.git
         pkgs.git-lfs
+        pkgs.qt6.qtbase
       ];
       chromiumCleanupScript = true;
       time = true;

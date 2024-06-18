@@ -12,6 +12,7 @@ in
             #"--enable-features=UseOzonePlatform" "--ozone-platform-hint=auto"
           ]; }
         ]; }
+        pkgs.qt6.qtbase
       ];
       variables = {
         SIGNAL_USE_TRAY_ICON = "0";
