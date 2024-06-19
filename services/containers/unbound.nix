@@ -8,8 +8,13 @@ in
 {
   imports = [
     ../../system/container.nix
-    ./container-image-updater.nix
+    ./container-image-updater
   ];
+
+  container-image-updater."unbound" = {
+    upstream.name = "alpinelinux/unbound";
+    final.name = "alpinelinux-unbound";
+  };
 
   systemd = {
     services = {
@@ -34,21 +39,6 @@ in
           echo "sha256-$HASH" | tee $HASHFILE
         '';
       };
-      "container-image-updater@unbound" = {
-        overrideStrategy = "asDropin";
-        path = [
-          pkgs.jq
-          pkgs.nix-prefetch-docker
-          pkgs.skopeo
-        ];
-        environment = {
-          IMAGE_UPSTREAM_HOST = "docker.io";
-          IMAGE_UPSTREAM_NAME = "alpinelinux/unbound";
-          IMAGE_UPSTREAM_TAG = "latest";
-          IMAGE_FINAL_NAME = "localhost/alpinelinux-unbound";
-          IMAGE_FINAL_TAG = "latest";
-        };
-      };
     };
     timers = {
       "update-root-dns-servers" = {
@@ -59,11 +49,6 @@ in
           RandomizedDelaySec = "42min";
           Persistent = "true";
         };
-        wantedBy = [ "timers.target" ];
-      };
-      "container-image-updater@unbound" = {
-        enable = true;
-        overrideStrategy = "asDropin";
         wantedBy = [ "timers.target" ];
       };
     };

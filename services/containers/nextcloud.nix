@@ -10,8 +10,25 @@ in
   imports = [
     ../../system/container.nix
     ../system/server-and-config-update.nix
-    ./container-image-updater.nix
+    ./container-image-updater
   ];
+
+  container-image-updater = {
+    "nextcloud" = {
+      upstream.host = "lscr.io";
+      upstream.name = "linuxserver/nextcloud";
+      final.tag = "stable";
+    };
+    "nextcloud-db" = {
+      upstream.name = "mariadb";
+      upstream.tag = "10.5";
+      final.name = "nextcloud-db";
+    };
+    "nextcloud-redis" = {
+      upstream.name = "redis";
+      final.name = "nextcloud-redis";
+    };
+  };
 
   systemd = {
     services =
@@ -30,74 +47,12 @@ in
       "podman-nextcloud-cron" = (import ./podman-systemd-service.nix lib 25) // serviceExtraConfig;
       "podman-nextcloud-db" = (import ./podman-systemd-service.nix lib 27);
       "podman-nextcloud-redis" = (import ./podman-systemd-service.nix lib 27);
-      "container-image-updater@nextcloud" = {
-        overrideStrategy = "asDropin";
-        path = [
-          pkgs.jq
-          pkgs.nix-prefetch-docker
-          pkgs.skopeo
-        ];
-        environment = {
-          IMAGE_UPSTREAM_HOST = "lscr.io";
-          IMAGE_UPSTREAM_NAME = "linuxserver/nextcloud";
-          IMAGE_UPSTREAM_TAG = "latest";
-          IMAGE_FINAL_NAME = "localhost/nextcloud";
-          IMAGE_FINAL_TAG = "stable";
-        };
-      };
-      "container-image-updater@nextcloud-db" = {
-        overrideStrategy = "asDropin";
-        path = [
-          pkgs.jq
-          pkgs.nix-prefetch-docker
-          pkgs.skopeo
-        ];
-        environment = {
-          IMAGE_UPSTREAM_HOST = "docker.io";
-          IMAGE_UPSTREAM_NAME = "mariadb";
-          IMAGE_UPSTREAM_TAG = "10.5";
-          IMAGE_FINAL_NAME = "localhost/nextcloud-db";
-          IMAGE_FINAL_TAG = "10.5";
-        };
-      };
-      "container-image-updater@nextcloud-redis" = {
-        overrideStrategy = "asDropin";
-        path = [
-          pkgs.jq
-          pkgs.nix-prefetch-docker
-          pkgs.skopeo
-        ];
-        environment = {
-          IMAGE_UPSTREAM_HOST = "docker.io";
-          IMAGE_UPSTREAM_NAME = "redis";
-          IMAGE_UPSTREAM_TAG = "latest";
-          IMAGE_FINAL_NAME = "localhost/nextcloud-redis";
-          IMAGE_FINAL_TAG = "latest";
-        };
-      };
     };
 
-    timers = {
-      "container-image-updater@nextcloud" = {
-        enable = true;
-        overrideStrategy = "asDropin";
-        wantedBy = [ "timers.target" ];
-      };
-      "container-image-updater@nextcloud-db" = {
-        enable = true;
-        overrideStrategy = "asDropin";
-        wantedBy = [ "timers.target" ];
-      };
-      "container-image-updater@nextcloud-redis" = {
-        enable = true;
-        overrideStrategy = "asDropin";
-        wantedBy = [ "timers.target" ];
-      };
-      "server-and-config-update@NextcloudUpdates" = {
-        enable = true;
-        overrideStrategy = "asDropin";
-        wantedBy = [ "timers.target" ];
-      };
+    timers."server-and-config-update@NextcloudUpdates" = {
+      enable = true;
+      overrideStrategy = "asDropin";
+      wantedBy = [ "timers.target" ];
     };
   };
 

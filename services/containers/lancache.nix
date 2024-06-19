@@ -10,8 +10,13 @@ in
   imports = [
     ../../system/container.nix
     ../system/server-and-config-update.nix
-    ./container-image-updater.nix
+    ./container-image-updater
   ];
+
+  container-image-updater."lancache" = {
+    upstream.name = "lancachenet/monolithic";
+    final.name = "lancache-monolithic";
+  };
 
   systemd = {
     services = {
@@ -22,21 +27,6 @@ in
         requires = [
           "mnt-${nvm-name}.mount"
         ];
-      };
-      "container-image-updater@lancache" = {
-        overrideStrategy = "asDropin";
-        path = [
-          pkgs.jq
-          pkgs.nix-prefetch-docker
-          pkgs.skopeo
-        ];
-        environment = {
-          IMAGE_UPSTREAM_HOST = "docker.io";
-          IMAGE_UPSTREAM_NAME = "lancachenet/monolithic";
-          IMAGE_UPSTREAM_TAG = "latest";
-          IMAGE_FINAL_NAME = "localhost/lancache-monolithic";
-          IMAGE_FINAL_TAG = "latest";
-        };
       };
       "server-and-config-update@Lancache" = {
         # fixes empty unit file (extends template unit)
@@ -64,20 +54,10 @@ in
       };
     };
 
-    timers = {
-      "container-image-updater@lancache" = {
-        enable = true;
-        overrideStrategy = "asDropin";
-        wantedBy = [ "timers.target" ];
-      };
-      "server-and-config-update@Lancache" = {
-        # only for systemd unit masking
-        enable = true;
-        # fixes empty unit file (extends template unit)
-        overrideStrategy = "asDropin";
-        # this auto enables this unit in the system context
-        wantedBy = [ "timers.target" ];
-      };
+    timers."server-and-config-update@Lancache" = {
+      enable = true;
+      overrideStrategy = "asDropin";
+      wantedBy = [ "timers.target" ];
     };
   };
 

@@ -8,27 +8,17 @@ in
   imports = [
     ../../system/container.nix
     ../system/server-and-config-update.nix
-    ./container-image-updater.nix
+    ./container-image-updater
   ];
+
+  container-image-updater."proxy" = {
+    upstream.name = "linuxserver/swag";
+    final.name = "linuxserver-swag";
+  };
 
   systemd = {
     services = {
       "podman-proxy" = (import ./podman-systemd-service.nix lib 25);
-      "container-image-updater@proxy" = {
-        overrideStrategy = "asDropin";
-        path = [
-          pkgs.jq
-          pkgs.nix-prefetch-docker
-          pkgs.skopeo
-        ];
-        environment = {
-          IMAGE_UPSTREAM_HOST = "docker.io";
-          IMAGE_UPSTREAM_NAME = "linuxserver/swag";
-          IMAGE_UPSTREAM_TAG = "latest";
-          IMAGE_FINAL_NAME = "localhost/linuxserver-swag";
-          IMAGE_FINAL_TAG = "latest";
-        };
-      };
       "server-and-config-update@CloudflareProxyIps" = {
         overrideStrategy = "asDropin";
         path = [
@@ -56,11 +46,6 @@ in
     };
 
     timers = {
-      "container-image-updater@proxy" = {
-        enable = true;
-        overrideStrategy = "asDropin";
-        wantedBy = [ "timers.target" ];
-      };
       "server-and-config-update@CloudflareProxyIps" = {
         enable = true;
         overrideStrategy = "asDropin";

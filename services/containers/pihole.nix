@@ -7,34 +7,14 @@ in
 {
   imports = [
     ../../system/container.nix
-    ./container-image-updater.nix
+    ./container-image-updater
   ];
 
-  systemd = {
-    services = {
-      "podman-pihole" = (import ./podman-systemd-service.nix lib 27);
-      "container-image-updater@pihole" = {
-        overrideStrategy = "asDropin";
-        path = [
-          pkgs.jq
-          pkgs.nix-prefetch-docker
-          pkgs.skopeo
-        ];
-        environment = {
-          IMAGE_UPSTREAM_HOST = "docker.io";
-          IMAGE_UPSTREAM_NAME = "pihole/pihole";
-          IMAGE_UPSTREAM_TAG = "latest";
-          IMAGE_FINAL_NAME = "localhost/pihole";
-          IMAGE_FINAL_TAG = "latest";
-        };
-      };
-    };
-    timers."container-image-updater@pihole" = {
-      enable = true;
-      overrideStrategy = "asDropin";
-      wantedBy = [ "timers.target" ];
-    };
+  container-image-updater."pihole" = {
+    upstream.name = "pihole/pihole";
   };
+
+  systemd.services."podman-pihole" = (import ./podman-systemd-service.nix lib 27);
 
   virtualisation.oci-containers.containers = {
     "pihole" = {

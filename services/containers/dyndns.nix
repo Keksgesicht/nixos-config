@@ -18,33 +18,17 @@ in
 {
   imports = [
     ../../system/container.nix
-    ./container-image-updater.nix
+    ./container-image-updater
   ];
+
+  container-image-updater."dyndns" = {
+    upstream.name = "hotio/cloudflareddns";
+  };
 
   systemd = {
     services = {
       "podman-ddns-v4" = (import ./podman-systemd-service.nix lib 13);
       "podman-ddns-v6" = (import ./podman-systemd-service.nix lib 13);
-      "container-image-updater@dyndns" = {
-        overrideStrategy = "asDropin";
-        path = [
-          pkgs.jq
-          pkgs.nix-prefetch-docker
-          pkgs.skopeo
-        ];
-        environment = {
-          IMAGE_UPSTREAM_HOST = "docker.io";
-          IMAGE_UPSTREAM_NAME = "hotio/cloudflareddns";
-          IMAGE_UPSTREAM_TAG = "latest";
-          IMAGE_FINAL_NAME = "localhost/dyndns";
-          IMAGE_FINAL_TAG = "latest";
-        };
-      };
-    };
-    timers."container-image-updater@dyndns" = {
-      enable = true;
-      overrideStrategy = "asDropin";
-      wantedBy = [ "timers.target" ];
     };
   };
 

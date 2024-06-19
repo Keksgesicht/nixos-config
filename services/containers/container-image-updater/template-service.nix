@@ -1,11 +1,13 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 let
+  pkg-dir = "${inputs.self}/packages";
+
   update-days = (builtins.head (builtins.split " " config.system.autoUpgrade.dates));
-  image-updater = (pkgs.callPackage ../../packages/containers/image-updater.nix {});
+  image-updater = (pkgs.callPackage "${pkg-dir}/containers/image-updater.nix" {});
 
   cookie-dir = "/etc/unCookie";
-  cookie-pkg = (pkgs.callPackage ../../packages/unCookie.nix {});
+  cookie-pkg = (pkgs.callPackage "${pkg-dir}/unCookie.nix" {});
 in
 {
   environment.etc = {
