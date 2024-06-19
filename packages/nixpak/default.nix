@@ -1,4 +1,4 @@
-{ specialArgs ? {}, config, pkgs, lib, inputs, sloth, ... }:
+{ pkgs, lib, inputs, sloth, ... }:
 
 # https://github.com/nixpak/nixpak
 let
@@ -71,10 +71,6 @@ let
   ];
   appFuncList = lib.lists.forEach appCfgList (app:
     (import app {
-      inherit specialArgs;
-      inherit config;
-      inherit lib;
-      inherit pkgs;
       inherit sloth;
       inherit appDir;
       inherit bindHomeDir;

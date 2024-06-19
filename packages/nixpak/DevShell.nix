@@ -1,9 +1,9 @@
-{ specialArgs, pkgs, sloth, appDir, ... }:
+{ sloth, appDir, ... }:
+{ pkgs, ssd-mnt, home-dir, ... }:
 
 let
   name = "DevShell";
 in
-with specialArgs;
 {
   nixpak."${name}" = {
     wrapper = {

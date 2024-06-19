@@ -1,9 +1,10 @@
-{ specialArgs, config, pkgs, sloth, bindHomeDir, ... }:
+{ sloth, bindHomeDir, ... }:
+{ config, pkgs, nvm-mnt, home-dir, username, ... }:
 
 let
   name = "Gaming";
-  name-dir = "${specialArgs.home-dir}/.var/app/${name}";
-  name-home = "${specialArgs.home-dir}/.var/home/${name}";
+  name-dir = "${home-dir}/.var/app/${name}";
+  name-home = "${home-dir}/.var/home/${name}";
 
   gamingPC = (config.networking.hostName == "cookieclicker");
   bindGamingHome = (dir: [
@@ -51,7 +52,6 @@ let
     ]));
   });
 in
-with specialArgs;
 {
   nixpak = if gamingPC then {
   "${name}" = {

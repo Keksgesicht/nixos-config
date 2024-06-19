@@ -1,4 +1,5 @@
-{ pkgs, sloth, bindHomeDir, ... }:
+{ sloth, bindHomeDir, ... }:
+{ pkgs, ... }:
 
 let
   name = "LibreWolf";

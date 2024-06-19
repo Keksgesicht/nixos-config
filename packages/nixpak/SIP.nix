@@ -1,4 +1,5 @@
-{ config, pkgs, sloth, bindHomeDir, ... }:
+{ sloth, bindHomeDir, ... }:
+{ config, pkgs, ... }:
 
 let
   name = "SIP";

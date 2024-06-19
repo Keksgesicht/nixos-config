@@ -1,4 +1,5 @@
-{ pkgs, bindHomeDir, myKDEpkg, myKDEmount, ... }:
+{ bindHomeDir, myKDEpkg, myKDEmount, ... }:
+{ pkgs, ... }:
 
 let
   name = "BilderAnguck";

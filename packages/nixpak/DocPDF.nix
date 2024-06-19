@@ -1,4 +1,5 @@
-{ pkgs, lib, sloth, bindHomeDir, myKDEpkg, myKDEmount, ... }:
+{ sloth, bindHomeDir, myKDEpkg, myKDEmount, ... }:
+{ pkgs, lib, ... }:
 
 let
   name = "DocPDF";

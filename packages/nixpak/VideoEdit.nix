@@ -1,4 +1,5 @@
-{ config, pkgs, sloth, bindHomeDir, myKDEpkg, myKDEmount, ... }:
+{ sloth, bindHomeDir, myKDEpkg, myKDEmount, ... }:
+{ config, pkgs, ... }:
 
 let
   name = "VideoEdit";

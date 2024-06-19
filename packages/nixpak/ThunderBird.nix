@@ -1,4 +1,5 @@
-{ pkgs, lib, bindHomeDir, ... }:
+{ bindHomeDir, ... }:
+{ pkgs, lib, ... }:
 
 let
   name = "ThunderBird";

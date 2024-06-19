@@ -1,4 +1,5 @@
-{ pkgs, bindHomeDir, ... }:
+{ bindHomeDir, ... }:
+{ pkgs, ... }:
 
 let
   name = "Ferdium";
