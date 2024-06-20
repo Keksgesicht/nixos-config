@@ -36,9 +36,13 @@ in
     wg-show = (wg-cmd "wg-$1");
   in
   ''
-    wg-up() { sudo ${wg-up} }
-    wg-down() { sudo ${wg-down} }
-    wg-show() { sudo ${wg-show} }
+    wg-tool() {
+      case "$2" in
+        up)   sudo ${wg-up}   ;;
+        down) sudo ${wg-down} ;;
+        show) sudo ${wg-show} ;;
+      esac
+    }
   '';
 
   security.sudo.extraRules =
