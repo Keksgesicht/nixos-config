@@ -1,9 +1,10 @@
 #!/bin/bash
 
-export work_dir=$(realpath $(dirname $0))
-source ${work_dir}/../lib/settings.sh
+work_dir=$(realpath "$(dirname "$0")")
+export work_dir
+source "${work_dir}"/../lib/settings.sh
 
-${work_dir}/audio-setup-hw-sink.sh
+"${work_dir}"/audio-setup-hw-sink.sh
 
 ### loopback
 if [ "$(cat /etc/hostname)" = "cookieclicker" ]; then
@@ -22,7 +23,7 @@ link_nodes 'recording_out_source' "${central_sink}"
 
 ### unmute all virtual outputs
 for pulse_dev in $(pactl list sinks short | grep -vE 'alsa|bluez' | awk '{print $2}'); do
-	pactl set-sink-mute ${pulse_dev} 0
+	pactl set-sink-mute "${pulse_dev}" 0
 done
 
 ### mute void sink
@@ -36,7 +37,7 @@ if [ "$(cat /etc/hostname)" = "cookieclicker" ]; then
 else
 	link_nodes 'echo_in_source' 'virt_mic_sink'
 fi
-${work_dir}/audio-setup-hw-source.sh
+"${work_dir}"/audio-setup-hw-source.sh
 
 ### link mic feedback to output
 unlink_inputs  'feedback_sink'

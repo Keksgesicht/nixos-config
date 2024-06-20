@@ -1,5 +1,3 @@
-config_dir="$(realpath $(dirname $0))"
-
 my_mic_list=""
 my_mic_list+=" alsa_input.usb-Auna_Mic_CM900_Auna_Mic_CM900-00.mono-fallback"
 my_mic_list+=" bluez_input.00_25_BB_03_70_3D.0"
@@ -46,13 +44,13 @@ link_nodes() {
 
 
 unlink_inputs() {
-	for id in $(pw-link -I -l | grep '|->' | awk '/'$1'/ {print $1}'); do
-		pw-link -d $id
+	for id in $(pw-link -I -l | grep '|->' | awk '/'"$1"'/ {print $1}'); do
+		pw-link -d "$id"
 	done
 }
 unlink_outputs() {
-	for id in $(pw-link -I -l | grep '|<-' | awk '/'$1'/ {print $1}'); do
-		pw-link -d $id
+	for id in $(pw-link -I -l | grep '|<-' | awk '/'"$1"'/ {print $1}'); do
+		pw-link -d "$id"
 	done
 }
 unlink_node() {
