@@ -1,12 +1,17 @@
 # ~/.config/autostart/
 # https://nix-community.github.io/home-manager/options.xhtml#opt-xdg.configFile
 systemConfig: username:
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let
-  flatpak-dir = "/var/lib/flatpak/exports/share/applications";
   profile-dir = "/etc/profiles/per-user/${username}/share/applications";
   mkOOSS = config.lib.file.mkOutOfStoreSymlink;
+
+  copyq = rec {
+    pkg = systemConfig.nixpak.BilderAnguck.output.env;
+    dname = "com.github.hluk.copyq.desktop";
+    dpath = "${pkg}/share/applications/${dname}";
+  };
 in
 {
   xdg.configFile = {
@@ -22,8 +27,11 @@ in
       source = mkOOSS "${profile-dir}/thunderbird.desktop";
       enable = (systemConfig.networking.hostName == "cookieclicker");
     };
-    "autostart/com.github.hluk.copyq.desktop" = {
-      source = mkOOSS "${profile-dir}/com.github.hluk.copyq.desktop";
+    "autostart/${copyq.dname}" = {
+      source = mkOOSS (pkgs.runCommand "${copyq.dname}" {} ''
+        cp ${copyq.dpath} $out
+        sed -i 's|--start-server show|--start-server|g' $out
+      '');
     };
     "autostart/com.nextcloud.desktopclient.nextcloud.desktop" = {
       source = mkOOSS "${profile-dir}/com.nextcloud.desktopclient.nextcloud.desktop";
