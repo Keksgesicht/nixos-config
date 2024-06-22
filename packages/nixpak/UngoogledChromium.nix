@@ -3,7 +3,7 @@
 
 let
   name = "UngoogledChromium";
-  pkgs = pkgs-stable;
+  pkgs = pkgs-stable {};
 in
 {
   nixpak."${name}" = {

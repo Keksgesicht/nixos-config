@@ -81,12 +81,12 @@
         inherit inputs;
         inherit system;
 
-        pkgs-stable = import inputs.nixpkgs-stable {
+        pkgs-stable = (extraConfig: import inputs.nixpkgs-stable ({
           inherit system;
-        };
-        pkgs-latest = import inputs.nixpkgs-unstable {
+        } // extraConfig));
+        pkgs-latest = (extraConfig: import inputs.nixpkgs-unstable ({
           inherit system;
-        };
+        } // extraConfig));
 
         username = "keks";
         home-dir = "/home/${username}";
