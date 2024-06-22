@@ -226,7 +226,7 @@ in
   hardware = if gamingPC then {
     # Enable udev rules for Steam hardware such as the Steam Controller
     steam-hardware.enable = true;
-    opengl.driSupport32Bit = true;
+    graphics.enable32Bit = true;
     pulseaudio.support32Bit = config.hardware.pulseaudio.enable;
   } else {};
 
