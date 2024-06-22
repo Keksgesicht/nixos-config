@@ -3,6 +3,8 @@
         "data": [
             {
                 "autoRotation": "InTabletMode",
+                "brightness": 1,
+                "colorProfileSource": "sRGB",
                 "connectorName": "DP-1",
                 "edidHash": "4d3bcdd3043252b92e611f65e5ddb739",
                 "edidIdentifier": "SAM 3996 0 43 2018 0",
@@ -19,11 +21,13 @@
                 "sdrBrightness": 200,
                 "sdrGamutWideness": 0,
                 "transform": "Normal",
-                "vrrPolicy": "Never",
+                "vrrPolicy": "Automatic",
                 "wideColorGamut": false
             },
             {
                 "autoRotation": "InTabletMode",
+                "brightness": 1,
+                "colorProfileSource": "sRGB",
                 "connectorName": "HDMI-A-1",
                 "edidHash": "afe7407879b8791cc909f40c925d59c2",
                 "edidIdentifier": "GSM 23304 225959 4 2019 0",
