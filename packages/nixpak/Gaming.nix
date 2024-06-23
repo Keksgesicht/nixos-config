@@ -35,6 +35,7 @@ let
     # gamescope aliase
     (gamescope-wrapper "16" "2560")
     (gamescope-wrapper "21" "3360")
+    (gamescope-wrapper "32" "4996") # 5120 - 2 * 62
   ]);
   steamPkg = (pkgs.steam.override {
     extraPkgs = (pkgs: with pkgs; ((gameTools pkgs) ++ [
