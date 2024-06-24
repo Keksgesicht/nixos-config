@@ -31,6 +31,9 @@ Name_9=VD9
 Number=9
 Rows=3
 
+[EdgeBarrier]
+EdgeBarrier=20
+
 [Effect-Blur]
 NoiseStrength=14
 
