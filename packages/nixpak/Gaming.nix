@@ -1,7 +1,9 @@
 { sloth, bindHomeDir, ... }:
-{ config, pkgs, nvm-mnt, home-dir, username, ... }:
+{ config, pkgs-stable, nvm-mnt, home-dir, username, ... }:
 
 let
+  pkgs = pkgs-stable { config.allowUnfree = true; };
+
   name = "Gaming";
   name-dir = "${home-dir}/.var/app/${name}";
   name-home = "${home-dir}/.var/home/${name}";
@@ -225,26 +227,21 @@ in
   }; } else {};
 
   hardware = if gamingPC then {
-    # Enable udev rules for Steam hardware such as the Steam Controller
-    steam-hardware.enable = true;
     graphics.enable32Bit = true;
     pulseaudio.support32Bit = config.hardware.pulseaudio.enable;
   } else {};
+
+  # Enable udev rules for Steam hardware such as the Steam Controller
+  # steam-hardware.enable = true;
+  services.udev.packages = if gamingPC then [
+    pkgs.steamPackages.steam
+  ] else [];
 
   # optimise system performance on demand
   programs = if gamingPC then {
     gamemode.enable = true;
     #steam.remotePlay.openFirewall = true;
   } else {};
-
-  nixpkgs.allowUnfreePackages = if gamingPC then [
-    # steam
-    pkgs.steam
-    pkgs.steamPackages.steam
-    # steamcmd
-    pkgs.steam-run
-    pkgs.steamPackages.steamcmd
-  ] else [];
 
   # helps finding/showing the tray icon
   systemd.tmpfiles.rules = [
