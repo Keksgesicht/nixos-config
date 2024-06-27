@@ -7,6 +7,7 @@
     ./gnupg.nix
     ./neovim.nix
     ./tmux.nix
+    #./virtualbox.nix
     #./wireshark.nix
   ];
 }
