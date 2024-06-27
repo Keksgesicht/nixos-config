@@ -15,7 +15,6 @@ in
     ../hardware/filesystem-single-disk.nix
     ../hardware/laptop/server.nix
     ../development/base-devel.nix
-    ../development/neovim.nix
     ../nix
     ../nix/build-cache-client.nix
     ../nix/build-cache-server.nix
