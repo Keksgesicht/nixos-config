@@ -71,6 +71,7 @@ with my-functions;
           "~kwin_screencast: Dropping"
           "~ERROR: SSL connect error ::::: FUNCTION: curl::curl_easy::perform"
           "~handshake failed; returned -1, SSL error code 1, net_error -100"
+          "~Cannot create bo with format= YUV_420_BIPLANAR and usage=SCANOUT_CPU_READ_WRITE"
         ];
       };
     };
