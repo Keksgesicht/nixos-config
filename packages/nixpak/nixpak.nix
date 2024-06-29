@@ -334,7 +334,7 @@ let
         };
       };
 
-      npOut = np.config."${out}";
+      npOut = np.config.${out};
       npOut1 = strFunc.head (strFunc.splitString "-" npOut);
       npOut2 = strFunc.removePrefix npOut1 npOut;
       mkNPfileWrapper = (writePyBin "${name}" {
@@ -443,5 +443,33 @@ in
   ++ [
     # https://forum.xfce.org/viewtopic.php?id=14926
     pkgs.d-spy
+  ];
+
+  # fix file open not detecting file already exists in sandbox
+  # error: com.nixpak.<name>/*unspecified*/*unspecified* not installed
+  config.systemd.user.services.xdg-document-portal.path = [
+    (pkgs.writeShellScriptBin "flatpak" ''
+      fpb-exit() {
+        exec ${pkgs.flatpak}/bin/flatpak $@
+      }
+
+      [ $# != 3 ] && fpb-exit $@
+      [ "$1" != "info" ] && fpb-exit $@
+      [[ "$2" == --file-access=* ]] || fpb-exit $@
+      [[ "$3" == com.nixpak.* ]] || fpb-exit $@
+
+      USER_BIN_PATH="/etc/profiles/per-user/${username}/bin"
+      NxAPP="$3"
+      NxAPP="''${NxAPP//com.nixpak.}"
+      NxAPP="$USER_BIN_PATH/$NxAPP"
+      Nfile="$2"
+      Nfile="''${Nfile//--file-access=}"
+
+      if $NxAPP ls "$Nfile" >/dev/null; then
+        echo -n "read-write"
+      else
+        echo -n "hidden"
+      fi
+    '')
   ];
 }
