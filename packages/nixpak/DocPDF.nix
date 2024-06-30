@@ -76,6 +76,7 @@ in
         # PDF tools
         #pkgs.pdfdiff
         pkgs.pdfgrep
+        pkgs.ocrmypdf
       ]
       # LaTeX stuff
       ++ lib.optionals (latexSet == "base") latexBase
