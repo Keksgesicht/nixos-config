@@ -3,8 +3,11 @@ let
   lsp-pkgs = with pkgs; [
     bash-language-server
     clang-tools
-    nil
+    nil # Nix
+    lemminx # XML
+    # Python
     python3Packages.python-lsp-server
+    ruff
   ];
   lsp-string = lib.strings.concatStringsSep ":" (lib.lists.forEach lsp-pkgs (p:
     "${p}/bin"
