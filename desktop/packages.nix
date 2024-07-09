@@ -3,7 +3,7 @@
 {
   users.users."${username}".packages = with pkgs; [
     gnome-decoder
-    gnome.gnome-calculator
+    gnome-calculator
     keepassxc
     meld
     nextcloud-client

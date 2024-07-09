@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # List packages installed in system profile. To search, run:
@@ -10,10 +10,10 @@
     dos2unix
     entr
     eza
+    fastfetch
     lm_sensors
     moreutils
     nano
-    neofetch
     rename
     tldr
     wget
