@@ -72,14 +72,6 @@ in
           "timers.target"
         ];
       };
-
-      # script in unit above needs updatedb/locate
-      update-locatedb = {
-        timerConfig = {
-          # also run when system was offline (like anacron)
-          Persistent = "true";
-        };
-      };
     };
 
     # environment variable LOCATE_PATH does not seem to be used by `locate`
