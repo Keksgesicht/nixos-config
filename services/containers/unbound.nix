@@ -18,7 +18,9 @@ in
 
   systemd = {
     services = {
-      "podman-unbound" = (import ./podman-systemd-service.nix lib 17);
+      "podman-unbound" = (import ./podman-systemd-service.nix lib 17) // {
+        partOf = [ "NetworkManager.service" ];
+      };
       "update-root-dns-servers" = {
         description = "Download root DNS server list";
         path = [
