@@ -37,6 +37,7 @@ Halt Without Confirmation=Ctrl+Alt+Shift+PgDown,,Shut Down Without Confirmation
 Lock Session=Meta+L\tCtrl+Alt+L\tScreensaver,Meta+L\tScreensaver,Lock Session
 Log Out=Ctrl+Alt+Del,Ctrl+Alt+Del,Show Logout Prompt
 Log Out Without Confirmation=Ctrl+Alt+Shift+Del,,Log Out Without Confirmation
+LogOut=,,Log Out
 Reboot=none,,Reboot
 Reboot Without Confirmation=Ctrl+Alt+Shift+PgUp,,Reboot Without Confirmation
 Shut Down=none,,Shut Down

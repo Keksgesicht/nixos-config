@@ -144,7 +144,6 @@ quicktile-enhancementsEnabled=false
 snaphelperEnabled=true
 sticky-window-snappingEnabled=true
 synchronizeskipswitcherEnabled=false
-trackmouseEnabled=true
 videowallEnabled=false
 
 [Script-desktopchangeosd]
