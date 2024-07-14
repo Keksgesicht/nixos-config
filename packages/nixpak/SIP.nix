@@ -1,8 +1,9 @@
 { sloth, bindHomeDir, ... }:
-{ config, pkgs, ... }:
+{ config, pkgs-stable, ... }:
 
 let
   name = "SIP";
+  pkgs = pkgs-stable {};
 in
 {
   nixpak = if (config.networking.hostName == "cookieclicker") then {
