@@ -41,7 +41,11 @@ let
     ];
   };
 
-  # kill $(pidof kdeconnectd)
+  allowedPortsKDEconnect = rec {
+    allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+    allowedUDPPortRanges = allowedTCPPortRanges;
+  };
+
   allowedPortsVPNuser = {
     allowedTCPPortRanges = [
       { from = 10000; to = 65535; } # nearly all user ports
@@ -134,10 +138,12 @@ with my-functions;
         "enp4s0" = lib.mkMerge [
           allowedPortsCCbase
           allowedPortsCCextra
+          allowedPortsKDEconnect
         ];
         "wg-server" = lib.mkMerge [
           allowedPortsCCbase
           allowedPortsCCextra
+          allowedPortsKDEconnect
         ];
         "podman-server" = allowedPortsCCbase;
         "enp6s0" = allowedPortsShared;

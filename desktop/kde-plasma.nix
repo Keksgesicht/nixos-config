@@ -26,9 +26,6 @@ with my-functions;
     defaultSession = "plasma";
   };
 
-  # enable KDEconnect
-  programs.kdeconnect.enable = true;
-
   # I do not need this from nix packages
   environment."${plasma}".excludePackages = with libKDE; [
     elisa
@@ -49,6 +46,7 @@ with my-functions;
       libKDE.merkuro
       # security stuff
       libKDE.ksshaskpass
+      config.programs.kdeconnect.package
       # graphics info
       pkgs.clinfo
       pkgs.glxinfo
