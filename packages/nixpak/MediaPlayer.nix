@@ -12,6 +12,8 @@ in
           { args.remove = "%U"; args.extra = "%U"; }
         ]; }
         pkgs.yt-dlp
+        # tools needed by VLC
+        pkgs.xorg.xset
       ];
       audio = true;
     };
