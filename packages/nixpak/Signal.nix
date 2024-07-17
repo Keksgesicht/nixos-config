@@ -5,6 +5,8 @@ let
   name = "Signal";
 in
 {
+  services.pipewire.alsa.enable = true;
+
   nixpak."${name}" = {
     wrapper = {
       packages = [
@@ -30,6 +32,10 @@ in
     };
 
     bubblewrap = {
+      bind.ro = [
+        "/etc/alsa/conf.d"
+        "/etc/static/alsa/conf.d"
+      ];
       bind.rw = [
         (bindHomeDir name "/.config/Signal")
       ];
