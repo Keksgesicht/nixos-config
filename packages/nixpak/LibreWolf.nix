@@ -1,7 +1,8 @@
 { sloth, bindHomeDir, ... }:
-{ pkgs, ... }:
+{ pkgs-stable, ... }:
 
 let
+  pkgs = pkgs-stable {};
   name = "LibreWolf";
 
   arkenfox-lw = (pkgs.callPackage ../arkenfox-user.js.nix {
