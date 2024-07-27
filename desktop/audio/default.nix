@@ -1,12 +1,15 @@
-{ pkgs, username, ... }:
+{ pkgs, inputs, username, ... }:
 
 let
-  my-audio = pkgs.callPackage ../../packages/my-audio.nix {};
+  self-dir = inputs.self;
+  pkg-dir = "${self-dir}/packages";
+  my-audio = pkgs.callPackage "${pkg-dir}/my-audio.nix" {};
 in
 {
   imports = [
     ./pipewire/mic-loop.nix
     ./pipewire/noise-filter.nix
+    ./wireplumber/default.nix
   ];
 
   users.users."${username}".packages = with pkgs; [
@@ -25,14 +28,9 @@ in
     enable = true;
     pulse.enable = true;
     configPackages = [
-      (pkgs.callPackage ../../packages/config-pipewire.nix {})
+      (pkgs.callPackage "${pkg-dir}/config-pipewire.nix" {})
     ];
-    wireplumber = {
-      enable = true;
-      configPackages = [
-        (pkgs.callPackage ../../packages/config-wireplumber.nix {})
-      ];
-    };
+    wireplumber.enable = true;
   };
 
   # enable bluetooth
