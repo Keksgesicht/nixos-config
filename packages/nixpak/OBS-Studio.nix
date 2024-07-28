@@ -18,7 +18,7 @@ in
         ]; }
         # tools needed by obs-studio
         pkgs.ffmpeg
-        pkgs.xorg.xset
+        (pkgs.writeShellScriptBin "xset" ''exit 0'')
         # global hotkeys workaround
         obs-cli
       ];

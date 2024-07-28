@@ -13,7 +13,7 @@ in
         ]; }
         pkgs.yt-dlp
         # tools needed by VLC
-        pkgs.xorg.xset
+        (pkgs.writeShellScriptBin "xset" ''exit 0'')
       ];
       audio = true;
     };
