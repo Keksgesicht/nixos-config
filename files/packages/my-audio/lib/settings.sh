@@ -13,12 +13,12 @@ link_ports() {
 }
 
 link_left() {
-	for node_right_in in $(pw-link -i | grep "$2" | grep -E '_([FR]L|1|MONO)$'); do
+	for node_right_in in $(pw-link -i | grep "$2" | grep -E '_([FR]L|1|MONO|AUX0)$'); do
 		link_ports "$1" "$node_right_in"
 	done
 }
 link_right() {
-	for node_right_in in $(pw-link -i | grep "$2" | grep -E '_([FR]R|2|MONO)$'); do
+	for node_right_in in $(pw-link -i | grep "$2" | grep -E '_([FR]R|2|MONO|AUX1)$'); do
 		link_ports "$1" "$node_right_in"
 	done
 }
@@ -29,11 +29,11 @@ link_mono() {
 }
 
 link_nodes() {
-	for node_left_out in $(pw-link -o | grep "$1" | grep -E '_([FR]L|1)$'); do
+	for node_left_out in $(pw-link -o | grep "$1" | grep -E '_([FR]L|1|AUX0)$'); do
 		link_left "$node_left_out" "$2"
 	done
 
-	for node_left_out in $(pw-link -o | grep "$1" | grep -E '_([FR]R|2)$'); do
+	for node_left_out in $(pw-link -o | grep "$1" | grep -E '_([FR]R|2|AUX1)$'); do
 		link_right "$node_left_out" "$2"
 	done
 

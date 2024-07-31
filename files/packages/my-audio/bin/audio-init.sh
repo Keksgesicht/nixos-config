@@ -16,6 +16,13 @@ if [ "$(cat /etc/hostname)" = "cookiethinker" ]; then
 	done
 fi
 
+### mute hdmi outputs on desktop
+if [ "$(cat /etc/hostname)" = "cookieclicker" ]; then
+	for alsa_dev in $(pactl list sinks short | awk '/alsa_output.pci-0000_44_00.1.pro-output/ {print $2}'); do
+		pactl set-sink-mute "${alsa_dev}" 1
+	done
+fi
+
 echo "Audio connection setup finished!"
 
 # react on new devices being added and connect them automatically
