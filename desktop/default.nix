@@ -1,9 +1,6 @@
 { ... }:
 
 {
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   imports = [
     ./audio
     ./environment-desktop.nix
@@ -16,6 +13,7 @@
     ./my-user.nix
     ./openssh.nix
     ./packages.nix
+    ./printing.nix
     ../packages/nixpak
     ../services/user/xscreensaver.nix
   ];
