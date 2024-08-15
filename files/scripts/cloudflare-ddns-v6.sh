@@ -161,7 +161,7 @@ while true; do
             ;;
         local:*)
             [[ ${CHECK_IPV4} == "true" ]] && newipv4=$(ip addr show "${DETECTION_MODE/local:/}" 2>/dev/null | awk '$1 == "inet" {gsub(/\/.*$/, "", $2); print $2}' | head -1)
-            [[ ${CHECK_IPV6} == "true" ]] && newipv6=$(ip addr show "${DETECTION_MODE/local:/}" 2>/dev/null | awk '$1 == "inet6" && !/fe80:/ && !/fd00:/ && /'"${MY_IPV6_SUFFIX}"'/ {gsub(/\/.*$/, "", $2); print $2}' | head -1)
+            [[ ${CHECK_IPV6} == "true" ]] && newipv6=$(ip addr show "${DETECTION_MODE/local:/}" 2>/dev/null | awk '$1 == "inet6" && $2 !~ /^fe80:/ && $2 !~ /^fd00:/ && /'"${MY_IPV6_SUFFIX}"'/ {gsub(/\/.*$/, "", $2); print $2}' | head -1)
             ;;
     esac
     [[ ${CHECK_IPV4} == "true" ]] && logger "IPv4 detected by [${DETECTION_MODE}] is [${newipv4}]."

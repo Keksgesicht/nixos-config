@@ -2,7 +2,7 @@
 
 get-existing-static() {
 	ipv6_addr=$(ip -6 addr show "${IFLINK}" | \
-		awk '$1 == "inet6" && !/fe80:/ && !/fd00:/ && /'"${MY_IPV6_SUFFIX}"'/ {gsub(/\/.*$/, "", $2); print $2}' | \
+		awk '$1 == "inet6" && $2 !~ /^fe80:/ && $2 !~ /^fd00:/ && /'"${MY_IPV6_SUFFIX}"'/ {gsub(/\/.*$/, "", $2); print $2}' | \
 		head -n 1)
 }
 
@@ -23,7 +23,7 @@ gen-ipv6-static() {
 has-ipv6-token() {
 	sleep 3s
 	ipv6_addr=$(ip -6 addr show "${IFLINK}" | \
-		awk '$1 == "inet6" && !/fe80:/ && !/fd00:/ && /64 scope global dynamic mngtmpaddr/ {gsub(/\/.*$/, "", $2); print $2}')
+		awk '$1 == "inet6" && $2 !~ /^fe80:/ && $2 !~ /^fd00:/ && /64 scope global dynamic mngtmpaddr/ {gsub(/\/.*$/, "", $2); print $2}')
 
 	if [ -z "${ipv6_addr}" ]; then
 		return 1
@@ -55,7 +55,7 @@ set-ipv6-token() {
 	# try addresses until nobody else in the network uses the same
 	while ! has-ipv6-token; do
 		sleep 2s
-		IPTOKEN=$(get-ipv6-token)
+		IPTOKEN=$(gen-ipv6-suffix)
 		ip token set "${IPTOKEN}" dev "${IFLINK}"
 	done
 }
