@@ -30,6 +30,7 @@ with my-functions;
     ));
     myHomeFiles = [
       ".config/session/dolphin_dolphin_dolphin"
+      ".local/state/dolphinstaterc"
     ];
 
     cpHomeFile = (t: f: [
