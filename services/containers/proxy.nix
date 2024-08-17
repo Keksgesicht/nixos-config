@@ -1,9 +1,13 @@
-{ config, pkgs, lib, ssd-mnt, ... }:
+{ inputs, config, pkgs, lib, ssd-mnt, ... }:
 
 let
   cookie-pkg = (pkgs.callPackage ../../packages/unCookie.nix {});
   cc-dir = "${cookie-pkg}/containers";
+
+  bind-path = "${ssd-mnt}/appdata/swag";
+  my-functions = (import "${inputs.self}/nix/my-functions.nix" lib);
 in
+with my-functions;
 {
   imports = [
     ../../system/container.nix
@@ -27,7 +31,7 @@ in
         ];
         description = "Updates Cloudflares Proxy IPs for reverse proxy (swag)";
         serviceConfig = {
-          ReadWritePaths = "${ssd-mnt}/appdata/swag/nginx";
+          ReadWritePaths = "${bind-path}/nginx";
           BindReadOnlyPaths = [
             "/etc/ssl"
             "/etc/static/ssl"
@@ -93,7 +97,7 @@ in
         PGID = "200";
       };
       volumes = [
-        "${ssd-mnt}/appdata/swag:/config:Z"
+        "${bind-path}:/config"
       ];
       extraOptions = [
         "--network" "host"
@@ -104,4 +108,18 @@ in
       ];
     };
   };
+
+  systemd.tmpfiles.rules =
+  let
+    inCfg = "${inputs.self}/files/container-cfg/swag/nginx";
+    eList = (forEach (listFilesRec inCfg) (e:
+      let
+        eFile = lib.removePrefix inCfg e;
+      in
+      "r ${bind-path}/nginx${eFile} - - - - -"
+    ));
+  in
+  eList ++ [
+    "C+ ${bind-path}/nginx - 99 200 - ${inCfg}"
+  ];
 }

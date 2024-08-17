@@ -1,0 +1,13 @@
+ssl_preread on;
+
+proxy_connect_timeout 42s;  # max time to connect to server
+proxy_timeout         69s;  # max time between successive reads or writes
+#proxy_send_timeout    7m;  # max time between successive writes
+#proxy_read_timeout    7m;  # max time between successive reads
+
+# localhost
+#allow 127.0.0.0/8;
+#allow ::1/128;
+
+# deny everything else
+#deny all;

@@ -1,0 +1,19 @@
+# Cloudflare IPs
+#include /config/nginx/cloudflare-proxy-ipv4.txt;
+#include /config/nginx/cloudflare-proxy-ipv6.txt;
+
+# LAN
+allow 192.168.0.0/16;
+allow 172.16.0.0/12;
+allow 10.0.0.0/8;
+allow fd00:2307::/32;
+allow fd00:3581::/32;
+#allow 2001:0db8::/32;
+#allow fc00::/7;
+
+# localhost
+allow 127.0.0.0/8;
+allow ::1/128;
+
+# deny everything else
+#deny all;

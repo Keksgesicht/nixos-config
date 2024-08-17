@@ -1,0 +1,26 @@
+# facing SSL/SNI-Proxy
+geo $upstream_443 {
+    default           1443;
+    192.168.0.0/16    2443;
+    fd00:2307::/32    2443;
+    fd00:3581::/32    2443;
+}
+
+
+# WAN switch - downstream SNI-Proxy
+map $ssl_preread_server_name $upstream_1443 {
+    hostnames;
+    # https://datatracker.ietf.org/doc/html/rfc863
+    *.cookieclicker.keksgesicht.net 9;
+    *.cookiepi.keksgesicht.net 9;
+    *.keksgesicht.net  8443;
+}
+
+
+# LAN switch - upstream or downstream SNI-proxy
+map $ssl_preread_server_name $upstream_2443 {
+    hostnames;
+    default           3443;
+    *.keksgesicht.net 8443;
+    keksgesicht.net   8443;
+}
