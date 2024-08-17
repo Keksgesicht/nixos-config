@@ -81,7 +81,7 @@ in
           if (config.networking.hostName == "cookieclicker") then
             "wildcard,*.cookieclicker"
           else if (config.networking.hostName == "cookiepi") then
-            "wildcard,*.cookiepi,cloud"
+            "wildcard,*.cookiepi,cloud,tandoor.tb"
           else "";
         ONLY_SUBDOMAINS = "true";
         VALIDATION = "dns";

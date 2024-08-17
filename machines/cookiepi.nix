@@ -25,6 +25,7 @@ in
     ../services/containers/nextcloud.nix
     ../services/containers/pihole.nix
     ../services/containers/proxy.nix
+    ../services/containers/tandoor.nix
     ../services/containers/unbound.nix
     ../services/system/backup-snapshot.nix
     ../services/system/wireguard/server.nix
