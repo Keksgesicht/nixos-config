@@ -389,6 +389,7 @@ let
           ''
             cp "$src/share/applications/${af.src}.desktop" \
                "$out/share/applications/${af.dst}.desktop"
+            chmod 444 "$out/share/applications/${af.dst}.desktop"
             if [ "${af.args.remove}" != "" ]; then
               sed -i '/^Exec=/s/${af.args.remove}//g' \
                "$out/share/applications/${af.dst}.desktop"
