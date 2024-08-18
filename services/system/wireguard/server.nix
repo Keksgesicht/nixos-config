@@ -70,16 +70,6 @@ in
         postSetup = (wg-nat ipv4 ipv6 port "-A");
         postShutdown = (wg-nat ipv4 ipv6 port "-D");
         peers = [
-          {
-            name = "cookiepi";
-            endpoint = "25.host.keksgesicht.net:22243";
-            publicKey = (wg-pubkey-path "cookiepi");
-            presharedKeyFile = "${wg-path-keys}/shared/${name}-cookiepi";
-            allowedIPs = [
-              "192.168.176.0/24"
-              "fd00:2307::/64"
-            ];
-          }
           (wg-client-handy name)
           wg-client-laptop
         ];
@@ -100,16 +90,6 @@ in
         postSetup = (wg-nat ipv4 ipv6 port "-A");
         postShutdown = (wg-nat ipv4 ipv6 port "-D");
         peers = [
-          {
-            name = "cookieclicker";
-            #endpoint = "150.host.keksgesicht.net:22223";
-            publicKey = (wg-pubkey-path "cookieclicker");
-            presharedKeyFile = "${wg-path-keys}/shared/cookieclicker-${name}";
-            allowedIPs = [
-              "192.168.176.0/24"
-              "fd00:2307::/64"
-            ];
-          }
           (wg-client-handy name)
           wg-client-laptop
         ];
