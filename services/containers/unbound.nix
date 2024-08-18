@@ -146,4 +146,9 @@ with my-functions;
     "r  ${bind-path}/conf/keksgesicht.net.conf - - - - -"
     "C+ ${bind-path}/conf/keksgesicht.net.conf - 100 101 - ${keksNetConf}"
   ];
+
+  boot.kernel.sysctl = {
+    "net.core.rmem_max" = 4194304;
+    "net.core.wmem_max" = 4194304;
+  };
 }
