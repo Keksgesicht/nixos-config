@@ -12,7 +12,7 @@ TurnOffDisplayIdleTimeoutWhenLockedSec=900
 UseProfileSpecificKeyboardBrightness=true
 
 [AC][SuspendAndShutdown]
-AutoSuspendIdleTimeoutSec=2520
+AutoSuspendIdleTimeoutSec=1920
 InhibitLidActionWhenExternalMonitorPresent=false
 LidAction=32
 PowerButtonAction=1

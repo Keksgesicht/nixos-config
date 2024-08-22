@@ -6,7 +6,7 @@
     settings = {
       enable = true;
       interval = 60;
-      idle_time = 42 * 60;
+      idle_time = 23 * 60;
     };
     # https://autosuspend.readthedocs.io/en/latest/available_checks.html
     checks = {
