@@ -1,9 +1,8 @@
-{ config, pkgs, ssd-mnt
-, hdd-mnt, hdd-name
-, nvm-mnt, nvm-name
-, ... }:
+{ config, pkgs, pkgs-stable, ssd-mnt, hdd-mnt, hdd-name, nvm-mnt, nvm-name, ... }:
 
 let
+  pkgs-sta = pkgs-stable {};
+
   hn = config.networking.hostName;
   delayTimer = {
     timerConfig.RandomizedDelaySec = "222s";
@@ -12,7 +11,7 @@ in
 {
   environment.systemPackages = with pkgs; [
     btrfs-progs
-    compsize
+    pkgs-sta.compsize
     duperemove
   ];
 
