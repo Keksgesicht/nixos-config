@@ -55,33 +55,6 @@ with my-functions;
     ];
   };
 
-  systemd.services = {
-    /*
-     * https://www.freedesktop.org/software/systemd/man/systemd.exec.html#LogFilterPatterns=
-     * https://forum.manjaro.org/t/stable-update-2023-06-04-kernels-gnome-44-1-plasma-5-27-5-python-3-11-toolchain-firefox/141610/3
-     * do not log messages with the following regex
-     */
-    "user@" = {
-      overrideStrategy = "asDropin";
-      serviceConfig = {
-        TimeoutStopSec = 23;
-        LogFilterPatterns = [
-          "~kwin_screencast: Dropping"
-          "~ERROR: SSL connect error ::::: FUNCTION: curl::curl_easy::perform"
-          "~handshake failed; returned -1, SSL error code 1, net_error -100"
-          "~Cannot create bo with format= YUV_420_BIPLANAR and usage=SCANOUT_CPU_READ_WRITE"
-        ];
-      };
-    };
-
-    # faster shutdowns
-    "display-manager" = {
-      serviceConfig = {
-        TimeoutStopSec = 23;
-      };
-    };
-  };
-
   systemd.tmpfiles.rules = [
     # calendar does not show events without it
     # https://github.com/NixOS/nixpkgs/issues/143272

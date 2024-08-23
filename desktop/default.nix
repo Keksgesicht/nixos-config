@@ -14,6 +14,7 @@
     ./openssh.nix
     ./packages.nix
     ./printing.nix
+    ./sd-user.nix
     ../packages/nixpak
     ../services/user/xscreensaver.nix
   ];
