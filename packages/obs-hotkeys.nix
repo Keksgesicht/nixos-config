@@ -1,5 +1,5 @@
 { stdenv, lib, callPackage, makeWrapper
-, bash, coreutils, gawk }:
+, bash, coreutils, jq }:
 
 let
   obs-cli = (callPackage ./obs-cli.nix {});
@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     cp -r $src/lib/. $out/lib/
     patchShebangs $out/bin/saveReplayBuffer.sh
     wrapProgram $out/bin/saveReplayBuffer.sh \
-      --set PATH "${coreutils}/bin:${gawk}/bin:${obs-cli}/bin"
+      --set PATH "${coreutils}/bin:${jq}/bin:${obs-cli}/bin"
   '';
 
   meta = with lib; {

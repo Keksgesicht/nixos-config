@@ -1,4 +1,4 @@
-{ lib, pkgs, buildGoModule, fetchFromGitHub }:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=obs-cli
 let
@@ -6,7 +6,7 @@ let
   pkgver = "0.5.0";
   commit = "2980d83c681114d6f5d90c924626b92f0b937b6a";
 in
-buildGoModule rec {
+buildGoModule {
   pname = "${pkgname}";
   name = "obs-studio-cli";
   version = "${pkgver}";
