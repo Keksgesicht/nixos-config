@@ -29,9 +29,11 @@ in
           (arkenfox-lw)
           (sloth.concat' sloth.homeDir "/.librewolf/user.js")
         ]
+        (sloth.mkdir (sloth.concat' sloth.homeDir "/Downloads/read-only"))
       ];
       bind.rw = [
         (bindHomeDir name "/.librewolf")
+        (sloth.mkdir (sloth.concat' sloth.homeDir "/Downloads/read-write"))
       ];
       network = true;
     };
