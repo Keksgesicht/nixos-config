@@ -32,10 +32,7 @@ pactl set-sink-mute 'void_sink' 1
 if [ "$(cat /etc/hostname)" = "cookieclicker" ]; then
 	unlink_inputs 'mic_filter_sink'
 	unlink_outputs 'mic_filter_source'
-	link_nodes 'echo_in_source' 'mic_filter_sink'
 	link_nodes 'mic_filter_source' 'virt_mic_sink'
-else
-	link_nodes 'echo_in_source' 'virt_mic_sink'
 fi
 "${work_dir}"/audio-setup-hw-source.sh
 
