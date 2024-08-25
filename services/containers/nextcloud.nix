@@ -76,8 +76,6 @@ in
       volumes = [
         "${ssd-mnt}/appdata/nextcloud:/config"
         "${hdd-mnt}/appdata2/nextcloud:/data"
-        "${hdd-mnt}/homeBraunJan:/mnt/external_storage/homeBraunJan:ro"
-        "${hdd-mnt}/homeGaming:/mnt/external_storage/homeGaming:ro"
       ];
       extraOptions = [
         "--network" "server"
