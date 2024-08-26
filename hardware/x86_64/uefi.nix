@@ -6,21 +6,8 @@
   ];
 
   boot = {
-    initrd = {
-      availableKernelModules = [
-        "nvme"
-        "sd_mod"
-        "sdhci_pci"
-        "usb_storage"
-        "xhci_pci"
-        # if it does not work, look at what the following gives you:
-        # > lsmod | grep tpm
-        # > systemd-cryptenroll --tpm2-device=list
-        "tpm_crb"
-        "tpm_tis"
-      ];
-      systemd.enable = true;
-    };
+    # enable SystemD in initramfs
+    initrd.systemd.enable = true;
 
     # Bootloader
     loader = {

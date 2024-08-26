@@ -1,6 +1,8 @@
-{ config, pkgs, username, ...}:
+{ pkgs, username, ... }:
 
 {
+  boot.initrd.systemd.enableTpm2 = true;
+
   environment.systemPackages = with pkgs; [
     tpm2-tools
   ];
