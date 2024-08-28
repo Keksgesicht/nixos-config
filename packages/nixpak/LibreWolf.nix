@@ -1,8 +1,7 @@
-{ sloth, bindHomeDir, ... }:
-{ pkgs-stable, ... }:
+{ sloth, appDir, bindHomeDir, ... }:
+{ pkgs, ... }:
 
 let
-  pkgs = pkgs-stable {};
   name = "LibreWolf";
 
   arkenfox-lw = (pkgs.callPackage ../arkenfox-user.js.nix {
@@ -20,11 +19,17 @@ in
 
     dbus.policies = {
       "io.gitlab.librewolf.*" = "own";
+      "org.mozilla.firefox.*" = "own";
       "org.mpris.MediaPlayer2.firefox.*" = "own";
     };
 
     bubblewrap = {
       bind.ro = [
+        [
+          # mozilla.cfg
+          ("${pkgs.librewolf}/lib/librewolf")
+          ("/app/etc/firefox")
+        ]
         [
           (arkenfox-lw)
           (sloth.concat' sloth.homeDir "/.librewolf/user.js")
