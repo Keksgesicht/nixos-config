@@ -35,10 +35,9 @@
       owner = "nix-community";
       repo = "lanzaboote";
       ref = "master";
-      rev = "3881267e84cc966ded48601390e88fc13d960319";
+      rev = "e7bd94e0b5ff3c1e686f2101004ebf4fcea9d871";
 
       inputs.nixpkgs.follows = "nixpkgs-unstable";
-      #inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
 
     # https://github.com/nixpak/nixpak
