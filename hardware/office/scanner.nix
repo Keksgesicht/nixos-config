@@ -27,7 +27,7 @@ in
 
   users.users."${username}" = {
     packages = with pkgs; [
-      gnome.simple-scan
+      simple-scan
       #kdePackages.skanlite
     ];
     extraGroups = [
