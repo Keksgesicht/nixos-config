@@ -69,9 +69,7 @@ in
 
         # Heroic Games Launcher
         { package = pkgs.heroic; binName = "heroic"; appFile = [
-          { src = "com.heroicgameslauncher.hgl"; args.extra = [
-            "--enable-features=UseOzonePlatform" "--ozone-platform=wayland"
-          ]; }
+          { src = "com.heroicgameslauncher.hgl"; }
         ]; }
 
         # Minecraft
