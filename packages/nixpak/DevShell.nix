@@ -28,7 +28,7 @@ in
         ]
         #(sloth.concat' sloth.homeDir "/git")
       ];
-      #network = true;
+      network = true;
     };
   };
 }
