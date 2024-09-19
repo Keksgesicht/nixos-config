@@ -1,6 +1,4 @@
-{ lib, username, home-dir
-, ssd-mnt, hdd-mnt, nvm-mnt, data-dir
-, ... }:
+{ lib, username, home-dir, ssd-mnt, hdd-mnt, nvm-mnt, data-dir, ... }:
 
 let
   bind-opt = [
@@ -192,6 +190,7 @@ with my-functions;
   ++ secureUserDir [
     "${trash-dir}"
     "${ssd-mnt}/root${home-dir}/.cache"
+    "${ssd-mnt}/root${home-dir}/.cache/thumbnails"
     "${ssd-mnt}/root${home-dir}/.local/share"
   ] ++ [
     "L+ ${data-dir}/devel  - - - - ${data-dir}/Documents/development"
