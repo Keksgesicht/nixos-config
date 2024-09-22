@@ -41,6 +41,12 @@ let
     ];
   };
 
+  allowedPortsSSH = {
+    allowedTCPPorts = if config.services.openssh.enable
+      then [ 22 ]
+      else [];
+  };
+
   allowedPortsKDEconnect = rec {
     allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
     allowedUDPPortRanges = allowedTCPPortRanges;
@@ -154,7 +160,7 @@ with my-functions;
         "enp2s0" = allowedPortsShared;
         "wlo1" = {
           allowedUDPPorts = [ 5353 ];
-        };
+        } // allowedPortsSSH;
       }
       else {};
   };
@@ -172,7 +178,8 @@ with my-functions;
 
     # LAN devices
     "192.168.178.150" = [ "cookieclicker.local" ];
-    "192.168.178.25" = [ "cookiepi.local" ];
+    "192.168.178.25"  = [ "cookiepi.local" ];
+    "192.168.178.147" = [ "cookiethinker.local" ];
 
     # TUDa ESA-Infrastruktur (sshuttle)
     "10.5.0.38" = [ "gitlab.esa.informatik.tu-darmstadt.de" ];

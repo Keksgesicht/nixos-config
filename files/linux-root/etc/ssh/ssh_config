@@ -68,6 +68,11 @@ Host cookiepi
 	User keks
 	IdentityFile ~/.secrets/ssh/id_nixos
 
+Host cookiethinker
+	HostName cookiethinker.local
+	User keks
+	IdentityFile ~/.secrets/ssh/id_nixos
+
 Host pihole
 	HostName rpi.pihole.local
 	User cookie

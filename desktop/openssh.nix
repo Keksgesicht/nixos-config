@@ -36,6 +36,7 @@ in
     ]
     ++ sshServerKeys "cookieclicker"
     ++ sshServerKeys "cookiepi"
+    ++ sshServerKeys "cookiethinker"
     ++ sshServerKeys "mail.keksgesicht.net"
     ++ sshServerKeys "rpi.pihole.local"
     ;

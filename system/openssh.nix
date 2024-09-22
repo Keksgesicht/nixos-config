@@ -21,7 +21,8 @@
       PasswordAuthentication = false;
       PermitEmptyPasswords = false;
       PermitRootLogin =
-        if (config.networking.hostName == "cookieclicker")
+        if (config.networking.hostName == "cookieclicker"
+         || config.networking.hostName == "cookiethinker")
         then lib.mkForce "no"
         else lib.mkForce "yes";
       PubkeyAuthentication = true;
