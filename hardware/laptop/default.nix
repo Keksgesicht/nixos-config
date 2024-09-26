@@ -12,6 +12,7 @@
   boot.initrd.luks.devices = {
     "root" = {
       device = "/dev/disk/by-uuid/c720b152-baf0-4336-bb04-83f01857cfab";
+      crypttabExtraOpts = [ "tpm2-device=auto" ];
     };
   };
   swapDevices = [ {
