@@ -1,4 +1,4 @@
-{ pkgs-stable, ... }:
+{ lib, pkgs-stable, ... }:
 
 let
   pkgs = pkgs-stable {
@@ -9,7 +9,9 @@ in
   # Enable CUPS to print documents.
   # https://nixos.wiki/wiki/Printing
   services.printing = {
-    enable = true;
+    #enable = true;
+    browsing = lib.mkForce false;
+    openFirewall = lib.mkForce false;
     drivers = with pkgs; [
       gutenprint
     ];
