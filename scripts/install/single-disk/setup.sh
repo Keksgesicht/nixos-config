@@ -147,4 +147,4 @@ set +ex
 lsblk -f
 exit 0
 
-# "4EFC-A800" "92756ea5-50ee-456c-b760-5c997fcb54ad" cookiepi
+# "4EFC-A800" "867c7b32-c672-4660-aa54-57262ff3ebdf" cookiepi

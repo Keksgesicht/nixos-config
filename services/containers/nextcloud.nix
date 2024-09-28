@@ -44,7 +44,6 @@ in
     in
     {
       "podman-nextcloud" = (import ./podman-systemd-service.nix lib 23) // serviceExtraConfig;
-      "podman-nextcloud-cron" = (import ./podman-systemd-service.nix lib 25) // serviceExtraConfig;
       "podman-nextcloud-db" = (import ./podman-systemd-service.nix lib 27);
       "podman-nextcloud-redis" = (import ./podman-systemd-service.nix lib 27);
     };

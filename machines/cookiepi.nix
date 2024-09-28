@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, hdd-mnt, hdd-name, ... }:
 
 let
   secrets-pkg = (pkgs.callPackage ../packages/my-secrets.nix {});
@@ -35,17 +35,28 @@ in
     ../system/network/server/lan.nix
   ];
 
-  # filesystem extras
+  # required boot mounts
   fileSystems."/boot".device = "/dev/disk/by-uuid/4EFC-A800";
-  boot.initrd.luks.devices = {
-    "root" = {
-      device = "/dev/disk/by-uuid/92756ea5-50ee-456c-b760-5c997fcb54ad";
-    };
+  boot.initrd.luks.devices."root" = {
+    device = "/dev/disk/by-uuid/867c7b32-c672-4660-aa54-57262ff3ebdf";
+    crypttabExtraOpts = [ "tpm2-device=auto" ];
   };
   swapDevices = [ {
-    device = "/dev/disk/by-id/ata-Samsung_SSD_850_EVO_1TB_S2RFNX0HA26869P-part2";
+    device = "/dev/disk/by-id/ata-Samsung_SSD_850_EVO_120GB_S21UNXAGA07082H-part2";
     randomEncryption.enable = true;
   } ];
+
+  # delayed array mount
+  environment.etc."crypttab".text = ''
+    ${hdd-name} /dev/disk/by-uuid/92756ea5-50ee-456c-b760-5c997fcb54ad - nofail,tpm2-device=auto
+  '';
+  fileSystems."${hdd-mnt}" = {
+    device = lib.mkForce "/dev/disk/by-label/${hdd-name}";
+    options = [ # extend filesystem-single-disk.nix
+      "nofail"
+      "x-systemd.requires=systemd-cryptsetup@${hdd-name}.service"
+    ];
+  };
 
   # allow remote backups
   users.users."root".openssh.authorizedKeys.keyFiles = [
