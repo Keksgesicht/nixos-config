@@ -22,6 +22,7 @@ disk_efi() {
 	echo t
 	echo 3
 	echo uefi
+	sleep 1s
 	echo w
 	) | fdisk "${DISK_TARGET}"
 
@@ -45,6 +46,7 @@ disk_root_plus_swap() {
 	echo t
 	echo 2
 	echo swap
+	sleep 1s
 	echo w
 	) | fdisk "${DISK_TARGET}"
 

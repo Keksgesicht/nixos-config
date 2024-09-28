@@ -8,6 +8,7 @@ DISK_FILE="/dev/nvme1n1"
 echo t
 echo 2
 echo uefi
+sleep 1s
 echo w
 ) | fdisk ${DISK_FILE}
 
