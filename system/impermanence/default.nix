@@ -60,10 +60,12 @@ in
           }
           delete_subvolumes() {
               IFS=$'\n'
+              set +e
               for sv in $(btrfs subvolume list -o "$1" | cut -d' ' -f9); do
                   btrfs subvolume delete /mnt-${ssd-name}/$sv
               done
               btrfs subvolume delete $1
+              set -e
           }
 
           mkdir -p $TMP_MNT
