@@ -86,8 +86,6 @@ setup_root() {
 
 	btrfs subvolume create 'etc'
 	mkdir -p 'root/etc'
-	mount -o 'compress=zstd:3,subvol=etc' \
-		"/dev/mapper/${LUKS_NAME}" 'root/etc'
 
 	btrfs subvolume create 'nix'
 	mkdir -p 'root/nix'

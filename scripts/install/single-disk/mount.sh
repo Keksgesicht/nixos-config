@@ -35,7 +35,6 @@ cryptsetup open "/dev/disk/by-uuid/${UUID_ROOT}" ${LUKS_NAME}
 mkdir -p "${MNT}"
 mount "/dev/mapper/${LUKS_NAME}" "${MNT}"
 
-mount -o subvol=etc "/dev/mapper/${LUKS_NAME}" "${MNT}/root/etc"
 mount -o subvol=nix "/dev/mapper/${LUKS_NAME}" "${MNT}/root/nix"
 mount "/dev/disk/by-uuid/${UUID_EFI}" "${MNT}/root/boot"
 
