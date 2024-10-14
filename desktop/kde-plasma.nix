@@ -87,6 +87,22 @@ with my-functions;
     };
   };
 
+  environment.etc."tmpfiles.d/ZZ-sddm-no-audio.conf".text =
+  let
+    dn = "/dev/null";
+    sdUser = "/.config/systemd/user";
+    sddmHome = "/var/lib/sddm";
+  in ''
+    d  ${sddmHome}/.config          0750 sddm sddm - -
+    d  ${sddmHome}/.config/systemd  0750 sddm sddm - -
+    d  ${sddmHome}${sdUser}         0750 sddm sddm - -
+    L+ ${sddmHome}${sdUser}/pipewire.service       - - - - ${dn}
+    L+ ${sddmHome}${sdUser}/pipewire.socket        - - - - ${dn}
+    L+ ${sddmHome}${sdUser}/pipewire-pulse.service - - - - ${dn}
+    L+ ${sddmHome}${sdUser}/pipewire-pulse.socket  - - - - ${dn}
+    L+ ${sddmHome}${sdUser}/wireplumber.service    - - - - ${dn}
+  '';
+
   home-manager.users."${username}" =
   let
     plasma-manager = inputs.plasma-manager;
