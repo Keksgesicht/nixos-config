@@ -59,7 +59,6 @@ in
         "pipewire-pulse.service"
         "wireplumber.service"
       ];
-      preStart = "sleep 3s";
       serviceConfig = {
         ExecStart = "${my-audio}/bin/audio-init.sh";
         Restart = "always";
