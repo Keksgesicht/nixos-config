@@ -29,15 +29,17 @@ download-snapshot() {
 		download \
 			"root@${target_host}":"${line}/.backup/latest/" \
 			"${DATA_DIR}${line}/"
-	done < "${cfg_dir}/snapshot/${system_name}"
+	done < "${cfg_dir}/snapshot/${pattern_file}"
 }
 
 realpath "${cfg_dir}"/*/"${system_name}"
 
 if [ -f "${cfg_dir}/rsync.pattern/${system_name}" ]; then
 	download-pattern
-fi
-
-if [ -f "${cfg_dir}/snapshot/${system_name}" ]; then
+elif [ -f "${cfg_dir}/snapshot/${system_name}" ]; then
+	pattern_file="${system_name}"
+	download-snapshot
+else
+	pattern_file="default"
 	download-snapshot
 fi
