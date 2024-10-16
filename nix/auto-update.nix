@@ -38,6 +38,7 @@ in
     flags = [
       "--update-input" "nixpkgs-stable"
       "--update-input" "nixpkgs-unstable"
+      "--update-input" "cookie-pkg"
       "--print-build-logs" # -L
       #"--verbose"         # -v
     ];

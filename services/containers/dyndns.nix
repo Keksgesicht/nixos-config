@@ -1,10 +1,7 @@
-{ config, pkgs, lib
-, ssd-mnt, secrets-dir
-, ... }:
+{ config, pkgs, lib, ssd-mnt, cookie-pkg, secrets-dir, ... }:
 
 let
   ddns-v6-file = ../../files/scripts/cloudflare-ddns-v6.sh;
-  cookie-pkg = (pkgs.callPackage ../../packages/unCookie.nix {});
   cc-dir = "${cookie-pkg}/containers";
 
   CF_HOSTS =

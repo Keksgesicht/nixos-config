@@ -1,9 +1,6 @@
-{ config, pkgs, lib
-, ssd-mnt, nvm-mnt, nvm-name
-, ... }:
+{ config, pkgs, lib, cookie-pkg, ssd-mnt, nvm-mnt, nvm-name, ... }:
 
 let
-  cookie-pkg = (pkgs.callPackage ../../packages/unCookie.nix {});
   cc-dir = "${cookie-pkg}/containers";
 in
 {

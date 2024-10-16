@@ -1,9 +1,7 @@
-{ config, pkgs, lib, secrets-dir, hdd-mnt, hdd-name, ... }:
+{ config, pkgs, lib, cookie-pkg, secrets-dir, hdd-mnt, hdd-name, ... }:
 
 let
-  cookie-pkg = (pkgs.callPackage ../../packages/unCookie.nix {});
   cc-dir = "${cookie-pkg}/containers";
-
   sec-file = "${secrets-dir}/keys/containers/tandoor/ENV";
   bind-path = "${hdd-mnt}/appdata2/tandoor";
 in

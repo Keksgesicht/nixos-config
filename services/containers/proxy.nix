@@ -1,9 +1,7 @@
-{ inputs, config, pkgs, lib, ssd-mnt, ... }:
+{ inputs, config, pkgs, lib, cookie-pkg, ssd-mnt, ... }:
 
 let
-  cookie-pkg = (pkgs.callPackage ../../packages/unCookie.nix {});
   cc-dir = "${cookie-pkg}/containers";
-
   bind-path = "${ssd-mnt}/appdata/swag";
   my-functions = (import "${inputs.self}/nix/my-functions.nix" lib);
 in

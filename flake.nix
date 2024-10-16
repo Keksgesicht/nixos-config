@@ -5,6 +5,12 @@
     nixpkgs-stable.url = "nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
+    # system state
+    cookie-pkg = {
+      url = "/etc/unCookie";
+      flake = false;
+    };
+
     # my semi-problematic data
     secrets-pkg = {
       url = "/etc/nixos/secrets/local";
@@ -74,6 +80,7 @@
     self,
     nixpkgs-stable,
     nixpkgs-unstable,
+    cookie-pkg,
     secrets-pkg,
     home-manager,
     impermanence,
@@ -107,6 +114,7 @@
 
         secrets-dir = "/etc/nixos/secrets";
         secrets-pkg = inputs.secrets-pkg;
+        cookie-pkg  = inputs.cookie-pkg;
       });
     in
     {
