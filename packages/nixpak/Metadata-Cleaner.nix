@@ -1,7 +1,8 @@
 { ... }:
-{ pkgs, ... }:
+{ pkgs-stable, ... }:
 
 let
+  pkgs = pkgs-stable {};
   name = "Metadata-Cleaner";
 in
 {

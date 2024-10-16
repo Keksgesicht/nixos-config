@@ -15,7 +15,6 @@ in
           { src = "com.github.hluk.copyq"; }
         ]; }
         gwenviewPkg
-        pkgs.metadata-cleaner
         # picture editor
         { package = pkgs.gimp; binName = "gimp"; }
         { package = pkgs.inkscape; binName = "inkscape"; appFile = [
