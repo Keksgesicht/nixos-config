@@ -1,16 +1,22 @@
-{ config, lib, inputs, ... }:
+{ config, inputs, nixDev, home-dir, username, ... }:
 
 let
   nixos-cfg-path = "/etc/nixos";
-  latest-lock-file = "/nix/var/nix/profiles/system/etc/flake-output/flake.lock";
+  current-system = "/nix/var/nix/profiles/system";
+  lock-file-symlink = "/etc/flake-output/nixos-config/flake.lock";
+  lock-file-latest = "${current-system}${lock-file-symlink}";
+
+  srvNameCopy = "copy-latest-lock-file";
+  netName = config.networking.hostName;
+  localCfgDir =
+    if (netName == "cookieclicker" || netName == "cookiethinker")
+    then "${home-dir}/git/hdd/nix/config/nixos"
+    else "${home-dir}/nixos-config";
 in
 {
   environment.etc = {
     "flake-output/nixos-config" = {
       source = inputs.self.outPath;
-    };
-    "flake-output/flake.lock" = {
-      source = /etc/nixos/flake.lock;
     };
   };
 
@@ -38,9 +44,16 @@ in
     ];
   };
 
-  systemd.tmpfiles.rules = lib.mkAfter [
-    "C+ ${nixos-cfg-path}/flake-latest.lock - - - - ${latest-lock-file}"
-  ];
+  systemd.services = {
+    "nixos-upgrade".onSuccess = [ "${srvNameCopy}.service" ];
+    "${srvNameCopy}".script = ''
+      LOCK_FILE="${localCfgDir}/flake.lock"
+      rm "$LOCK_FILE"
+      cp "${lock-file-latest}" "$LOCK_FILE"
+      chown "${username}:${username}" "$LOCK_FILE"
+    '';
+  };
+
   nix.settings.extra-sandbox-paths = [
     nixos-cfg-path
   ];
