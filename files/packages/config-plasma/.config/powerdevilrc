@@ -1,8 +1,3 @@
-[BatteryManagement]
-BatteryCriticalAction=8
-BatteryCriticalLevel=5
-BatteryLowLevel=25
-
 [AC][Display]
 DimDisplayIdleTimeoutSec=600
 TurnOffDisplayIdleTimeoutSec=1920
@@ -41,8 +36,14 @@ btOption=0
 wifiOption=0
 wwanOption=0
 
+[BatteryManagement]
+BatteryCriticalAction=8
+BatteryCriticalLevel=5
+BatteryLowLevel=25
+
 [LowBattery][Display]
-DisplayBrightness=10
+DimDisplayIdleTimeoutSec=30
+DisplayBrightness=5
 TurnOffDisplayIdleTimeoutSec=60
 TurnOffDisplayIdleTimeoutWhenLockedSec=15
 

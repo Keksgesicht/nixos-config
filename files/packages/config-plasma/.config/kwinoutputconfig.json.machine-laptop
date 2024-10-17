@@ -3,6 +3,8 @@
         "data": [
             {
                 "autoRotation": "InTabletMode",
+                "brightness": 0.05,
+                "colorProfileSource": "sRGB",
                 "connectorName": "eDP-1",
                 "edidHash": "0e4b7ed9a65ba090c5c7d54a91f926cd",
                 "edidIdentifier": "CMN 5622 0 17 2017 0",
