@@ -3,6 +3,9 @@
 let
   logoFile = ../../files/face.png;
   themePkg = pkgs.plasma5Packages.breeze-plymouth;
+
+  osVer = config.system.nixos.label;
+  netName = config.networking.hostName;
 in
 {
   boot.plymouth = {
@@ -13,7 +16,7 @@ in
       inherit logoFile;
       logoName = "keks";
       osName = "KexOS";
-      osVersion = config.system.nixos.release;
+      osVersion = osVer;
     }) ];
   };
 
