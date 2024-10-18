@@ -27,4 +27,4 @@ Output/Audio:media.name:Media\s(Noise\sCanceling)={"mute":false, "channelVolumes
 Output/Audio:media.name:Microphone\s(Noise\sCanceling)={"mute":false, "channelVolumes":[1.000000], "volume":1.000000, "channelMap":["MONO"]}
 Output/Audio:media.name:Recording\s/\sGaming\soutput={"mute":false, "channelVolumes":[1.000000, 1.000000], "volume":1.000000, "channelMap":["FL", "FR"]}
 Output/Audio:media.name:Speaker\sto\sMicrophone\s(mic+all)\soutput={"mute":false, "channelVolumes":[1.000000, 1.000000], "volume":1.000000, "channelMap":["FL", "FR"]}
-Output/Audio:media.role:Notification={"mute":false, "volume":1.000000, "channelMap":["FL", "FR"], "channelVolumes":[0.2144780009985, 0.2144780009985]}
+Output/Audio:media.role:Notification={"channelVolumes":[0.125000, 0.125000], "channelMap":["FL", "FR"], "mute":false, "volume":1.000000}
