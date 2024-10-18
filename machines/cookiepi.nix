@@ -1,7 +1,6 @@
-{ pkgs, lib, hdd-mnt, hdd-name, ... }:
+{ lib, secrets-pkg, hdd-mnt, hdd-name, ... }:
 
 let
-  secrets-pkg = (pkgs.callPackage ../packages/my-secrets.nix {});
   keyPathClient = secrets-pkg + "/ssh/client";
 in
 {

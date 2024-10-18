@@ -1,7 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, secrets-pkg, lib, ... }:
 
 let
-  secrets-pkg = (pkgs.callPackage ../packages/my-secrets.nix {});
   sshServerKeys = (name:
     lib.optionals (config.networking.hostName != "${name}") [
       ( secrets-pkg + "/ssh/server" + "/${name}" )

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, username, home-dir, ssd-mnt, ... }:
+{ config, pkgs, lib, inputs, secrets-pkg, username, home-dir, ssd-mnt, ... }:
 
 let
   machine-name =
@@ -11,7 +11,6 @@ let
   xdgState = "${home-dir}/.local/state";
 
   my-audio = (pkgs.callPackage ../packages/my-audio.nix {});
-  secrets-pkg = (pkgs.callPackage ../packages/my-secrets.nix {});
   plasma-config = (pkgs.callPackage ../packages/config-plasma.nix {});
 
   my-functions = (import ../nix/my-functions.nix lib);

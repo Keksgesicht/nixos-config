@@ -1,10 +1,9 @@
-{ config, pkgs, lib, inputs, secrets-dir, username, ... }:
+{ config, pkgs, lib, secrets-pkg, secrets-dir, username, ... }:
 
 let
   lo = lib.optionals;
   hn = config.networking.hostName;
 
-  secrets-pkg = (pkgs.callPackage "${inputs.self}/packages/my-secrets.nix" {});
   wg-path-data = "${secrets-pkg}/wireguard";
   wg-path-keys = "${secrets-dir}/keys/wireguard";
 

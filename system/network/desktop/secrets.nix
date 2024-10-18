@@ -1,7 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, secrets-pkg, ... }:
 
 let
-  secrets-pkg = (pkgs.callPackage ../../../packages/my-secrets.nix {});
   nmsc-path = "linux-root/etc/NetworkManager/system-connections";
   nmsc-data = "${secrets-pkg}/${nmsc-path}";
 in

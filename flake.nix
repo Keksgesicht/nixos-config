@@ -5,6 +5,12 @@
     nixpkgs-stable.url = "nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
+    # my semi-problematic data
+    secrets-pkg = {
+      url = "/etc/nixos/secrets/local";
+      flake = false;
+    };
+
     # https://nixos.wiki/wiki/Home_Manager
     # https://github.com/nix-community/home-manager
     # https://nix-community.github.io/home-manager/
@@ -68,6 +74,7 @@
     self,
     nixpkgs-stable,
     nixpkgs-unstable,
+    secrets-pkg,
     home-manager,
     impermanence,
     lanzaboote,
@@ -99,6 +106,7 @@
         data-dir = "${hdd-mnt}/homeBraunJan";
 
         secrets-dir = "/etc/nixos/secrets";
+        secrets-pkg = inputs.secrets-pkg;
       });
     in
     {

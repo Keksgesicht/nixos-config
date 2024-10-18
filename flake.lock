@@ -322,7 +322,8 @@
         "nixpak": "nixpak",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "plasma-manager": "plasma-manager"
+        "plasma-manager": "plasma-manager",
+        "secrets-pkg": "secrets-pkg"
       }
     },
     "rust-overlay": {
@@ -344,6 +345,19 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "secrets-pkg": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1727023095,
+        "narHash": "sha256-uyOcAO5pmnr7/Ithh5uUcasrt7lm/dlBHf12Dhy5GTY=",
+        "path": "/etc/nixos/secrets/local",
+        "type": "path"
+      },
+      "original": {
+        "path": "/etc/nixos/secrets/local",
+        "type": "path"
       }
     }
   },

@@ -1,7 +1,6 @@
-{ config, inputs, nixDev, home-dir, username, ... }:
+{ config, inputs, home-dir, username, ... }:
 
 let
-  nixos-cfg-path = "/etc/nixos";
   current-system = "/nix/var/nix/profiles/system";
   lock-file-symlink = "/etc/flake-output/nixos-config/flake.lock";
   lock-file-latest = "${current-system}${lock-file-symlink}";
@@ -53,8 +52,4 @@ in
       chown "${username}:${username}" "$LOCK_FILE"
     '';
   };
-
-  nix.settings.extra-sandbox-paths = [
-    nixos-cfg-path
-  ];
 }

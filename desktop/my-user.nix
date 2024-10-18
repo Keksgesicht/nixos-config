@@ -1,12 +1,7 @@
-{ config, pkgs, lib
-, username, home-dir
-, ssd-mnt, secrets-dir
-, ... }:
+{ config, pkgs, lib, username, home-dir, ssd-mnt, secrets-dir, secrets-pkg, ... }:
 
 let
   user-pw-path = "${secrets-dir}/keys/passwd/${username}";
-
-  secrets-pkg = (pkgs.callPackage ../packages/my-secrets.nix {});
   keyPathClient = secrets-pkg + "/ssh/client";
 in
 {
