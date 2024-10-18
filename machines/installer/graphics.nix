@@ -15,7 +15,7 @@
     ../../nix/basic.nix
     ../../nix/version-23-05.nix
     ../../system
-    ../../system/container.nix
+    ../../system/containers/podman.nix
     ../../system/network/desktop
   ];
 

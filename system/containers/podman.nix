@@ -1,4 +1,4 @@
-{ pkgs, lib, username, ...}:
+{ self, pkgs, lib, username, ...}:
 
 {
   virtualisation = {
@@ -8,12 +8,6 @@
       # Create a `docker` alias for podman, to use it as a drop-in replacement
       dockerCompat = true;
       dockerSocket.enable = true;
-
-      autoPrune = {
-        enable = true;
-        dates = "Wed *-*-* 21:43:56";
-        flags = [ "--all" ];
-      };
     };
 
     containers = {
@@ -37,7 +31,7 @@
 
   environment.etc = {
     "containers/networks/server.json" = {
-      source = ../files/linux-root/etc/containers/networks/server.json;
+      source = "${self}/files/linux-root/etc/containers/networks/server.json";
     };
   };
 }

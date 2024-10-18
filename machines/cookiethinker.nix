@@ -20,7 +20,7 @@
     ../services/system/files-cleanup.nix
     ../services/system/wireguard/client.nix
     ../system
-    ../system/container.nix
+    ../system/containers/podman.nix
     ../system/network/desktop
     ../system/network/desktop/secrets.nix
   ];

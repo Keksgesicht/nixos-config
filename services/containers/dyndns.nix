@@ -14,7 +14,7 @@ let
 in
 {
   imports = [
-    ../../system/container.nix
+    ../../system/containers/podman.nix
     ./container-image-updater
   ];
 

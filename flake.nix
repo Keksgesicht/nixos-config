@@ -115,6 +115,7 @@
         secrets-dir = "/etc/nixos/secrets";
         secrets-pkg = inputs.secrets-pkg;
         cookie-pkg  = inputs.cookie-pkg;
+        self = inputs.self;
       });
     in
     {

@@ -9,7 +9,7 @@ in
 with my-functions;
 {
   imports = [
-    ../../system/container.nix
+    ../../system/containers/podman.nix
     ./container-image-updater
   ];
 
