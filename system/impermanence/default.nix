@@ -16,6 +16,7 @@ let
 in
 {
   boot.initrd.systemd = {
+    enable = true;
     storePaths = biss."setup-impermanence-root-volume".path;
     services = {
       "setup-impermanence-root-volume" = {

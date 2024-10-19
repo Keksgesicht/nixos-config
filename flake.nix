@@ -171,6 +171,15 @@
         ];
       };
 
+      "cookiemailer" = nixpkgs-stable.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = myArgs system;
+        modules = [
+          ./machines/cookiemailer.nix
+          impermanence.nixosModules.impermanence
+        ];
+      };
+
     };
   };
 }

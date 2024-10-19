@@ -1,4 +1,4 @@
-{ username, ssd-mnt, ... }:
+{ username, home-dir, ssd-mnt, ... }:
 
 {
   # https://nixos.wiki/wiki/Impermanence#Home_Managing
@@ -14,4 +14,8 @@
       };
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "f  ${ssd-mnt}${home-dir}/.zhistory 644 ${username} ${username} - -"
+  ];
 }

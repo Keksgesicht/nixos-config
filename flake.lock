@@ -247,11 +247,11 @@
     },
     "nixpkgs-stable_2": {
       "locked": {
-        "lastModified": 1728909085,
-        "narHash": "sha256-WLxED18lodtQiayIPDE5zwAfkPJSjHJ35UhZ8h3cJUg=",
+        "lastModified": 1729044727,
+        "narHash": "sha256-GKJjtPY+SXfLF/yTN7M2cAnQB6RERFKnQhD8UvPSf3M=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c0b1da36f7c34a7146501f684e9ebdf15d2bebf8",
+        "rev": "dc2e0028d274394f73653c7c90cc63edbb696be1",
         "type": "github"
       },
       "original": {
@@ -364,8 +364,8 @@
     "secrets-pkg": {
       "flake": false,
       "locked": {
-        "lastModified": 1727023095,
-        "narHash": "sha256-uyOcAO5pmnr7/Ithh5uUcasrt7lm/dlBHf12Dhy5GTY=",
+        "lastModified": 1729341639,
+        "narHash": "sha256-YPo+hb9gcwKgItnocDB4DZia11RFHsbFas/bRM/QU7E=",
         "path": "/etc/nixos/secrets/local",
         "type": "path"
       },

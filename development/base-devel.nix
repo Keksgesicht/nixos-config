@@ -8,6 +8,7 @@
   users.users."${username}".packages = with pkgs; [
     binutils
     binwalk
+    dig
     fd
     file
     fzf

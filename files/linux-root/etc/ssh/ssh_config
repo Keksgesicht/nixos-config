@@ -63,6 +63,11 @@ Host cookieclicker
 	User keks
 	IdentityFile ~/.secrets/ssh/id_nixos
 
+Host cookiemailer
+	HostName mail.keksgesicht.de
+	User keks
+	IdentityFile ~/.secrets/ssh/id_nixos
+
 Host cookiepi
 	HostName cookiepi.local
 	User keks
@@ -77,11 +82,6 @@ Host pihole
 	HostName rpi.pihole.local
 	User cookie
 	IdentityFile ~/.secrets/ssh/id_pihole
-
-Host hetzner-mailcow
-	HostName mail.keksgesicht.net
-	User root
-	IdentityFile ~/.secrets/ssh/id_hetzner
 
 Host github.com
 	User git

@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 { ... }:
 
 {
@@ -13,6 +10,8 @@
     ../hardware
     ../hardware/laptop
     ../hardware/office
+    ../hardware/services/baremetal.nix
+    ../hardware/x86_64/desktop.nix
     ../nix
     ../nix/build-cache-client.nix
     ../nix/version-23-05.nix

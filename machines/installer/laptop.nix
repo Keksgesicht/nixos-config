@@ -1,13 +1,8 @@
-{ config, pkgs, ...}:
+{ ... }:
 
 {
   imports = [
     ../../hardware/laptop/tuxedo.nix
+    ../../hardware/services/baremetal.nix
   ];
-
-  environment.systemPackages = with pkgs; [
-    smartmontools
-  ];
-
-  services.fwupd.enable = true;
 }

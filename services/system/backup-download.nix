@@ -4,6 +4,9 @@ let
   bd-pkg = (pkgs.callPackage ../../packages/backup-download.nix {});
 
   bd-units = (sn: th: {
+    tmpfiles.rules = [
+      "d  ${hdd-mnt}/machines/${sn}"
+    ];
     services."backup-download@${sn}" = {
       path = [
         pkgs.gnutar
@@ -44,17 +47,12 @@ let
 in
 {
   systemd = lib.mkMerge [
+    ({ tmpfiles.rules = [
+      "q  ${hdd-mnt}/machines"
+    ]; })
     (bd-units "cookiepi" "cookiepi")
-    (bd-units "mailcow" "mail.keksgesicht.net")
+    (bd-units "cookiemailer" "mail.keksgesicht.de")
     (bd-units "pihole" "rpi.pihole.local")
-    ({
-      tmpfiles.rules = [
-        "q  ${hdd-mnt}/machines"
-        "d  ${hdd-mnt}/machines/cookiepi"
-        "d  ${hdd-mnt}/machines/mailcow"
-        "d  ${hdd-mnt}/machines/pihole"
-      ];
-    })
   ];
 
   /*

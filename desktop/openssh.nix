@@ -1,12 +1,15 @@
 { config, pkgs, secrets-pkg, lib, ... }:
 
 let
+  sshPubKeyPath = secrets-pkg + "/ssh/server";
   sshServerKeys = (name:
     lib.optionals (config.networking.hostName != "${name}") [
-      ( secrets-pkg + "/ssh/server" + "/${name}" )
+      ( sshPubKeyPath + "/${name}" )
     ]
   );
+  my-functions = (import ../nix/my-functions.nix lib);
 in
+with my-functions;
 {
   imports = [
     ../nix/secrets-pkg.nix
@@ -32,12 +35,11 @@ in
         gitlab.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsj2bNKTBSpIYDEGk9KxsGh3mySTRgMtXL583qmBpzeQ+jqCMRgBqB98u3z++J1sKlXHWfM9dyhSevkMwSbhoR8XIq/U0tCNyokEi/ueaBMCvbcTHhO7FcwzY92WK4Yt0aGROY5qX2UKSeOvuP4D6TPqKF1onrSzH9bx9XUf2lEdWT/ia1NEKjunUqu1xOB/StKDHMoX4/OKyIzuS0q/T1zOATthvasJFoPrAjkohTyaDUz2LN5JoH839hViyEG82yB+MjcFV5MU3N1l1QL3cVUCh93xSaua1N85qivl+siMkPGbO5xR/En4iEY6K2XPASUEMaieWVNTRCtJ4S8H+9
         gitlab.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFSMqzJeV9rUzU4kWitGjeR4PWSa29SPqJ1fVkhtj3Hw9xjLVXVYrU9QlYWrOLXBpQ6KWjbjTDTdDkoohFzgbEY=
       '')
-    ]
-    ++ sshServerKeys "cookieclicker"
-    ++ sshServerKeys "cookiepi"
-    ++ sshServerKeys "cookiethinker"
-    ++ sshServerKeys "mail.keksgesicht.net"
-    ++ sshServerKeys "rpi.pihole.local"
-    ;
+    ] ++ (flatList (forEach (listFilesRec sshPubKeyPath) (e:
+      let
+        eName = lib.removePrefix sshPubKeyPath e;
+      in
+      sshServerKeys eName
+    )));
   };
 }

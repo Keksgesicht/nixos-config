@@ -1,8 +1,5 @@
-{ lib, secrets-pkg, hdd-mnt, hdd-name, ... }:
+{ lib, hdd-mnt, hdd-name, ... }:
 
-let
-  keyPathClient = secrets-pkg + "/ssh/client";
-in
 {
   # Define your hostname
   networking.hostName = "cookiepi";
@@ -13,6 +10,8 @@ in
     ../hardware
     ../hardware/filesystem-single-disk.nix
     ../hardware/laptop/server.nix
+    ../hardware/services/baremetal.nix
+    ../hardware/x86_64/desktop.nix
     ../development/base-devel.nix
     ../nix
     ../nix/build-cache-client.nix
@@ -31,6 +30,7 @@ in
     ../system
     ../system/impermanence
     ../system/impermanence/server.nix
+    ../system/openssh/backup.nix
     ../system/network/server/lan.nix
   ];
 
@@ -56,9 +56,4 @@ in
       "x-systemd.requires=systemd-cryptsetup@${hdd-name}.service"
     ];
   };
-
-  # allow remote backups
-  users.users."root".openssh.authorizedKeys.keyFiles = [
-    (keyPathClient + "/id_backup.pub")
-  ];
 }
