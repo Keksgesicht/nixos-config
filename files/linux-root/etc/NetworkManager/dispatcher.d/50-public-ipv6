@@ -1,8 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+PREFIX_LEN='64'
+awk_ipv6_no_local='$1 == "inet6" && $2 !~ /^fe80:/ && $2 !~ /^fd00:/'
+awk_gsub_2='{gsub(/\/.*$/, "", $2); print $2}'
 
 get-existing-static() {
 	ipv6_addr=$(ip -6 addr show "${IFLINK}" | \
-		awk '$1 == "inet6" && $2 !~ /^fe80:/ && $2 !~ /^fd00:/ && /'"${MY_IPV6_SUFFIX}"'/ {gsub(/\/.*$/, "", $2); print $2}' | \
+		awk "${awk_ipv6_no_local}"' && /'"${MY_IPV6_SUFFIX}"'/ '"${awk_gsub_2}" | \
 		head -n 1)
 }
 
@@ -11,11 +15,11 @@ gen-ipv6-suffix() {
 	hd2=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')
 	hd3=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')
 	hd4=$(hexdump -vn2 -e '1/4 "%8X"' /dev/urandom | awk '{print $1}')
-	echo "::${hd1}:${hd2}:${hd3}:${hd4}/64" | tr '[:upper:]' '[:lower:]'
+	echo "::${hd1}:${hd2}:${hd3}:${hd4}/${PREFIX_LEN}" | tr '[:upper:]' '[:lower:]'
 }
 
 gen-ipv6-static() {
-	ip token set "::${MY_IPV6_SUFFIX}/64" dev "${IFLINK}"
+	ip token set "::${MY_IPV6_SUFFIX}/${PREFIX_LEN}" dev "${IFLINK}"
 	sleep 3s
 	get-existing-static
 }
@@ -23,7 +27,7 @@ gen-ipv6-static() {
 has-ipv6-token() {
 	sleep 3s
 	ipv6_addr=$(ip -6 addr show "${IFLINK}" | \
-		awk '$1 == "inet6" && $2 !~ /^fe80:/ && $2 !~ /^fd00:/ && /64 scope global dynamic mngtmpaddr/ {gsub(/\/.*$/, "", $2); print $2}')
+		awk "${awk_ipv6_no_local}"' && /'"${PREFIX_LEN}"' scope global dynamic mngtmpaddr/ '"${awk_gsub_2}")
 
 	if [ -z "${ipv6_addr}" ]; then
 		return 1
@@ -35,7 +39,7 @@ has-ipv6-token() {
 set-ipv6-token() {
 	get-existing-static
 	if [ -n "${ipv6_addr}" ]; then
-		ip addr del "${ipv6_addr}/64" dev "${IFLINK}"
+		ip addr del "${ipv6_addr}/${PREFIX_LEN}" dev "${IFLINK}"
 	fi
 
 	# Set static suffix first for FritzBox
@@ -45,7 +49,7 @@ set-ipv6-token() {
 		gen-ipv6-static
 	done
 	ip token del dev "${IFLINK}"
-	ip addr add "${ipv6_addr}/64" dev "${IFLINK}"
+	ip addr add "${ipv6_addr}/${PREFIX_LEN}" dev "${IFLINK}"
 
 	# set custom suffix for LAN network adapter
 	# https://bbs.archlinux.org/viewtopic.php?id=244359
@@ -61,7 +65,8 @@ set-ipv6-token() {
 }
 
 update-ipv6() {
-	if ! ip -6 addr show "${IFLINK}" | grep 'inet6' | grep -qE "${MY_IPV6_SUFFIX}"; then
+	if ! ip -6 addr show "${IFLINK}" | grep 'inet6' | \
+	grep -qE "${MY_IPV6_SUFFIX}/${PREFIX_LEN}"; then
 		set-ipv6-token
 	elif ! ip token get dev "${IFLINK}" | grep -qE '::[0-9a-f]'; then
 		set-ipv6-token
@@ -78,13 +83,12 @@ NMMODE="$2"
 
 case "${IFLINK}" in
 "${MY_IFLINK}")
+	# enable router advertisement on LAN network adapter
+	# https://unix.stackexchange.com/questions/61641/how-can-i-disable-automatic-ipv6-neighbor-route-advertisement-on-a-router
+	sysctl -w net.ipv6.conf."${IFLINK}".accept_ra=2 >/dev/null
+
 	case "${NMMODE}" in
 	up)
-		# enable router advertisement on LAN network adapter
-		# https://unix.stackexchange.com/questions/61641/how-can-i-disable-automatic-ipv6-neighbor-route-advertisement-on-a-router
-		sysctl -w net.ipv6.conf."${IFLINK}".accept_ra=2 >/dev/null
-
-		# update ipv6 address
 		update-ipv6
 	;;
 	dhcp6-change)
@@ -94,15 +98,16 @@ case "${IFLINK}" in
 		if ip addr show "${IFLINK}" | grep -q 'deprecated'; then
 			set-ipv6-token
 		else
-			ipv6_prefix=$(ip -6 addr show "${IFLINK}" | \
-				awk '/'"${MY_IPV6_SUFFIX}"'/ { print $2 }' | \
-				cut -d'/' -f1 | \
-				sed -e 's|'"${MY_IPV6_SUFFIX}"'||')
-
-			if ! ip -6 addr show "${IFLINK}" | \
-			grep -vE "^(fe80|fd00):" | \
-			grep -v "${MY_IPV6_SUFFIX}" | \
-			grep -q "${ipv6_prefix}"; then
+			ipv6_prefix_old="$(
+				ip -6 addr show "${IFLINK}" | \
+				awk '/inet6/ && /'"${MY_IPV6_SUFFIX}\/${PREFIX_LEN}"'/ {print $2}' | \
+				grep -vE '^(fe80|fd00):' | sed -e 's|'"${MY_IPV6_SUFFIX}/${PREFIX_LEN}"'||'
+			)"
+			if [ -z "${ipv6_prefix_old}" ]; then
+				set-ipv6-token
+			elif ! ip -6 addr show "${IFLINK}" | awk '/inet6/ {print $2}' | \
+			grep -vE '^(fe80|fd00):' | grep -v "${MY_IPV6_SUFFIX}/${PREFIX_LEN}" | \
+			grep -q "${ipv6_prefix_old}"; then
 				set-ipv6-token
 			fi
 		fi

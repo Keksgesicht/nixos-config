@@ -6,7 +6,7 @@ in
 {
   imports = [
     ../.
-    ../network-manager-ipv6.nix
+    ../IPv6/network-manager.nix
   ];
 
   networking.networkmanager.enable = true;
