@@ -51,6 +51,7 @@ in
       rm "$LOCK_FILE"
       cp "${lock-file-latest}" "$LOCK_FILE"
       chown "${username}:${username}" "$LOCK_FILE"
+      chmod 644 "$LOCK_FILE"
     '';
   };
 }
