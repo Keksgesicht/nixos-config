@@ -1,10 +1,10 @@
-{ inputs, config, pkgs, lib, cookie-pkg, ssd-mnt, ... }:
+{ self, config, pkgs, lib, myDomain, cookie-pkg, ssd-mnt, ... }:
 
 let
   cookie-dir = "/etc/unCookie";
   cc-dir = "${cookie-pkg}/containers";
   bind-path = "${ssd-mnt}/appdata/unbound";
-  my-functions = (import "${inputs.self}/nix/my-functions.nix" lib);
+  my-functions = (import "${self}/nix/my-functions.nix" lib);
 in
 with my-functions;
 {
@@ -110,7 +110,7 @@ with my-functions;
 
   systemd.tmpfiles.rules =
   let
-    inCfg = "${inputs.self}/files/container-cfg/unbound";
+    inCfg = "${self}/files/container-cfg/unbound";
     eList = (forEach (listFilesRec inCfg) (e:
       let
         eFile = lib.removePrefix inCfg e;
@@ -118,31 +118,31 @@ with my-functions;
       "r ${bind-path}${eFile} - - - - -"
     ));
 
-    kNetGen = (l: forEach l (eL: forEach eL.zone (eZ:
+    myDomainGen = (l: forEach l (eL: forEach eL.zone (eZ:
       ''
         local-zone: "${eZ.name}" ${eZ.type}
         local-data: "${eZ.name} 30 IN A ${eL.ip4}"
         local-data: "${eZ.name} 30 IN AAAA ${eL.ip6}"
       ''
     )));
-    kNetText = kNetGen [
+    myDomainText = myDomainGen [
       { ip4 = "192.168.178.25"; ip6 = "fd00:3581::192:168:178:25"; zone = [
-        { name = "cloud.keksgesicht.net"; type = "static"; }
-        { name = "cookiepi.keksgesicht.net"; type = "redirect"; }
+        { name = "cloud.${myDomain}"; type = "static"; }
+        { name = "cookiepi.${myDomain}"; type = "redirect"; }
       ]; }
       { ip4 = "192.168.178.150"; ip6 = "fd00:3581::192:168:178:150"; zone = [
-        { name = "games.keksgesicht.net"; type = "redirect"; }
-        { name = "cookieclicker.keksgesicht.net"; type = "redirect"; }
+        { name = "games.${myDomain}"; type = "redirect"; }
+        { name = "cookieclicker.${myDomain}"; type = "redirect"; }
       ]; }
     ];
-    keksNetConf = pkgs.writeText "keksgesicht.net.conf" (
-      lib.strings.concatStringsSep "\n" (flatList kNetText)
+    myDomainConf = pkgs.writeText "${myDomain}.conf" (
+      lib.strings.concatStringsSep "\n" (flatList myDomainText)
     );
   in
   eList ++ [
     "C+ ${bind-path} - 100 101 - ${inCfg}"
-    "r  ${bind-path}/conf/keksgesicht.net.conf - - - - -"
-    "C+ ${bind-path}/conf/keksgesicht.net.conf - 100 101 - ${keksNetConf}"
+    "r  ${bind-path}/conf/${myDomain}.conf - - - - -"
+    "C+ ${bind-path}/conf/${myDomain}.conf - 100 101 - ${myDomainConf}"
   ];
 
   boot.kernel.sysctl = {

@@ -17,7 +17,8 @@
     ../nix/build-cache-client.nix
     ../nix/build-cache-server.nix
     ../nix/version-23-05.nix
-    ../services/system
+    ../services/system/cookieclicker.nix
+    ../services/system/dyndns.nix
     ../system
     ../system/containers/podman.nix
     ../system/network/desktop

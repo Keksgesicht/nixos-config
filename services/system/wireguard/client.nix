@@ -1,4 +1,4 @@
-{ config, pkgs, lib, secrets-pkg, secrets-dir, username, ... }:
+{ config, pkgs, lib, myDomain, secrets-pkg, secrets-dir, username, ... }:
 
 let
   lo = lib.optionals;
@@ -21,6 +21,10 @@ let
   allowedIPs = [
     "0.0.0.0/0"
     "::/0"
+  ];
+  dns = [
+    "192.168.176.2"
+    "192.168.176.1"
   ];
 in
 {
@@ -64,48 +68,26 @@ in
   networking.wg-quick.interfaces =
     if (config.networking.hostName == "cookiethinker") then
     let
-      presharedKeyFile = "${wg-path-keys}/shared/cookiethinker";
-      privateKeyFile = "${wg-path-keys}/private/cookiethinker";
-      address = [
-        "192.168.176.102/24"
-        "fd00:2307::10:2/64"
-      ];
-      dns = [
-        "192.168.176.2"
-        "192.168.176.1"
-      ];
+      wgClientCfg = (endP: pKey: {
+        autostart = false;
+        privateKeyFile = "${wg-path-keys}/private/cookiethinker";
+        address = [
+          "192.168.176.102/24"
+          "fd00:2307::10:2/64"
+        ];
+        inherit dns;
+        mtu = 1280;
+        peers = [ {
+          endpoint = endP;
+          publicKey = (wg-pubkey-path pKey);
+          presharedKeyFile = "${wg-path-keys}/shared/cookiethinker";
+          inherit allowedIPs;
+        } ];
+      });
     in
     {
-      "wg-clicker" = {
-        autostart = false;
-        inherit privateKeyFile;
-        inherit address;
-        inherit dns;
-        mtu = 1280;
-        peers = [
-          {
-            endpoint = "150.host.keksgesicht.net:22223";
-            publicKey = (wg-pubkey-path "cookieclicker");
-            inherit presharedKeyFile;
-            inherit allowedIPs;
-          }
-        ];
-      };
-      "wg-pi" = {
-        autostart = false;
-        inherit privateKeyFile;
-        inherit address;
-        inherit dns;
-        mtu = 1280;
-        peers = [
-          {
-            endpoint = "25.host.keksgesicht.net:22243";
-            publicKey = (wg-pubkey-path "cookiepi");
-            inherit presharedKeyFile;
-            inherit allowedIPs;
-          }
-        ];
-      };
+      "wg-pi"      = (wgClientCfg  "25.host.${myDomain}:22243" "cookiepi");
+      "wg-clicker" = (wgClientCfg "150.host.${myDomain}:22223" "cookieclicker");
     }
     else {}
   ;

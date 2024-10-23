@@ -103,6 +103,7 @@
 
         username = "keks";
         home-dir = "/home/${username}";
+        myDomain = "keksgesicht.de";
 
         ssd-name = "main";
         ssd-mnt  = "/mnt/${ssd-name}";
