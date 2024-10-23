@@ -35,7 +35,7 @@ in
 
   fonts.packages = [
     pkgs.noto-fonts
-    pkgs.noto-fonts-cjk
+    pkgs.noto-fonts-cjk-sans
     pkgs.noto-fonts-color-emoji
     # Noto + NerdFont => Noto-Nerdfonts
     (pkgs.nerdfonts.override {
