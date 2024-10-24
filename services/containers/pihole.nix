@@ -28,12 +28,16 @@ in
       ports = [
         "53:53/tcp"
         "53:53/udp"
-        #"5353:5353/udp"
       ];
       environment = {
         TZ = config.time.timeZone;
         IPv6 = "True";
-        ServerIP = "192.168.178.150";
+        ServerIP =
+          if (config.networking.hostName == "cookieclicker") then
+            "192.168.178.150"
+          else if (config.networking.hostName == "cookiepi") then
+            "192.168.178.25"
+          else "0.0.0.0";
         INTERFACE = "eth0";
         WEBUIBOXEDLAYOUT = "boxed";
       };
