@@ -7,6 +7,7 @@ let
   hot-list = [ 2 3 ];
   hot-name = (num: name + "_" + (builtins.toString num));
   hot-pkg = pkgs.callPackage ../../packages/backup-hot.nix {};
+  hot-mount = "/mnt/${name}";
 
   ctab-opt = "nofail,tpm2-device=auto,no-read-workqueue,no-write-workqueue";
   ctab-tpm2 = (n: "${n} /dev/disk/by-label/${n} - ${ctab-opt}");
@@ -22,7 +23,7 @@ in
     forEach hot-list (e: ctab-tpm2 (hot-name e))
   );
 
-  fileSystems."/mnt/${name}" = {
+  fileSystems."${hot-mount}" = {
     device = "/dev/disk/by-label/${name}";
     fsType = "btrfs";
     options = [
@@ -41,12 +42,12 @@ in
       requires = [ "mnt-${name}.mount" ];
       path = with pkgs; [ rsync util-linux ];
       unitConfig = {
-        RequiresMountsFor = "/mnt/${name}";
+        RequiresMountsFor = hot-mount;
       };
       serviceConfig = {
         Type = "exec";
         ExecStart = "${hot-pkg}/bin/backup-hot.sh %i";
-        ReadWritePaths = "/mnt/${name}/data/%i";
+        ReadWritePaths = "${hot-mount}/data/%i";
         InaccessiblePaths = lib.mkForce [];
       };
     };
@@ -62,9 +63,11 @@ in
   systemd.services."usb-vanish-recovery" = {
     path = with pkgs; [ systemd util-linux ];
     script = ''
-      if ! mountpoint "/mnt/${name}"; then
+      sysreb() {
         systemctl --no-block reboot
-      fi
+      }
+      mountpoint "${hot-mount}" || sysreb
+      [ -d ${hot-mount}/backup_hot_backup/name/data/latest/ ] || sysreb
       exit 0
     '';
     startAt = "*-*-* 06:19:00";
