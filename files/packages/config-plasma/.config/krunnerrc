@@ -16,11 +16,15 @@ Spell CheckerEnabled=false
 appstreamEnabled=true
 baloosearchEnabled=false
 bookmarksEnabled=true
-calculatorEnabled=true
+calculatorEnabled=false
 desktopsessionsEnabled=true
 katesessionsEnabled=false
 konsoleprofilesEnabled=true
 krunner_appstreamEnabled=true
+krunner_dictionaryEnabled=false
+krunner_recentdocumentsEnabled=false
+krunner_shellEnabled=false
+krunner_webshortcutsEnabled=false
 kwinEnabled=true
 locationsEnabled=true
 org.kde.activities2Enabled=true
@@ -33,4 +37,6 @@ servicesEnabled=true
 shellEnabled=false
 unitconverterEnabled=true
 webshortcutsEnabled=false
-windowsEnabled=true
+
+[Plugins][Favorites]
+plugins=krunner_systemsettings,krunner_powerdevil,krunner_sessions,krunner_services,windows

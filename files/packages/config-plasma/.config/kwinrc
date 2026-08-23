@@ -85,6 +85,7 @@ Color=128,255,128
 LineWidth=5
 
 [Effect-overview]
+FilterWindows=false
 TouchBorderActivate=0
 
 [Effect-presentwindows]
@@ -117,7 +118,6 @@ Meta=org.kde.kglobalaccel,/component/kwin,,invokeShortcut,Overview
 
 [MouseBindings]
 CommandActiveTitlebar2=Minimize
-CommandAllKey=Alt
 CommandAllWheel=Maximize/Restore
 CommandInactiveTitlebar2=Minimize
 CommandTitlebarWheel=Raise/Lower

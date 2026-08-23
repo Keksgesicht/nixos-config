@@ -111,7 +111,8 @@ Line Height Multiplier=1
 Schema=Normal
 Show Indentation Lines=true
 Show Whole Bracket Expression=false
-Text Font=NotoMono Nerd Font Mono,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+Text Font=NotoMono Nerd Font Mono,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0
+Text Font Features=
 Word Wrap Marker=true
 
 [KTextEditor View]
@@ -163,6 +164,7 @@ Show File Encoding=true
 Show Focus Frame Around Editor=true
 Show Folding Icons On Hover Only=true
 Show Line Count=true
+Show Line Ending Type in Statusbar=true
 Show Scrollbars=0
 Show Statusbar Dictionary=true
 Show Statusbar Highlighting Mode=true
@@ -247,6 +249,9 @@ showFullPathOnRoots=true
 showToolbar=true
 sortRole=0
 viewShade=193,208,209
+
+[kateformatplugin]
+configPath=
 
 [lspclient]
 AllowedServerCommandLines=/usr/local/lsp/bin/bash-language-server start,/usr/local/lsp/bin/clangd -log=error --background-index --limit-results=500 --completion-style=bundled --compile-commands-dir=build,/usr/local/lsp/bin/gopls,/usr/local/lsp/bin/jdtls,/usr/local/lsp/bin/texlab,/usr/local/lsp/bin/marksman server,/usr/local/lsp/bin/nil,/usr/local/lsp/bin/pylsp --check-parent-process,/usr/local/lsp/bin/tinymist,/usr/local/lsp/bin/lemminx,/usr/local/lsp/bin/yaml-language-server --stdio
