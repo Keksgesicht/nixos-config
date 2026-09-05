@@ -287,7 +287,7 @@ in
   } else {};
 
   # helps finding/showing the tray icon
-  systemd.tmpfiles.rules = if gamingPC then [
+  systemd.user.tmpfiles.users."${username}".rules = if gamingPC then [
     "L+ ${home-dir}/.steam             - - - - ${name-dir}/.steam"
     "L+ ${home-dir}/.local/share/Steam - - - - ${name-dir}/.local/share/Steam"
 

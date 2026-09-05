@@ -146,8 +146,8 @@ with my-functions;
     secureUserDir = list: (forEach list (e:
       "d  ${e} 0700 ${username} ${username} - -"
     ));
-  in
-  resetUserDir [
+  in [
+  ] ++ resetUserDir [
     "${ssd-mnt}/root${home-dir}/git"
     "${ssd-mnt}/root${home-dir}/Pictures"
     "${ssd-mnt}/root${home-dir}/Pictures/Screenshots"
@@ -168,8 +168,7 @@ with my-functions;
     "${hdd-mnt}/homeGaming/Documents"
     "${hdd-mnt}/homeGaming/Pictures"
     "${hdd-mnt}/homeGaming/Videos"
-  ]
-  ++ secureUserDir [
+  ] ++ secureUserDir [
     "${trash-dir}"
     "${ssd-mnt}/root/root/.cache"
     "${ssd-mnt}/root/root/.cache/ssh"

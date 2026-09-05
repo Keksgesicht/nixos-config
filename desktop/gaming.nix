@@ -53,7 +53,7 @@ in
     };
   };
 
-  systemd.tmpfiles.rules = [
+  systemd.user.tmpfiles.users."${username}".rules = [
     "C+ ${xdg-config}/MangoHud - - - - ${mango-hud}"
   ];
 

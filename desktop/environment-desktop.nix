@@ -47,7 +47,7 @@ in
 
   # https://nixos.wiki/wiki/Fonts#Flatpak_applications_can.27t_find_system_fonts
   fonts.fontDir.enable = true;
-  systemd.tmpfiles.rules = [
+  systemd.user.tmpfiles.users."${username}".rules = [
     "L+ ${xdg-data}/fonts - - - - /run/current-system/sw/share/X11/fonts"
   ];
 

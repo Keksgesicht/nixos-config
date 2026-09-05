@@ -13,6 +13,11 @@ let
   my-audio = (pkgs.callPackage "${self}/packages/my-audio.nix" {});
   plasma-config = (pkgs.callPackage "${self}/packages/config-plasma.nix" {});
 
+  uid = builtins.toString config.users.users."${username}".uid;
+  sysd = "${pkgs.systemd}/bin/systemctl";
+  tmp-unit = "systemd-tmpfiles-setup";
+  tmp-re-unit = "systemd-tmpfiles-resetup.service";
+
   my-functions = (import "${self}/nix/my-functions.nix" lib);
 in
 with my-functions;
@@ -22,7 +27,7 @@ with my-functions;
   ];
 
   # https://www.freedesktop.org/software/systemd/man/latest/tmpfiles.d.html
-  systemd.tmpfiles.rules =
+  systemd.user.tmpfiles.users."${username}".rules =
   let
     mkSymHomeFiles = fileList: (forEach fileList (elem:
       "L+ ${home-dir}/${elem} - - - - ${ssd-mnt}${home-dir}/${elem}"
@@ -79,4 +84,27 @@ with my-functions;
   ++ initWireplumberState
   ++ (cpHomeFile "${home-dir}/Downloads/.directory" "${self}/files/dolphin.directory")
   ;
+
+  users.users."${username}".linger = true;
+  systemd.services = {
+    "${tmp-unit}-${username}" = {
+      partOf   = [ tmp-re-unit ];
+      after    = [ "${tmp-unit}.service" tmp-re-unit "user@${uid}.service" ];
+      wantedBy = [ "${tmp-unit}.service" tmp-re-unit ];
+      requiredBy = [ "home-manager-${username}.service" ];
+      before     = [ "home-manager-${username}.service" ];
+      serviceConfig = {
+        Type = "oneshot";
+        User = username;
+        ConditionPathExists = "";
+      };
+      environment.XDG_RUNTIME_DIR = "/run/user/${uid}";
+      script = ''
+        while ! [ -e /run/user/${uid}/systemd/private ]; do
+          sleep 0.5s
+        done
+        ${sysd} --user start ${tmp-unit}.service
+      '';
+    };
+  };
 }
