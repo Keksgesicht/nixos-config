@@ -11,7 +11,8 @@ let
   plasma-config = pkgs.callPackage "${self}/packages/config-plasma.nix" {};
   login-config = (file: src-ext: ''
     C  ${loginHome}/${file} - - - - ${plasma-config}/${file}${src-ext}
-    Z  ${loginHome}/${file} 0644 ${name} ${name} - -
+    Z  ${loginHome}/.config - ${name} ${name} - -
+    Z  ${loginHome}/${file} 0644 - - - -
   '');
 
   bind-opt = [ "bind" "ro" "nofail" "x-gvfs-hide" ];
