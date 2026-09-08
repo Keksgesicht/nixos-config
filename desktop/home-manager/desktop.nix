@@ -7,7 +7,7 @@ in
   home-manager = {
     users."${username}" = {
       imports = [
-        ((import ./applications.desktop.nix) username)
+        ((import ./applications.desktop.nix) config username)
         ((import ./autostart.nix) config username)
         ((import ./dconf.nix) home-dir)
         ./mimeapps.nix

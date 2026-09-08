@@ -1,11 +1,11 @@
 # ~/.local/share/applications/*.desktop
 # https://nix-community.github.io/home-manager/options.xhtml#opt-xdg.desktopEntries
 # https://github.com/nix-community/home-manager/blob/master/modules/misc/xdg-desktop-entries.nix
-username:
+systemConfig: username:
 { config, pkgs, lib, ... }:
 
 let
-  my-audio = pkgs.callPackage ../../packages/my-audio.nix {};
+  my-audio = systemConfig.KexOS.packages."my-audio";
   obsrebuf = pkgs.callPackage ../../packages/obs-hotkeys.nix {};
   xs-saver = pkgs.writeShellScriptBin "toggle-xscreensaver.sh" (''
     export PATH=${pkgs.systemd}/bin

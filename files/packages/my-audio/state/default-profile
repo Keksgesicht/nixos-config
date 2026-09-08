@@ -5,3 +5,7 @@ alsa_card.pci-0000_44_00.1=pro-audio
 alsa_card.pci-0000_45_00.1=pro-audio
 alsa_card.usb-Auna_Mic_CM900_Auna_Mic_CM900-00=input:mono-fallback
 alsa_card.usb-GeneralPlus_USB_Audio_Device-00=output:iec958-stereo
+alsa_card.usb-Remo_Tech_Co.__Ltd._OBSBOT_Tiny_2_Lite-02=off
+bluez_card.@MY_BT_DEV_01@=a2dp-sink
+bluez_card.@MY_BT_DEV_02@=a2dp-sink
+bluez_card.@MY_BT_DEV_03@=headset-head-unit

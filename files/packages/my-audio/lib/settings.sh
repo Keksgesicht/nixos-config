@@ -1,6 +1,8 @@
 my_mic_list=""
 my_mic_list+=" alsa_input.usb-Auna_Mic_CM900_Auna_Mic_CM900-00.mono-fallback"
-my_mic_list+=" bluez_input.00:25:BB:03:70:3D"
+my_mic_list+=" bluez_input.@MY_BT_DEV_03@"
+my_mic_list+=" bluez_input.@MY_BT_DEV_01@"
+my_mic_list+=" bluez_input.@MY_BT_DEV_02@"
 my_mic_list+=" "
 
 my_speaker_list=""

@@ -10,7 +10,7 @@ let
 
   xdgState = "${home-dir}/.local/state";
 
-  my-audio = (pkgs.callPackage "${self}/packages/my-audio.nix" {});
+  my-audio = config.KexOS.packages."my-audio";
   plasma-config = (pkgs.callPackage "${self}/packages/config-plasma.nix" {});
 
   uid = builtins.toString config.users.users."${username}".uid;

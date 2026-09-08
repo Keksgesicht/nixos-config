@@ -4,7 +4,7 @@ let
   hn = config.networking.hostName;
   inherit (config.KexOS.service."dummy".service) serviceConfig;
   pkg-dir = "${self}/packages";
-  my-audio = pkgs.callPackage "${pkg-dir}/my-audio.nix" {};
+  my-audio = config.KexOS.packages."my-audio";
   srvList = [
     "pipewire.service"
     "pipewire-pulse.service"
@@ -16,6 +16,7 @@ in
     ./pipewire/mic-loop.nix
     ./pipewire/noise-filter.nix
     ./wireplumber/default.nix
+    ../../packages/my-audio.nix
   ];
 
   users.users."${username}".packages = with pkgs; [
